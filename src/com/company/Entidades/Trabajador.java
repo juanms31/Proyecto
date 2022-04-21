@@ -3,7 +3,7 @@ package com.company.Entidades;
 import java.util.Date;
 
 public class Trabajador {
-    private int cod;
+    private int id;
     private Date fnac;
     private String nacionalidad;
     private String apellido1;

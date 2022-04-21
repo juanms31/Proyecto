@@ -1,9 +1,10 @@
 package com.company.Entidades;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Material {
-    private int cod;
+    private int id;
     private String grupo;
     private String descripcion;
     private String especificacion;

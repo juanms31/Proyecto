@@ -11,7 +11,7 @@ CREATE TABLE Material (
     descripcion VARCHAR(200),
     especificacion VARCHAR(200),
     unidad VARCHAR (5),
-    espesor VARCHAR(50),
+    espesor DECIMAL(5,2),
     calidad VARCHAR(100),
     proveedor1 VARCHAR(100),
     precio1 DECIMAL (10,2),
@@ -53,10 +53,10 @@ CREATE TABLE Cliente(
 );
 
 CREATE TABLE Actuacion (
-	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	id INTEGER PRIMARY KEY, //A-+FECHA+CLIENTE (Propuesta)
     especificacion VARCHAR(200),
     estado VARCHAR(100),
-    fecha_solicitud DATE,
+    fecha_solicitud DATE NOT NULL,
     fecha_envio DATE,
     fecha_comienzo DATE,
     fecha_finalizacion DATE,
@@ -64,7 +64,7 @@ CREATE TABLE Actuacion (
     importe DECIMAL(10,2),
     hoja_planificacion VARCHAR(200),
     hoja_presupuesto VARCHAR(200),
-    total_certificacion DECIMAL(10,2),
+    total_certificaciones DECIMAL(10,2),
     por_certificar INTEGER,
     horas_ofertadas INTEGER,
     horas_ejecutadas INTEGER,
@@ -77,12 +77,12 @@ CREATE TABLE Actuacion (
 );
 
 CREATE TABLE Albaran(
-    id INTEGER PRIMARY KEY,
+    id VARCHAR(20) PRIMARY KEY,
     concepto VARCHAR (100),
     unidades VARCHAR (20),
     fecha_entrada_albarán DATE,
-    precio_unitario double,
-    base_imponible double,
+    precio_unitario DECIMAL(5,2),
+    base_imponible DECIMAL(5,2),
     naturaleza VARCHAR(30),
 
     id_actuacion INTEGER,
@@ -96,6 +96,7 @@ CREATE TABLE Albaran(
 
 CREATE TABLE Certificacion(
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    fecha_certificacion DATE NOT NULL,
     observaciones VARCHAR(200),
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
@@ -107,7 +108,7 @@ CREATE TABLE Trabajador(
   id INTEGER  AUTO_INCREMENT PRIMARY KEY,
   fnac DATE,
   nacionalidad VARCHAR (20),
-  nombre VARCHAR(30),
+  nombre VARCHAR(30)  NOT NULL,
   apellidos VARCHAR(50),
   puesto VARCHAR (100),
   salario double
@@ -116,10 +117,10 @@ CREATE TABLE Trabajador(
 CREATE TABLE SeguimientoLaboral
 (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    ano INTEGER,
-    dia INTEGER,
-    mes INTEGER,
-    hora_entrada DATE,
+    ano INTEGER NOT NULL,
+    dia INTEGER NOT NULL,
+    mes INTEGER NOT NULL,
+    hora_entrada DATE NOT NULL,
     hora_salida DATE,
     horas_totales DATE,
     horas_extra INTEGER,
@@ -161,7 +162,7 @@ CREATE TABLE MaterialCompradoProveedores(
     	REFERENCES Albaran (id)
 );
 
-CREATE TABLE materialUtilizadoActuacion (
+CREATE TABLE MaterialUtilizadoActuacion (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
     id_material INTEGER,
     FOREIGN KEY (id_material)
