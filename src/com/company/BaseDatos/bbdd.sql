@@ -97,6 +97,7 @@ CREATE TABLE Albaran(
 CREATE TABLE Certificacion(
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     fecha_certificacion DATE NOT NULL,
+    valor DECIMAL(10,2),
     observaciones VARCHAR(200),
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
