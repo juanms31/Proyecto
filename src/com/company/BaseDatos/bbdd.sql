@@ -4,8 +4,29 @@ CREATE DATABASE IF NOT EXISTS `ProyectoDAM` DEFAULT CHARACTER SET utf8 COLLATE u
 
 USE `ProyectoDAM`;
 
+CREATE TABLE GrupoMaterial(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_grupo VARCHAR(5) NOT NULL,
+    nombre_grupo VARCHAR(50),
+    Descripcion VARCHAR(150)
+);
+
+CREATE TABLE EspecificacionMaterial(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_Especificacion VARCHAR(5) NOT NULL,
+    nombre_Especificacion VARCHAR(50),
+    Descripcion VARCHAR(150)
+);
+
+CREATE TABLE UnidadMaterial(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_unidad VARCHAR(5) NOT NULL,
+    nombre_unidad VARCHAR(50),
+    Descripcion VARCHAR(150)
+);
+
 CREATE TABLE Material (
-	id INTEGER PRIMARY key,
+	id INTEGER AUTO_INCREMENT PRIMARY key,
     grupo VARCHAR(10),
     cod VARCHAR(20),
     descripcion VARCHAR(200),
@@ -18,7 +39,16 @@ CREATE TABLE Material (
     proveedor2 VARCHAR (100),
     precio2 DECIMAL (10,2),
     proveedor3 VARCHAR (100),
-    precio3 DECIMAL (10,2)
+    precio3 DECIMAL (10,2),
+    id_grupo INTEGER,
+    FOREIGN KEY (id_grupo)
+    	REFERENCES GrupoMaterial (id),
+    id_especifiacion INTEGER,
+    FOREIGN KEY (id_especifiacion)
+    	REFERENCES EspecificacionMaterial (id),
+    id_unidad INTEGER,
+    FOREIGN KEY (id_unidad)
+    	REFERENCES UnidadMaterial (id)
 );
 
 CREATE TABLE MOInstalacionMaterial (
@@ -53,7 +83,7 @@ CREATE TABLE Cliente(
 );
 
 CREATE TABLE Actuacion (
-	id INTEGER PRIMARY KEY, //A-+FECHA+CLIENTE (Propuesta)
+	id INTEGER PRIMARY KEY,
     especificacion VARCHAR(200),
     estado VARCHAR(100),
     fecha_solicitud DATE NOT NULL,
@@ -76,6 +106,24 @@ CREATE TABLE Actuacion (
     	REFERENCES Cliente (id)
 );
 
+CREATE TABLE EspecificacionActuacion (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nombre_especifiacion VARCHAR(50) NOT NULL,
+    detalle_especifiacion VARCHAR(200) NOT NULL,
+    id_actuacion INTEGER,
+    FOREIGN KEY (id_actuacion)
+    	REFERENCES Actuacion (id)
+);
+
+CREATE TABLE EstadoActuaciob(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_estado VARCHAR(5) NOT NULL,
+    nombre_estado VARCHAR(50) NOT NULL,
+    detalle_estado VARCHAR(200),
+    id_actuacion INTEGER,
+    FOREIGN KEY (id_actuacion)
+    	REFERENCES Actuacion (id)
+);
 CREATE TABLE Albaran(
     id VARCHAR(20) PRIMARY KEY,
     concepto VARCHAR (100),
@@ -158,7 +206,7 @@ CREATE TABLE MaterialCompradoProveedores(
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
     	REFERENCES Actuacion (id),
-    id_albaran INTEGER,
+    id_albaran VARCHAR(20),
     FOREIGN KEY (id_albaran)
     	REFERENCES Albaran (id)
 );
