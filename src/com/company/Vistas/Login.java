@@ -2,7 +2,7 @@ package com.company.Vistas;
 
 import javax.swing.*;
 
-public class login {
+public class Login {
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton button1;
