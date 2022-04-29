@@ -195,7 +195,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
               <enabled value="true"/>
-              <focusPainted value="true"/>
+              <focusPainted value="false"/>
               <font name="JetBrains Mono" size="18"/>
               <foreground color="-16777216"/>
               <icon value="com/company/Images/Icons/proveedor.png"/>
