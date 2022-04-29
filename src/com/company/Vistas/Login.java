@@ -10,4 +10,5 @@ public class Login {
     private JLabel msj_error;
     private JLabel email;
     private JLabel pass;
+    private JButton ver_pass;
 }
