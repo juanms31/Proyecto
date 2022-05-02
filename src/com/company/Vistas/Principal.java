@@ -1,6 +1,7 @@
 package com.company.Vistas;
 
 import javax.swing.*;
+import javax.swing.plaf.synth.Region;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,8 @@ public class Principal extends JFrame{
         setVisible(true);
         setSize(1200, 800);
     }
+
+    //region <metodos privados>
 
     private void setConfigButtons(){
         btnMateriales.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -99,7 +102,7 @@ public class Principal extends JFrame{
         btnFacturas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO crear vista facturas
+                ViewFactura viewFactura = new ViewFactura();
             }
         });
         btnTrabajadores.addActionListener(new ActionListener() {
@@ -115,4 +118,6 @@ public class Principal extends JFrame{
             }
         });
     }
+
+    //endregion
 }
