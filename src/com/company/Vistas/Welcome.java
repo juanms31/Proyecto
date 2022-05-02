@@ -24,8 +24,8 @@ public class Welcome extends JFrame{
         btnEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Login login = new Login();
-                //login.setVisible(true);
+                ViewLogin viewLogin = new ViewLogin();
+                viewLogin.setVisible(true);
                 dispose();
             }
         });
@@ -33,8 +33,8 @@ public class Welcome extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    Login login = new Login();
-                    login.setVisible(true);
+                    ViewLogin viewLogin = new ViewLogin();
+                    viewLogin.setVisible(true);
                     dispose();
                 }
             }

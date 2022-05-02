@@ -2,7 +2,7 @@ package com.company.Vistas;
 
 import javax.swing.*;
 
-public class Clientes {
+public class ViewObra extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel Medicos;
@@ -16,4 +16,14 @@ public class Clientes {
     private JButton button4;
     private JButton reload;
     private JPanel panelBotones;
+
+    public ViewObra(){
+        initView();
+    }
+
+    private void initView(){
+        add(panelPrincipal);
+        setVisible(true);
+        setSize(800, 600);
+    }
 }

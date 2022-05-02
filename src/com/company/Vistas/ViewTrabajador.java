@@ -2,7 +2,7 @@ package com.company.Vistas;
 
 import javax.swing.*;
 
-public class Seguimiento {
+public class ViewTrabajador extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel Medicos;
@@ -16,4 +16,15 @@ public class Seguimiento {
     private JButton button4;
     private JButton reload;
     private JPanel panelBotones;
+
+
+    public ViewTrabajador(){
+        initView();
+    }
+
+    private void initView(){
+        add(panelPrincipal);
+        setVisible(true);
+        setSize(800, 600);
+    }
 }

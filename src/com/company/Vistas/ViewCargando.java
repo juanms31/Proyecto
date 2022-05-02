@@ -3,11 +3,11 @@ package com.company.Vistas;
 import javax.swing.*;
 import java.awt.*;
 
-public class Cargando extends JFrame{
+public class ViewCargando extends JFrame{
     private JProgressBar progressBar1;
     private JPanel panelPrincipal;
 
-    public Cargando() throws HeadlessException {
+    public ViewCargando() throws HeadlessException {
         add(panelPrincipal);
         setSize(300,300);
         Principal principal = new Principal();
