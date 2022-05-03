@@ -2,7 +2,7 @@ package com.company.Vistas;
 
 import javax.swing.*;
 
-public class ViewObra extends JFrame{
+public class ViewActuacion extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelObra;
@@ -17,7 +17,7 @@ public class ViewObra extends JFrame{
     private JButton reload;
     private JPanel panelBotones;
 
-    public ViewObra(){
+    public ViewActuacion(){
         initView();
     }
 

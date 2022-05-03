@@ -1,7 +1,6 @@
 package com.company.Vistas;
 
 import javax.swing.*;
-import javax.swing.plaf.synth.Region;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,7 +89,7 @@ public class Principal extends JFrame{
         btnObras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewObra viewObra = new ViewObra();
+                ViewActuacion viewActuacion = new ViewActuacion();
             }
         });
         btnProveedores.addActionListener(new ActionListener() {
