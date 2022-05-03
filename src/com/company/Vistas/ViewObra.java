@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewObra extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelObra;
+    private JTable TableObra;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

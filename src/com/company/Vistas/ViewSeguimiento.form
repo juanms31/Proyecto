@@ -36,7 +36,7 @@
               <color color="-16356043"/>
             </border>
             <children>
-              <grid id="4f0eb" binding="Medicos" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="4f0eb" binding="PanelSeguimiento" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="1" left="1" bottom="1" right="1"/>
                 <constraints>
                   <tabbedpane title="Seguimiento"/>
@@ -58,7 +58,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="2c5a1" class="javax.swing.JTable" binding="medicosTable">
+                      <component id="2c5a1" class="javax.swing.JTable" binding="TableSeguimiento">
                         <constraints/>
                         <properties>
                           <autoCreateRowSorter value="true"/>

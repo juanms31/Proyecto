@@ -36,7 +36,7 @@
               <color color="-16356043"/>
             </border>
             <children>
-              <grid id="81416" binding="Medicos" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="81416" binding="PanelCliente" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="1" left="1" bottom="1" right="1"/>
                 <constraints>
                   <tabbedpane title="Clientes"/>
@@ -58,7 +58,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="7be12" class="javax.swing.JTable" binding="medicosTable">
+                      <component id="7be12" class="javax.swing.JTable" binding="TableCliente">
                         <constraints/>
                         <properties>
                           <autoCreateRowSorter value="true"/>

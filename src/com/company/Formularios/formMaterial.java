@@ -2,7 +2,7 @@ package com.company.Formularios;
 
 import javax.swing.*;
 
-public class fMaterial {
+public class formMaterial {
     private JButton button1;
     private JButton button2;
     private JTextField textField2;
@@ -12,4 +12,5 @@ public class fMaterial {
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JSpinner spinner3;
+    private JTextField textField1;
 }

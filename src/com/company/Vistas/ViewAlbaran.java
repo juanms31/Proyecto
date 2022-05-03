@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewAlbaran extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelAlbaranes;
+    private JTable TableAlbaranes;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

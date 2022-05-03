@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewFactura extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel pTableFactura;
-    private JTable tFacturas;
+    private JPanel PanelFactura;
+    private JTable TableFactura;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

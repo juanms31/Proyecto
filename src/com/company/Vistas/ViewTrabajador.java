@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewTrabajador extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelTrabajador;
+    private JTable TableTrabajador;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

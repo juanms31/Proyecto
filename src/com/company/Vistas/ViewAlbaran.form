@@ -36,7 +36,7 @@
               <color color="-16356043"/>
             </border>
             <children>
-              <grid id="bd9ba" binding="Medicos" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="bd9ba" binding="PanelAlbaranes" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="1" left="1" bottom="1" right="1"/>
                 <constraints>
                   <tabbedpane title="Albaranes"/>
@@ -58,7 +58,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="4c24e" class="javax.swing.JTable" binding="medicosTable">
+                      <component id="4c24e" class="javax.swing.JTable" binding="TableAlbaranes">
                         <constraints/>
                         <properties>
                           <autoCreateRowSorter value="true"/>

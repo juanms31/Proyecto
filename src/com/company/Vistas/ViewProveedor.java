@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewProveedor extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelProovedor;
+    private JTable TableProveedor;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

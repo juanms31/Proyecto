@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewCliente extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelCliente;
+    private JTable TableCliente;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;

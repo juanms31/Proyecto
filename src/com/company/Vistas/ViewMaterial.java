@@ -5,8 +5,8 @@ import javax.swing.*;
 public class ViewMaterial extends JFrame{
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel Medicos;
-    private JTable medicosTable;
+    private JPanel PanelMaterial;
+    private JTable TableMaterial;
     private JPanel buscador;
     private JTextField filtro;
     private JButton reload;
