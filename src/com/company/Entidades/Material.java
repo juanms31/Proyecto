@@ -1,8 +1,5 @@
 package com.company.Entidades;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
 public class Material {
 
     //region <Atributos de clase>
@@ -21,6 +18,9 @@ public class Material {
     private double precio2;
     private String proveedor3;
     private double precio3;
+    private Integer idGrupo;
+    private Integer idEspecifiacion;
+    private Integer idUnidad;
 
     //endregion
 
@@ -135,6 +135,30 @@ public class Material {
 
     public void setPrecio3(double precio3) {
         this.precio3 = precio3;
+    }
+
+    public Integer getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(Integer idGrupo) {
+        this.idGrupo = idGrupo;
+    }
+
+    public Integer getIdEspecifiacion() {
+        return idEspecifiacion;
+    }
+
+    public void setIdEspecifiacion(Integer idEspecifiacion) {
+        this.idEspecifiacion = idEspecifiacion;
+    }
+
+    public Integer getIdUnidad() {
+        return idUnidad;
+    }
+
+    public void setIdUnidad(Integer idUnidad) {
+        this.idUnidad = idUnidad;
     }
 
     //endregion
