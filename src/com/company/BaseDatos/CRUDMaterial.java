@@ -10,28 +10,18 @@ public class CRUDMaterial {
 
     //region Atributos privados
 
-    public boolean connectionOK;
-    private String url;
     private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-    private PreparedStatement preparedStatement;
 
     //endregion
 
-    private boolean connect() {
-        url = "//127.0.0.1:3306/proyectodam";
+    private void connect() {
+        String url = "//127.0.0.1:3306/proyectodam";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql:" + url, "root", null);
             //TODO incluir mensajes log para BBDD
-            return true;
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
@@ -50,8 +40,8 @@ public class CRUDMaterial {
         connect();
         try {
             final String SELECT_MATERIALES = "SELECT * FROM material";
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(SELECT_MATERIALES);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_MATERIALES);
             var listMateriales = setListMateriales(resultSet);
             close();
             return listMateriales;
@@ -99,7 +89,7 @@ public class CRUDMaterial {
         connect();
         String queryDelete = "DELETE FROM material WHERE id = ?";
         try {
-            preparedStatement = connection.prepareStatement(queryDelete);
+            PreparedStatement preparedStatement = connection.prepareStatement(queryDelete);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             close();
