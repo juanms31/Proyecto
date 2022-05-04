@@ -1,8 +1,12 @@
 package com.company.Formularios;
 
-import javax.swing.*;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
-public class formActuacion {
+import javax.swing.*;
+import java.awt.*;
+
+public class formActuacion extends JFrame{
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JComboBox comboBox1;
@@ -17,4 +21,23 @@ public class formActuacion {
     private JTextField textField3;
     private JSpinner spinner4;
     private JSpinner spinner5;
+    private JPanel panelFecha;
+    private JPanel panelPrincipal;
+
+    public formActuacion() throws HeadlessException {
+
+
+        createUIComponents();
+        add(panelPrincipal);
+        setVisible(true);
+        setSize(600,600);
+        setLocationRelativeTo(null);
+    }
+
+    private void createUIComponents() {
+        JDateChooser dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        panelFecha = new JPanel();
+        panelFecha.add(dateChooser);
+
+    }
 }
