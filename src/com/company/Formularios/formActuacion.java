@@ -38,6 +38,5 @@ public class formActuacion extends JFrame{
         JDateChooser dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
         panelFecha = new JPanel();
         panelFecha.add(dateChooser);
-
     }
 }

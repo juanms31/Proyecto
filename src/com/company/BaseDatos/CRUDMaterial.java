@@ -7,87 +7,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CRUDMaterial {
-
-    //region Atributos privados
-
-    private Connection connection;
-
-    //endregion
-
-    private void connect() {
-        String url = "//127.0.0.1:3306/proyectodam";
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql:" + url, "root", null);
-            //TODO incluir mensajes log para BBDD
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void close(){
-        try {
-            connection.close();
-            System.out.println("Conexion cerrada con exito");
-        } catch (SQLException sqlException) {
-            Logger.getLogger(CRUDMaterial.class.getName()).log(Level.SEVERE, null, sqlException);
-        }
-    }
-
     //region Metodos CRUD
 
+    //TODO hacer getMAterial por id;
+    //TODO database controlara la conexion y cierre
+
     public ArrayList<Material> getAll(){
-        connect();
+        Connection connection = ConnectAndCloseDDBB.connect();
         try {
             final String SELECT_MATERIALES = "SELECT * FROM material";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_MATERIALES);
             var listMateriales = setListMateriales(resultSet);
 
-            close();
+            ConnectAndCloseDDBB.close();
             return listMateriales;
         } catch (SQLException e) {
             e.printStackTrace();
-            close();
+            ConnectAndCloseDDBB.close();
             return null;
         }
     }
 
-    private ArrayList<Material> setListMateriales(ResultSet resultSet) {
-        ArrayList<Material> materiales = new ArrayList<>();
-        try {
-            while (resultSet.next()){
-                Material material = new Material();
-                material.setId(resultSet.getInt("id"));
-                material.setCalidad(resultSet.getString("calidad"));
-                material.setCodigo(resultSet.getString("cod"));
-                material.setDescripcion(resultSet.getString("descripcion"));
-                material.setEspecificacion(resultSet.getString("especificacion"));
-                material.setEspesor(resultSet.getDouble("espesor"));
-                material.setGrupo(resultSet.getString("grupo"));
-                //TODO plantear si incluir o no id de foreigh key
-                material.setPrecio1(resultSet.getDouble("precio1"));
-                material.setPrecio2(resultSet.getDouble("precio2"));
-                material.setPrecio3(resultSet.getDouble("precio2"));
-                material.setProveedor1(resultSet.getString("proveedor1"));
-                material.setProveedor2(resultSet.getString("proveedor2"));
-                material.setProveedor3(resultSet.getString("proveedor3"));
-                material.setUnidad(resultSet.getString("unidad"));
-
-                materiales.add(material);
-            }
-            close();
-            return materiales;
-        } catch (SQLException e) {
-            //TODO incluir mensajes log para BBDD
-            e.printStackTrace();
-            close();
-            return  materiales;
-        }
-    }
-
     public int addMaterial(Material material) throws SQLException {
-        connect();
+        Connection connection = ConnectAndCloseDDBB.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO material" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -134,34 +77,126 @@ public class CRUDMaterial {
             if (generatedKeys.next()){
                 idRowMaterial = generatedKeys.getInt(1);
             }
+            ConnectAndCloseDDBB.close();
             return idRowMaterial;
         } catch (SQLException e) {
             e.printStackTrace();
-            close();
-            return 0;
+            ConnectAndCloseDDBB.close();
+            return -1;
         } finally {
             if (!connection.isClosed()){
-                close();
+                ConnectAndCloseDDBB.close();
             }
         }
     }
 
     public boolean deleteMaterial(int id){
-        connect();
+        Connection connection = ConnectAndCloseDDBB.connect();
         final String QUERY_DELETE = "DELETE FROM material WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-            close();
+            ConnectAndCloseDDBB.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            close();
+            ConnectAndCloseDDBB.close();
             return false;
         }
     }
 
+    public boolean updateMaterial(Material material){
+        Connection connection = ConnectAndCloseDDBB.connect();
+        if (connection == null)return false;
+        final String QUERY_UPDATE = "UPDATE material " +
+                "SET grupo = ?, cod = ?, descripcion = ?, especificacion = ?, unidad = ?, espesor = ?, " +
+                "calidad = ?, Proveedor1 = ?, precio1 = ?, Proveedor2 = ?, precio2 = ?, Proveedor3 = ?, precio3 = ?, " +
+                "id_grupo = ?, id_especifiacion = ?, id_unidad = ? " +
+                "WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+            preparedStatement.setString(1, material.getGrupo());
+            preparedStatement.setString(2, material.getCodigo());
+            preparedStatement.setString(3, material.getDescripcion());
+            preparedStatement.setString(4, material.getEspecificacion());
+            preparedStatement.setString(5, material.getUnidad());
+            preparedStatement.setDouble(6, material.getEspesor());
+            preparedStatement.setString(7, material.getCalidad());
+            preparedStatement.setString(8, material.getProveedor1());
+            preparedStatement.setDouble(9, material.getPrecio1());
+            preparedStatement.setString(10, material.getProveedor2());
+            preparedStatement.setDouble(11, material.getPrecio2());
+            preparedStatement.setString(12, material.getProveedor3());
+            preparedStatement.setDouble(13, material.getPrecio3());
+            //Es necesario comprobar si entran a null las Foreigh key
+            if (material.getIdGrupo() == null){
+                preparedStatement.setNull(14, 1);
+            }else{
+                preparedStatement.setInt(14, material.getIdGrupo());
+            }
+
+            if (material.getIdEspecifiacion() == null){
+                preparedStatement.setNull(15, 1);
+            } else{
+                preparedStatement.setInt(15, material.getIdEspecifiacion());
+            }
+
+            if (material.getIdUnidad() == null){
+                preparedStatement.setNull(16, 1);
+            }else{
+                preparedStatement.setInt(16, material.getIdUnidad());
+            }
+            preparedStatement.setInt(17, material.getId());
+            int affectedRows = preparedStatement.executeUpdate();
+            ConnectAndCloseDDBB.close();
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + material.getId());
+            if (affectedRows == 1) return true;
+            return false;
+        } catch (SQLException e) {
+            ConnectAndCloseDDBB.close();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //endregion
+
+    //region Metodos Privados
+
+    private ArrayList<Material> setListMateriales(ResultSet resultSet) {
+        ArrayList<Material> materiales = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Material material = new Material();
+                material.setId(resultSet.getInt("id"));
+                material.setCalidad(resultSet.getString("calidad"));
+                material.setCodigo(resultSet.getString("cod"));
+                material.setDescripcion(resultSet.getString("descripcion"));
+                material.setEspecificacion(resultSet.getString("especificacion"));
+                material.setEspesor(resultSet.getDouble("espesor"));
+                material.setGrupo(resultSet.getString("grupo"));
+                //TODO plantear si incluir o no id de foreigh key
+                material.setPrecio1(resultSet.getDouble("precio1"));
+                material.setPrecio2(resultSet.getDouble("precio2"));
+                material.setPrecio3(resultSet.getDouble("precio2"));
+                material.setProveedor1(resultSet.getString("proveedor1"));
+                material.setProveedor2(resultSet.getString("proveedor2"));
+                material.setProveedor3(resultSet.getString("proveedor3"));
+                material.setUnidad(resultSet.getString("unidad"));
+
+                materiales.add(material);
+            }
+            ConnectAndCloseDDBB.close();
+            return materiales;
+        } catch (SQLException e) {
+            //TODO incluir mensajes log para BBDD
+            e.printStackTrace();
+            ConnectAndCloseDDBB.close();
+            return  materiales;
+        }
+    }
 
     //endregion
 
@@ -198,5 +233,14 @@ public class CRUDMaterial {
             e.printStackTrace();
         }
         System.out.println("Nuevo registro con id = " + idRowMaterial);
+        material.setId(idRowMaterial);
+        //UPDATE
+        material.setCalidad("Calidad editada");
+        boolean updateOk = crudMaterial.updateMaterial(material);
+        if (updateOk){
+            System.out.println("Actulizado");
+        }else {
+            System.out.println("Problemas");
+        }
     }
 }
