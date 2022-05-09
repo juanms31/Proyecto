@@ -12,5 +12,4 @@ public class formProveedor {
     private JTextField textFieldTelefono1;
     private JTextField textFieldTelefono2;
 
-    // TODO: 05/05/2022
 }

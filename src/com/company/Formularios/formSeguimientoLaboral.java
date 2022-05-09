@@ -14,6 +14,4 @@ public class formSeguimientoLaboral {
     private JComboBox comboBoxTipo;
     private JTextField textFieldHorasTotales;
     private JTextField textFieldHorasExtra;
-
-    // TODO: 03/05/2022 - Este formulario tendriamos que hacerlo a mano ya que inlcuye la eleccion de fechas. 
 }

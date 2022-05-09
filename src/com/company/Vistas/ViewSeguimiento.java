@@ -26,8 +26,4 @@ public class ViewSeguimiento extends JFrame{
         setVisible(true);
         setSize(800, 600);
     }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 }
