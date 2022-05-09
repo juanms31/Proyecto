@@ -5,12 +5,16 @@ import javax.swing.*;
 public class formMaterial {
     private JButton aceptarButton;
     private JButton cancelarButton;
-    private JTextField textField2;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
-    private JSpinner spinner3;
-    private JTextField textField1;
+    private JTextField textFieldDescripcion;
+    private JComboBox comboBoxGrupo;
+    private JComboBox comboBoxEspecificacion;
+    private JComboBox comboBoxUnidad;
+    private JSpinner spinnerPrecio1;
+    private JSpinner spinnerPrecio2;
+    private JSpinner spinnerPrecio3;
+    private JTextField textFieldEspesor;
+    private JComboBox comboBoxCalidad;
+    private JComboBox comboBoxProveedor;
+    private JComboBox comboBoxProveedor2;
+    private JComboBox comboBoxProveedor3;
 }

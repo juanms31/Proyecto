@@ -49,14 +49,6 @@
               <text value="Fecha Certificacion"/>
             </properties>
           </component>
-          <component id="fe45b" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
           <component id="cc78b" class="javax.swing.JLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -65,7 +57,7 @@
               <text value="Valor"/>
             </properties>
           </component>
-          <component id="406b4" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="406b4" class="javax.swing.JTextField" binding="textFieldValor">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -81,10 +73,18 @@
               <text value="Observaciones"/>
             </properties>
           </component>
-          <component id="1c7c4" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="1c7c4" class="javax.swing.JTextArea" binding="textAreaObservaciones">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="71d15" class="javax.swing.JFormattedTextField" binding="formattedTextFieldFechaCertifiacion">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
             <properties/>
