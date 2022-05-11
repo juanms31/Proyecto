@@ -9,13 +9,14 @@ public class ViewActuacion extends JFrame{
     private JTable TableObra;
     private JPanel buscador;
     private JTextField filtro;
-    private JButton buscar;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton reload;
+    private JButton buttonBuscar;
+    private JButton buttonAnadir;
+    private JButton buttonEliminar;
+    private JButton buttonVer;
+    private JButton buttonEditar;
+    private JButton buttonRecargar;
     private JPanel panelBotones;
+    private JButton buttonVolver;
 
     public ViewActuacion(){
         initView();

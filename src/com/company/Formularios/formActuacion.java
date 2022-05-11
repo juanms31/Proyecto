@@ -26,6 +26,9 @@ public class formActuacion extends JFrame{
     private JFormattedTextField formattedTextFieldFechaEnvio;
     private JFormattedTextField formattedTextFieldFechaComienzo;
     private JFormattedTextField formattedTextFieldFechaFinalizacion;
+    private JFormattedTextField formattedTextField1;
+    private JFormattedTextField formattedTextField2;
+    private JLabel labelTitulo;
 
     public formActuacion() throws HeadlessException {
 

@@ -12,4 +12,5 @@ public class formAlbaran {
     private JTextField textFieldPrecioUnitario;
     private JComboBox comboBoxNaturaleza;
     private JFormattedTextField formattedTextFieldFechaEntrada;
+    private JLabel labelTitulo;
 }

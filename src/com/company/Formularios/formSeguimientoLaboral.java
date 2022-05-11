@@ -14,4 +14,5 @@ public class formSeguimientoLaboral {
     private JComboBox comboBoxTipo;
     private JTextField textFieldHorasTotales;
     private JTextField textFieldHorasExtra;
+    private JLabel labelTitulo;
 }

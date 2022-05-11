@@ -2,68 +2,42 @@ package com.company.Vistas;
 
 //import com.toedter.calendar.JCalendar;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Principal extends JFrame{
-    private JButton home;
-    private JPanel panelBotones;
-    private JPanel principal;
-    private JButton btnMateriales;
-    private JButton btnTrabajadores;
-    private JButton btnClientes;
-    private JButton btnSeguimiento;
-    private JButton btnAlbaranes;
-    private JButton btnCertificacion;
-    private JButton btnObras;
-    private JButton btnProveedores;
-    private JButton btnFacturas;
+public class ViewPrincipal extends JFrame{
 
-    public Principal() throws HeadlessException {
-        initView();
-        setEventView();
-        setConfigButtons();
+    //Constructor
+    public ViewPrincipal() throws HeadlessException {
+        initWindow();
+
+        setActionListeners();
+
+        setVisible(true);
     }
 
-    private void initView(){
-        add(principal);
-        setVisible(true);
-        setSize(1200, 800);
+    private void initWindow() {
+        add(Principal);
+        setDefaultLookAndFeelDecorated(true);
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        setExtendedState(MAXIMIZED_BOTH);
+        setResizable(true);
+        setMinimumSize(new Dimension(750,750));
+        setLocationRelativeTo(null);
+        setTitle("Principal");
+        setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
     //region <metodos privados>
-
-    private void setConfigButtons(){
-        btnMateriales.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnMateriales.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnTrabajadores.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnTrabajadores.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnFacturas.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnFacturas.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnSeguimiento.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnSeguimiento.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnObras.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnObras.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnClientes.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnClientes.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnAlbaranes.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnAlbaranes.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnCertificacion.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnCertificacion.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        btnProveedores.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnProveedores.setVerticalTextPosition(SwingConstants.BOTTOM);
-    }
-    private void setEventView(){
+    private void setActionListeners(){
         btnMateriales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,5 +94,31 @@ public class Principal extends JFrame{
         });
     }
 
+    private void setMouseListeners(){
+
+    }
+
+    private void setWindowListeners(){
+
+    }
+
+    private void setKeyListeners(){
+
+    }
+
     //endregion
+
+    //Variables
+    private JPanel panelBotones;
+    private JPanel Principal;
+    private JButton btnMateriales;
+    private JButton btnTrabajadores;
+    private JButton btnClientes;
+    private JButton btnSeguimiento;
+    private JButton btnAlbaranes;
+    private JButton btnCertificacion;
+    private JButton btnObras;
+    private JButton btnProveedores;
+    private JButton btnFacturas;
+    private JButton buttonVolver;
 }

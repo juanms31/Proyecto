@@ -10,5 +10,6 @@ public class formVacaciones {
     private JFormattedTextField formattedTextFieldFechaSolicitadaFin;
     private JFormattedTextField formattedTextFieldFechaAprobadaInicio;
     private JFormattedTextField formattedTextFieldFechaAprobadaFin;
+    private JLabel labelTitulo;
 
 }

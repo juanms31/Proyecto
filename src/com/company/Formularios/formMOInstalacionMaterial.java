@@ -10,4 +10,5 @@ public class formMOInstalacionMaterial {
     private JComboBox comboBoxProveedor2;
     private JSpinner spinnerPrecio1;
     private JSpinner spinnerPrecio2;
+    private JLabel labelTitulo;
 }

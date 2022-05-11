@@ -9,4 +9,5 @@ public class formTrabajador {
     private JSpinner spinnerSalario;
     private JButton aceptarButton;
     private JButton cancelarButton;
+    private JLabel labelTitulo;
 }

@@ -1,5 +1,7 @@
 package com.company.Vistas;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,21 +13,33 @@ public class Welcome extends JFrame{
     private JPanel jpWelcome;
 
     public Welcome(){
-        initWindows();
+        initWindow();
         add(jpWelcome);
         setTitle("App Alhambra Metal");
     }
 
-    private void initWindows() {
-        //BASIC
-        setSize(600,400);
-        setLocationRelativeTo(null);
+    //Inicio de ventana
+    private void initWindow() {
+        setDefaultLookAndFeelDecorated(true);
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        setSize(500, 600);
+        setVisible(false);
         setResizable(false);
+        setLocationRelativeTo(null);
+        setTitle("Login");
+        //setIconImage(new ImageIcon("src/images/logolittle.png").getImage());
+    }
+
+    private void listeners(){
         btnEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewLogin viewLogin = new ViewLogin();
-                viewLogin.setVisible(true);
+                //ViewLogin viewLogin = new ViewLogin();
+                //viewLogin.setVisible(true);
                 dispose();
             }
         });
@@ -33,11 +47,12 @@ public class Welcome extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    ViewLogin viewLogin = new ViewLogin();
-                    viewLogin.setVisible(true);
+                    //ViewLogin viewLogin = new ViewLogin();
+                    //viewLogin.setVisible(true);
                     dispose();
                 }
             }
         });
+
     }
 }

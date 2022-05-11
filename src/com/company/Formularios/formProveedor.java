@@ -11,5 +11,6 @@ public class formProveedor {
     private JTextField textFieldMail2;
     private JTextField textFieldTelefono1;
     private JTextField textFieldTelefono2;
+    private JLabel labelTitulo;
 
 }

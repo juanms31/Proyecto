@@ -10,7 +10,7 @@ public class ViewCargando extends JFrame{
     public ViewCargando() throws HeadlessException {
         add(panelPrincipal);
         setSize(300,300);
-        Principal principal = new Principal();
-        principal.setVisible(true);
+        ViewPrincipal viewPrincipal = new ViewPrincipal();
+        viewPrincipal.setVisible(true);
     }
 }

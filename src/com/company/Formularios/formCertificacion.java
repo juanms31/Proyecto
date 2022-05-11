@@ -8,4 +8,5 @@ public class formCertificacion {
     private JTextField textFieldValor;
     private JTextArea textAreaObservaciones;
     private JFormattedTextField formattedTextFieldFechaCertifiacion;
+    private JLabel labelTitulo;
 }

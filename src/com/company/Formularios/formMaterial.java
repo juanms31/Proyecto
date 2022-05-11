@@ -17,4 +17,5 @@ public class formMaterial {
     private JComboBox comboBoxProveedor;
     private JComboBox comboBoxProveedor2;
     private JComboBox comboBoxProveedor3;
+    private JLabel labelTitulo;
 }
