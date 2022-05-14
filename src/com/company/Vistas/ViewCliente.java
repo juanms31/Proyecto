@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewCliente extends JFrame{
 
@@ -55,6 +57,41 @@ public class ViewCliente extends JFrame{
 
 
         return false;
+    }
+
+    //endregion
+
+
+    //region Listeners
+    private void listeners(){
+        buttonAnadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createCliente();
+            }
+        });
+
+        buttonVer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                readCliente();
+            }
+        });
+
+        buttonEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateCliente();
+            }
+        });
+
+        buttonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteCliente();
+            }
+        });
+
     }
 
     //endregion

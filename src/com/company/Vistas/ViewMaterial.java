@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewMaterial extends JFrame{
 
@@ -55,6 +57,40 @@ public class ViewMaterial extends JFrame{
 
 
         return false;
+    }
+
+    //endregion
+
+    //region Listeners
+    private void listeners(){
+        buttonAnadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createMaterial();
+            }
+        });
+
+        buttonVer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                readMaterial();
+            }
+        });
+
+        buttonEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMaterial();
+            }
+        });
+
+        buttonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteMaterial();
+            }
+        });
+
     }
 
     //endregion

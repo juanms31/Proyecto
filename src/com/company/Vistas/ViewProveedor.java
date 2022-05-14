@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewProveedor extends JFrame{
 
@@ -59,8 +61,42 @@ public class ViewProveedor extends JFrame{
 
     //endregion
 
+    //region Listeners
+    private void listeners(){
+        buttonAnadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createProveedor();
+            }
+        });
 
-    //region Variable
+        buttonVer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                readProveedor();
+            }
+        });
+
+        buttonEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateProveedor();
+            }
+        });
+
+        buttonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteProveedor();
+            }
+        });
+
+    }
+
+    //endregion
+
+
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelProovedor;

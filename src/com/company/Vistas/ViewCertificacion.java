@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewCertificacion extends JFrame{
 
@@ -58,6 +60,43 @@ public class ViewCertificacion extends JFrame{
     }
 
     //endregion
+
+    //region Listeners
+    private void listeners(){
+        buttonAnadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createCertificacion();
+            }
+        });
+
+        buttonVer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                readCertificacion();
+            }
+        });
+
+        buttonEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateCertificacion();
+            }
+        });
+
+        buttonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteCertificacion();
+            }
+        });
+
+    }
+
+    //endregion
+    
+    
+    
     //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
