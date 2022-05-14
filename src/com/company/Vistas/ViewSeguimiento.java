@@ -1,8 +1,34 @@
 package com.company.Vistas;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class ViewSeguimiento extends JFrame{
+
+    public ViewSeguimiento(){
+        initWindow();
+        setVisible(true);
+    }
+
+    private void initWindow() {
+        add(panelPrincipal);
+        setDefaultLookAndFeelDecorated(true);
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        setExtendedState(MAXIMIZED_BOTH);
+        setResizable(true);
+        setMinimumSize(new Dimension(750,750));
+        setLocationRelativeTo(null);
+        setTitle("Seguimiento Laboral");
+        setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+    }
+
+    //Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelSeguimiento;
@@ -16,14 +42,4 @@ public class ViewSeguimiento extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
-
-    public ViewSeguimiento(){
-        initView();
-    }
-
-    private void initView(){
-        add(panelPrincipal);
-        setVisible(true);
-        setSize(800, 600);
-    }
 }

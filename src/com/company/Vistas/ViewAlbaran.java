@@ -1,8 +1,35 @@
 package com.company.Vistas;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class ViewAlbaran extends JFrame{
+
+
+    public ViewAlbaran(){
+        initWindow();
+        setVisible(true);
+    }
+
+    private void initWindow() {
+        add(panelPrincipal);
+        setDefaultLookAndFeelDecorated(true);
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        setExtendedState(MAXIMIZED_BOTH);
+        setResizable(true);
+        setMinimumSize(new Dimension(750,750));
+        setLocationRelativeTo(null);
+        setTitle("Proveedores");
+        setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+    }
+
+    //Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelAlbaranes;
@@ -16,14 +43,4 @@ public class ViewAlbaran extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
-
-    public ViewAlbaran(){
-        initView();
-    }
-
-    private void initView(){
-        add(panelPrincipal);
-        setVisible(true);
-        setSize(800, 600);
-    }
 }

@@ -17,23 +17,33 @@ public class ViewPrincipal extends JFrame{
 
         setActionListeners();
 
+        centerFrame();
+
         setVisible(true);
     }
 
     private void initWindow() {
-        add(Principal);
+        add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Principal");
+        setTitle("Panel Principal");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+    }
+
+    public void centerFrame(){
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screen.height/2, screen.width/2);
+        Dimension window = getSize();
+        int width = (screen.width - window.width)/2;
+        int height = (screen.height - window.height)/2;
+        setLocation(width, height);
     }
 
     //region <metodos privados>
@@ -53,7 +63,7 @@ public class ViewPrincipal extends JFrame{
         btnCertificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               VIewCertificacion viewCertificado = new VIewCertificacion();
+               ViewCertificacion viewCertificado = new ViewCertificacion();
             }
         });
         btnClientes.addActionListener(new ActionListener() {
@@ -65,7 +75,7 @@ public class ViewPrincipal extends JFrame{
         btnObras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewActuacion viewActuacion = new ViewActuacion();
+                ViewObra viewObra = new ViewObra();
             }
         });
         btnProveedores.addActionListener(new ActionListener() {
@@ -110,7 +120,7 @@ public class ViewPrincipal extends JFrame{
 
     //Variables
     private JPanel panelBotones;
-    private JPanel Principal;
+    private JPanel panelPrincipal;
     private JButton btnMateriales;
     private JButton btnTrabajadores;
     private JButton btnClientes;

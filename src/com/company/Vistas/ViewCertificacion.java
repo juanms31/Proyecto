@@ -5,12 +5,11 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewCliente extends JFrame{
+public class ViewCertificacion extends JFrame{
 
 
-    public ViewCliente(){
+    public ViewCertificacion(){
         initWindow();
-
         setVisible(true);
     }
 
@@ -26,15 +25,15 @@ public class ViewCliente extends JFrame{
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Clientes");
+        setTitle("Certificaciones");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
     //Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
-    private JPanel PanelCliente;
-    private JTable TableCliente;
+    private JPanel PanelCertificacion;
+    private JTable TableCertificacion;
     private JPanel buscador;
     private JTextField filtro;
     private JButton buscar;
@@ -44,5 +43,4 @@ public class ViewCliente extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
-
 }
