@@ -10,29 +10,29 @@ public class CRUDCliente {
     // region Metodos CRUD
 
     public ArrayList<Cliente> readAllClientes() throws SQLException {
-        Connection connection = ConnectAndCloseDDBB.connect();
+        Connection connection = BBDD.connect();
         final String SELECT_CLIENTES = "SELECT * FROM cliente";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_CLIENTES);
             var listaClientes = setListaClientes(resultSet);
 
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return  listaClientes;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return  null;
         } finally {
             if (!connection.isClosed()){
-                ConnectAndCloseDDBB.close();
+                BBDD.close();
             }
         }
 
     }
 
-    public int CreateCLiente(Cliente cliente) throws SQLException {
-        Connection connection = ConnectAndCloseDDBB.connect();
+    public int createCliente(Cliente cliente) throws SQLException {
+        Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO cliente" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -53,41 +53,41 @@ public class CRUDCliente {
             if(generatedKeys.next()){
                 idRowCLiente = generatedKeys.getInt(1);
             }
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return idRowCLiente;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return  -1;
         } finally {
             if (!connection.isClosed()){
-                ConnectAndCloseDDBB.close();
+                BBDD.close();
             }
         }
     }
 
     public boolean deleteCLiente(int id) throws SQLException {
-        Connection connection = ConnectAndCloseDDBB.connect();
+        Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return  true;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return false;
         } finally {
             if (!connection.isClosed()){
-                ConnectAndCloseDDBB.close();
+                BBDD.close();
             }
         }
     }
 
-    public boolean updateCLiente(Cliente cliente) throws SQLException {
-        Connection connection = ConnectAndCloseDDBB.connect();
+    public boolean updateCliente(Cliente cliente) throws SQLException {
+        Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE cliente " +
                 "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
@@ -102,17 +102,17 @@ public class CRUDCliente {
             preparedStatement.setString(6, cliente.getTelef2());
             preparedStatement.setInt(7, cliente.getId());
             int affectedRows = preparedStatement.executeUpdate();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return false;
         } finally {
             if (!connection.isClosed()){
-                ConnectAndCloseDDBB.close();
+                BBDD.close();
             }
         }
     }
@@ -136,12 +136,12 @@ public class CRUDCliente {
 
                 clientes.add(cliente);
             }
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return clientes;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return clientes;
         }
     }
@@ -165,17 +165,17 @@ public class CRUDCliente {
         cliente.setTelef2("tlf2  cliente 2");
 
         int idRowCliente = 0;
-        idRowCliente = crudCliente.CreateCLiente(cliente);
+        idRowCliente = crudCliente.createCliente(cliente);
         System.out.println("Nuevo cliente con id: " + idRowCliente);
         cliente.setId(idRowCliente);
 
         //UPDATE
         cliente.setNombre("Nombre cliente 2 actualizado");
-        boolean updateOk = crudCliente.updateCLiente(cliente);
+        boolean updateOk = crudCliente.updateCliente(cliente);
         if (updateOk){
             System.out.println("Actualizado");
         }else{
-            System.out.println("Eror");
+            System.out.println("Error");
         }
     }
 }

@@ -7,12 +7,15 @@ import java.awt.*;
 
 public class ViewMaterial extends JFrame{
 
-
+    //region Constructores
     public ViewMaterial(){
         initWindow();
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -29,8 +32,34 @@ public class ViewMaterial extends JFrame{
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
+    //endregion
 
-    //Variables
+    //region CRUD
+    private boolean createMaterial(){
+
+
+        return false;
+    }
+
+    private boolean readMaterial(){
+
+        return false;
+    }
+
+    private boolean updateMaterial() {
+
+        return false;
+    }
+
+    private boolean deleteMaterial(){
+
+
+        return false;
+    }
+
+    //endregion
+
+    //region Variables
 
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
@@ -45,4 +74,6 @@ public class ViewMaterial extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
 }

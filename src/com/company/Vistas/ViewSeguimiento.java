@@ -12,6 +12,9 @@ public class ViewSeguimiento extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -28,7 +31,34 @@ public class ViewSeguimiento extends JFrame{
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    //Variables
+    //endregion
+
+    //region CRUD
+    private boolean createSeguimiento(){
+
+
+        return false;
+    }
+
+    private boolean readSeguimiento(){
+
+        return false;
+    }
+
+    private boolean updateSeguimiento() {
+
+        return false;
+    }
+
+    private boolean deleteSeguimiento(){
+
+
+        return false;
+    }
+
+    //endregion
+
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelSeguimiento;
@@ -42,4 +72,6 @@ public class ViewSeguimiento extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
 }

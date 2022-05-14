@@ -5,13 +5,16 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewObra extends JFrame{
+public class ViewActuacion extends JFrame{
 
-    public ViewObra(){
+    public ViewActuacion(){
         initWindow();
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -24,11 +27,38 @@ public class ViewObra extends JFrame{
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Proveedores");
+        setTitle("Actuaciones");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    //Variables
+    //endregion
+
+    //region CRUD
+    private boolean createActuacion(){
+
+
+        return false;
+    }
+
+    private boolean readActuacion(){
+
+        return false;
+    }
+
+    private boolean updateActuacion() {
+
+        return false;
+    }
+
+    private boolean deleteActuacion(){
+
+
+        return false;
+    }
+
+    //endregion
+
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelObra;
@@ -43,4 +73,6 @@ public class ViewObra extends JFrame{
     private JButton buttonRecargar;
     private JPanel panelBotones;
     private JButton buttonVolver;
+
+    //endregion
 }

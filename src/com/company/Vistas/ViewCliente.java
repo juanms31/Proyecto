@@ -13,7 +13,9 @@ public class ViewCliente extends JFrame{
 
         setVisible(true);
     }
+    //endregion
 
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -26,11 +28,38 @@ public class ViewCliente extends JFrame{
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Clientes");
+        setTitle("Cliente");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    //Variables
+    //endregion
+
+    //region CRUD
+    private boolean createCliente(){
+
+
+        return false;
+    }
+
+    private boolean readCliente(){
+
+        return false;
+    }
+
+    private boolean updateCliente() {
+
+        return false;
+    }
+
+    private boolean deleteCliente(){
+
+
+        return false;
+    }
+
+    //endregion
+
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelCliente;
@@ -44,5 +73,7 @@ public class ViewCliente extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
 
 }

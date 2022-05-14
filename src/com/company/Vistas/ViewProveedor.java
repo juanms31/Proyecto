@@ -13,6 +13,9 @@ public class ViewProveedor extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -29,8 +32,35 @@ public class ViewProveedor extends JFrame{
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
+    //endregion
 
-    //Variable
+    //region CRUD
+    private boolean createProveedor(){
+
+
+        return false;
+    }
+
+    private boolean readProveedor(){
+
+        return false;
+    }
+
+    private boolean updateProveedor() {
+
+        return false;
+    }
+
+    private boolean deleteProveedor(){
+
+
+        return false;
+    }
+
+    //endregion
+
+
+    //region Variable
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelProovedor;
@@ -44,4 +74,6 @@ public class ViewProveedor extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
 }

@@ -75,7 +75,7 @@ public class ViewPrincipal extends JFrame{
         btnObras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewObra viewObra = new ViewObra();
+                ViewActuacion viewActuacion = new ViewActuacion();
             }
         });
         btnProveedores.addActionListener(new ActionListener() {
@@ -118,7 +118,7 @@ public class ViewPrincipal extends JFrame{
 
     //endregion
 
-    //Variables
+    //region Variables
     private JPanel panelBotones;
     private JPanel panelPrincipal;
     private JButton btnMateriales;
@@ -131,4 +131,6 @@ public class ViewPrincipal extends JFrame{
     private JButton btnProveedores;
     private JButton btnFacturas;
     private JButton buttonVolver;
+
+    //endregion
 }

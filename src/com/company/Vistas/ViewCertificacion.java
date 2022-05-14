@@ -13,6 +13,9 @@ public class ViewCertificacion extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -29,7 +32,33 @@ public class ViewCertificacion extends JFrame{
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    //Variables
+    //endregion
+
+    //region CRUD
+    private boolean createCertificacion(){
+
+
+        return false;
+    }
+
+    private boolean readCertificacion(){
+
+        return false;
+    }
+
+    private boolean updateCertificacion() {
+
+        return false;
+    }
+
+    private boolean deleteCertificacion(){
+
+
+        return false;
+    }
+
+    //endregion
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelCertificacion;
@@ -43,4 +72,7 @@ public class ViewCertificacion extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
+
 }

@@ -13,6 +13,9 @@ public class ViewAlbaran extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -25,10 +28,36 @@ public class ViewAlbaran extends JFrame{
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Proveedores");
+        setTitle("Albaranes");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
+    //endregion
+
+    //region CRUD
+    private boolean createAlbaran(){
+
+
+        return false;
+    }
+
+    private boolean readAlbaran(){
+
+        return false;
+    }
+
+    private boolean updateAlbaran() {
+
+        return false;
+    }
+
+    private boolean deleteAlbaran(){
+
+
+        return false;
+    }
+
+    //endregion
     //Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;

@@ -3,8 +3,6 @@ package com.company.BaseDatos;
 import com.company.Entidades.Material;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CRUDMaterial {
     //region Metodos CRUD
@@ -13,24 +11,24 @@ public class CRUDMaterial {
     //TODO database controlara la conexion y cierre
 
     public ArrayList<Material> getAll(){
-        Connection connection = ConnectAndCloseDDBB.connect();
+        Connection connection = BBDD.connect();
         try {
             final String SELECT_MATERIALES = "SELECT * FROM material";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_MATERIALES);
             var listMateriales = setListMateriales(resultSet);
 
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return listMateriales;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return null;
         }
     }
 
-    public int addMaterial(Material material) throws SQLException {
-        Connection connection = ConnectAndCloseDDBB.connect();
+    public int createMaterial(Material material) throws SQLException {
+        Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO material" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -77,37 +75,37 @@ public class CRUDMaterial {
             if (generatedKeys.next()){
                 idRowMaterial = generatedKeys.getInt(1);
             }
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return idRowMaterial;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return -1;
         } finally {
             if (!connection.isClosed()){
-                ConnectAndCloseDDBB.close();
+                BBDD.close();
             }
         }
     }
 
     public boolean deleteMaterial(int id){
-        Connection connection = ConnectAndCloseDDBB.connect();
+        Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM material WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return false;
         }
     }
 
     public boolean updateMaterial(Material material){
-        Connection connection = ConnectAndCloseDDBB.connect();
+        Connection connection = BBDD.connect();
         if (connection == null)return false;
         final String QUERY_UPDATE = "UPDATE material " +
                 "SET grupo = ?, cod = ?, descripcion = ?, especificacion = ?, unidad = ?, espesor = ?, " +
@@ -149,12 +147,12 @@ public class CRUDMaterial {
             }
             preparedStatement.setInt(17, material.getId());
             int affectedRows = preparedStatement.executeUpdate();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + material.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             e.printStackTrace();
             return false;
         }
@@ -188,12 +186,12 @@ public class CRUDMaterial {
 
                 materiales.add(material);
             }
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return materiales;
         } catch (SQLException e) {
             //TODO incluir mensajes log para BBDD
             e.printStackTrace();
-            ConnectAndCloseDDBB.close();
+            BBDD.close();
             return  materiales;
         }
     }
@@ -228,7 +226,7 @@ public class CRUDMaterial {
 
         int idRowMaterial = 0;
         try {
-            idRowMaterial = crudMaterial.addMaterial(material);
+            idRowMaterial = crudMaterial.createMaterial(material);
         } catch (SQLException e) {
             e.printStackTrace();
         }

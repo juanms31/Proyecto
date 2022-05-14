@@ -14,6 +14,9 @@ public class ViewTrabajador extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+    //region Metodos Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -26,13 +29,40 @@ public class ViewTrabajador extends JFrame{
         setResizable(true);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Trabajadores");
+        setTitle("Trabajador");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
+    //endregion
+
+    //region CRUD
+    private boolean createTrabajador(){
 
 
-    //Variables
+        return false;
+    }
+
+    private boolean readTrabajador(){
+
+
+        return false;
+    }
+
+    private boolean updateTrabajador() {
+
+        return false;
+    }
+
+    private boolean deleteTrabajador(){
+
+
+        return false;
+    }
+
+    //endregion
+
+
+    //region Variables
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelTrabajador;
@@ -46,4 +76,6 @@ public class ViewTrabajador extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    //endregion
 }
