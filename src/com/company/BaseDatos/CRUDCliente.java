@@ -66,7 +66,14 @@ public class CRUDCliente {
         }
     }
 
-    public boolean deleteCLiente(int id) throws SQLException {
+    public Cliente readCliente(int cod){
+
+        return new Cliente();
+    }
+
+
+
+    public boolean deleteCliente(int id) throws SQLException {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
         try {

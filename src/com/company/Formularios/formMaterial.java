@@ -1,8 +1,41 @@
 package com.company.Formularios;
 
+import com.company.Entidades.Material;
+
 import javax.swing.*;
 
 public class formMaterial {
+
+    public formMaterial() {
+
+    }
+
+    //region CRUD
+    public Material createMaterial(){
+
+        return new Material();
+    }
+
+    public boolean readMaterial(Material material){
+
+        return false;
+    }
+
+    public Material updateMaterial() {
+
+        return new Material();
+    }
+
+    public boolean deleteMaterial(){
+
+
+        return false;
+    }
+
+    //endregion
+
+
+    //region Variables
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JTextField textFieldDescripcion;
