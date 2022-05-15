@@ -160,8 +160,8 @@ public class CRUDCliente {
         var listaclientes = crudCliente.readAllClientes();
         System.out.println("Lista: " + listaclientes.get(0).toString());
 
-        var borradoOK = crudCliente.deleteCLiente(0);
-        System.out.println(borradoOK);
+        //var borradoOK = crudCliente.deleteCLiente(0);
+        //System.out.println(borradoOK);
 
         Cliente cliente = new Cliente();
         cliente.setNombre("Nombre clliente 2");
