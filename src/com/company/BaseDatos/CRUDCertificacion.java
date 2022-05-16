@@ -1,24 +1,25 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Cliente;
+import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CRUDCliente {
+public class CRUDCertificacion {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllClientes() throws SQLException {
+    public ArrayList<Cliente> readAllCertificacion() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_CLIENTES = "SELECT * FROM cliente";
+        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_CLIENTES);
-            var listaClientes = setListaClientes(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
+            var listaProveedor = setListaCertificacion(resultSet);
 
             BBDD.close();
-            return  listaClientes;
+            return  listaProveedor;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -31,10 +32,10 @@ public class CRUDCliente {
 
     }
 
-    public int createCliente(Cliente cliente) throws SQLException {
+    public int createCertificacion(Cliente cliente) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO cliente" +
+        final String QUERY_INSERT = "INSERT INTO proveedor" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -66,14 +67,12 @@ public class CRUDCliente {
         }
     }
 
-    public Cliente readCliente(int cod){
+    public SeguimientoLaboral readCertificacion(int cod){
 
-        return new Cliente();
+        return new SeguimientoLaboral();
     }
 
-
-
-    public boolean deleteCliente(int id) throws SQLException {
+    public boolean deleteCertificacion(int id) throws SQLException {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
         try {
@@ -93,7 +92,7 @@ public class CRUDCliente {
         }
     }
 
-    public boolean updateCliente(Cliente cliente) throws SQLException {
+    public boolean updateCertificacion(Cliente cliente) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE cliente " +
@@ -128,7 +127,7 @@ public class CRUDCliente {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaClientes(ResultSet resultSet) {
+    private ArrayList<Cliente> setListaCertificacion(ResultSet resultSet) {
         ArrayList<Cliente> clientes = new ArrayList<>();
         try {
             while (resultSet.next()){
@@ -154,35 +153,5 @@ public class CRUDCliente {
     }
 
     // endregion
-
-    public static void main(String[] args) throws SQLException {
-        CRUDCliente crudCliente = new CRUDCliente();
-        var listaclientes = crudCliente.readAllClientes();
-        System.out.println("Lista: " + listaclientes.get(0).toString());
-
-        //var borradoOK = crudCliente.deleteCLiente(0);
-        //System.out.println(borradoOK);
-
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Nombre clliente 2");
-        cliente.setDireccion("Direccion cliente 2");
-        cliente.setMail1("email cliente 2");
-        cliente.setMail2("email2 cliente 2");
-        cliente.setTelef1("647134461");
-        cliente.setTelef2("958487895");
-
-        int idRowCliente = 0;
-        idRowCliente = crudCliente.createCliente(cliente);
-        System.out.println("Nuevo cliente con id: " + idRowCliente);
-        cliente.setId(idRowCliente);
-
-        //UPDATE
-        cliente.setNombre("Nombre cliente 2 actualizado");
-        boolean updateOk = crudCliente.updateCliente(cliente);
-        if (updateOk){
-            System.out.println("Actualizado");
-        }else{
-            System.out.println("Error");
-        }
-    }
 }
+
