@@ -2,6 +2,7 @@ package com.company.BaseDatos;
 
 import com.company.Entidades.Cliente;
 import com.company.Entidades.SeguimientoLaboral;
+import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,16 +11,16 @@ public class CRUDVacaciones {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllVacaciones() throws SQLException {
+    public ArrayList<Vacaciones> readAllVacaciones() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_VACACIONES = "SELECT * FROM vacaciones";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaVacaciones(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_VACACIONES);
+            var listaVacaciones = setListaVacaciones(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaVacaciones;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +33,30 @@ public class CRUDVacaciones {
 
     }
 
-    public int createVacaciones(Cliente cliente) throws SQLException {
+    public int createVacaciones(Vacaciones vacaciones) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
+        final String QUERY_INSERT = "INSERT INTO vacaciones" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setDate(2, vacaciones.getFecha_solicitada_inicio());
+            preparedStatement.setDate(3, vacaciones.getFecha_solicitada_fin());
+            preparedStatement.setDate(4, vacaciones.getFecha_aprobada_inicio());
+            preparedStatement.setDate(5, vacaciones.getFecha_aprobada_fin());
+            preparedStatement.setString(6, vacaciones.getObservaciones());
+            preparedStatement.setInt(7, vacaciones.getIdTrabajador());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRowVacaciones = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRowVacaciones = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRowVacaciones;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -74,7 +75,7 @@ public class CRUDVacaciones {
 
     public boolean deleteVacaciones(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM vacaciones WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +93,24 @@ public class CRUDVacaciones {
         }
     }
 
-    public boolean updateVacaciones(Cliente cliente) throws SQLException {
+    public boolean updateVacaciones(Vacaciones vacaciones) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE vacaciones " +
+                "SET fecha_solicitada_inicio = ?, fecha_solicitada_fin = ?, fecha_aprobada_inicio = ?, fecha_aprobada_fin = ?," +
+                " observaciones = ?, id_trabajador = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setDate(1, vacaciones.getFecha_solicitada_inicio());
+            preparedStatement.setDate(2, vacaciones.getFecha_solicitada_fin());
+            preparedStatement.setDate(3, vacaciones.getFecha_aprobada_inicio());
+            preparedStatement.setDate(4, vacaciones.getFecha_aprobada_fin());
+            preparedStatement.setString(5, vacaciones.getObservaciones());
+            preparedStatement.setInt(6, vacaciones.getIdTrabajador());
+            preparedStatement.setInt(7, vacaciones.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + vacaciones.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,28 +128,28 @@ public class CRUDVacaciones {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaVacaciones(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Vacaciones> setListaVacaciones(ResultSet resultSet) {
+        ArrayList<Vacaciones> listaVacaciones = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                Vacaciones vacaciones = new Vacaciones();
+                vacaciones.setId(resultSet.getInt("id"));
+                vacaciones.setFecha_aprobada_fin(resultSet.getDate("fecha_aprobada_fin"));
+                vacaciones.setFecha_aprobada_inicio(resultSet.getDate("fecha_aprobada_inicio"));
+                vacaciones.setFecha_solicitada_fin(resultSet.getDate("fecha_solicitada_fin"));
+                vacaciones.setFecha_solicitada_inicio(resultSet.getDate("fecha_solicitada_inicio"));
+                vacaciones.setIdTrabajador(resultSet.getInt("id_trabajador"));
+                vacaciones.setObservaciones(resultSet.getString("observaciones"));
 
-                clientes.add(cliente);
+                listaVacaciones.add(vacaciones);
             }
             BBDD.close();
-            return clientes;
+            return listaVacaciones;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return listaVacaciones;
         }
     }
 

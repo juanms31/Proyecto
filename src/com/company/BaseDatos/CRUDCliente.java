@@ -154,35 +154,4 @@ public class CRUDCliente {
     }
 
     // endregion
-
-    public static void main(String[] args) throws SQLException {
-        CRUDCliente crudCliente = new CRUDCliente();
-        var listaclientes = crudCliente.readAllClientes();
-        System.out.println("Lista: " + listaclientes.get(0).toString());
-
-        //var borradoOK = crudCliente.deleteCLiente(0);
-        //System.out.println(borradoOK);
-
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Nombre clliente 2");
-        cliente.setDireccion("Direccion cliente 2");
-        cliente.setMail1("email cliente 2");
-        cliente.setMail2("email2 cliente 2");
-        cliente.setTelef1("647134461");
-        cliente.setTelef2("958487895");
-
-        int idRowCliente = 0;
-        idRowCliente = crudCliente.createCliente(cliente);
-        System.out.println("Nuevo cliente con id: " + idRowCliente);
-        cliente.setId(idRowCliente);
-
-        //UPDATE
-        cliente.setNombre("Nombre cliente 2 actualizado");
-        boolean updateOk = crudCliente.updateCliente(cliente);
-        if (updateOk){
-            System.out.println("Actualizado");
-        }else{
-            System.out.println("Error");
-        }
-    }
 }
