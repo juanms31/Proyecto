@@ -1,7 +1,9 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Cliente;
+import com.company.Entidades.MOInstalacionMaterial;
 import com.company.Entidades.SeguimientoLaboral;
+import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,16 +12,16 @@ public class CRUDMOInstalacionMaterial {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllMOInstalacionMaterial() throws SQLException {
+    public ArrayList<MOInstalacionMaterial> readAllMOInstalacionMaterial() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_MOInstalacionMAterial = "SELECT * FROM moinstalacionmaterial";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaMOInstalacionMaterial(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_MOInstalacionMAterial);
+            var listaMOInstalacionMaterial = setListaMOInstalacionMaterial(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaMOInstalacionMaterial;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +34,29 @@ public class CRUDMOInstalacionMaterial {
 
     }
 
-    public int createMOInstalacionMaterial(Cliente cliente) throws SQLException {
+    public int createMOInstalacionMaterial(MOInstalacionMaterial moInstalacionMaterial) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String QUERY_INSERT = "INSERT INTO moinstalacionmaterial" +
+                " VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setString(2, moInstalacionMaterial.getNombreProveedor1());
+            preparedStatement.setDouble(3, moInstalacionMaterial.getPrecio1());
+            preparedStatement.setString(4, moInstalacionMaterial.getNombreProveedor2());
+            preparedStatement.setDouble(5, moInstalacionMaterial.getPrecio2());
+            preparedStatement.setInt(6, moInstalacionMaterial.getIdMaterial());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRowMOInstalacionMaterial = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRowMOInstalacionMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRowMOInstalacionMaterial;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -74,7 +75,7 @@ public class CRUDMOInstalacionMaterial {
 
     public boolean deleteMOInstalacionMaterial(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM moinstalacionmaterial WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +93,23 @@ public class CRUDMOInstalacionMaterial {
         }
     }
 
-    public boolean updateMOInstalacionMaterial(Cliente cliente) throws SQLException {
+    public boolean updateMOInstalacionMaterial(MOInstalacionMaterial MOInstalacionMaterial) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE moinstalacionmaterial " +
+                "SET proveedor1 = ?, precio1 = ?, proveedor2 = ?, precio2 = ?," +
+                " id_material = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setString(1, MOInstalacionMaterial.getNombreProveedor1());
+            preparedStatement.setDouble(2, MOInstalacionMaterial.getPrecio1());
+            preparedStatement.setString(3, MOInstalacionMaterial.getNombreProveedor2());
+            preparedStatement.setDouble(4, MOInstalacionMaterial.getPrecio2());
+            preparedStatement.setInt(5, MOInstalacionMaterial.getIdMaterial());
+            preparedStatement.setInt(6, MOInstalacionMaterial.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + MOInstalacionMaterial.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,31 +127,63 @@ public class CRUDMOInstalacionMaterial {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaMOInstalacionMaterial(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<MOInstalacionMaterial> setListaMOInstalacionMaterial(ResultSet resultSet) {
+        ArrayList<MOInstalacionMaterial> ListaMOInstalacionMaterial = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                MOInstalacionMaterial MOInstalacionMaterial = new MOInstalacionMaterial();
+                MOInstalacionMaterial.setId(resultSet.getInt("id"));
+                MOInstalacionMaterial.setIdMaterial(resultSet.getInt("id_material"));
+                MOInstalacionMaterial.setPrecio1(resultSet.getDouble("precio1"));
+                MOInstalacionMaterial.setPrecio2(resultSet.getDouble("precio2"));
+                MOInstalacionMaterial.setNombreProveedor1(resultSet.getString("proveedor1"));
+                MOInstalacionMaterial.setNombreProveedor2(resultSet.getString("proveedor2"));
 
-                clientes.add(cliente);
+                ListaMOInstalacionMaterial.add(MOInstalacionMaterial);
             }
             BBDD.close();
-            return clientes;
+            return ListaMOInstalacionMaterial;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return ListaMOInstalacionMaterial;
         }
     }
 
     // endregion
+
+    public static void main(String[] args) throws SQLException {
+        CRUDMOInstalacionMaterial crudMOInstalacionMaterial = new CRUDMOInstalacionMaterial();
+        //READ ALL
+        var listaMOInstalacionMaterial = crudMOInstalacionMaterial.readAllMOInstalacionMaterial();
+        System.out.println("Lista: " + listaMOInstalacionMaterial.get(0).toString());
+
+        //DELETE
+        var borradoOK = crudMOInstalacionMaterial.deleteMOInstalacionMaterial(1);
+        System.out.println(borradoOK);
+
+        //CREATE
+        MOInstalacionMaterial moInstalacionMaterial = new MOInstalacionMaterial();
+        moInstalacionMaterial.setNombreProveedor1("Proovedor1 creado java");
+        moInstalacionMaterial.setPrecio1(23893.2);
+        moInstalacionMaterial.setNombreProveedor2("Proovedor2 creado java");
+        moInstalacionMaterial.setPrecio2(233.2);
+        moInstalacionMaterial.setIdMaterial(1); //TODO hay que hacer un trabajador primero
+
+        int idRowMOInstalacionMaterial = 0;
+        idRowMOInstalacionMaterial = crudMOInstalacionMaterial.createMOInstalacionMaterial(moInstalacionMaterial);
+        System.out.println("Nuevo moInstalacionMaterial con id: " + idRowMOInstalacionMaterial);
+        moInstalacionMaterial.setId(idRowMOInstalacionMaterial);
+
+        //UPDATE
+        moInstalacionMaterial.setNombreProveedor2("Proveedor 2 modificado");
+        boolean updateOk = crudMOInstalacionMaterial.updateMOInstalacionMaterial(moInstalacionMaterial);
+        if (updateOk){
+            System.out.println("Actualizado");
+        }else{
+            System.out.println("Error");
+        }
+    }
 }
 

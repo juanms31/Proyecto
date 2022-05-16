@@ -154,4 +154,35 @@ public class CRUDVacaciones {
     }
 
     // endregion
+
+    public static void main(String[] args) throws SQLException {
+        CRUDVacaciones crudVacaciones = new CRUDVacaciones();
+        var listaVacaciones = crudVacaciones.readAllVacaciones();
+        System.out.println("Lista: " + listaVacaciones.get(0).toString());
+
+        var borradoOK = crudVacaciones.deleteVacaciones(0);
+        System.out.println(borradoOK);
+
+        Vacaciones vacaciones = new Vacaciones();
+        vacaciones.setFecha_solicitada_inicio(Date.valueOf("1995-10-10"));
+        vacaciones.setFecha_solicitada_fin(Date.valueOf("1996-10-10"));
+        vacaciones.setFecha_aprobada_inicio(Date.valueOf("1997-10-10"));
+        vacaciones.setFecha_aprobada_fin(Date.valueOf("1995-10-10"));
+        vacaciones.setObservaciones("observacon vacioenes");
+        vacaciones.setIdTrabajador(1); //TODO hay que hacer un trabajador primero
+
+        int idRowVacaciones = 0;
+        idRowVacaciones = crudVacaciones.createVacaciones(vacaciones);
+        System.out.println("Nuevo vacaciones con id: " + idRowVacaciones);
+        vacaciones.setId(idRowVacaciones);
+
+        //UPDATE
+        vacaciones.setObservaciones("Observacion actualiza");
+        boolean updateOk = crudVacaciones.updateVacaciones(vacaciones);
+        if (updateOk){
+            System.out.println("Actualizado");
+        }else{
+            System.out.println("Error");
+        }
+    }
 }
