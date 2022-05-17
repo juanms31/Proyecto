@@ -10,16 +10,16 @@ public class CRUDSeguimientoLaboral {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllSeguimientoLaboral() throws SQLException {
+    public ArrayList<SeguimientoLaboral> readAllSeguimientoLaboral() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM seguimientolaboral";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaSeguimientoLaboral(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+            var listaSeguimientoLaboral = setListaSeguimientoLaboral(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaSeguimientoLaboral;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +32,33 @@ public class CRUDSeguimientoLaboral {
 
     }
 
-    public int createSeguimientoLaboral(Cliente cliente) throws SQLException {
+    public int createSeguimientoLaboral(SeguimientoLaboral seguimientoLaboral) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String QUERY_INSERT = "INSERT INTO seguimientolaboral" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setInt(2, seguimientoLaboral.getAno());
+            preparedStatement.setInt(3, seguimientoLaboral.getDia());
+            preparedStatement.setInt(4, seguimientoLaboral.getMes());
+            preparedStatement.setDate(5, seguimientoLaboral.getHora_entrada());
+            preparedStatement.setDate(6, seguimientoLaboral.getHora_salida());
+            preparedStatement.setDate(7, seguimientoLaboral.getHoras_totales());
+            preparedStatement.setDouble(8, seguimientoLaboral.getHoras_extra());
+            preparedStatement.setInt(9, seguimientoLaboral.getIdActuacion());
+            preparedStatement.setInt(10, seguimientoLaboral.getIdTrabajador());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRow = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRow = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRow;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -74,7 +77,7 @@ public class CRUDSeguimientoLaboral {
 
     public boolean deleteSeguimientoLaboral(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM cliente seguimientolaboral id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +95,29 @@ public class CRUDSeguimientoLaboral {
         }
     }
 
-    public boolean updateSeguimientoLaboral(Cliente cliente) throws SQLException {
+    public boolean updateSeguimientoLaboral(SeguimientoLaboral seguimientoLaboral) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE seguimientolaboral " +
+                "SET ano = ?, dia = ?, mes = ?, hora_entrada = ?, hora_salida = ?, horas_totales = ?" +
+                " horas_extra = ?, id_actuacion = ?, id_trabajador = ? " +
+                " WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setInt(1, seguimientoLaboral.getAno());
+            preparedStatement.setInt(2, seguimientoLaboral.getDia());
+            preparedStatement.setInt(3, seguimientoLaboral.getMes());
+            preparedStatement.setDate(4, seguimientoLaboral.getHora_entrada());
+            preparedStatement.setDate(5, seguimientoLaboral.getHora_salida());
+            preparedStatement.setDate(6, seguimientoLaboral.getHoras_totales());
+            preparedStatement.setDouble(7, seguimientoLaboral.getHoras_extra());
+            preparedStatement.setInt(8, seguimientoLaboral.getIdActuacion());
+            preparedStatement.setInt(9, seguimientoLaboral.getIdTrabajador());
+            preparedStatement.setInt(10, seguimientoLaboral.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + seguimientoLaboral.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,28 +135,31 @@ public class CRUDSeguimientoLaboral {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaSeguimientoLaboral(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<SeguimientoLaboral> setListaSeguimientoLaboral(ResultSet resultSet) {
+        ArrayList<SeguimientoLaboral> ListaseguimientoLaboral = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
+                seguimientoLaboral.setId(resultSet.getInt("id"));
+                seguimientoLaboral.setAno(resultSet.getInt("ano"));
+                seguimientoLaboral.setDia(resultSet.getInt("dia"));
+                seguimientoLaboral.setMes(resultSet.getInt("mes"));
+                seguimientoLaboral.setHora_entrada(resultSet.getDate("hora_entrada"));
+                seguimientoLaboral.setHora_salida(resultSet.getDate("hora_salida"));
+                seguimientoLaboral.setHoras_totales(resultSet.getDate("horas_totales"));
+                seguimientoLaboral.setHoras_extra(resultSet.getDouble("horas_extra"));
+                seguimientoLaboral.setIdActuacion(resultSet.getInt("id_actuacion"));
+                seguimientoLaboral.setIdTrabajador(resultSet.getInt("id_trabajador"));
 
-                clientes.add(cliente);
+                ListaseguimientoLaboral.add(seguimientoLaboral);
             }
             BBDD.close();
-            return clientes;
+            return ListaseguimientoLaboral;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return ListaseguimientoLaboral;
         }
     }
 

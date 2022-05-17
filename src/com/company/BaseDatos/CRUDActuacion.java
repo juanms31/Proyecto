@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Entidades.Actuacion;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.SeguimientoLaboral;
 
@@ -10,16 +11,16 @@ public class CRUDActuacion {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllActuacion() throws SQLException {
+    public ArrayList<Actuacion> readAllActuacion() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM actuacion";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaActuacion(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+            var listaActuaciones = setListaActuacion(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaActuaciones;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +33,43 @@ public class CRUDActuacion {
 
     }
 
-    public int createActuacion(Cliente cliente) throws SQLException {
+    public int createActuacion(Actuacion actuacion) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String QUERY_INSERT = "INSERT INTO actuacion" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setString(2, actuacion.getEspecificacion());
+            preparedStatement.setString(3, actuacion.getEstado());
+            preparedStatement.setDate(4, actuacion.getFecha_solicitud());
+            preparedStatement.setDate(5, actuacion.getFecha_envio());
+            preparedStatement.setDate(6, actuacion.getFecha_comienzo());
+            preparedStatement.setDate(7, actuacion.getFecha_finalizacion());
+            preparedStatement.setString(8, actuacion.getDescripcion());
+            preparedStatement.setDouble(9, actuacion.getImporte());
+            preparedStatement.setString(10, actuacion.getHojaPlanificacion());
+            preparedStatement.setString(11, actuacion.getHojaPresupuesto());
+            preparedStatement.setDouble(12, actuacion.getTotalCertificicaciones());
+            preparedStatement.setDouble(13, actuacion.getPorPertificar());
+            preparedStatement.setInt(14, actuacion.getHorasOfertadas());
+            preparedStatement.setInt(15, actuacion.getHorasEjecutadas());
+            preparedStatement.setDouble(16, actuacion.getMaterialOfertado());
+            preparedStatement.setDouble(17, actuacion.getGastoMaterial());
+            preparedStatement.setDouble(18, actuacion.getResultadoBalance());
+            preparedStatement.setInt(19, actuacion.getIdCliente());
+
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRowActuacion = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRowActuacion = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRowActuacion;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -67,14 +81,14 @@ public class CRUDActuacion {
         }
     }
 
-    public SeguimientoLaboral readActuacion(int cod){
+    public Actuacion readActuacion(int cod){
 
-        return new SeguimientoLaboral();
+        return new Actuacion();
     }
 
     public boolean deleteActuacion(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM actuacion WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +106,39 @@ public class CRUDActuacion {
         }
     }
 
-    public boolean updateActuacion(Cliente cliente) throws SQLException {
+    public boolean updateActuacion(Actuacion actuacion) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE actuacion " +
+                "SET especificacion = ?, estado = ?, fecha_solicitud = ?, fecha_envio = ?," +
+                " fecha_comienzo = ?, fecha_finalizacion = ?, descripcion = ?, importe = ?, hoja_planificacion = ?, hoja_presupuesto = ?," +
+                " total_certificaciones = ?, por_certificar = ?, horas_ofertadas = ?, horas_ejecutadas = ?, " +
+                " material_ofertado = ?, gasto_material = ?, resultado_balance = ?, id_cliente = ?" +
+                " WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setString(1, actuacion.getEspecificacion());
+            preparedStatement.setString(2, actuacion.getEstado());
+            preparedStatement.setDate(3, actuacion.getFecha_solicitud());
+            preparedStatement.setDate(4, actuacion.getFecha_envio());
+            preparedStatement.setDate(5, actuacion.getFecha_comienzo());
+            preparedStatement.setDate(6, actuacion.getFecha_finalizacion());
+            preparedStatement.setString(7, actuacion.getDescripcion());
+            preparedStatement.setDouble(8, actuacion.getImporte());
+            preparedStatement.setString(9, actuacion.getHojaPlanificacion());
+            preparedStatement.setString(10, actuacion.getHojaPresupuesto());
+            preparedStatement.setDouble(11, actuacion.getTotalCertificicaciones());
+            preparedStatement.setDouble(12, actuacion.getPorPertificar());
+            preparedStatement.setInt(13, actuacion.getHorasOfertadas());
+            preparedStatement.setInt(14, actuacion.getHorasEjecutadas());
+            preparedStatement.setDouble(15, actuacion.getMaterialOfertado());
+            preparedStatement.setDouble(16, actuacion.getGastoMaterial());
+            preparedStatement.setDouble(17, actuacion.getResultadoBalance());
+            preparedStatement.setInt(18, actuacion.getIdCliente());
+            preparedStatement.setInt(19, actuacion.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + actuacion.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,28 +156,40 @@ public class CRUDActuacion {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaActuacion(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Actuacion> setListaActuacion(ResultSet resultSet) {
+        ArrayList<Actuacion> listaActuacion = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                Actuacion actuacion = new Actuacion();
+                actuacion.setId(resultSet.getInt("id"));
+                actuacion.setEspecificacion(resultSet.getString("especificacion"));
+                actuacion.setEstado(resultSet.getString("estado"));
+                actuacion.setFecha_solicitud(resultSet.getDate("fecha_solicitud"));
+                actuacion.setFecha_envio(resultSet.getDate("fecha_envio"));
+                actuacion.setFecha_comienzo(resultSet.getDate("fecha_comienzo"));
+                actuacion.setFecha_finalizacion(resultSet.getDate("fecha_finalizacion"));
+                actuacion.setDescripcion(resultSet.getString("descripcion"));
+                actuacion.setImporte(resultSet.getDouble("importe"));
+                actuacion.setHojaPlanificacion(resultSet.getString("hoja_planificacion"));
+                actuacion.setHojaPresupuesto(resultSet.getString("hoja_presupuesto"));
+                actuacion.setTotalCertificicaciones(resultSet.getDouble("total_certificaciones"));
+                actuacion.setPorPertificar(resultSet.getDouble("por_certificacr"));
+                actuacion.setHorasOfertadas(resultSet.getInt("horas_ofertadas"));
+                actuacion.setHorasEjecutadas(resultSet.getInt("horas_ejecutadas"));
+                actuacion.setMaterialOfertado(resultSet.getDouble("material_ofertado"));
+                actuacion.setGastoMaterial(resultSet.getDouble("gasto_material"));
+                actuacion.setResultadoBalance(resultSet.getDouble("resultado_balance"));
+                actuacion.setIdCliente(resultSet.getInt("id_cliente"));
 
-                clientes.add(cliente);
+                listaActuacion.add(actuacion);
             }
             BBDD.close();
-            return clientes;
+            return listaActuacion;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return listaActuacion;
         }
     }
 

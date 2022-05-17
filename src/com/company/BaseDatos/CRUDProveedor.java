@@ -1,6 +1,7 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Cliente;
+import com.company.Entidades.Proveedor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,12 +10,12 @@ public class CRUDProveedor {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllProveedor() throws SQLException {
+    public ArrayList<Proveedor> readAllProveedor() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM proveedor";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
             var listaProveedor = setListaProveedor(resultSet);
 
             BBDD.close();
@@ -31,7 +32,7 @@ public class CRUDProveedor {
 
     }
 
-    public int createProveedor(Cliente cliente) throws SQLException {
+    public int createProveedor(Proveedor proveedor) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO proveedor" +
@@ -39,22 +40,22 @@ public class CRUDProveedor {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setString(2, proveedor.getNombre_proveedor());
+            preparedStatement.setString(3, proveedor.getDireccion());
+            preparedStatement.setString(4, proveedor.getMail1());
+            preparedStatement.setString(5, proveedor.getMail2());
+            preparedStatement.setString(6, proveedor.getTelefono1());
+            preparedStatement.setString(7, proveedor.getTelefono2());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRowProveedor = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRowProveedor = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRowProveedor;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -73,7 +74,7 @@ public class CRUDProveedor {
 
     public boolean deleteProveedor(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM proveedor WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -91,24 +92,25 @@ public class CRUDProveedor {
         }
     }
 
-    public boolean updateProveedor(Cliente cliente) throws SQLException {
+    public boolean updateProveedor(Proveedor proveedor) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
+        final String QUERY_UPDATE = "UPDATE proveedor " +
+                "SET nombre_proveedor = ?, direccion = ?, mail1 = ?, mail2 = ?," +
                 " telefono1 = ?, telefono2 = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setString(1, proveedor.getNombre_proveedor());
+            preparedStatement.setString(2, proveedor.getDireccion());
+            preparedStatement.setString(3, proveedor.getMail1());
+            preparedStatement.setString(4, proveedor.getMail2());
+            preparedStatement.setString(5, proveedor.getTelefono1());
+            preparedStatement.setString(6, proveedor.getTelefono2());
+            preparedStatement.setInt(7, proveedor.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + proveedor.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -126,28 +128,28 @@ public class CRUDProveedor {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaProveedor(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Proveedor> setListaProveedor(ResultSet resultSet) {
+        ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                Proveedor proveedor = new Proveedor();
+                proveedor.setId(resultSet.getInt("id"));
+                proveedor.setNombre_proveedor(resultSet.getString("nombre_proveedor"));
+                proveedor.setDireccion(resultSet.getString("direccion"));
+                proveedor.setMail1(resultSet.getString("mail1"));
+                proveedor.setTelefono1(resultSet.getString("telefono1"));
+                proveedor.setMail2(resultSet.getString("mail2"));
+                proveedor.setTelefono2(resultSet.getString("telefono2"));
 
-                clientes.add(cliente);
+                proveedores.add(proveedor);
             }
             BBDD.close();
-            return clientes;
+            return proveedores;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return proveedores;
         }
     }
 

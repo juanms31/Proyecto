@@ -1,6 +1,7 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Cliente;
+import com.company.Entidades.MaterialCompradoProveedor;
 import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
@@ -10,16 +11,16 @@ public class CRUDMaterialCompradoProveedor {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllMaterialComprobadoProveedor() throws SQLException {
+    public ArrayList<MaterialCompradoProveedor> readAllMaterialComprobadoProveedor() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM materialcompradoproveedores";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaMaterialCompradoProveedor(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+            var listaMaterialCompradoProveedor = setListaMaterialCompradoProveedor(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaMaterialCompradoProveedor;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +33,30 @@ public class CRUDMaterialCompradoProveedor {
 
     }
 
-    public int createMaterialCompradoProveedor(Cliente cliente) throws SQLException {
+    public int createMaterialCompradoProveedor(MaterialCompradoProveedor materialCompradoProveedores) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String QUERY_INSERT = "INSERT INTO materialcompradoproveedores" +
+                " VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setDate(2, materialCompradoProveedores.getFecha_compra());
+            preparedStatement.setInt(3, materialCompradoProveedores.getId_material());
+            preparedStatement.setInt(4, materialCompradoProveedores.getId_proveedor());
+            preparedStatement.setInt(5, materialCompradoProveedores.getId_actuacion());
+            preparedStatement.setInt(6, materialCompradoProveedores.getId_albaran());
+
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRow = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRow = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRow;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -67,14 +68,14 @@ public class CRUDMaterialCompradoProveedor {
         }
     }
 
-    public SeguimientoLaboral readMaterialCompradoProveedor(int cod){
+    public MaterialCompradoProveedor readMaterialCompradoProveedor(int cod){
 
-        return new SeguimientoLaboral();
+        return new MaterialCompradoProveedor();
     }
 
     public boolean deleteMaterialCompradoProveedor(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM materialcompradoproveedores WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +93,24 @@ public class CRUDMaterialCompradoProveedor {
         }
     }
 
-    public boolean updateMaterialCompradoProveedor(Cliente cliente) throws SQLException {
+    public boolean updateMaterialCompradoProveedor(MaterialCompradoProveedor materialCompradoProveedores) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE materialcompradoproveedores " +
+                "SET fecha_compra = ?, id_material = ?, id_proveedor = ?, id_actuacion = ?," +
+                " id_albaran = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setDate(1, materialCompradoProveedores.getFecha_compra());
+            preparedStatement.setInt(2, materialCompradoProveedores.getId_material());
+            preparedStatement.setInt(3, materialCompradoProveedores.getId_proveedor());
+            preparedStatement.setInt(4, materialCompradoProveedores.getId_actuacion());
+            preparedStatement.setInt(5, materialCompradoProveedores.getId_albaran());
+            preparedStatement.setInt(6, materialCompradoProveedores.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + materialCompradoProveedores.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,28 +128,27 @@ public class CRUDMaterialCompradoProveedor {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaMaterialCompradoProveedor(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<MaterialCompradoProveedor> setListaMaterialCompradoProveedor(ResultSet resultSet) {
+        ArrayList<MaterialCompradoProveedor> materialCompradoProveedores = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
+                MaterialCompradoProveedor cliente = new MaterialCompradoProveedor();
                 cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                cliente.setFecha_compra(resultSet.getDate("fecha_compra"));
+                cliente.setId_material(resultSet.getInt("id_material"));
+                cliente.setId_material(resultSet.getInt("id_proveedor"));
+                cliente.setId_material(resultSet.getInt("id_actuacion"));
+                cliente.setId_material(resultSet.getInt("id_albaran"));
 
-                clientes.add(cliente);
+                materialCompradoProveedores.add(cliente);
             }
             BBDD.close();
-            return clientes;
+            return materialCompradoProveedores;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return materialCompradoProveedores;
         }
     }
 

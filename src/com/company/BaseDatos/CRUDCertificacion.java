@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Entidades.Certificacion;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.SeguimientoLaboral;
 
@@ -10,16 +11,16 @@ public class CRUDCertificacion {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllCertificacion() throws SQLException {
+    public ArrayList<Certificacion> readAllCertificacion() throws SQLException {
         Connection connection = BBDD.connect();
-        final String SELECT_PROVEEDOR = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM certificacion";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDOR);
-            var listaProveedor = setListaCertificacion(resultSet);
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+            var listaCertificaciones = setListaCertificacion(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaCertificaciones;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -32,30 +33,29 @@ public class CRUDCertificacion {
 
     }
 
-    public int createCertificacion(Cliente cliente) throws SQLException {
+    public int createCertificacion(Certificacion certificacion) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String QUERY_INSERT = "INSERT INTO certificacion" +
+                " VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
-            preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setDate(2, certificacion.getFecha_certificacion());
+            preparedStatement.setDouble(3, certificacion.getValor());
+            preparedStatement.setString(4, certificacion.getObservaciones());
+            preparedStatement.setInt(5, certificacion.getId_actuacion());
+
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowCLiente = 0;
+            int idRowCertificacion = 0;
             if(generatedKeys.next()){
-                idRowCLiente = generatedKeys.getInt(1);
+                idRowCertificacion = generatedKeys.getInt(1);
             }
             BBDD.close();
-            return idRowCLiente;
+            return idRowCertificacion;
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
@@ -67,14 +67,14 @@ public class CRUDCertificacion {
         }
     }
 
-    public SeguimientoLaboral readCertificacion(int cod){
+    public Certificacion readCertificacion(int cod){
 
-        return new SeguimientoLaboral();
+        return new Certificacion();
     }
 
     public boolean deleteCertificacion(int id) throws SQLException {
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM certificacion WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);
@@ -92,24 +92,23 @@ public class CRUDCertificacion {
         }
     }
 
-    public boolean updateCertificacion(Cliente cliente) throws SQLException {
+    public boolean updateCertificacion(Certificacion certificacion) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+        final String QUERY_UPDATE = "UPDATE certificacion " +
+                "SET fecha_certificacion = ?, valor = ?, observaciones = ?, id_actuacion = ?," +
+                " WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getDireccion());
-            preparedStatement.setString(3, cliente.getMail1());
-            preparedStatement.setString(4, cliente.getNombre());
-            preparedStatement.setString(5, cliente.getTelef1());
-            preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setDate(1, certificacion.getFecha_certificacion());
+            preparedStatement.setDouble(2, certificacion.getValor());
+            preparedStatement.setString(3, certificacion.getObservaciones());
+            preparedStatement.setInt(4, certificacion.getId_actuacion());
+            preparedStatement.setInt(5, certificacion.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + certificacion.getId());
             if (affectedRows == 1) return true;
             return false;
         } catch (SQLException e) {
@@ -127,28 +126,26 @@ public class CRUDCertificacion {
 
     //region Metodos privados
 
-    private ArrayList<Cliente> setListaCertificacion(ResultSet resultSet) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Certificacion> setListaCertificacion(ResultSet resultSet) {
+        ArrayList<Certificacion> certificaciones = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                Certificacion certificacion = new Certificacion();
+                certificacion.setId(resultSet.getInt("id"));
+                certificacion.setFecha_certificacion(resultSet.getDate("fecha_certificacion"));
+                certificacion.setValor(resultSet.getDouble("valor"));
+                certificacion.setObservaciones(resultSet.getString("observaciones"));
+                certificacion.setId_actuacion(resultSet.getInt("id_actuacion"));
 
-                clientes.add(cliente);
+                certificaciones.add(certificacion);
             }
             BBDD.close();
-            return clientes;
+            return certificaciones;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return clientes;
+            return certificaciones;
         }
     }
 
