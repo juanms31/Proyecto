@@ -1,13 +1,14 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Material;
+import com.company.Vistas.ViewMaterial;
 
 import javax.swing.*;
 
 public class formMaterial {
 
-    public formMaterial() {
-
+    public formMaterial(ViewMaterial viewMaterial) {
+        this.viewMaterial = viewMaterial;
     }
 
     //region CRUD
@@ -51,4 +52,7 @@ public class formMaterial {
     private JComboBox comboBoxProveedor2;
     private JComboBox comboBoxProveedor3;
     private JLabel labelTitulo;
+    private final ViewMaterial viewMaterial;
+
+    //endregion
 }

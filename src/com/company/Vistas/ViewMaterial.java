@@ -1,5 +1,7 @@
 package com.company.Vistas;
 
+import com.company.Controlador.ControladorMaterial;;
+import com.company.Formularios.formMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -9,8 +11,14 @@ import java.awt.event.ActionListener;
 
 public class ViewMaterial extends JFrame{
 
+    private final ControladorMaterial controladorMaterial;
+    private final formMaterial formMaterial;
+
     //region Constructores
-    public ViewMaterial(){
+
+    public ViewMaterial(ControladorMaterial controladorMaterial) {
+        this.controladorMaterial = controladorMaterial;
+        formMaterial = new formMaterial(this);
         initWindow();
         setVisible(true);
     }

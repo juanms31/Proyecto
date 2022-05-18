@@ -1,10 +1,16 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorMaterial;
 import com.company.Entidades.Material;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class CRUDMaterial {
+
+
+    public CRUDMaterial(ControladorMaterial controladorMaterial) {
+        this.controladorMaterial = controladorMaterial;
+    }
     //region Metodos CRUD
 
     //TODO hacer getMAterial por id;
@@ -206,7 +212,7 @@ public class CRUDMaterial {
     //endregion
 
     public static void main(String[] args) {
-        CRUDMaterial crudMaterial = new CRUDMaterial();
+        CRUDMaterial crudMaterial = new CRUDMaterial(null);
         var listMateriales = crudMaterial.getAll();
         System.out.println("Lista: " + listMateriales.get(0).toString());
         //System.out.println("Lista: " + listMateriales.get(1).toString());
@@ -248,4 +254,8 @@ public class CRUDMaterial {
             System.out.println("Problemas");
         }
     }
+
+    //region ATRIBUTOS
+    private final ControladorMaterial controladorMaterial;
+    //endregion
 }

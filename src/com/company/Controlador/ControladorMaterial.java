@@ -1,21 +1,22 @@
 package com.company.Controlador;
 
 import com.company.BaseDatos.CRUDMaterial;
-import com.company.Entidades.Material;
 import com.company.Formularios.formMaterial;
+import com.company.Vistas.ViewMaterial;
 
 import java.sql.SQLException;
 
-public class controladorMaterial {
+public class ControladorMaterial {
 
     private CRUDMaterial crudMaterial;
-    private formMaterial formMaterial;
+    private ViewMaterial viewMaterial;
 
     //Constructor
-    public controladorMaterial() {
+    public ControladorMaterial() {
 
-        crudMaterial = new CRUDMaterial();
-        formMaterial = new formMaterial();
+        crudMaterial = new CRUDMaterial(this);
+        viewMaterial = new ViewMaterial(this);
+
     }
 
     //region CRUD
