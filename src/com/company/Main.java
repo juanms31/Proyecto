@@ -13,6 +13,6 @@ public class Main {
         ViewPrincipal principal = new ViewPrincipal();
 
 
-        ControladorMaterial controladorMaterial = new ControladorMaterial();
+
     }
 }

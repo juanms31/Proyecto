@@ -5,15 +5,15 @@ import com.company.Vistas.ViewMaterial;
 
 import javax.swing.*;
 
-public class formMaterial {
+public class formMaterial extends JFrame{
 
     public formMaterial(ViewMaterial viewMaterial) {
         this.viewMaterial = viewMaterial;
     }
 
     //region CRUD
-    public Material createMaterial(){
 
+    public Material createMaterial(){
         return new Material();
     }
 
@@ -31,6 +31,14 @@ public class formMaterial {
 
 
         return false;
+    }
+
+    //endregion
+
+    //region Metodos publicos
+
+    public void openForm() {
+        setVisible(true);
     }
 
     //endregion
@@ -53,6 +61,7 @@ public class formMaterial {
     private JComboBox comboBoxProveedor3;
     private JLabel labelTitulo;
     private final ViewMaterial viewMaterial;
+
 
     //endregion
 }

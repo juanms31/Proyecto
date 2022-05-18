@@ -2,6 +2,7 @@ package com.company.Vistas;
 
 //import com.toedter.calendar.JCalendar;
 
+import com.company.Controlador.ControladorMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ public class ViewPrincipal extends JFrame{
         btnMateriales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewMaterial viewMaterial = new ViewMaterial();
+                ControladorMaterial controladorMaterial = new ControladorMaterial();
             }
         });
         btnAlbaranes.addActionListener(new ActionListener() {

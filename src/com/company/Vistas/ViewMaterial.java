@@ -1,6 +1,7 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorMaterial;;
+import com.company.Entidades.Material;
 import com.company.Formularios.formMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -11,14 +12,13 @@ import java.awt.event.ActionListener;
 
 public class ViewMaterial extends JFrame{
 
-    private final ControladorMaterial controladorMaterial;
-    private final formMaterial formMaterial;
+    private ControladorMaterial controladorMaterial;
+    private formMaterial formMaterial;
 
     //region Constructores
 
     public ViewMaterial(ControladorMaterial controladorMaterial) {
         this.controladorMaterial = controladorMaterial;
-        formMaterial = new formMaterial(this);
         initWindow();
         setVisible(true);
     }
@@ -44,15 +44,29 @@ public class ViewMaterial extends JFrame{
 
     //endregion
 
+    //region Metodos Publicos
+
+    public void getMaterialFromFormulario(Material material){
+        controladorMaterial.sendMaterialFromModel(material);
+    }
+
+    public void ShowMessage(String s) {
+        JOptionPane.showInputDialog(s);
+    }
+
+    public void ErroMessage(String s) {
+        JOptionPane.showInputDialog("Error" + s);
+    }
+
+    //endregion
+
     //region CRUD
-    private boolean createMaterial(){
-
-
-        return false;
+    private void createMaterial(){
+       formMaterial = new formMaterial(this);
+       formMaterial.openForm();
     }
 
     private boolean readMaterial(){
-
         return false;
     }
 
@@ -65,6 +79,14 @@ public class ViewMaterial extends JFrame{
 
 
         return false;
+    }
+
+    //endregion
+
+    //region Metodos privados
+
+    public void updateTableMaterial(Material material) {
+        //TODO actualizar tabla
     }
 
     //endregion
