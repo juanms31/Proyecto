@@ -4,8 +4,10 @@ import com.company.Controlador.ControladorMaterial;;
 import com.company.Entidades.Material;
 import com.company.Formularios.formMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +43,50 @@ public class ViewMaterial extends JFrame{
     }
 
     //endregion
+
+
+    //region Metodos Tabla
+
+    public void refreshTable(String[] headers, ArrayList<Material> materiales){
+        // TODO: 19/05/2022 Para hacer el filtro https://www.tutorialspoint.com/how-can-we-filter-a-jtable-in-java
+
+        TableMaterial.setShowGrid(true);
+        TableMaterial.setGridColor(Color.black);
+        TableMaterial.setAutoCreateRowSorter(true);
+        TableMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TableMaterial.setRowSelectionAllowed(true);
+        TableMaterial.setDefaultEditor(Object.class, null);
+        TableMaterial.setDragEnabled(false);
+        //TableMaterial.setRowSorter(sorter);
+
+        //Filling Headers
+        modelMaterial = new DefaultTableModel(headers, 0);
+
+        //Filling Data
+        Object[] data = new Object[headers.length];
+
+        int y = 0;
+        for (Material material : materiales) {
+            data[y++] = material.getCodigo();
+            data[y++] = material.getGrupo();
+            data[y++] = material.getDescripcion();
+            data[y++] = material.getEspecificacion();
+            data[y++] = material.getUnidad();
+            data[y++] = material.getEspesor();
+            data[y++] = material.getCalidad();
+            data[y++] = material.getProveedor1();
+            data[y++] = material.getPrecio1();
+            data[y++] = material.getProveedor2();
+            data[y++] = material.getPrecio2();
+            data[y++] = material.getProveedor3();
+            data[y++] = material.getPrecio3();
+            y=0;
+        }
+
+        TableMaterial.setModel(modelMaterial);
+    }
+    //endregion
+
 
     //region Metodos Publicos
 
@@ -138,13 +184,22 @@ public class ViewMaterial extends JFrame{
             }
         });
 
+        buttonRecargar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshTable(headers, materiales);
+            }
+        });
+
     }
 
     //endregion
 
     //region Variables
 
+    private DefaultTableModel modelMaterial;
 
+    private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
     private ControladorMaterial controladorMaterial;
     private formMaterial formMaterial;
     private ArrayList<Material> materiales;
