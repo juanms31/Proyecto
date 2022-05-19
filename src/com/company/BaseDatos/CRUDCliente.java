@@ -1,11 +1,22 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorCliente;
 import com.company.Entidades.Cliente;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class CRUDCliente {
+
+    //region ATRIBUTOS
+
+    private ControladorCliente controladorCliente;
+
+    //endregion
+
+    public CRUDCliente(ControladorCliente controladorCliente) {
+        this.controladorCliente = controladorCliente;
+    }
 
     // region Metodos CRUD
 

@@ -94,7 +94,7 @@ public class CRUDMaterial {
         }
     }
 
-    public Material readMaterial(int cod) {
+    public Material readMaterial(String cod) {
         // TODO: 15/05/2022 LEER MATERIAL ESPECIFICO A PARTIR DE SU material.codigo
 
         return new Material();

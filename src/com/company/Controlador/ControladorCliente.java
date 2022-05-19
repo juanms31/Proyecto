@@ -1,19 +1,21 @@
 package com.company.Controlador;
 
 import com.company.BaseDatos.CRUDCliente;
+import com.company.Entidades.Cliente;
 import com.company.Formularios.formCliente;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class controladorCliente {
+public class ControladorCliente {
 
     private CRUDCliente crudCliente;
     private formCliente formCliente;
 
     //Constructor
-    public controladorCliente() {
-
-        crudCliente = new CRUDCliente();
+    public ControladorCliente() {
+        crudCliente = new CRUDCliente(this);
+        ArrayList<Cliente> clientes = crudCliente.readAllClientes();
         formCliente = new formCliente();
     }
 

@@ -11,8 +11,5 @@ public class Main {
 
     public static void main(String[] args) {
         ViewPrincipal principal = new ViewPrincipal();
-
-
-
     }
 }

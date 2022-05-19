@@ -9,16 +9,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ViewMaterial extends JFrame{
 
     private ControladorMaterial controladorMaterial;
     private formMaterial formMaterial;
+    private ArrayList<Material> materiales;
 
     //region Constructores
 
-    public ViewMaterial(ControladorMaterial controladorMaterial) {
+    public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales) {
         this.controladorMaterial = controladorMaterial;
+        this.materiales = materiales;
         initWindow();
         setVisible(true);
     }
@@ -66,19 +69,22 @@ public class ViewMaterial extends JFrame{
        formMaterial.openForm();
     }
 
-    private boolean readMaterial(){
-        return false;
+    private void readMaterial(){
+        String cod = "cod"; //TODO coger el codigo desde la tabla
+        Material material = controladorMaterial.readMaterial(cod);
+        formMaterial.readMaterial(material);
     }
 
     private boolean updateMaterial() {
-
-        return false;
+        Material material = new Material(); //TODO coger material desde donde tenga que venir
+        boolean result = controladorMaterial.updateMaterial(material);
+        return result;
     }
 
     private boolean deleteMaterial(){
-
-
-        return false;
+        int cod = 1; //TODO coger el codigo desde la tabla
+        boolean result = controladorMaterial.deleteMaterial(1);
+        return result;
     }
 
     //endregion
