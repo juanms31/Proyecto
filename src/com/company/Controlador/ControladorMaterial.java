@@ -29,7 +29,7 @@ public class ControladorMaterial {
     public Material readMaterial(String cod){
         Material material = crudMaterial.readMaterial(cod);
         if (material.getCodigo() == null || material.getCodigo().isEmpty()){
-            viewMaterial.ErroMessage("No se ha podido cargar el material con codigo: " + cod);
+            viewMaterial.ErrorMessage("No se ha podido cargar el material con codigo: " + cod);
             //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
         }else{
             viewMaterial.ShowMessage("Correcto, cargando material...");
@@ -44,7 +44,7 @@ public class ControladorMaterial {
             viewMaterial.updateTableMaterial(material);
             viewMaterial.ShowMessage("El material con codigo: " + material.getCodigo() + " ha sido actualizado");
         }else{
-            viewMaterial.ErroMessage("No se ha podiddo actualizar material con el codigo: " + material.getCodigo());
+            viewMaterial.ErrorMessage("No se ha podiddo actualizar material con el codigo: " + material.getCodigo());
         }
         return result;
     }
@@ -54,7 +54,7 @@ public class ControladorMaterial {
         if (result){
             viewMaterial.ShowMessage("El material con codigo: " + cod + " ha sido borrado");
         }else{
-            viewMaterial.ErroMessage("El material con codigo: " + cod + " no se ha podido borrar");
+            viewMaterial.ErrorMessage("El material con codigo: " + cod + " no se ha podido borrar");
         }
         return result;
     }
@@ -67,7 +67,7 @@ public class ControladorMaterial {
             viewMaterial.ShowMessage("material con id " + idMaterial + " agregado con exito");
         } catch (SQLException e) {
             e.printStackTrace();
-            viewMaterial.ErroMessage("No se ha podido agregar el registro");
+            viewMaterial.ErrorMessage("No se ha podido agregar el registro");
         }
     }
 

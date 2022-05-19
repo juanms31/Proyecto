@@ -12,11 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ViewMaterial extends JFrame{
-
-    private ControladorMaterial controladorMaterial;
-    private formMaterial formMaterial;
-    private ArrayList<Material> materiales;
-
     //region Constructores
 
     public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales) {
@@ -53,20 +48,36 @@ public class ViewMaterial extends JFrame{
         controladorMaterial.sendMaterialFromModel(material);
     }
 
-    public void ShowMessage(String s) {
-        JOptionPane.showInputDialog(s);
+    //endregion
+
+    //region Mensajes
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void ErroMessage(String s) {
-        JOptionPane.showInputDialog("Error" + s);
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.ERROR_MESSAGE);
     }
 
     //endregion
 
     //region CRUD
     private void createMaterial(){
-       formMaterial = new formMaterial(this);
-       formMaterial.openForm();
+       formMaterial = new formMaterial();
+
     }
 
     private void readMaterial(){
@@ -133,6 +144,10 @@ public class ViewMaterial extends JFrame{
 
     //region Variables
 
+
+    private ControladorMaterial controladorMaterial;
+    private formMaterial formMaterial;
+    private ArrayList<Material> materiales;
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;
     private JPanel PanelMaterial;
