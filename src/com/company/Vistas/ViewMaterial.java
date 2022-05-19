@@ -2,9 +2,8 @@ package com.company.Vistas;
 
 import com.company.Controlador.ControladorMaterial;;
 import com.company.Entidades.Material;
-import com.company.Formularios.formMaterial;
+import com.company.Formularios.FormMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -88,11 +87,16 @@ public class ViewMaterial extends JFrame{
     //endregion
 
 
-    //region Metodos Publicos
+    //region Metodos Desde el Formulario
 
-    public void getMaterialFromFormulario(Material material){
-        controladorMaterial.sendMaterialFromModel(material);
+    public void getNewMaterialFromFormulario(Material material){
+        controladorMaterial.createMaterial(material);
     }
+
+    public void getUpdateMaterialFromFormulario(Material material) {
+        controladorMaterial.updateMaterial(material);
+    }
+
 
     //endregion
 
@@ -122,27 +126,24 @@ public class ViewMaterial extends JFrame{
 
     //region CRUD
     private void createMaterial(){
-       formMaterial = new formMaterial();
-
+        FormMaterial formMaterial = new FormMaterial(this);
     }
 
     private void readMaterial(){
-        String cod = "cod"; //TODO coger el codigo desde la tabla
-        Material material = controladorMaterial.readMaterial(cod);
-        formMaterial.readMaterial(material);
+        Material material = getMaterial();
+        FormMaterial formMaterial = new FormMaterial(this, material, false);
     }
 
-    private boolean updateMaterial() {
-        Material material = new Material(); //TODO coger material desde donde tenga que venir
-        boolean result = controladorMaterial.updateMaterial(material);
-        return result;
+    private void updateMaterial() {
+        Material material = getMaterial();
+        FormMaterial formMaterial = new FormMaterial(this, material);
     }
 
-    private boolean deleteMaterial(){
-        int cod = 1; //TODO coger el codigo desde la tabla
-        boolean result = controladorMaterial.deleteMaterial(1);
-        return result;
+    private void deleteMaterial(){
+        String cod = getCodMaterial();
+        boolean result = controladorMaterial.deleteMaterial(cod);
     }
+
 
     //endregion
 
@@ -150,6 +151,16 @@ public class ViewMaterial extends JFrame{
 
     public void updateTableMaterial(Material material) {
         //TODO actualizar tabla
+    }
+
+    private Material getMaterial() {
+        //TODO coger el material desde la tabla
+        return new Material();
+    }
+
+    private String getCodMaterial() {
+        //TODO coger cod desde la tabla
+        return null;
     }
 
     //endregion
@@ -201,7 +212,6 @@ public class ViewMaterial extends JFrame{
 
     private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
     private ControladorMaterial controladorMaterial;
-    private formMaterial formMaterial;
     private ArrayList<Material> materiales;
     private JPanel panelPrincipal;
     private JTabbedPane panelPestanas;

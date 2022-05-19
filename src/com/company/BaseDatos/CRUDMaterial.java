@@ -100,13 +100,13 @@ public class CRUDMaterial {
         return new Material();
     }
 
-    public boolean deleteMaterial(int id){
+    public boolean deleteMaterial(String cod){
         Connection connection = BBDD.connect();
         // FIXME: 15/05/2022 NO SERIA A PARTIR DE SU CODIGO EXTERNO, YA QUE EL ID ES EL INTERNO QUE NO SABEMOS?
-        final String QUERY_DELETE = "DELETE FROM material WHERE id = ?";
+        final String QUERY_DELETE = "DELETE FROM material WHERE cod = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setString(1, cod);
             preparedStatement.execute();
             BBDD.close();
             return true;
@@ -216,8 +216,8 @@ public class CRUDMaterial {
         var listMateriales = crudMaterial.getAll();
         System.out.println("Lista: " + listMateriales.get(0).toString());
         //System.out.println("Lista: " + listMateriales.get(1).toString());
-        var borradoOK = crudMaterial.deleteMaterial(2);
-        System.out.println(borradoOK);
+      //  var borradoOK = crudMaterial.deleteMaterial(2);
+      //  System.out.println(borradoOK);
 
         Material material = new Material();
         material.setGrupo("Grupo");
