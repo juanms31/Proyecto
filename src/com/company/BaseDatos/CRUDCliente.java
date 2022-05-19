@@ -20,7 +20,7 @@ public class CRUDCliente {
 
     // region Metodos CRUD
 
-    public ArrayList<Cliente> readAllClientes() throws SQLException {
+    public ArrayList<Cliente> getAll() {
         Connection connection = BBDD.connect();
         final String SELECT_CLIENTES = "SELECT * FROM cliente";
         try {
@@ -35,8 +35,12 @@ public class CRUDCliente {
             BBDD.close();
             return  null;
         } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
+            try {
+                if (!connection.isClosed()){
+                    BBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
@@ -84,7 +88,7 @@ public class CRUDCliente {
 
 
 
-    public boolean deleteCliente(int id) throws SQLException {
+    public boolean deleteCliente(int id)  {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM cliente WHERE id = ?";
         try {
@@ -98,13 +102,17 @@ public class CRUDCliente {
             BBDD.close();
             return false;
         } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
+            try {
+                if (!connection.isClosed()){
+                    BBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    public boolean updateCliente(Cliente cliente) throws SQLException {
+    public boolean updateCliente(Cliente cliente){
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE cliente " +
@@ -129,8 +137,12 @@ public class CRUDCliente {
             BBDD.close();
             return false;
         } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
+            try {
+                if (!connection.isClosed()){
+                    BBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

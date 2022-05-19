@@ -11,30 +11,41 @@ import java.awt.event.KeyEvent;
 
 public class FormMaterial extends JFrame{
 
-    int estado = 0;
-
     //region Constructores
 
     public FormMaterial(ViewMaterial viewMaterial) {
+        this.viewMaterial = viewMaterial;
         estado = 1;
     }
 
     public FormMaterial(ViewMaterial viewMaterial, Material material){
         estado = 2;
-
+        this.viewMaterial = viewMaterial;
         setMaterial(material);
+    }
+
+    public FormMaterial(ViewMaterial viewMaterial, Material material, boolean editable) {
+        this.viewMaterial = viewMaterial;
+        setMaterial(material);
+        //TODO ver como tratamos editable
     }
 
     //endregion
 
-    //region CRUD
-    public Material createMaterial(){
+    //region Metodos Vista
 
-        return getMaterial();
+    //endregion
+
+    //region Metodos privados
+
+    private  void loadNewMaterial(){
+        Material material = getMaterial();
+        viewMaterial.getNewMaterialFromFormulario(material);
     }
 
-    public Material updateMaterial() {
-        return getMaterial();
+    private  void loadUpdateMaterial(){
+        Material material = getMaterial();
+        viewMaterial.getUpdateMaterialFromFormulario(material);
     }
 
     //endregion
@@ -86,14 +97,13 @@ public class FormMaterial extends JFrame{
 
                 switch (estado){
                     case 0 -> {
-
                     }
                     case 1 -> {
-
+                        loadNewMaterial();
                     }
 
                     case 2 -> {
-
+                        loadUpdateMaterial();
                     }
                 }
 
@@ -178,6 +188,9 @@ public class FormMaterial extends JFrame{
     private JSpinner spinnerPrecio2;
     private JSpinner spinnerPrecio3;
     private JTextField textFieldEspesor;
+
+    private ViewMaterial viewMaterial;
+    int estado = 0;
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

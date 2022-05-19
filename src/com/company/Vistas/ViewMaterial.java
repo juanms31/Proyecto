@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ViewMaterial extends JFrame{
+
     //region Constructores
 
     public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales) {

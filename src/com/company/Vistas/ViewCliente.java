@@ -1,18 +1,24 @@
 package com.company.Vistas;
 
+import com.company.Controlador.ControladorCliente;
+import com.company.Entidades.Cliente;
+import com.company.Formularios.FormCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ViewCliente extends JFrame{
 
+    //region Constructores
 
-    public ViewCliente(){
+    public ViewCliente(ControladorCliente controladorCliente, ArrayList<Cliente> clientes){
         initWindow();
-
+        this.controladorCliente = controladorCliente;
+        this.clientes = clientes;
         setVisible(true);
     }
     //endregion
@@ -36,31 +42,79 @@ public class ViewCliente extends JFrame{
 
     //endregion
 
-    //region CRUD
-    private boolean createCliente(){
+    //TODO faltan metodos tabla de cliente
 
+    //region Metodos desde Formulario
 
-        return false;
+    public void getNewClienteFromFormulario(Cliente cliente) {
+        controladorCliente.createCliente(cliente);
     }
 
-    private boolean readCliente(){
-
-        return false;
-    }
-
-    private boolean updateCliente() {
-
-        return false;
-    }
-
-    private boolean deleteCliente(){
-
-
-        return false;
+    public void getUpdateClienteFromFormulario(Cliente cliente) {
+        controladorCliente.updateMaterial(cliente);
     }
 
     //endregion
 
+    //region Mensajes
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    //endregion
+
+    //region CRUD
+    private void createCliente(){
+        FormCliente formCliente = new FormCliente(this);
+    }
+
+    private void readCliente(){
+        Cliente cliente = getCliente();
+        FormCliente formCliente = new FormCliente(this, cliente, false);
+    }
+
+    private void updateCliente() {
+        Cliente cliente = getCliente();
+        FormCliente formCliente = new FormCliente(this, cliente);
+    }
+
+    private void deleteCliente(){
+        int id = getIdCliente();
+        boolean result = controladorCliente.deleteMaterial(id);
+    }
+
+    //endregion
+
+    //region Metodos privados
+
+    private Cliente getCliente() {
+        //TODO hacer cuerpo getCliente()
+        return null;
+    }
+
+    private int getIdCliente() {
+        //TODO Coger id desde la tabla
+        return 0;
+    }
+
+    //endregion
 
     //region Listeners
     private void listeners(){
@@ -110,6 +164,13 @@ public class ViewCliente extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+
+    private  ArrayList<Cliente> clientes;
+    private ControladorCliente controladorCliente;
+
+    public void updateTableCliente(Cliente cliente) {
+        //TODO completar
+    }
 
     //endregion
 
