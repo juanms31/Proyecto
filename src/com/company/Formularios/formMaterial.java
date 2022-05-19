@@ -9,17 +9,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class formMaterial extends JFrame{
+public class FormMaterial extends JFrame{
 
     int estado = 0;
 
     //region Constructores
 
-    public formMaterial(ViewMaterial viewMaterial) {
+    public FormMaterial(ViewMaterial viewMaterial) {
         estado = 1;
     }
 
-    public formMaterial(ViewMaterial viewMaterial, Material material){
+    public FormMaterial(ViewMaterial viewMaterial, Material material){
         estado = 2;
 
         setMaterial(material);
