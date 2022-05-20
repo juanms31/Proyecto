@@ -100,61 +100,61 @@ public class FormCliente extends JFrame{
 
 
     private void keyListeners(){
-        textFieldEspesor.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        spinnerPrecio1.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        spinnerPrecio2.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        spinnerPrecio3.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
+//        textFieldEspesor.addKeyListener(new KeyAdapter()
+//        {
+//            public void keyTyped(KeyEvent e)
+//            {
+//                char caracter = e.getKeyChar();
+//
+//                // Verificar si la tecla pulsada no es un digito
+//                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
+//                {
+//                    e.consume();  // ignorar el evento de teclado
+//                }
+//            }
+//        });
+//
+//        spinnerPrecio1.addKeyListener(new KeyAdapter()
+//        {
+//            public void keyTyped(KeyEvent e)
+//            {
+//                char caracter = e.getKeyChar();
+//
+//                // Verificar si la tecla pulsada no es un digito
+//                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
+//                {
+//                    e.consume();  // ignorar el evento de teclado
+//                }
+//            }
+//        });
+//
+//        spinnerPrecio2.addKeyListener(new KeyAdapter()
+//        {
+//            public void keyTyped(KeyEvent e)
+//            {
+//                char caracter = e.getKeyChar();
+//
+//                // Verificar si la tecla pulsada no es un digito
+//                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
+//                {
+//                    e.consume();  // ignorar el evento de teclado
+//                }
+//            }
+//        });
+//
+//        spinnerPrecio3.addKeyListener(new KeyAdapter()
+//        {
+//            public void keyTyped(KeyEvent e)
+//            {
+//                char caracter = e.getKeyChar();
+//
+//                // Verificar si la tecla pulsada no es un digito
+//                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
+//                {
+//                    e.consume();  // ignorar el evento de teclado
+//                }
+//            }
+//        });
     }
 
 

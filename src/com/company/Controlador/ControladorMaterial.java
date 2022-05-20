@@ -29,7 +29,7 @@ public class ControladorMaterial {
             viewMaterial.ShowMessage("material con id " + idMaterial + " agregado con exito", "CORRECTO");
         } catch (SQLException e) {
             e.printStackTrace();
-            viewMaterial.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
+            viewMaterial.ShowErrorMessage("ERROR","No se ha podido agregar el registro" );
         }
     }
 

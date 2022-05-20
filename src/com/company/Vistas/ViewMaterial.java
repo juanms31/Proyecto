@@ -20,6 +20,7 @@ public class ViewMaterial extends JFrame{
         this.controladorMaterial = controladorMaterial;
         this.materiales = materiales;
         initWindow();
+        listeners();
         setVisible(true);
     }
 
@@ -43,7 +44,6 @@ public class ViewMaterial extends JFrame{
     }
 
     //endregion
-
 
     //region Metodos Tabla
 
@@ -86,7 +86,6 @@ public class ViewMaterial extends JFrame{
         TableMaterial.setModel(modelMaterial);
     }
     //endregion
-
 
     //region Metodos Desde el Formulario
 
@@ -149,19 +148,53 @@ public class ViewMaterial extends JFrame{
     //endregion
 
     //region Metodos privados
-
     public void updateTableMaterial(Material material) {
-        //TODO actualizar tabla
+        int y = 0;
+        Object[] newMaterial = new Object[headers.length];
+        newMaterial[y++] = material.getCodigo();
+        newMaterial[y++] = material.getGrupo();
+        newMaterial[y++] = material.getDescripcion();
+        newMaterial[y++] = material.getEspecificacion();
+        newMaterial[y++] = material.getUnidad();
+        newMaterial[y++] = material.getEspesor();
+        newMaterial[y++] = material.getCalidad();
+        newMaterial[y++] = material.getProveedor1();
+        newMaterial[y++] = material.getPrecio1();
+        newMaterial[y++] = material.getProveedor2();
+        newMaterial[y++] = material.getPrecio2();
+        newMaterial[y++] = material.getProveedor3();
+        newMaterial[y++] = material.getPrecio3();
+        modelMaterial.addRow(newMaterial);
     }
 
+
+
     private Material getMaterial() {
-        //TODO coger el material desde la tabla
-        return new Material();
+        int row = TableMaterial.getSelectedRow();
+        
+        Material material = new Material();
+
+        material.setCodigo((String) TableMaterial.getValueAt(row,0));
+        material.setGrupo((String) TableMaterial.getValueAt(row,1));
+        material.setDescripcion((String) TableMaterial.getValueAt(row,2));
+        material.setEspecificacion((String) TableMaterial.getValueAt(row,3));
+        material.setUnidad((String) TableMaterial.getValueAt(row,4));
+        material.setEspesor((Double) TableMaterial.getValueAt(row,5));
+        material.setCalidad((String) TableMaterial.getValueAt(row,6));
+        material.setProveedor1((String) TableMaterial.getValueAt(row,7));
+        material.setPrecio1((Double) TableMaterial.getValueAt(row,8));
+        material.setProveedor2((String) TableMaterial.getValueAt(row,9));
+        material.setPrecio2((Double) TableMaterial.getValueAt(row,10));
+        material.setProveedor3((String) TableMaterial.getValueAt(row,11));
+        material.setPrecio3((Double) TableMaterial.getValueAt(row,12));
+
+        return material;
     }
 
     private String getCodMaterial() {
-        //TODO coger cod desde la tabla
-        return null;
+        int row = TableMaterial.getSelectedRow();
+
+        return (String) TableMaterial.getValueAt(row,0);
     }
 
     //endregion

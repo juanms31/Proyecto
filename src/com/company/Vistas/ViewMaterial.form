@@ -26,9 +26,10 @@
             <properties>
               <alignmentX value="0.0"/>
               <alignmentY value="0.0"/>
-              <background color="-1"/>
+              <background color="-1703946"/>
               <font size="14"/>
-              <foreground color="-16756757"/>
+              <foreground color="-16777216"/>
+              <inheritsPopupMenu value="true"/>
               <tabLayoutPolicy value="1"/>
               <tabPlacement value="1"/>
             </properties>
@@ -42,7 +43,7 @@
                   <tabbedpane title="Materiales"/>
                 </constraints>
                 <properties>
-                  <background color="-16756757"/>
+                  <background color="-11617507"/>
                   <foreground color="-16356043"/>
                 </properties>
                 <border type="none"/>
@@ -52,8 +53,9 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-3421237"/>
+                      <background color="-11617507"/>
                       <focusable value="false"/>
+                      <foreground color="-16777216"/>
                       <requestFocusEnabled value="false"/>
                     </properties>
                     <border type="none"/>
@@ -63,12 +65,12 @@
                         <properties>
                           <autoCreateRowSorter value="true"/>
                           <autoResizeMode value="1"/>
-                          <background color="-1"/>
+                          <background color="-3485441"/>
                           <cellSelectionEnabled value="false"/>
                           <focusTraversalPolicyProvider value="false"/>
                           <font size="16"/>
-                          <foreground color="-16756757"/>
-                          <gridColor color="-16777216"/>
+                          <foreground color="-16777216"/>
+                          <gridColor color="-11617507"/>
                           <rowSelectionAllowed value="true"/>
                           <selectionBackground color="-16224457"/>
                           <selectionForeground color="-1"/>
@@ -98,7 +100,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <foreground color="-16756757"/>
                 </properties>
               </component>
@@ -175,9 +177,9 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
+                  <contentAreaFilled value="true"/>
                   <foreground color="-1"/>
                   <icon value="com/company/Images/Icons/anadir.png"/>
                   <text value=""/>
@@ -193,10 +195,10 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/papelera.png"/>
                   <text value=""/>
                 </properties>
@@ -206,10 +208,10 @@
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/ver.png"/>
                   <text value=""/>
                 </properties>
@@ -219,10 +221,10 @@
                   <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/lapiz.png"/>
                   <text value=""/>
                 </properties>
@@ -232,10 +234,11 @@
                   <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
+                  <defaultCapable value="false"/>
                   <focusable value="false"/>
-                  <foreground color="-16616914"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/reload.png"/>
                   <requestFocusEnabled value="false"/>
                   <text value=""/>

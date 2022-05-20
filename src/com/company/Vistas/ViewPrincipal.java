@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class ViewPrincipal extends JFrame{
 
-    //Constructor
+    //region Constructor
     public ViewPrincipal() throws HeadlessException {
         initWindow();
 
@@ -24,6 +24,10 @@ public class ViewPrincipal extends JFrame{
         setVisible(true);
     }
 
+    //endregion
+
+
+    //region Vista
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);
@@ -33,12 +37,12 @@ public class ViewPrincipal extends JFrame{
             e.printStackTrace();
         }
         setResizable(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
         setTitle("Panel Principal");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
-
     public void centerFrame(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(screen.height/2, screen.width/2);
@@ -47,6 +51,7 @@ public class ViewPrincipal extends JFrame{
         int height = (screen.height - window.height)/2;
         setLocation(width, height);
     }
+    //endregion
 
     //region <metodos privados>
     private void setActionListeners(){
