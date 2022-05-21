@@ -40,6 +40,7 @@ public class ViewMaterial extends JFrame{
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
         setTitle("Materiales");
+        refreshTable(headers, materiales);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
@@ -49,6 +50,9 @@ public class ViewMaterial extends JFrame{
 
     public void refreshTable(String[] headers, ArrayList<Material> materiales){
         // TODO: 19/05/2022 Para hacer el filtro https://www.tutorialspoint.com/how-can-we-filter-a-jtable-in-java
+
+        Material material1 = materiales.get(0);
+        System.out.println(material1.getGrupo());
 
         TableMaterial.setShowGrid(true);
         TableMaterial.setGridColor(Color.black);
@@ -80,6 +84,7 @@ public class ViewMaterial extends JFrame{
             data[y++] = material.getPrecio2();
             data[y++] = material.getProveedor3();
             data[y++] = material.getPrecio3();
+            modelMaterial.addRow(data);
             y=0;
         }
 
