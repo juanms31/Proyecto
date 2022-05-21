@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class FormMaterial extends JFrame{
+public class FormMaterial extends JDialog{
 
     //region Constructores
 
@@ -57,9 +57,10 @@ public class FormMaterial extends JFrame{
             e.printStackTrace();
         }
         centerFrame();
+        setModal(true);
         setResizable(false);
         setMinimumSize(new Dimension(500,500));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("Materiales");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -67,7 +68,7 @@ public class FormMaterial extends JFrame{
 
     public void centerFrame(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height/4, screen.width/2);
+        setSize(screen.height/2, screen.width/2);
         Dimension window = getSize();
         int width = (screen.width - window.width)/2;
         int height = (screen.height - window.height)/2;
@@ -125,7 +126,6 @@ public class FormMaterial extends JFrame{
 
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
-        System.out.println("A entrado en verda");
         comboBoxGrupo.setSelectedItem(material.getGrupo());
         textFieldDescripcion.setText(material.getDescripcion());
         comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());

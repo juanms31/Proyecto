@@ -4,15 +4,19 @@ import com.company.Controlador.ControladorMaterial;;
 import com.company.Entidades.Material;
 import com.company.Formularios.FormMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 
 public class ViewMaterial extends JFrame{
 
@@ -39,6 +43,7 @@ public class ViewMaterial extends JFrame{
         }
         setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
         setTitle("Materiales");
@@ -51,19 +56,21 @@ public class ViewMaterial extends JFrame{
     //region Metodos Tabla
 
     public void refreshTable(String[] headers, ArrayList<Material> materiales){
-        // TODO: 19/05/2022 Para hacer el filtro https://www.tutorialspoint.com/how-can-we-filter-a-jtable-in-java
 
         Material material1 = materiales.get(0);
         System.out.println(material1.getGrupo());
 
         TableMaterial.setShowGrid(true);
-        TableMaterial.setGridColor(Color.black);
+        TableMaterial.setCellSelectionEnabled(false);
         TableMaterial.setAutoCreateRowSorter(true);
         TableMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TableMaterial.setRowSelectionAllowed(true);
         TableMaterial.setDefaultEditor(Object.class, null);
         TableMaterial.setDragEnabled(false);
-        //TableMaterial.setRowSorter(sorter);
+        sorter
+                = new TableRowSorter<TableModel>(TableMaterial.getModel());
+
+        TableMaterial.setRowSorter(sorter);
 
         //Filling Headers
         modelMaterial = new DefaultTableModel(headers, 0);
@@ -91,6 +98,13 @@ public class ViewMaterial extends JFrame{
         }
 
         TableMaterial.setModel(modelMaterial);
+    }
+
+    private void filter(){
+        DefaultTableModel Model = (DefaultTableModel) TableMaterial.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
+        TableMaterial.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(filtro.getText().trim()));
     }
     //endregion
 
@@ -248,6 +262,13 @@ public class ViewMaterial extends JFrame{
             }
         });
 
+        buttonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filter();
+            }
+        });
+
     }
 
     private void mouseListeners(){
@@ -265,6 +286,8 @@ public class ViewMaterial extends JFrame{
 
     //region Variables
 
+    TableRowSorter<TableModel> sorter;
+
     private DefaultTableModel modelMaterial;
 
     private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
@@ -276,7 +299,7 @@ public class ViewMaterial extends JFrame{
     private JTable TableMaterial;
     private JPanel buscador;
     private JTextField filtro;
-    private JButton buscar;
+    private JButton buttonBuscar;
     private JPanel panelBotones;
     private JButton buttonAnadir;
     private JButton buttonEliminar;
