@@ -1,25 +1,24 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
+import com.company.Entidades.Proveedor;
 import com.company.Vistas.ViewCliente;
-import com.company.Vistas.ViewMaterial;
+import com.company.Vistas.ViewProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class FormCliente extends JDialog{
-    private JPanel panelPrincipal;
+public class FormProveedor extends JDialog {
 
     //region Constructores
-
-    public FormCliente(ViewCliente viewCliente) {
-        this.viewCliente = viewCliente;
+    public FormProveedor(ViewProveedor viewProveedor) {
+        this.viewProveedor = viewProveedor;
         initWindow();
         initComps();
         initListeners();
@@ -27,19 +26,19 @@ public class FormCliente extends JDialog{
         estado = 1;
     }
 
-    public FormCliente(ViewCliente viewCliente, Cliente cliente){
+    public FormProveedor(ViewCliente viewCliente, Proveedor proveedor){
         estado = 2;
-        this.viewCliente = viewCliente;
+        this.viewProveedor = viewProveedor;
         initWindow();
         initComps();
         initListeners();
-        setCliente(cliente);
+        setProveedor(proveedor);
         setVisible(true);
     }
 
-    public FormCliente(ViewCliente viewCliente, Cliente cliente, boolean editable) {
-        this.viewCliente = viewCliente;
-        setCliente(cliente);
+    public FormProveedor(ViewProveedor viewProveedor, Proveedor proveedor, boolean editable) {
+        this.viewProveedor = viewProveedor;
+        setProveedor(proveedor);
         initWindow();
         initComps();
         initListeners();
@@ -87,41 +86,42 @@ public class FormCliente extends JDialog{
 
     //region Metodos privados
 
-    private  void loadNewCliente(){
-        Cliente cliente = getCliente();
-        viewCliente.getNewClienteFromFormulario(cliente);
+    private  void loadNewProveedor(){
+        Proveedor proveedor = getProveedor();
+        viewProveedor.getNewProveedorFromFormulario(proveedor);
     }
 
-    private  void loadUpdateCliente(){
-        Cliente cliente = getCliente();
-        viewCliente.getUpdateClienteFromFormulario(cliente);
+    private  void loadUpdateProveedor(){
+        Proveedor proveedor = getCliente();
+        viewProveedor.getNewProveedorFromFormulario(proveedor);
+
     }
 
     //endregion
 
     //region SET Y GET MATERIAL
-    private void setCliente(Cliente cliente) {
+    private void setProveedor(Proveedor proveedor) {
 
-        textFieldNombre.setText(cliente.getNombre());
-        textFieldDireccion.setText(cliente.getDireccion());
-        textFieldMail1.setText(cliente.getMail1());
-        textFieldMail2.setText(cliente.getMail2());
-        textFieldTelefono1.setText(cliente.getTelef1());
-        textFieldTelefono2.setText(cliente.getTelef2());
+        textFieldNombre.setText(proveedor.getNombre_proveedor());
+        textFieldDireccion.setText(proveedor.getDireccion());
+        textFieldMail1.setText(proveedor.getMail1());
+        textFieldMail2.setText(proveedor.getMail2());
+        textFieldTelefono1.setText(proveedor.getTelefono1());
+        textFieldTelefono2.setText(proveedor.getTelefono2());
 
     }
 
-    private Cliente getCliente(){
-        Cliente cliente = new Cliente();
+    private Proveedor getProveedor(){
+        Proveedor proveedor = new Proveedor();
 
-        cliente.setNombre(textFieldNombre.getText());
-        cliente.setDireccion(textFieldDireccion.getText());
-        cliente.setMail1(textFieldMail1.getText());
-        cliente.setMail2(textFieldMail2.getText());
-        cliente.setTelef1(textFieldMail1.getText());
-        cliente.setTelef2(textFieldMail2.getText());
+        proveedor.setNombre_proveedor(textFieldNombre.getText());
+        proveedor.setDireccion(textFieldDireccion.getText());
+        proveedor.setMail1(textFieldMail1.getText());
+        proveedor.setMail2(textFieldMail2.getText());
+        proveedor.setTelefono1(textFieldMail1.getText());
+        proveedor.setTelefono2(textFieldMail2.getText());
 
-        return cliente;
+        return proveedor;
     }
 
     //endregion MATERIAL
@@ -141,11 +141,11 @@ public class FormCliente extends JDialog{
                     case 0 -> {
                     }
                     case 1 -> {
-                        loadNewCliente();
+                        loadNewProveedor();
                     }
 
                     case 2 -> {
-                        loadUpdateCliente();
+                        loadUpdateProveedor();
                     }
                 }
 
@@ -190,17 +190,20 @@ public class FormCliente extends JDialog{
     //endregion
 
     //region Variables
-    private JButton aceptarButton;
-    private JButton cancelarButton;
+
+    private ViewProveedor viewProveedor;
+    private int estado = 0;
+    private JPanel panelPrincipal;
+    private JLabel labelTitulo;
     private JTextField textFieldNombre;
     private JTextField textFieldDireccion;
     private JTextField textFieldMail1;
     private JTextField textFieldTelefono1;
     private JTextField textFieldMail2;
     private JTextField textFieldTelefono2;
-    private JLabel labelTitulo;
-    private ViewCliente viewCliente;
-    int estado = 0;
+    private JButton aceptarButton;
+    private JButton cancelarButton;
 
     //endregion
+
 }
