@@ -125,6 +125,7 @@ public class FormMaterial extends JFrame{
 
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
+        System.out.println("A entrado en verda");
         comboBoxGrupo.setSelectedItem(material.getGrupo());
         textFieldDescripcion.setText(material.getDescripcion());
         comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
