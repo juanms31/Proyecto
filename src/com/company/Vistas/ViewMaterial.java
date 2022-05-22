@@ -79,7 +79,6 @@ public class ViewMaterial extends JFrame{
             TableMaterial.setModel(modelMaterial);
         }else {
 
-            Material material1 = materiales.get(0);
             TableMaterial.setShowGrid(true);
             TableMaterial.setCellSelectionEnabled(false);
             TableMaterial.setAutoCreateRowSorter(true);
@@ -116,12 +115,12 @@ public class ViewMaterial extends JFrame{
 
     //region Metodos Desde el Formulario
 
-    public void getNewMaterialFromFormulario(Material material){
-        controladorMaterial.createMaterial(material);
+    public boolean getNewMaterialFromFormulario(Material material){
+        return controladorMaterial.createMaterial(material);
     }
 
-    public void getUpdateMaterialFromFormulario(Material material) {
-        controladorMaterial.updateMaterial(material);
+    public boolean getUpdateMaterialFromFormulario(Material material) {
+        return controladorMaterial.updateMaterial(material);
     }
 
 
@@ -185,10 +184,35 @@ public class ViewMaterial extends JFrame{
 
     //region Metodos privados
     public void updateTableMaterial(Material material) {
-        materiales.add(material);
-        modelMaterial.addRow(getMaterialObject(material));
-    }
 
+        int row = TableMaterial.getSelectedRow();
+
+        materiales.get(row).setGrupo(material.getGrupo());
+        materiales.get(row).setDescripcion(material.getDescripcion());
+        materiales.get(row).setEspecificacion(material.getEspecificacion());
+        materiales.get(row).setUnidad(material.getUnidad());
+        materiales.get(row).setEspesor(material.getEspesor());
+        materiales.get(row).setCalidad(material.getCalidad());
+        materiales.get(row).setProveedor1(material.getProveedor1());
+        materiales.get(row).setPrecio1(material.getPrecio1());
+        materiales.get(row).setProveedor2(material.getProveedor2());
+        materiales.get(row).setPrecio2(material.getPrecio2());
+        materiales.get(row).setProveedor3(material.getProveedor3());
+        materiales.get(row).setPrecio3(material.getPrecio3());
+
+        refreshTable(headers, materiales);
+
+    }
+    
+    public void addTableMaterial(Material material){
+        
+        Object[] newMaterial = getMaterialObject(material);
+        modelMaterial.addRow(newMaterial);
+        materiales.add(material);
+        
+        
+    }
+    
     public Object[] getMaterialObject(Material material){
         int y = 0;
         Object[] newMaterial = new Object[headers.length];
@@ -213,21 +237,8 @@ public class ViewMaterial extends JFrame{
     private Material getMaterial() {
         int row = TableMaterial.getSelectedRow();
         
-        Material material = new Material();
+        Material material = materiales.get(row);
 
-        material.setCodigo((String) TableMaterial.getValueAt(row,0));
-        material.setGrupo((String) TableMaterial.getValueAt(row,1));
-        material.setDescripcion((String) TableMaterial.getValueAt(row,2));
-        material.setEspecificacion((String) TableMaterial.getValueAt(row,3));
-        material.setUnidad((String) TableMaterial.getValueAt(row,4));
-        material.setEspesor((Double) TableMaterial.getValueAt(row,5));
-        material.setCalidad((String) TableMaterial.getValueAt(row,6));
-        material.setProveedor1((String) TableMaterial.getValueAt(row,7));
-        material.setPrecio1((Double) TableMaterial.getValueAt(row,8));
-        material.setProveedor2((String) TableMaterial.getValueAt(row,9));
-        material.setPrecio2((Double) TableMaterial.getValueAt(row,10));
-        material.setProveedor3((String) TableMaterial.getValueAt(row,11));
-        material.setPrecio3((Double) TableMaterial.getValueAt(row,12));
 
         return material;
     }

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class FormMaterial extends JDialog{
+public class FormMaterial extends JDialog {
 
     //region Constructores
 
@@ -25,8 +25,9 @@ public class FormMaterial extends JDialog{
 
     }
 
-    public FormMaterial(ViewMaterial viewMaterial, Material material){
+    public FormMaterial(ViewMaterial viewMaterial, Material material) {
         estado = 2;
+        materialSiendoModificado = material;
         this.viewMaterial = viewMaterial;
         initListeners();
         setMaterial(material);
@@ -60,23 +61,23 @@ public class FormMaterial extends JDialog{
         centerFrame();
         setModal(true);
         setResizable(false);
-        setMinimumSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("Materiales");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    public void centerFrame(){
+    public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height/2, screen.width/2);
+        setSize(screen.height / 2, screen.width / 2);
         Dimension window = getSize();
-        int width = (screen.width - window.width)/2;
-        int height = (screen.height - window.height)/2;
+        int width = (screen.width - window.width) / 2;
+        int height = (screen.height - window.height) / 2;
         setLocation(width, height);
     }
 
-    public void initComps(){
+    public void initComps() {
         // TODO: 20/05/2022 Rellenar JComboBox con la BBDD
 
         //Rellenar grupo
@@ -113,20 +114,52 @@ public class FormMaterial extends JDialog{
 
     //region Metodos privados
 
-    private  void loadNewMaterial(){
-        Material material = getMaterial();
-        viewMaterial.getNewMaterialFromFormulario(material);
+    private void loadNewMaterial() {
+
+        boolean conErrores = checkFields();
+
+        if(conErrores){
+
+        }else{
+
+            Material material = getMaterial();
+            if(viewMaterial.getNewMaterialFromFormulario(material)){
+                dispose();
+            }else{
+                ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
+            }
+            dispose();
+        }
     }
 
-    private  void loadUpdateMaterial(){
-        Material material = getMaterial();
-        viewMaterial.getUpdateMaterialFromFormulario(material);
+    private void loadUpdateMaterial() {
+
+        boolean conErrores = checkFields();
+
+        if(conErrores){
+
+        }else{
+            Material material = getMaterial();
+            if (viewMaterial.getUpdateMaterialFromFormulario(material)){
+                dispose();
+            }else {
+                ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
+            }
+        }
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.ERROR_MESSAGE);
     }
 
     //endregion
 
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
+
         comboBoxGrupo.setSelectedItem(material.getGrupo());
         textFieldDescripcion.setText(material.getDescripcion());
         comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
@@ -141,21 +174,53 @@ public class FormMaterial extends JDialog{
         spinnerPrecio3.setValue(material.getPrecio3());
     }
 
-    private Material getMaterial(){
+    private boolean checkFields() {
+        if (textFieldDescripcion.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Descripcion no puede estar vacio");
+            return true;
+        }
+        if (textFieldEspesor.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Espesor no puede estar vacio");
+            return true;
+        }
+        return false;
+    }
+
+    private Material getMaterial() {
         Material material = new Material();
 
-        material.setGrupo((String) comboBoxGrupo.getSelectedItem());
-        material.setDescripcion(textFieldDescripcion.getText());
-        material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
-        material.setUnidad((String) comboBoxUnidad.getSelectedItem());
-        material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
-        material.setCalidad((String) comboBoxCalidad.getSelectedItem());
-        material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
-        material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
-        material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
-        material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
-        material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
-        material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
+        boolean conErrores = checkFields();
+
+        if (estado == 2) {
+            material.setId(materialSiendoModificado.getId());
+            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+            material.setDescripcion(textFieldDescripcion.getText());
+            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+            material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
+            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+            material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
+            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+            material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
+            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+            material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
+
+
+        } else {
+            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+            material.setDescripcion(textFieldDescripcion.getText());
+            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+            material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
+            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+            material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
+            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+            material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
+            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+            material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
+        }
 
         return material;
     }
@@ -164,21 +229,21 @@ public class FormMaterial extends JDialog{
 
     //region Listeners
 
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         keyListeners();
     }
-    private void actionListeners(){
+
+    private void actionListeners() {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                switch (estado){
+                switch (estado) {
                     case 0 -> {
                     }
                     case 1 -> {
                         loadNewMaterial();
-                        dispose();
                     }
 
                     case 2 -> {
@@ -197,58 +262,46 @@ public class FormMaterial extends JDialog{
         });
     }
 
-    private void keyListeners(){
-        textFieldEspesor.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+    private void keyListeners() {
+        textFieldEspesor.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
 
-        spinnerPrecio1.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        spinnerPrecio1.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
 
-        spinnerPrecio2.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        spinnerPrecio2.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
 
-        spinnerPrecio3.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        spinnerPrecio3.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ','))
-                {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
@@ -260,6 +313,7 @@ public class FormMaterial extends JDialog{
     //region Variables
     private JButton aceptarButton;
 
+    private Material materialSiendoModificado;
     private JComboBox comboBoxProveedor2;
     private JComboBox comboBoxProveedor3;
     private JLabel labelTitulo;

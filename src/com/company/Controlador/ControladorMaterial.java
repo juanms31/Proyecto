@@ -21,7 +21,8 @@ public class ControladorMaterial {
     }
 
     //region CRUD
-    public void createMaterial(Material material){
+    public boolean createMaterial(Material material){
+        boolean estado = false;
         try {
             int idMaterial = crudMaterial.createMaterial(material);
             material.setId(idMaterial);
@@ -29,16 +30,20 @@ public class ControladorMaterial {
             boolean result = crudMaterial.updateMaterial(material);
             if (result){
                 viewMaterial.ShowMessage("CORRECTO", "Material con codigo " + material.getCodigo() + " agregado con exito");
+                estado = true;
             }
             else{
                 material.setCodigo("NA");
                 viewMaterial.ShowMessage("CORRECTO", "Material con id " + material.getId() + " agregado con exito");
+                estado = true;
             }
-            viewMaterial.updateTableMaterial(material);
+            viewMaterial.addTableMaterial(material);
         } catch (SQLException e) {
             e.printStackTrace();
             viewMaterial.ShowErrorMessage("ERROR","No se ha podido agregar el registro" );
+            estado = false;
         }
+        return estado;
     }
 
     public Material readMaterial(String cod){
