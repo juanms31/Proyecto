@@ -100,13 +100,13 @@ public class CRUDMaterial {
         return new Material();
     }
 
-    public boolean deleteMaterial(String cod){
+    public boolean deleteMaterial(String id){
         Connection connection = BBDD.connect();
         // FIXME: 15/05/2022 NO SERIA A PARTIR DE SU CODIGO EXTERNO, YA QUE EL ID ES EL INTERNO QUE NO SABEMOS?
-        final String QUERY_DELETE = "DELETE FROM material WHERE cod = ?";
+        final String QUERY_DELETE = "DELETE FROM material WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
-            preparedStatement.setString(1, cod);
+            preparedStatement.setString(1, id);
             preparedStatement.execute();
             BBDD.close();
             return true;

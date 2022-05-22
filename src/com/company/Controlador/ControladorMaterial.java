@@ -25,6 +25,10 @@ public class ControladorMaterial {
         try {
             int idMaterial = crudMaterial.createMaterial(material);
             material.setId(idMaterial);
+
+            // TODO: 22/05/2022  
+            material.setCodigo(material.getGrupo()+idMaterial);
+            
             viewMaterial.updateTableMaterial(material);
             viewMaterial.ShowMessage("material con id " + idMaterial + " agregado con exito", "CORRECTO");
         } catch (SQLException e) {
@@ -56,12 +60,12 @@ public class ControladorMaterial {
         return result;
     }
 
-    public boolean deleteMaterial(String cod){
-        boolean result = crudMaterial.deleteMaterial(cod);
+    public boolean deleteMaterial(String id){
+        boolean result = crudMaterial.deleteMaterial(id);
         if (result){
-            viewMaterial.ShowMessage("El material con codigo: " + cod + " ha sido borrado", "CORRECTO");
+            viewMaterial.ShowMessage("CORRECTO","El material con codigo: " + id + " ha sido borrado");
         }else{
-            viewMaterial.ShowErrorMessage("El material con codigo: " + cod + " no se ha podido borrar", "ERROR");
+            viewMaterial.ShowErrorMessage( "ERROR","El material con codigo: " + id + " no se ha podido borrar");
         }
         return result;
     }

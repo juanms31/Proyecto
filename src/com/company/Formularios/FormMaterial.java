@@ -16,21 +16,22 @@ public class FormMaterial extends JDialog{
     //region Constructores
 
     public FormMaterial(ViewMaterial viewMaterial) {
+        estado = 1;
         this.viewMaterial = viewMaterial;
         initWindow();
         initComps();
         initListeners();
         setVisible(true);
-        estado = 1;
+
     }
 
     public FormMaterial(ViewMaterial viewMaterial, Material material){
         estado = 2;
         this.viewMaterial = viewMaterial;
-        initWindow();
-        initComps();
         initListeners();
         setMaterial(material);
+        initWindow();
+        initComps();
         setVisible(true);
     }
 
@@ -176,7 +177,9 @@ public class FormMaterial extends JDialog{
                     case 0 -> {
                     }
                     case 1 -> {
+                        System.out.println("AAAAAA");
                         loadNewMaterial();
+                        dispose();
                     }
 
                     case 2 -> {
@@ -262,7 +265,7 @@ public class FormMaterial extends JDialog{
     private JComboBox comboBoxProveedor3;
     private JLabel labelTitulo;
     private JButton cancelarButton;
-    private JLabel textFieldDescripcion;
+    private JTextField textFieldDescripcion;
     private JComboBox comboBoxGrupo;
     private JComboBox comboBoxEspecificacion;
     private JComboBox comboBoxUnidad;
@@ -276,10 +279,6 @@ public class FormMaterial extends JDialog{
 
     private ViewMaterial viewMaterial;
     int estado = 0;
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 
 
     //endregion
