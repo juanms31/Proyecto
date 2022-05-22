@@ -86,16 +86,16 @@ public class FormProveedor extends JDialog {
 
     //region Metodos privados
 
-    private  void loadNewProveedor(){
-        Proveedor proveedor = getProveedor();
-        viewProveedor.getNewProveedorFromFormulario(proveedor);
-    }
-
-    private  void loadUpdateProveedor(){
-        Proveedor proveedor = getCliente();
-        viewProveedor.getNewProveedorFromFormulario(proveedor);
-
-    }
+//    private  void loadNewProveedor(){
+//        Proveedor proveedor = getProveedor();
+//        viewProveedor.getNewProveedorFromFormulario(proveedor);
+//    }
+//
+//    private  void loadUpdateProveedor(){
+//        Proveedor proveedor = getCliente();
+//        viewProveedor.getNewProveedorFromFormulario(proveedor);
+//
+//    }
 
     //endregion
 
@@ -133,24 +133,24 @@ public class FormProveedor extends JDialog {
         keyListeners();
     }
     private void actionListeners(){
-        aceptarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                switch (estado){
-                    case 0 -> {
-                    }
-                    case 1 -> {
-                        loadNewProveedor();
-                    }
-
-                    case 2 -> {
-                        loadUpdateProveedor();
-                    }
-                }
-
-            }
-        });
+//        aceptarButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                switch (estado){
+//                    case 0 -> {
+//                    }
+//                    case 1 -> {
+//                        loadNewProveedor();
+//                    }
+//
+//                    case 2 -> {
+//                        loadUpdateProveedor();
+//                    }
+//                }
+//
+//            }
+//        });
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override

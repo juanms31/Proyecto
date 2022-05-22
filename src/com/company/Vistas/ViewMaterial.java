@@ -58,8 +58,6 @@ public class ViewMaterial extends JFrame{
     public void refreshTable(String[] headers, ArrayList<Material> materiales){
 
         Material material1 = materiales.get(0);
-        System.out.println(material1.getGrupo());
-
         TableMaterial.setShowGrid(true);
         TableMaterial.setCellSelectionEnabled(false);
         TableMaterial.setAutoCreateRowSorter(true);
@@ -67,8 +65,7 @@ public class ViewMaterial extends JFrame{
         TableMaterial.setRowSelectionAllowed(true);
         TableMaterial.setDefaultEditor(Object.class, null);
         TableMaterial.setDragEnabled(false);
-        sorter
-                = new TableRowSorter<TableModel>(TableMaterial.getModel());
+        sorter = new TableRowSorter<TableModel>(TableMaterial.getModel());
 
         TableMaterial.setRowSorter(sorter);
 
@@ -78,23 +75,9 @@ public class ViewMaterial extends JFrame{
         //Filling Data
         Object[] data = new Object[headers.length];
 
-        int y = 0;
         for (Material material : materiales) {
-            data[y++] = material.getCodigo();
-            data[y++] = material.getGrupo();
-            data[y++] = material.getDescripcion();
-            data[y++] = material.getEspecificacion();
-            data[y++] = material.getUnidad();
-            data[y++] = material.getEspesor();
-            data[y++] = material.getCalidad();
-            data[y++] = material.getProveedor1();
-            data[y++] = material.getPrecio1();
-            data[y++] = material.getProveedor2();
-            data[y++] = material.getPrecio2();
-            data[y++] = material.getProveedor3();
-            data[y++] = material.getPrecio3();
+            data = getMaterialObject(material);
             modelMaterial.addRow(data);
-            y=0;
         }
 
         TableMaterial.setModel(modelMaterial);
@@ -158,6 +141,8 @@ public class ViewMaterial extends JFrame{
     private void updateMaterial() {
         Material material = getMaterial();
         FormMaterial formMaterial = new FormMaterial(this, material);
+
+
     }
 
     private void deleteMaterial(){
@@ -170,6 +155,11 @@ public class ViewMaterial extends JFrame{
 
     //region Metodos privados
     public void updateTableMaterial(Material material) {
+        materiales.add(material);
+        modelMaterial.addRow(getMaterialObject(material));
+    }
+
+    public Object[] getMaterialObject(Material material){
         int y = 0;
         Object[] newMaterial = new Object[headers.length];
         newMaterial[y++] = material.getCodigo();
@@ -185,7 +175,7 @@ public class ViewMaterial extends JFrame{
         newMaterial[y++] = material.getPrecio2();
         newMaterial[y++] = material.getProveedor3();
         newMaterial[y++] = material.getPrecio3();
-        modelMaterial.addRow(newMaterial);
+        return newMaterial;
     }
 
 
@@ -215,13 +205,15 @@ public class ViewMaterial extends JFrame{
     private String getCodMaterial() {
         int row = TableMaterial.getSelectedRow();
 
-        return (String) TableMaterial.getValueAt(row,0);
+        return String.valueOf(materiales.get(row).getId());
     }
+
+
 
     //endregion
 
     //region Listeners
-    public void initListeners(){
+    private void initListeners(){
         actionListeners();
         mouseListeners();
     }
@@ -290,6 +282,7 @@ public class ViewMaterial extends JFrame{
 
     private DefaultTableModel modelMaterial;
 
+    // TODO: 22/05/2022
     private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
     private ControladorMaterial controladorMaterial;
     private ArrayList<Material> materiales;
