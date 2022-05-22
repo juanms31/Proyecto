@@ -4,7 +4,6 @@ import com.company.Controlador.ControladorMaterial;;
 import com.company.Entidades.Material;
 import com.company.Formularios.FormMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
 
 public class ViewMaterial extends JFrame{
 
@@ -47,6 +45,11 @@ public class ViewMaterial extends JFrame{
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
         setTitle("Materiales");
+        String[] listColumnsName = controladorMaterial.getColumnsName();
+        headers = new String[listColumnsName.length-1];
+        for (int i= 0; i < listColumnsName.length-1; i++){
+            headers[i] = listColumnsName[i+1];
+        }
         refreshTable(headers, materiales);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
@@ -204,7 +207,6 @@ public class ViewMaterial extends JFrame{
 
     private String getCodMaterial() {
         int row = TableMaterial.getSelectedRow();
-
         return String.valueOf(materiales.get(row).getId());
     }
 
@@ -283,7 +285,8 @@ public class ViewMaterial extends JFrame{
     private DefaultTableModel modelMaterial;
 
     // TODO: 22/05/2022
-    private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
+    //private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
+    private String[] headers;
     private ControladorMaterial controladorMaterial;
     private ArrayList<Material> materiales;
     private JPanel panelPrincipal;

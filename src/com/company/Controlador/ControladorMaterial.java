@@ -25,12 +25,16 @@ public class ControladorMaterial {
         try {
             int idMaterial = crudMaterial.createMaterial(material);
             material.setId(idMaterial);
-
-            // TODO: 22/05/2022  
             material.setCodigo(material.getGrupo()+idMaterial);
-            
+            boolean result = crudMaterial.updateMaterial(material);
+            if (result){
+                viewMaterial.ShowMessage("CORRECTO", "Material con codigo " + material.getCodigo() + " agregado con exito");
+            }
+            else{
+                material.setCodigo("NA");
+                viewMaterial.ShowMessage("CORRECTO", "Material con id " + material.getId() + " agregado con exito");
+            }
             viewMaterial.updateTableMaterial(material);
-            viewMaterial.ShowMessage("material con id " + idMaterial + " agregado con exito", "CORRECTO");
         } catch (SQLException e) {
             e.printStackTrace();
             viewMaterial.ShowErrorMessage("ERROR","No se ha podido agregar el registro" );
@@ -68,6 +72,21 @@ public class ControladorMaterial {
             viewMaterial.ShowErrorMessage( "ERROR","El material con codigo: " + id + " no se ha podido borrar");
         }
         return result;
+    }
+
+    //endregion
+
+    // region MetaDatos
+
+    public String[] getColumnsName(){
+        String[] listColumnsName = crudMaterial.getColumnsMaterial();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
     }
 
     //endregion
