@@ -46,9 +46,10 @@ public class ViewMaterial extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Materiales");
         String[] listColumnsName = controladorMaterial.getColumnsName();
-        headers = new String[listColumnsName.length-1];
-        for (int i= 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1];
+//        headers = listColumnsName;
+        headers = new String[listColumnsName.length-4];
+        for (int i = 0; i < listColumnsName.length-4; i++){
+            headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, materiales);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -60,30 +61,49 @@ public class ViewMaterial extends JFrame{
 
     public void refreshTable(String[] headers, ArrayList<Material> materiales){
 
-        Material material1 = materiales.get(0);
-        TableMaterial.setShowGrid(true);
-        TableMaterial.setCellSelectionEnabled(false);
-        TableMaterial.setAutoCreateRowSorter(true);
-        TableMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        TableMaterial.setRowSelectionAllowed(true);
-        TableMaterial.setDefaultEditor(Object.class, null);
-        TableMaterial.setDragEnabled(false);
-        sorter = new TableRowSorter<TableModel>(TableMaterial.getModel());
+        if(materiales.size() == 0) {
+            TableMaterial.setShowGrid(true);
+            TableMaterial.setCellSelectionEnabled(false);
+            TableMaterial.setAutoCreateRowSorter(true);
+            TableMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            TableMaterial.setRowSelectionAllowed(true);
+            TableMaterial.setDefaultEditor(Object.class, null);
+            TableMaterial.setDragEnabled(false);
+            sorter = new TableRowSorter<TableModel>(TableMaterial.getModel());
 
-        TableMaterial.setRowSorter(sorter);
+            TableMaterial.setRowSorter(sorter);
 
-        //Filling Headers
-        modelMaterial = new DefaultTableModel(headers, 0);
+            //Filling Headers
+            modelMaterial = new DefaultTableModel(headers, 0);
 
-        //Filling Data
-        Object[] data = new Object[headers.length];
+            TableMaterial.setModel(modelMaterial);
+        }else {
 
-        for (Material material : materiales) {
-            data = getMaterialObject(material);
-            modelMaterial.addRow(data);
+            Material material1 = materiales.get(0);
+            TableMaterial.setShowGrid(true);
+            TableMaterial.setCellSelectionEnabled(false);
+            TableMaterial.setAutoCreateRowSorter(true);
+            TableMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            TableMaterial.setRowSelectionAllowed(true);
+            TableMaterial.setDefaultEditor(Object.class, null);
+            TableMaterial.setDragEnabled(false);
+            sorter = new TableRowSorter<TableModel>(TableMaterial.getModel());
+
+            TableMaterial.setRowSorter(sorter);
+
+            //Filling Headers
+            modelMaterial = new DefaultTableModel(headers, 0);
+
+            //Filling Data
+            Object[] data = new Object[headers.length];
+
+            for (Material material : materiales) {
+                data = getMaterialObject(material);
+                modelMaterial.addRow(data);
+            }
+
+            TableMaterial.setModel(modelMaterial);
         }
-
-        TableMaterial.setModel(modelMaterial);
     }
 
     private void filter(){
@@ -151,6 +171,13 @@ public class ViewMaterial extends JFrame{
     private void deleteMaterial(){
         String cod = getCodMaterial();
         boolean result = controladorMaterial.deleteMaterial(cod);
+
+        if(result){
+            int row = TableMaterial.getSelectedRow();
+
+            materiales.remove(row);
+            refreshTable(headers, materiales);
+        }
     }
 
 
@@ -263,6 +290,13 @@ public class ViewMaterial extends JFrame{
             }
         });
 
+        buttonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
     }
 
     private void mouseListeners(){
@@ -283,9 +317,6 @@ public class ViewMaterial extends JFrame{
     TableRowSorter<TableModel> sorter;
 
     private DefaultTableModel modelMaterial;
-
-    // TODO: 22/05/2022
-    //private String[] headers = {"COD", "Grupo", "Descripcion", "Especificacion", "Unidad", "Espesor", "Calidad", "Proveedor 1", "Precio 1", "Proveedor 2", "Precio 2", "Proveedor 3", "Precio 3"};
     private String[] headers;
     private ControladorMaterial controladorMaterial;
     private ArrayList<Material> materiales;
@@ -302,6 +333,7 @@ public class ViewMaterial extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+    private JButton buttonVolver;
 
     //endregion
 }

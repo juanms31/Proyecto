@@ -177,7 +177,6 @@ public class FormMaterial extends JDialog{
                     case 0 -> {
                     }
                     case 1 -> {
-                        System.out.println("AAAAAA");
                         loadNewMaterial();
                         dispose();
                     }
