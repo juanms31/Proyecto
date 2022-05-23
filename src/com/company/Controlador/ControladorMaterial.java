@@ -126,5 +126,12 @@ public class ControladorMaterial {
         return listUnidadMaterial;
     }
 
+    private ArrayList<CalidadMaterial> getCalidadMaterial(){
+        ArrayList<CalidadMaterial> listCalidadMaterial;
+        CRUDCalidadMaterial crudCalidadMaterial = new CRUDCalidadMaterial();
+        listCalidadMaterial = crudCalidadMaterial.getAll();
+        return listCalidadMaterial;
+    }
+
     //endregion
 }
