@@ -1,13 +1,7 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDEspecificacion;
-import com.company.BaseDatos.CRUDGrupo;
-import com.company.BaseDatos.CRUDMaterial;
-import com.company.BaseDatos.CRUDProveedor;
-import com.company.Entidades.EspecificacionMaterial;
-import com.company.Entidades.GrupoMaterial;
-import com.company.Entidades.Material;
-import com.company.Entidades.Proveedor;
+import com.company.BaseDatos.*;
+import com.company.Entidades.*;
 import com.company.Vistas.ViewMaterial;
 
 import java.sql.SQLException;
@@ -105,24 +99,31 @@ public class ControladorMaterial {
     //region Parametros constructor
 
     private ArrayList<Proveedor> getProveedores(){
-        ArrayList<Proveedor> listProveedores = new ArrayList<>();
+        ArrayList<Proveedor> listProveedores;
         CRUDProveedor crudProveedor = new CRUDProveedor();
         listProveedores = crudProveedor.getAll();
         return listProveedores;
     }
 
     private ArrayList<GrupoMaterial> getGrupos(){
-        ArrayList<GrupoMaterial> listGrupoMaterials = new ArrayList<>();
+        ArrayList<GrupoMaterial> listGrupoMaterials;
         CRUDGrupo crudGrupo = new CRUDGrupo();
         listGrupoMaterials = crudGrupo.getAll();
         return listGrupoMaterials;
     }
 
     private ArrayList<EspecificacionMaterial> getEspecifiacion(){
-        ArrayList<EspecificacionMaterial> listEspecificacionMaterial = new ArrayList<>();
+        ArrayList<EspecificacionMaterial> listEspecificacionMaterial;
         CRUDEspecificacion crudEspecificacion = new CRUDEspecificacion();
         listEspecificacionMaterial = crudEspecificacion.getAll();
         return listEspecificacionMaterial;
+    }
+
+    private ArrayList<UnidadMaterial> getUnidadMateriañ(){
+        ArrayList<UnidadMaterial> listUnidadMaterial;
+        CRUDUnidadMaterial crudUnidadMaterial = new CRUDUnidadMaterial();
+        listUnidadMaterial = crudUnidadMaterial.getAll();
+        return listUnidadMaterial;
     }
 
     //endregion

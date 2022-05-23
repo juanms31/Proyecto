@@ -1,7 +1,6 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.EspecificacionMaterial;
-import com.company.Entidades.Proveedor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
