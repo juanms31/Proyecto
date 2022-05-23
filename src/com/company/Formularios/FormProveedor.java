@@ -1,15 +1,10 @@
 package com.company.Formularios;
 
-import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
 import com.company.Entidades.Proveedor;
-import com.company.Vistas.ViewCliente;
-import com.company.Vistas.ViewMaterial;
 import com.company.Vistas.ViewProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -212,7 +207,7 @@ public class FormProveedor extends JDialog{
                     }
 
                     case 2 -> {
-                        loadNewProveedor();
+                        loadUpdateProveedor();
                     }
                 }
 

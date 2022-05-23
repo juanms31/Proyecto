@@ -46,7 +46,6 @@ public class ViewMaterial extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Materiales");
         String[] listColumnsName = controladorMaterial.getColumnsName();
-//        headers = listColumnsName;
         headers = new String[listColumnsName.length-4];
         for (int i = 0; i < listColumnsName.length-4; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
@@ -162,9 +161,8 @@ public class ViewMaterial extends JFrame{
 
     private void updateMaterial() {
         Material material = getMaterial();
+        System.out.println("Vista CODIGO: " + material.getCodigo());
         FormMaterial formMaterial = new FormMaterial(this, material);
-
-
     }
 
     private void deleteMaterial(){
@@ -203,16 +201,16 @@ public class ViewMaterial extends JFrame{
         refreshTable(headers, materiales);
 
     }
-    
+
     public void addTableMaterial(Material material){
-        
+
         Object[] newMaterial = getMaterialObject(material);
         modelMaterial.addRow(newMaterial);
         materiales.add(material);
-        
-        
+
+
     }
-    
+
     public Object[] getMaterialObject(Material material){
         int y = 0;
         Object[] newMaterial = new Object[headers.length];
@@ -236,19 +234,19 @@ public class ViewMaterial extends JFrame{
 
     private Material getMaterial() {
         int row = TableMaterial.getSelectedRow();
-        
+
         Material material = materiales.get(row);
 
+        System.out.println("GET MATERIAL VISTA CODIGO: " + material.getCodigo());
 
         return material;
     }
 
     private String getCodMaterial() {
         int row = TableMaterial.getSelectedRow();
-        return String.valueOf(materiales.get(row).getId());
+
+        return materiales.get(row).getCodigo();
     }
-
-
 
     //endregion
 

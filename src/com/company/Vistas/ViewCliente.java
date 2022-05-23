@@ -4,7 +4,6 @@ import com.company.Controlador.ControladorCliente;
 import com.company.Entidades.Cliente;
 import com.company.Formularios.FormCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

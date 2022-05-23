@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Entidades.Albaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -111,6 +112,14 @@ public class ViewAlbaran extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
-    
+
+    public boolean getNewAlbaranFromFormulario(Albaran albaran) {
+        return true;
+    }
+
+    public boolean getUpdateAlbaranFromFormulario(Albaran albaran) {
+        return true;
+    }
+
     //endregion
 }

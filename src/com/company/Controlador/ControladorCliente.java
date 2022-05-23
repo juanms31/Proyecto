@@ -2,7 +2,6 @@ package com.company.Controlador;
 
 import com.company.BaseDatos.CRUDCliente;
 import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
 import com.company.Vistas.ViewCliente;
 
 import java.sql.SQLException;
@@ -68,9 +67,9 @@ public class ControladorCliente {
     }
 
     public String[] getColumnsName() {
+        String[] headers = {"ID", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
 
-        // TODO: 23/05/2022
-        return new String[4];
+        return headers;
     }
 
     //endregion

@@ -65,7 +65,7 @@ public class FormCliente extends JDialog{
         setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setTitle("Materiales");
+        setTitle("Clientes");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 

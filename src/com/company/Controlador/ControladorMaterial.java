@@ -62,9 +62,9 @@ public class ControladorMaterial {
         boolean result = crudMaterial.updateMaterial(material);
         if (result){
             viewMaterial.updateTableMaterial(material);
-            viewMaterial.ShowMessage("El material con codigo: " + material.getCodigo() + " ha sido actualizado", "CORRECTO");
+            viewMaterial.ShowMessage( "CORRECTO", "El material con codigo: " + material.getCodigo() + " ha sido actualizado");
         }else{
-            viewMaterial.ShowErrorMessage("No se ha podiddo actualizar material con el codigo: " + material.getCodigo(), "ERROR");
+            viewMaterial.ShowErrorMessage( "ERROR", "No se ha podiddo actualizar material con el codigo: " + material.getCodigo());
         }
         return result;
     }

@@ -27,7 +27,7 @@ public class FormMaterial extends JDialog {
 
     public FormMaterial(ViewMaterial viewMaterial, Material material) {
         estado = 2;
-        materialSiendoModificado = material;
+        MaterialSiendoModificado = material;
         this.viewMaterial = viewMaterial;
         initListeners();
         setMaterial(material);
@@ -108,8 +108,6 @@ public class FormMaterial extends JDialog {
         //Rellenar Proveedor3
         comboBoxProveedor3.addItem("Proveedor 3");
     }
-
-
     //endregion
 
     //region Metodos privados
@@ -160,6 +158,9 @@ public class FormMaterial extends JDialog {
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
 
+        MaterialSiendoModificado.setId(material.getId());
+        MaterialSiendoModificado.setCodigo(material.getCodigo());
+        System.out.println("Formulario CODIGO: " + material.getCodigo());
         comboBoxGrupo.setSelectedItem(material.getGrupo());
         textFieldDescripcion.setText(material.getDescripcion());
         comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
@@ -192,7 +193,8 @@ public class FormMaterial extends JDialog {
         boolean conErrores = checkFields();
 
         if (estado == 2) {
-            material.setId(materialSiendoModificado.getId());
+            material.setId(MaterialSiendoModificado.getId());
+            material.setCodigo(MaterialSiendoModificado.getCodigo());
             material.setGrupo((String) comboBoxGrupo.getSelectedItem());
             material.setDescripcion(textFieldDescripcion.getText());
             material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
@@ -313,7 +315,7 @@ public class FormMaterial extends JDialog {
     //region Variables
     private JButton aceptarButton;
 
-    private Material materialSiendoModificado;
+    private Material MaterialSiendoModificado;
     private JComboBox comboBoxProveedor2;
     private JComboBox comboBoxProveedor3;
     private JLabel labelTitulo;
