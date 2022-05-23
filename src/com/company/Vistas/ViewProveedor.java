@@ -50,7 +50,6 @@ public class ViewProveedor extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Proveedores");
         String[] listColumnsName = controladorProveedor.getColumnsName();
-//        headers = listColumnsName;
         headers = new String[listColumnsName.length - 1];
         for (int i = 0; i < listColumnsName.length- 1; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();

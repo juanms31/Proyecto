@@ -223,3 +223,10 @@ CREATE TABLE MaterialUtilizadoActuacion (
     FOREIGN KEY (id_actuacion)
     	REFERENCES Actuacion (id)
 );
+
+
+CREATE TABLE Grupo (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(20),
+	descripcio VARCHAR(200)
+);

@@ -1,10 +1,7 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDCliente;
 import com.company.BaseDatos.CRUDProveedor;
-import com.company.Entidades.Cliente;
 import com.company.Entidades.Proveedor;
-import com.company.Vistas.ViewCliente;
 import com.company.Vistas.ViewProveedor;
 
 import java.sql.SQLException;
@@ -69,10 +66,19 @@ public class ControladorProveedor {
         return result;
     }
 
-    public String[] getColumnsName() {
-        String[] headers = {"ID", "CIF", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
+    //endregion
 
-        return headers;
+    // region MetaDatos
+
+    public String[] getColumnsName(){
+        String[] listColumnsName = crudProveedor.getColumnsProveedor();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
     }
 
     //endregion

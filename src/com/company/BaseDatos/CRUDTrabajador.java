@@ -3,7 +3,6 @@ package com.company.BaseDatos;
 import com.company.Controlador.ControladorTrabajador;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.Trabajador;
-import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -119,6 +118,31 @@ public class CRUDTrabajador {
     }
 
     // endregion
+
+    //region consultas Meta Datos
+
+    public String[] getColumnsTrabajador(){
+        Connection connection = BBDD.connect();
+        try {
+            final String SELECT_TRABAJADORES = "SELECT * FROM trabajador";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_TRABAJADORES);
+            String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
+            if (columnsName[0] == null){
+                System.out.println("Fallo en sacar los metatados");
+            }
+            BBDD.close();
+            return  columnsName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            String columnsName[] = new String[1];
+            columnsName[0] = "Error en CRUD";
+            return columnsName;
+        }
+    }
+
+    //endregion
 
     //region Metodos privados
 

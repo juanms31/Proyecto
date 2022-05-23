@@ -152,6 +152,31 @@ public class CRUDCliente {
 
     // endregion
 
+    //region consultas Meta Datos
+
+    public String[] getColumnsCliente(){
+        Connection connection = BBDD.connect();
+        try {
+            final String SELECT_CLIENTES = "SELECT * FROM cliente";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_CLIENTES);
+            String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
+            if (columnsName[0] == null){
+                System.out.println("Fallo en sacar los metatados");
+            }
+            BBDD.close();
+            return  columnsName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            String columnsName[] = new String[1];
+            columnsName[0] = "Error en CRUD";
+            return columnsName;
+        }
+    }
+
+    //endregion
+
     //region Metodos privados
 
     private ArrayList<Cliente> setListaClientes(ResultSet resultSet) {

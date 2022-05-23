@@ -66,11 +66,20 @@ public class ControladorCliente {
         return result;
     }
 
-    public String[] getColumnsName() {
-        // TODO: 23/05/2022
-        String[] headers = {"ID", "CIF", "NOMBRE", "DIRECCION", "MAIL 1", "TELEFONO 1",  "MAIL2", "TELEFONO 2"};
 
-        return headers;
+    //endregion
+
+    // region MetaDatos
+
+    public String[] getColumnsName(){
+        String[] listColumnsName = crudCliente.getColumnsCliente();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
     }
 
     //endregion

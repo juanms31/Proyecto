@@ -77,7 +77,6 @@ public class ViewMaterial extends JFrame{
 
             TableMaterial.setModel(modelMaterial);
         }else {
-
             TableMaterial.setShowGrid(true);
             TableMaterial.setCellSelectionEnabled(false);
             TableMaterial.setAutoCreateRowSorter(true);

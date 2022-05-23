@@ -1,33 +1,32 @@
 package com.company.BaseDatos;
 
 import com.company.Controlador.ControladorProveedor;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.Proveedor;
+import com.company.Entidades.GrupoMaterial;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CRUDProveedor {
+public class CRUDGrupo {
 
-    public CRUDProveedor(ControladorProveedor controladorProveedor) {
+    public CRUDGrupo(ControladorProveedor controladorProveedor) {
         this.controladorProveedor = controladorProveedor;
     }
 
-    public CRUDProveedor() {
+    public CRUDGrupo() {
     }
 
     // region Metodos CRUD
 
-    public ArrayList<Proveedor> getAll() {
+    public ArrayList<GrupoMaterial> getAll() {
         Connection connection = BBDD.connect();
-        final String SELECT_QUERY = "SELECT * FROM proveedor";
+        final String SELECT_QUERY = "SELECT * FROM grupo";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-            var listaProveedor = setListaProveedor(resultSet);
+            var listaGrupos = setListaGrupos(resultSet);
 
             BBDD.close();
-            return  listaProveedor;
+            return  listaGrupos;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,6 +36,7 @@ public class CRUDProveedor {
 
     }
 
+    /*
     public int createProveedor(Proveedor proveedor) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
@@ -73,11 +73,17 @@ public class CRUDProveedor {
         }
     }
 
+     */
+
+    /*
     public Cliente readProveedor(int cod){
 
         return new Cliente();
     }
 
+     */
+
+    /*
     public boolean deleteProveedor(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM proveedor WHERE id = ?";
@@ -94,6 +100,9 @@ public class CRUDProveedor {
         }
     }
 
+     */
+
+    /*
     public boolean updateProveedor(Proveedor proveedor){
         Connection connection = BBDD.connect();
         if (connection == null) return false;
@@ -124,6 +133,8 @@ public class CRUDProveedor {
         return false;
     }
 
+     */
+
     // endregion
 
     //region consultas Meta Datos
@@ -153,29 +164,25 @@ public class CRUDProveedor {
 
     //region Metodos privados
 
-    private ArrayList<Proveedor> setListaProveedor(ResultSet resultSet) {
-        ArrayList<Proveedor> proveedores = new ArrayList<>();
+    private ArrayList<GrupoMaterial> setListaGrupos(ResultSet resultSet) {
+        ArrayList<GrupoMaterial> grupoMaterials = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Proveedor proveedor = new Proveedor();
-                proveedor.setId(resultSet.getInt("id"));
-                proveedor.setCIF(resultSet.getString("CIF"));
-                proveedor.setNombre_proveedor(resultSet.getString("nombre_proveedor"));
-                proveedor.setDireccion(resultSet.getString("direccion"));
-                proveedor.setMail1(resultSet.getString("mail1"));
-                proveedor.setTelefono1(resultSet.getString("telefono1"));
-                proveedor.setMail2(resultSet.getString("mail2"));
-                proveedor.setTelefono2(resultSet.getString("telefono2"));
+                GrupoMaterial grupoMaterial = new GrupoMaterial();
+                grupoMaterial.setId(resultSet.getInt("id"));
+                grupoMaterial.setSiglasGrupo(resultSet.getString("siglas_grupo"));
+                grupoMaterial.setNombreGrupo(resultSet.getString("nombre_grupo"));
+                grupoMaterial.setDescripcion(resultSet.getString("Descripcion"));
 
-                proveedores.add(proveedor);
+                grupoMaterials.add(grupoMaterial);
             }
             BBDD.close();
-            return proveedores;
+            return grupoMaterials;
         } catch (SQLException e) {
             //TODO incluis log para bbdd
             e.printStackTrace();
             BBDD.close();
-            return proveedores;
+            return grupoMaterials;
         }
     }
 

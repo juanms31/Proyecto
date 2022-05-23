@@ -1,13 +1,9 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDCliente;
 import com.company.BaseDatos.CRUDTrabajador;
-import com.company.Entidades.Cliente;
 import com.company.Entidades.Trabajador;
-import com.company.Vistas.ViewCliente;
 import com.company.Vistas.ViewTrabajador;
 
-import javax.swing.text.View;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,6 +20,7 @@ public class ControladorTrabajador {
     }
 
     //region CRUD
+
     public boolean createTrabajador(Trabajador trabajador){
         try {
             int idTrabajador = crudTrabajador.createTrabajador(trabajador);
@@ -71,11 +68,20 @@ public class ControladorTrabajador {
         return result;
     }
 
-    public String[] getColumnsName() {
-        // TODO: 23/05/2022
-        String[] headers = {"ID", "DNI", "NOMBRE", "APELLIDOS", "FNAC", "NACIONALIDAD", "PUESTO", "SALARIO"};
+    //endregion
 
-        return headers;
+    // region MetaDatos
+
+    public String[] getColumnsName(){
+        String[] listColumnsName = crudTrabajador.getColumnsTrabajador();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
     }
-//    //endregion
+
+    //endregion
 }
