@@ -64,22 +64,24 @@ CREATE TABLE MOInstalacionMaterial (
 
 CREATE TABLE Proveedor (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    CIF INTEGER NOT NULL,
     nombre_proveedor VARCHAR(150) NOT NULL,
     direccion VARCHAR(150),
     mail1 VARCHAR(100),
-    mail2 VARCHAR(100),
     telefono1 VARCHAR(12),
+    mail2 VARCHAR(100),
     telefono2 VARCHAR(20)
 );
 
 CREATE TABLE Cliente(
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    CIF VARCHAR(9) NOT NULL,
     nombre VARCHAR (30),
     direccion VARCHAR (200),
     mail1 VARCHAR (50),
-    mail2 VARCHAR (50),
-    telefono1 INTEGER (12),
-    telefono2 VARCHAR (12)
+    telefono1 VARCHAR(12),
+    mail2 VARCHAR(100),
+    telefono2 VARCHAR(20)
 );
 
 CREATE TABLE Actuacion (
@@ -155,10 +157,11 @@ CREATE TABLE Certificacion(
 
 CREATE TABLE Trabajador(
   id INTEGER  AUTO_INCREMENT PRIMARY KEY,
-  fnac DATE,
-  nacionalidad VARCHAR (20),
+  DNI VARCHAR (9) NOT NULL,
   nombre VARCHAR(30)  NOT NULL,
   apellidos VARCHAR(50),
+  fecha_nacimiento DATE,
+  nacionalidad VARCHAR (20),
   puesto VARCHAR (100),
   salario double
 );
