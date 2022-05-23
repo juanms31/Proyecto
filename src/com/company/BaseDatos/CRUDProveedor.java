@@ -9,12 +9,16 @@ import java.util.ArrayList;
 
 public class CRUDProveedor {
 
+    //region CONSTRUCTORES
+
     public CRUDProveedor(ControladorProveedor controladorProveedor) {
         this.controladorProveedor = controladorProveedor;
     }
 
     public CRUDProveedor() {
     }
+
+    //endregion
 
     // region Metodos CRUD
 

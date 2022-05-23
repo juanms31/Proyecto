@@ -1,5 +1,6 @@
 package com.company.Controlador;
 
+import com.company.BaseDatos.CRUDEspecificacion;
 import com.company.BaseDatos.CRUDGrupo;
 import com.company.BaseDatos.CRUDMaterial;
 import com.company.BaseDatos.CRUDProveedor;
@@ -118,10 +119,10 @@ public class ControladorMaterial {
     }
 
     private ArrayList<EspecificacionMaterial> getEspecifiacion(){
-        ArrayList<GrupoMaterial> listGrupoMaterials = new ArrayList<>();
-        CRUDGrupo crudGrupo = new CRUDGrupo();
-        listGrupoMaterials = crudGrupo.getAll();
-        return null;
+        ArrayList<EspecificacionMaterial> listEspecificacionMaterial = new ArrayList<>();
+        CRUDEspecificacion crudEspecificacion = new CRUDEspecificacion();
+        listEspecificacionMaterial = crudEspecificacion.getAll();
+        return listEspecificacionMaterial;
     }
 
     //endregion
