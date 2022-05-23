@@ -44,7 +44,7 @@ public class ViewCliente extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750,750));
         setLocationRelativeTo(null);
-        setTitle("Materiales");
+        setTitle("Clientes");
         String[] listColumnsName = controladorCliente.getColumnsName();
         headers = new String[listColumnsName.length - 1];
         for (int i = 0; i < listColumnsName.length-1; i++){
@@ -188,6 +188,7 @@ public class ViewCliente extends JFrame{
 
         int row = TableCliente.getSelectedRow();
 
+        clientes.get(row).setCIF(cliente.getCIF());
         clientes.get(row).setNombre(cliente.getNombre());
         clientes.get(row).setDireccion(cliente.getDireccion());
         clientes.get(row).setMail1(cliente.getMail1());
@@ -211,6 +212,8 @@ public class ViewCliente extends JFrame{
     public Object[] getClienteObject(Cliente cliente){
         int y = 0;
         Object[] newCliente = new Object[headers.length];
+        newCliente[y++] = cliente.getCIF();
+        System.out.println("CIF: " + cliente.getCIF());
         newCliente[y++] = cliente.getNombre();
         newCliente[y++] = cliente.getDireccion();
         newCliente[y++] = cliente.getMail1();

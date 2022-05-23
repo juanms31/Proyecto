@@ -4,6 +4,7 @@ public class Cliente {
 
     // region Atributos de clase
     private int id;
+    private String CIF;
     private String nombre;
     private String direccion;
     private String mail1;
@@ -14,6 +15,14 @@ public class Cliente {
     // endregion
 
     // region Getter y Setter
+
+    public String getCIF() {
+        return CIF;
+    }
+
+    public void setCIF(String CIF) {
+        this.CIF = CIF;
+    }
 
     public int getId() {
         return id;

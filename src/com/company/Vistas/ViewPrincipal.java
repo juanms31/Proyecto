@@ -3,6 +3,7 @@ package com.company.Vistas;
 import com.company.Controlador.ControladorCliente;
 import com.company.Controlador.ControladorMaterial;
 import com.company.Controlador.ControladorProveedor;
+import com.company.Controlador.ControladorTrabajador;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -99,7 +100,7 @@ public class ViewPrincipal extends JFrame{
         btnTrabajadores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewTrabajador viewTrabajadores = new ViewTrabajador();
+                ControladorTrabajador controladorTrabajador = new ControladorTrabajador();
             }
         });
         btnSeguimiento.addActionListener(new ActionListener() {

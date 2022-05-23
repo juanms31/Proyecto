@@ -5,12 +5,16 @@ import com.company.Vistas.ViewTrabajador;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class FormTrabajador extends JDialog{
     //region Constructores
@@ -29,9 +33,9 @@ public class FormTrabajador extends JDialog{
         TrabajadorSiendoModificado = trabajador;
         this.viewTrabajador = viewTrabajador;
         initListeners();
-        setTrabajador(trabajador);
         initWindow();
         initComps();
+        setTrabajador(trabajador);
         setVisible(true);
     }
 
@@ -77,6 +81,15 @@ public class FormTrabajador extends JDialog{
     }
 
     public void initComps() {
+
+        MaskFormatter formatterFNAC = null;
+        try {
+            formatterFNAC = new MaskFormatter("##-##-####");
+            formattedTextFieldFechaNacimiento.setFormatterFactory(new DefaultFormatterFactory(formatterFNAC));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
@@ -129,14 +142,29 @@ public class FormTrabajador extends JDialog{
 
     //region SET Y GET MATERIAL
     private void setTrabajador(Trabajador trabajador) {
+
+        textFieldDNI.setText(trabajador.getDNI());
         textFieldNombre.setText(trabajador.getNombre());
         textFieldApellidos.setText(trabajador.getApellidos());
-        formattedTextFieldFechaNacimiento.setText(String.valueOf(trabajador.getFnac()));
+
+        //Procesamos Fecha
+        SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        String UTILDate = OldDateFormat.format(trabajador.getFnac());
+
+        formattedTextFieldFechaNacimiento.setText(UTILDate.toString());
+
         textFieldPuesto.setText(trabajador.getPuesto());
         textFieldNacionalidad.setText(trabajador.getNacionalidad());
+        textFieldSalario.setText(String.valueOf(trabajador.getSalario()));
     }
 
     private boolean checkFields() {
+
+        if (textFieldDNI.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo DNI no puede estar vacio");
+            return true;
+        }
         if (textFieldNombre.getText().isEmpty()) {
             ShowErrorMessage("Error", "Campo Nombre no puede estar vacio");
             return true;
@@ -161,17 +189,42 @@ public class FormTrabajador extends JDialog{
         if (estado == 2) {
             trabajador.setId(TrabajadorSiendoModificado.getId());
 
+            trabajador.setDNI(textFieldDNI.getText());
             trabajador.setNombre(textFieldNombre.getText());
             trabajador.setApellidos(textFieldApellidos.getText());
-            trabajador.setFnac(Date.valueOf(formattedTextFieldFechaNacimiento.getText()));
+
+            //Procesamos Fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            try {
+                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaNacimiento.getText());
+                java.sql.Date SQLDate = new Date(UTILDate.getTime());
+                trabajador.setFnac(SQLDate);
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             trabajador.setPuesto(textFieldPuesto.getText());
             trabajador.setSalario(Double.parseDouble(textFieldSalario.getText()));
             trabajador.setNacionalidad(textFieldNacionalidad.getText());
 
         } else {
+            trabajador.setDNI(textFieldDNI.getText());
+
             trabajador.setNombre(textFieldNombre.getText());
             trabajador.setApellidos(textFieldApellidos.getText());
-            trabajador.setFnac(Date.valueOf(formattedTextFieldFechaNacimiento.getText()));
+
+            //Procesamos Fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            try {
+                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaNacimiento.getText());
+                java.sql.Date SQLDate = new Date(UTILDate.getTime());
+                trabajador.setFnac(SQLDate);
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             trabajador.setPuesto(textFieldPuesto.getText());
             trabajador.setSalario(Double.parseDouble(textFieldSalario.getText()));
             trabajador.setNacionalidad(textFieldNacionalidad.getText());
@@ -243,6 +296,7 @@ public class FormTrabajador extends JDialog{
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JPanel panelPrincipal;
+    private JTextField textFieldDNI;
     private ViewTrabajador viewTrabajador;
     private int estado = 0;
     private Trabajador TrabajadorSiendoModificado;

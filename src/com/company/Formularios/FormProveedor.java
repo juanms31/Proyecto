@@ -129,6 +129,8 @@ public class FormProveedor extends JDialog{
 
     //region SET Y GET MATERIAL
     private void setProveedor(Proveedor proveedor) {
+
+        formattedTextFieldCIF.setText(proveedor.getCIF());
         textFieldNombre.setText(proveedor.getNombre_proveedor());
         textFieldDireccion.setText(proveedor.getDireccion());
         textFieldMail1.setText(proveedor.getMail1());
@@ -166,6 +168,7 @@ public class FormProveedor extends JDialog{
         if (estado == 2) {
             proveedor.setId(ProveedorSiendoModificado.getId());
 
+            proveedor.setCIF(formattedTextFieldCIF.getText());
             proveedor.setNombre_proveedor(textFieldNombre.getText());
             proveedor.setDireccion(textFieldDireccion.getText());
             proveedor.setMail1(textFieldMail1.getText());
@@ -174,6 +177,8 @@ public class FormProveedor extends JDialog{
             proveedor.setTelefono2(textFieldTelefono2.getText());
 
         } else {
+
+            proveedor.setCIF(formattedTextFieldCIF.getText());
             proveedor.setNombre_proveedor(textFieldNombre.getText());
             proveedor.setDireccion(textFieldDireccion.getText());
             proveedor.setMail1(textFieldMail1.getText());
@@ -260,6 +265,7 @@ public class FormProveedor extends JDialog{
     private JTextField textFieldTelefono2;
     private JLabel labelTitulo;
     private JPanel panelPrincipal;
+    private JFormattedTextField formattedTextFieldCIF;
     private ViewProveedor viewProveedor;
     private Proveedor ProveedorSiendoModificado;
     int estado = 0;

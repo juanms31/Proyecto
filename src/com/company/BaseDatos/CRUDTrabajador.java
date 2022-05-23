@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorTrabajador;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.Trabajador;
 import com.company.Entidades.Vacaciones;
@@ -9,9 +10,13 @@ import java.util.ArrayList;
 
 public class CRUDTrabajador {
 
+    public CRUDTrabajador(ControladorTrabajador controladorTrabajador){
+        this.controladorTrabajador = controladorTrabajador;
+
+    }
     // region Metodos CRUD
 
-    public ArrayList<Trabajador> readAllTrabajador() throws SQLException {
+    public ArrayList<Trabajador> getAll(){
         Connection connection = BBDD.connect();
         final String SELECT_TRABAJADORES = "SELECT * FROM trabajador";
         try {
@@ -25,28 +30,24 @@ public class CRUDTrabajador {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
-
     }
 
     public int createTrabajador(Trabajador trabajador) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO trabajador" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?,?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setDate(2, trabajador.getFnac());
-            preparedStatement.setString(3, trabajador.getNacionalidad());
-            preparedStatement.setString(4, trabajador.getNombre());
-            preparedStatement.setString(5, trabajador.getApellidos());
-            preparedStatement.setString(6, trabajador.getPuesto());
-            preparedStatement.setDouble(7, trabajador.getSalario());
+            preparedStatement.setString(2, trabajador.getDNI());
+            preparedStatement.setString(3, trabajador.getNombre());
+            preparedStatement.setString(4, trabajador.getApellidos());
+            preparedStatement.setDate(5, trabajador.getFnac());
+            preparedStatement.setString(6, trabajador.getNacionalidad());
+            preparedStatement.setString(7, trabajador.getPuesto());
+            preparedStatement.setDouble(8, trabajador.getSalario());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -73,7 +74,7 @@ public class CRUDTrabajador {
         return new Cliente();
     }
 
-    public boolean deleteTrabajador(int id) throws SQLException {
+    public boolean deleteTrabajador(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM trabajador WHERE id = ?";
         try {
@@ -86,19 +87,15 @@ public class CRUDTrabajador {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
-    public boolean updateTrabajador(Trabajador trabajador) throws SQLException {
+    public boolean updateTrabajador(Trabajador trabajador) {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE trabajador " +
-                "SET fnac = ?, nacionalidad = ?, nombre = ?, apellidos = ?," +
-                " puesto = ?, salario = ? WHERE id = ?";
+                "SET fecha_nacimiento = ?, nacionalidad = ?, nombre = ?, apellidos = ?," +
+                " puesto = ?, salario = ?, DNI = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setDate(1, trabajador.getFnac());
@@ -107,7 +104,8 @@ public class CRUDTrabajador {
             preparedStatement.setString(4, trabajador.getApellidos());
             preparedStatement.setString(5, trabajador.getPuesto());
             preparedStatement.setDouble(6, trabajador.getSalario());
-            preparedStatement.setInt(7, trabajador.getId());
+            preparedStatement.setString(7, trabajador.getDNI());
+            preparedStatement.setInt(8, trabajador.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + trabajador.getId());
@@ -117,10 +115,6 @@ public class CRUDTrabajador {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
@@ -134,9 +128,10 @@ public class CRUDTrabajador {
             while (resultSet.next()){
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(resultSet.getInt("id"));
+                trabajador.setDNI(resultSet.getString("DNI"));
                 trabajador.setNombre(resultSet.getString("nombre"));
                 trabajador.setApellidos(resultSet.getString("apellidos"));
-                trabajador.setFnac(resultSet.getDate("fnac"));
+                trabajador.setFnac(resultSet.getDate("fecha_nacimiento"));
                 trabajador.setNacionalidad(resultSet.getString("nacionalidad"));
                 trabajador.setPuesto(resultSet.getString("puesto"));
                 trabajador.setSalario(resultSet.getDouble("salario"));
@@ -155,34 +150,9 @@ public class CRUDTrabajador {
 
     // endregion
 
-    public static void main(String[] args) throws SQLException {
-        CRUDTrabajador crudTrabajador = new CRUDTrabajador();
-        var listaTrabajadores = crudTrabajador.readAllTrabajador();
-        System.out.println("Lista: " + listaTrabajadores.get(0).toString());
+    //region Variables
 
-        var borradoOK = crudTrabajador.deleteTrabajador(3);
-        System.out.println(borradoOK);
+    private ControladorTrabajador controladorTrabajador;
 
-        Trabajador trabajador = new Trabajador();
-        trabajador.setNombre("Nombre nuevo desde java");
-        trabajador.setApellidos("Apillidos trabajdor");
-        trabajador.setFnac(Date.valueOf("1997-10-10"));
-        trabajador.setNacionalidad("Javera");
-        trabajador.setPuesto("Programador jhava");
-        trabajador.setSalario(1289.20); //TODO hay que hacer un trabajador primero
-
-        int idRowTrabajador = 0;
-        idRowTrabajador = crudTrabajador.createTrabajador(trabajador);
-        System.out.println("Nuevo trabajador con id: " + idRowTrabajador);
-        trabajador.setId(idRowTrabajador);
-
-        //UPDATE
-        trabajador.setPuesto("Programador modificado");
-        boolean updateOk = crudTrabajador.updateTrabajador(trabajador);
-        if (updateOk){
-            System.out.println("Actualizado");
-        }else{
-            System.out.println("Error");
-        }
-    }
+    //endregion
 }

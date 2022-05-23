@@ -27,7 +27,7 @@ public class ControladorProveedor {
             int idProveedor = crudProveedor.createProveedor(proveedor);
             proveedor.setId(idProveedor);
             viewProveedor.addTableProveedor(proveedor);
-            viewProveedor.ShowMessage("Proveedor " + proveedor.getNombre_proveedor() + " agregado con exito", "CORRECTO");
+            viewProveedor.ShowMessage( "CORRECTO", "Proveedor " + proveedor.getNombre_proveedor() + " agregado con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,17 +36,17 @@ public class ControladorProveedor {
         }
     }
 
-    public Cliente rearProveedor(int cod){
-        Cliente cliente = crudProveedor.readProveedor(cod);
-        if (cliente.getId() > 0){
-            viewProveedor.ShowMessage("No se ha podido cargar el cliente con codigo: " + cod, "CORRECTO");
-            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-        }else{
-            viewProveedor.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-            //TODO quizas este mensaje sobre y no sea necesario
-        }
-        return  cliente;
-    }
+//    public Cliente readProveedor(int cod){
+//        Cliente cliente = crudProveedor.readProveedor(cod);
+//        if (cliente.getId() > 0){
+//            viewProveedor.ShowMessage("CORRECTO", "No se ha podido cargar el cliente con codigo: " + cod, );
+//            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
+//        }else{
+//            viewProveedor.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
+//            //TODO quizas este mensaje sobre y no sea necesario
+//        }
+//        return  cliente;
+//    }
 
     public boolean updateProveedor(Proveedor proveedor) {
         boolean result = crudProveedor.updateProveedor(proveedor);
@@ -70,7 +70,7 @@ public class ControladorProveedor {
     }
 
     public String[] getColumnsName() {
-        String[] headers = {"ID", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
+        String[] headers = {"ID", "CIF", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
 
         return headers;
     }

@@ -1,9 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
 import com.company.Vistas.ViewCliente;
-import com.company.Vistas.ViewMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -132,6 +130,7 @@ public class FormCliente extends JDialog{
     //region SET Y GET MATERIAL
     private void setCliente(Cliente cliente) {
         textFieldNombre.setText(cliente.getNombre());
+        formattedTextFieldCIF.setText(cliente.getCIF());
         textFieldDireccion.setText(cliente.getDireccion());
         textFieldMail1.setText(cliente.getMail1());
         textFieldMail2.setText(cliente.getMail2());
@@ -168,6 +167,7 @@ public class FormCliente extends JDialog{
         if (estado == 2) {
             cliente.setId(ClienteSiendoModificado.getId());
 
+            cliente.setCIF(formattedTextFieldCIF.getText());
             cliente.setNombre(textFieldNombre.getText());
             cliente.setDireccion(textFieldDireccion.getText());
             cliente.setMail1(textFieldMail1.getText());
@@ -176,6 +176,8 @@ public class FormCliente extends JDialog{
             cliente.setTelef2(textFieldTelefono2.getText());
 
         } else {
+
+            cliente.setCIF(formattedTextFieldCIF.getText());
             cliente.setNombre(textFieldNombre.getText());
             cliente.setDireccion(textFieldDireccion.getText());
             cliente.setMail1(textFieldMail1.getText());
@@ -262,6 +264,7 @@ public class FormCliente extends JDialog{
     private JTextField textFieldTelefono2;
     private JLabel labelTitulo;
     private JPanel panelPrincipal;
+    private JFormattedTextField formattedTextFieldCIF;
     private ViewCliente viewCliente;
     private Cliente ClienteSiendoModificado;
     int estado = 0;

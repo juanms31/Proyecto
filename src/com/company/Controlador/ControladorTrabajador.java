@@ -12,33 +12,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControladorTrabajador {
-    // TODO: 23/05/2022
-//    private CRUDTrabajador crudTrabajador;
-//    private ViewTrabajador viewTrabajador;
-//
-//    //Constructor
-//    public ControladorTrabajador() {
-//        crudTrabajador = new CRUDTrabajador(this);
-//        ArrayList<Trabajador> trabajadores = crudTrabajador.getAll();
-//        viewTrabajador = new ViewCliente(this, trabajadores);
-//    }
-//
-//    //region CRUD
-//    public boolean createCliente(Cliente cliente){
-//        try {
-//            int idCliente = crudCliente.createCliente(cliente);
-//            cliente.setId(idCliente);
-//            viewCliente.addTableCliente(cliente);
-//            viewCliente.ShowMessage("Cliente " + cliente.getNombre() + " agregado con exito", "CORRECTO");
-//            return true;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            viewCliente.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
-//            return false;
-//        }
-//    }
-//
-//    public Cliente readCliente(int cod){
+
+    private CRUDTrabajador crudTrabajador;
+    private ViewTrabajador viewTrabajador;
+
+    //Constructor
+    public ControladorTrabajador() {
+        crudTrabajador = new CRUDTrabajador(this);
+        ArrayList<Trabajador> trabajadores = crudTrabajador.getAll();
+        viewTrabajador = new ViewTrabajador(this, trabajadores);
+    }
+
+    //region CRUD
+    public boolean createTrabajador(Trabajador trabajador){
+        try {
+            int idTrabajador = crudTrabajador.createTrabajador(trabajador);
+            trabajador.setId(idTrabajador);
+            viewTrabajador.addTableTrabajador(trabajador);
+            viewTrabajador.ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " agregado con exito");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            viewTrabajador.ShowErrorMessage("ERROR", "No se ha podido agregar el registro");
+            return false;
+        }
+    }
+
+//    public Trabajador readTrabajador(int cod){
 //        Cliente cliente = crudCliente.readCliente(cod);
 //        if (cliente.getId() > 0){
 //            viewCliente.ShowMessage("No se ha podido cargar el cliente con codigo: " + cod, "CORRECTO");
@@ -49,34 +49,33 @@ public class ControladorTrabajador {
 //        }
 //        return  cliente;
 //    }
-//
-//    public boolean updateCliente(Cliente cliente) {
-//        boolean result = crudCliente.updateCliente(cliente);
-//        if (result){
-//            viewCliente.updateTableCliente(cliente);
-//            viewCliente.ShowMessage( "CORRECTO", "Cliente " + cliente.getNombre() + " ha sido actualizado");
-//        }else{
-//            viewCliente.ShowErrorMessage("ERROR", "No se ha podiddo actualizar cliente con el codigo: " + cliente.getId());
-//        }
-//        return result;
-//    }
-//
-//    public boolean deleteCliente(Cliente cliente){
-//        boolean result = crudCliente.deleteCliente(cliente.getId());
-//        if (result){
-//            viewCliente.ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " ha sido borrado");
-//        }else{
-//            viewCliente.ShowErrorMessage("ERROR","Cliente " + cliente.getNombre() + " no se ha podido borrar");
-//        }
-//        return result;
-//    }
-//
+
+    public boolean updateTrabajador(Trabajador trabajador) {
+        boolean result = crudTrabajador.updateTrabajador(trabajador);
+        if (result){
+            viewTrabajador.updateTableTrabajador(trabajador);
+            viewTrabajador.ShowMessage( "CORRECTO", "Cliente " + trabajador.getNombre() + " ha sido actualizado");
+        }else{
+            viewTrabajador.ShowErrorMessage("ERROR", "No se ha podiddo actualizar cliente con el codigo: " + trabajador.getId());
+        }
+        return result;
+    }
+
+    public boolean deleteTrabajador(Trabajador trabajador){
+        boolean result = crudTrabajador.deleteTrabajador(trabajador.getId());
+        if (result){
+            viewTrabajador.ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido borrado");
+        }else{
+            viewTrabajador.ShowErrorMessage("ERROR","Trabajador " + trabajador.getNombre() + " no se ha podido borrar");
+        }
+        return result;
+    }
+
     public String[] getColumnsName() {
         // TODO: 23/05/2022
-        String[] headers = {"ID", "FNAC", "NACIONALIDAD", "NOMBRE", "APELLIDOS", "PUESTO", "SALARIO"};
+        String[] headers = {"ID", "DNI", "NOMBRE", "APELLIDOS", "FNAC", "NACIONALIDAD", "PUESTO", "SALARIO"};
 
         return headers;
     }
-//
 //    //endregion
 }

@@ -12,6 +12,14 @@ public class Proveedor {
         this.id = id;
     }
 
+    public String getCIF() {
+        return CIF;
+    }
+
+    public void setCIF(String CIF) {
+        this.CIF = CIF;
+    }
+
     public String getNombre_proveedor() {
         return nombre_proveedor;
     }
@@ -82,6 +90,8 @@ public class Proveedor {
     //region ATRIBUTOS
 
     private int id;
+
+    private String CIF;
     private String nombre_proveedor;
     private String direccion;
     private String mail1;

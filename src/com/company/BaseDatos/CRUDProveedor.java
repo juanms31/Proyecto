@@ -39,16 +39,17 @@ public class CRUDProveedor {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO proveedor" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?,?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, proveedor.getNombre_proveedor());
-            preparedStatement.setString(3, proveedor.getDireccion());
-            preparedStatement.setString(4, proveedor.getMail1());
-            preparedStatement.setString(5, proveedor.getMail2());
+            preparedStatement.setString(2, proveedor.getCIF());
+            preparedStatement.setString(3, proveedor.getNombre_proveedor());
+            preparedStatement.setString(4, proveedor.getDireccion());
+            preparedStatement.setString(5, proveedor.getMail1());
             preparedStatement.setString(6, proveedor.getTelefono1());
-            preparedStatement.setString(7, proveedor.getTelefono2());
+            preparedStatement.setString(7, proveedor.getMail2());
+            preparedStatement.setString(8, proveedor.getTelefono2());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -96,7 +97,7 @@ public class CRUDProveedor {
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE proveedor " +
                 "SET nombre_proveedor = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+                " telefono1 = ?, telefono2 = ?, CIF = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, proveedor.getNombre_proveedor());
@@ -105,7 +106,8 @@ public class CRUDProveedor {
             preparedStatement.setString(4, proveedor.getMail2());
             preparedStatement.setString(5, proveedor.getTelefono1());
             preparedStatement.setString(6, proveedor.getTelefono2());
-            preparedStatement.setInt(7, proveedor.getId());
+            preparedStatement.setString(7, proveedor.getCIF());
+            preparedStatement.setInt(8, proveedor.getId());
 
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
@@ -130,6 +132,7 @@ public class CRUDProveedor {
             while (resultSet.next()){
                 Proveedor proveedor = new Proveedor();
                 proveedor.setId(resultSet.getInt("id"));
+                proveedor.setCIF(resultSet.getString("CIF"));
                 proveedor.setNombre_proveedor(resultSet.getString("nombre_proveedor"));
                 proveedor.setDireccion(resultSet.getString("direccion"));
                 proveedor.setMail1(resultSet.getString("mail1"));

@@ -215,6 +215,7 @@ public class ViewProveedor extends JFrame{
     public Object[] getProveedorObject(Proveedor proveedor){
         int y = 0;
         Object[] newProveedor = new Object[headers.length];
+        newProveedor[y++] = proveedor.getCIF();
         newProveedor[y++] = proveedor.getNombre_proveedor();
         newProveedor[y++] = proveedor.getDireccion();
         newProveedor[y++] = proveedor.getMail1();

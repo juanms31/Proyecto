@@ -68,7 +68,7 @@ public class ControladorCliente {
 
     public String[] getColumnsName() {
         // TODO: 23/05/2022
-        String[] headers = {"ID", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
+        String[] headers = {"ID", "CIF", "NOMBRE", "DIRECCION", "MAIL 1", "TELEFONO 1",  "MAIL2", "TELEFONO 2"};
 
         return headers;
     }

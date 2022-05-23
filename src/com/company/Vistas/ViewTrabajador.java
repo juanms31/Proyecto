@@ -192,6 +192,7 @@ public class ViewTrabajador extends JFrame{
 
         int row = TableTrabajador.getSelectedRow();
 
+        trabajadores.get(row).setDNI(trabajador.getDNI());
         trabajadores.get(row).setNombre(trabajador.getNombre());
         trabajadores.get(row).setApellidos(trabajador.getApellidos());
         trabajadores.get(row).setFnac(trabajador.getFnac());
@@ -203,7 +204,7 @@ public class ViewTrabajador extends JFrame{
 
     }
 
-    public void addTableProveedor(Trabajador trabajador){
+    public void addTableTrabajador(Trabajador trabajador){
 
         Object[] newTrabajador = getTrabajadorObject(trabajador);
         modelTrabajador.addRow(newTrabajador);
@@ -216,6 +217,7 @@ public class ViewTrabajador extends JFrame{
         int y = 0;
         Object[] newTrabajador = new Object[headers.length];
 
+        newTrabajador[y++] = trabajador.getDNI();
         newTrabajador[y++] = trabajador.getNombre();
         newTrabajador[y++] = trabajador.getApellidos();
         newTrabajador[y++] = trabajador.getFnac();

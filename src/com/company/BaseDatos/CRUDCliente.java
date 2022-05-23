@@ -50,16 +50,18 @@ public class CRUDCliente {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO cliente" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?,?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, cliente.getNombre());
-            preparedStatement.setString(3, cliente.getDireccion());
-            preparedStatement.setString(4, cliente.getMail1());
-            preparedStatement.setString(5, cliente.getMail2());
+            preparedStatement.setString(2, cliente.getCIF());
+            preparedStatement.setString(3, cliente.getNombre());
+            preparedStatement.setString(4, cliente.getDireccion());
+            preparedStatement.setString(5, cliente.getMail1());
             preparedStatement.setString(6, cliente.getTelef1());
-            preparedStatement.setString(7, cliente.getTelef2());
+            preparedStatement.setString(7, cliente.getMail2());
+            preparedStatement.setString(8, cliente.getTelef2());
+
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -117,7 +119,7 @@ public class CRUDCliente {
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE cliente " +
                 "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ? WHERE id = ?";
+                " telefono1 = ?, telefono2 = ?, CIF = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, cliente.getNombre());
@@ -126,7 +128,8 @@ public class CRUDCliente {
             preparedStatement.setString(4, cliente.getNombre());
             preparedStatement.setString(5, cliente.getTelef1());
             preparedStatement.setString(6, cliente.getTelef2());
-            preparedStatement.setInt(7, cliente.getId());
+            preparedStatement.setString(7, cliente.getCIF());
+            preparedStatement.setInt(8, cliente.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
@@ -157,6 +160,7 @@ public class CRUDCliente {
             while (resultSet.next()){
                 Cliente cliente = new Cliente();
                 cliente.setId(resultSet.getInt("id"));
+                cliente.setCIF(resultSet.getString("CIF"));
                 cliente.setNombre(resultSet.getString("nombre"));
                 cliente.setDireccion(resultSet.getString("direccion"));
                 cliente.setMail1(resultSet.getString("mail1"));

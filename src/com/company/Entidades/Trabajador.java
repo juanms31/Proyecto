@@ -61,6 +61,14 @@ public class Trabajador {
         this.salario = salario;
     }
 
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
     //endregion
 
     //region METODOS PUBLICOS
@@ -78,14 +86,16 @@ public class Trabajador {
                 '}';
     }
 
+
     //endregion
 
     //region ATRIBUTOS
 
     private int id;
+
+    private String DNI;
     private Date fnac;
     private String nacionalidad;
-
     private String apellidos;
     private String nombre;
     private String puesto;
