@@ -77,8 +77,8 @@ CREATE TABLE Cliente(
     nombre VARCHAR (30),
     direccion VARCHAR (200),
     mail1 VARCHAR (50),
-    mail2 VARCHAR (50),
     telefono1 INTEGER (12),
+    mail2 VARCHAR (50),
     telefono2 VARCHAR (12)
 );
 

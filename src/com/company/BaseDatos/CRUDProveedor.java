@@ -1,5 +1,7 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorMaterial;
+import com.company.Controlador.ControladorProveedor;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.Proveedor;
 
@@ -8,9 +10,13 @@ import java.util.ArrayList;
 
 public class CRUDProveedor {
 
+    public CRUDProveedor(ControladorProveedor controladorProveedor) {
+        this.controladorProveedor = controladorProveedor;
+    }
+
     // region Metodos CRUD
 
-    public ArrayList<Proveedor> readAllProveedor() throws SQLException {
+    public ArrayList<Proveedor> getAll() {
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM proveedor";
         try {
@@ -20,14 +26,11 @@ public class CRUDProveedor {
 
             BBDD.close();
             return  listaProveedor;
+
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
 
     }
@@ -72,7 +75,7 @@ public class CRUDProveedor {
         return new Cliente();
     }
 
-    public boolean deleteProveedor(int id) throws SQLException {
+    public boolean deleteProveedor(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM proveedor WHERE id = ?";
         try {
@@ -85,14 +88,10 @@ public class CRUDProveedor {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
-    public boolean updateProveedor(Proveedor proveedor) throws SQLException {
+    public boolean updateProveedor(Proveedor proveedor){
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE proveedor " +
@@ -116,12 +115,9 @@ public class CRUDProveedor {
         } catch (SQLException e) {
             e.printStackTrace();
             BBDD.close();
-            return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
+
+        return false;
     }
 
     // endregion
@@ -154,4 +150,10 @@ public class CRUDProveedor {
     }
 
     // endregion
+
+    //region Variables
+
+    private final ControladorProveedor controladorProveedor;
+
+    //endregion
 }

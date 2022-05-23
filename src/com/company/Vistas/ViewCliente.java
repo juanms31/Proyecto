@@ -46,9 +46,8 @@ public class ViewCliente extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Materiales");
         String[] listColumnsName = controladorCliente.getColumnsName();
-//        headers = listColumnsName;
-        headers = new String[listColumnsName.length - 4];
-        for (int i = 0; i < listColumnsName.length-4; i++){
+        headers = new String[listColumnsName.length - 1];
+        for (int i = 0; i < listColumnsName.length-1; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, clientes);
@@ -169,8 +168,9 @@ public class ViewCliente extends JFrame{
 
     private void deleteCliente(){
 
-        int id = getCodCliente();
-        boolean result = controladorCliente.deleteCliente(id);
+        Cliente cliente = getCliente();
+
+        boolean result = controladorCliente.deleteCliente(cliente);
 
         if(result){
             int row = TableCliente.getSelectedRow();
@@ -312,19 +312,19 @@ public class ViewCliente extends JFrame{
 
     //region Variables
     private JPanel panelPrincipal;
-    private JTabbedPane panelPestanas;
-    private JPanel PanelCliente;
     private JTable TableCliente;
-    private JPanel buscador;
     private JTextField filtro;
     private JButton buttonBuscar;
-    private JPanel panelBotones;
     private JButton buttonAnadir;
     private JButton buttonEliminar;
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
     private JButton buttonVolver;
+    private JTabbedPane panelPestanas;
+    private JPanel PanelMaterial;
+    private JPanel buscador;
+    private JPanel panelBotones;
 
     private  ArrayList<Cliente> clientes;
     private ControladorCliente controladorCliente;

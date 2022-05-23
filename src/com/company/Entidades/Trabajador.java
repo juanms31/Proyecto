@@ -29,20 +29,12 @@ public class Trabajador {
         this.nacionalidad = nacionalidad;
     }
 
-    public String getApellido1() {
-        return apellido1;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
-    }
-
-    public String getApellido2() {
-        return apellido2;
-    }
-
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
+    public void setApellidos(String apellido1) {
+        this.apellidos = apellido1;
     }
 
     public String getNombre() {
@@ -79,8 +71,7 @@ public class Trabajador {
                 "id=" + id +
                 ", fnac=" + fnac +
                 ", nacionalidad='" + nacionalidad + '\'' +
-                ", apellido1='" + apellido1 + '\'' +
-                ", apellido2='" + apellido2 + '\'' +
+                ", apellidos='" + apellidos + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", puesto='" + puesto + '\'' +
                 ", salario=" + salario +
@@ -94,8 +85,8 @@ public class Trabajador {
     private int id;
     private Date fnac;
     private String nacionalidad;
-    private String apellido1;
-    private String apellido2;
+
+    private String apellidos;
     private String nombre;
     private String puesto;
     private double salario;

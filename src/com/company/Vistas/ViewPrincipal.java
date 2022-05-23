@@ -14,11 +14,11 @@ public class ViewPrincipal extends JFrame{
 
     //region Constructor
     public ViewPrincipal() throws HeadlessException {
+
+        centerFrame();
         initWindow();
 
         setActionListeners();
-
-        centerFrame();
 
         setVisible(true);
     }

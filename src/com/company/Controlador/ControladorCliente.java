@@ -23,8 +23,8 @@ public class ControladorCliente {
         try {
             int idCliente = crudCliente.createCliente(cliente);
             cliente.setId(idCliente);
-            viewCliente.updateTableCliente(cliente);
-            viewCliente.ShowMessage("cliente con id " + idCliente + " agregado con exito", "CORRECTO");
+            viewCliente.addTableCliente(cliente);
+            viewCliente.ShowMessage("Cliente " + cliente.getNombre() + " agregado con exito", "CORRECTO");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,24 +49,25 @@ public class ControladorCliente {
         boolean result = crudCliente.updateCliente(cliente);
         if (result){
             viewCliente.updateTableCliente(cliente);
-            viewCliente.ShowMessage("El cliente con codigo: " + cliente.getId() + " ha sido actualizado", "CORRECTO");
+            viewCliente.ShowMessage( "CORRECTO", "Cliente " + cliente.getNombre() + " ha sido actualizado");
         }else{
-            viewCliente.ShowErrorMessage("No se ha podiddo actualizar cliente con el codigo: " + cliente.getId(), "ERROR");
+            viewCliente.ShowErrorMessage("ERROR", "No se ha podiddo actualizar cliente con el codigo: " + cliente.getId());
         }
         return result;
     }
 
-    public boolean deleteCliente(int cod){
-        boolean result = crudCliente.deleteCliente(cod);
+    public boolean deleteCliente(Cliente cliente){
+        boolean result = crudCliente.deleteCliente(cliente.getId());
         if (result){
-            viewCliente.ShowMessage("El material con codigo: " + cod + " ha sido borrado", "CORRECTO");
+            viewCliente.ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " ha sido borrado");
         }else{
-            viewCliente.ShowErrorMessage("El material con codigo: " + cod + " no se ha podido borrar", "ERROR");
+            viewCliente.ShowErrorMessage("ERROR","Cliente " + cliente.getNombre() + " no se ha podido borrar");
         }
         return result;
     }
 
     public String[] getColumnsName() {
+        // TODO: 23/05/2022
         String[] headers = {"ID", "NOMBRE", "DIRECCION", "MAIL 1", "MAIL2", "TELEFONO 1", "TELEFONO 2"};
 
         return headers;

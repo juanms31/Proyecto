@@ -44,7 +44,7 @@ public class CRUDTrabajador {
             preparedStatement.setDate(2, trabajador.getFnac());
             preparedStatement.setString(3, trabajador.getNacionalidad());
             preparedStatement.setString(4, trabajador.getNombre());
-            preparedStatement.setString(5, trabajador.getApellido1());
+            preparedStatement.setString(5, trabajador.getApellidos());
             preparedStatement.setString(6, trabajador.getPuesto());
             preparedStatement.setDouble(7, trabajador.getSalario());
             int affectedRows = preparedStatement.executeUpdate();
@@ -104,7 +104,7 @@ public class CRUDTrabajador {
             preparedStatement.setDate(1, trabajador.getFnac());
             preparedStatement.setString(2, trabajador.getNacionalidad());
             preparedStatement.setString(3, trabajador.getNombre());
-            preparedStatement.setString(4, trabajador.getApellido1());
+            preparedStatement.setString(4, trabajador.getApellidos());
             preparedStatement.setString(5, trabajador.getPuesto());
             preparedStatement.setDouble(6, trabajador.getSalario());
             preparedStatement.setInt(7, trabajador.getId());
@@ -135,7 +135,7 @@ public class CRUDTrabajador {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(resultSet.getInt("id"));
                 trabajador.setNombre(resultSet.getString("nombre"));
-                trabajador.setApellido1(resultSet.getString("apellidos"));
+                trabajador.setApellidos(resultSet.getString("apellidos"));
                 trabajador.setFnac(resultSet.getDate("fnac"));
                 trabajador.setNacionalidad(resultSet.getString("nacionalidad"));
                 trabajador.setPuesto(resultSet.getString("puesto"));
@@ -165,7 +165,7 @@ public class CRUDTrabajador {
 
         Trabajador trabajador = new Trabajador();
         trabajador.setNombre("Nombre nuevo desde java");
-        trabajador.setApellido1("Apillidos trabajdor");
+        trabajador.setApellidos("Apillidos trabajdor");
         trabajador.setFnac(Date.valueOf("1997-10-10"));
         trabajador.setNacionalidad("Javera");
         trabajador.setPuesto("Programador jhava");

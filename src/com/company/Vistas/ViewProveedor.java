@@ -51,8 +51,8 @@ public class ViewProveedor extends JFrame{
         setTitle("Proveedores");
         String[] listColumnsName = controladorProveedor.getColumnsName();
 //        headers = listColumnsName;
-        headers = new String[listColumnsName.length - 4];
-        for (int i = 0; i < listColumnsName.length-4; i++){
+        headers = new String[listColumnsName.length - 1];
+        for (int i = 0; i < listColumnsName.length- 1; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, proveedores);
@@ -190,7 +190,7 @@ public class ViewProveedor extends JFrame{
     //region Metodos privados
     public void updateTableProveedor(Proveedor proveedor) {
 
-        int row = TableCliente.getSelectedRow();
+        int row = TableProveedor.getSelectedRow();
 
         proveedores.get(row).setNombre_proveedor(proveedor.getNombre_proveedor());
         proveedores.get(row).setDireccion(proveedor.getDireccion());
@@ -302,7 +302,7 @@ public class ViewProveedor extends JFrame{
     }
 
     private void mouseListeners(){
-        TableCliente.addMouseListener(new MouseAdapter() {
+        TableProveedor.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount()==2){
@@ -316,21 +316,21 @@ public class ViewProveedor extends JFrame{
 
     //region Variables
     private JPanel panelPrincipal;
-    private JTabbedPane panelPestanas;
     private JPanel PanelCliente;
     private JTable TableCliente;
-    private JPanel buscador;
     private JTextField filtro;
     private JButton buttonBuscar;
-    private JPanel panelBotones;
     private JButton buttonAnadir;
     private JButton buttonEliminar;
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
     private JTable TableProveedor;
-    private JPanel PanelProovedor;
     private JButton buttonVolver;
+    private JTabbedPane panelPestanas;
+    private JPanel PanelMaterial;
+    private JPanel buscador;
+    private JPanel panelBotones;
 
     private  ArrayList<Proveedor> proveedores;
     private ControladorProveedor controladorProveedor;
