@@ -2,11 +2,9 @@ package com.company.BaseDatos;
 
 import com.company.Entidades.CalidadMaterial;
 import com.company.Entidades.UnidadMaterial;
+import com.company.Entidades.Vacaciones;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CRUDCalidadMaterial {
@@ -36,6 +34,38 @@ public class CRUDCalidadMaterial {
             return  null;
         }
 
+    }
+
+    public int createCalidadMaterial(CalidadMaterial calidadMaterial) throws SQLException {
+        Connection connection = BBDD.connect();
+        if (connection == null) return -1;
+        final String QUERY_INSERT = "INSERT INTO calidadmaterial" +
+                " VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setNull(1, 1);
+            preparedStatement.setString(2, calidadMaterial.getSiglasCalidad());
+            preparedStatement.setString(3, calidadMaterial.getNombreCalidad());
+            preparedStatement.setString(4, calidadMaterial.getDescripcion());
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int idRowCalidadMaterial = 0;
+            if(generatedKeys.next()){
+                idRowCalidadMaterial = generatedKeys.getInt(1);
+            }
+            BBDD.close();
+            return idRowCalidadMaterial;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            return  -1;
+        } finally {
+            if (!connection.isClosed()){
+                BBDD.close();
+            }
+        }
     }
 
     //endregion
