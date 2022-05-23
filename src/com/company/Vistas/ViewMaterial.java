@@ -1,7 +1,7 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorMaterial;;
-import com.company.Entidades.Material;
+import com.company.Entidades.*;
 import com.company.Formularios.FormMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -23,6 +23,21 @@ public class ViewMaterial extends JFrame{
     public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales) {
         this.controladorMaterial = controladorMaterial;
         this.materiales = materiales;
+        initWindow();
+        initListeners();
+        setVisible(true);
+    }
+
+    public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales, ArrayList<Proveedor> proveedores,
+                        ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
+                        ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales) {
+        this.controladorMaterial = controladorMaterial;
+        this.materiales = materiales;
+        this.proveedores = proveedores;
+        this.grupoMateriales = grupoMateriales;
+        this.especificacionMateriales = especificacionMateriales;
+        this.unidadMateriales = unidadMateriales;
+        this.calidadMateriales = calidadMateriales;
         initWindow();
         initListeners();
         setVisible(true);
@@ -180,6 +195,7 @@ public class ViewMaterial extends JFrame{
     //endregion
 
     //region Metodos privados
+
     public void updateTableMaterial(Material material) {
 
         int row = TableMaterial.getSelectedRow();
@@ -342,6 +358,12 @@ public class ViewMaterial extends JFrame{
     private JButton buttonEditar;
     private JButton buttonRecargar;
     private JButton buttonVolver;
+
+    private ArrayList<CalidadMaterial> calidadMateriales;
+    private ArrayList<UnidadMaterial> unidadMateriales;
+    private ArrayList<EspecificacionMaterial> especificacionMateriales;
+    private ArrayList<GrupoMaterial> grupoMateriales;
+    private ArrayList<Proveedor> proveedores;
 
     //endregion
 }

@@ -16,7 +16,14 @@ public class ControladorMaterial {
     public ControladorMaterial() {
         crudMaterial = new CRUDMaterial(this);
         ArrayList<Material> materiales = crudMaterial.getAll();
-        viewMaterial = new ViewMaterial(this, materiales);
+        //TODO ver si entra en constructor o al llamar a formulario
+        ArrayList<Proveedor> proveedores = getProveedores();
+        ArrayList<GrupoMaterial> grupoMateriales = getGruposMaterial();
+        ArrayList<EspecificacionMaterial> especificacionMateriales = getEspecifiacionMaterial();
+        ArrayList<UnidadMaterial> unidadMateriales = getUnidadMaterial();
+        ArrayList<CalidadMaterial> calidadMateriales = getCalidadMaterial();
+        viewMaterial = new ViewMaterial(this, materiales, proveedores, grupoMateriales, especificacionMateriales,
+                unidadMateriales, calidadMateriales);
 
     }
 
@@ -105,21 +112,21 @@ public class ControladorMaterial {
         return listProveedores;
     }
 
-    private ArrayList<GrupoMaterial> getGrupos(){
+    private ArrayList<GrupoMaterial> getGruposMaterial(){
         ArrayList<GrupoMaterial> listGrupoMaterials;
         CRUDGrupo crudGrupo = new CRUDGrupo();
         listGrupoMaterials = crudGrupo.getAll();
         return listGrupoMaterials;
     }
 
-    private ArrayList<EspecificacionMaterial> getEspecifiacion(){
+    private ArrayList<EspecificacionMaterial> getEspecifiacionMaterial(){
         ArrayList<EspecificacionMaterial> listEspecificacionMaterial;
         CRUDEspecificacion crudEspecificacion = new CRUDEspecificacion();
         listEspecificacionMaterial = crudEspecificacion.getAll();
         return listEspecificacionMaterial;
     }
 
-    private ArrayList<UnidadMaterial> getUnidadMateriañ(){
+    private ArrayList<UnidadMaterial> getUnidadMaterial(){
         ArrayList<UnidadMaterial> listUnidadMaterial;
         CRUDUnidadMaterial crudUnidadMaterial = new CRUDUnidadMaterial();
         listUnidadMaterial = crudUnidadMaterial.getAll();
