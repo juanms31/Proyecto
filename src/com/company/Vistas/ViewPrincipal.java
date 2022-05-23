@@ -1,9 +1,8 @@
 package com.company.Vistas;
 
-//import com.toedter.calendar.JCalendar;
-
-import com.company.Controlador.ControladorMaterial;
 import com.company.Controlador.ControladorCliente;
+import com.company.Controlador.ControladorMaterial;
+import com.company.Controlador.ControladorProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -88,7 +87,7 @@ public class ViewPrincipal extends JFrame{
         btnProveedores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewProveedor viewProvedores = new ViewProveedor();
+                ControladorProveedor controladorProveedor = new ControladorProveedor();
             }
         });
         btnFacturas.addActionListener(new ActionListener() {

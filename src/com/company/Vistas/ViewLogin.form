@@ -122,7 +122,7 @@
           <foreground color="-4520192"/>
           <icon value="com/company/Images/Icons/error.png"/>
           <text value="MENSAJE DE ERROR"/>
-          <visible value="true"/>
+          <visible value="false"/>
         </properties>
       </component>
       <component id="bf562" class="javax.swing.JLabel">

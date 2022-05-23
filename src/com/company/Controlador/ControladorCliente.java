@@ -20,15 +20,17 @@ public class ControladorCliente {
     }
 
     //region CRUD
-    public void createCliente(Cliente cliente){
+    public boolean createCliente(Cliente cliente){
         try {
             int idCliente = crudCliente.createCliente(cliente);
             cliente.setId(idCliente);
             viewCliente.updateTableCliente(cliente);
             viewCliente.ShowMessage("cliente con id " + idCliente + " agregado con exito", "CORRECTO");
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             viewCliente.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
+            return false;
         }
     }
 
@@ -44,7 +46,7 @@ public class ControladorCliente {
         return  cliente;
     }
 
-    public boolean updateMaterial(Cliente cliente) {
+    public boolean updateCliente(Cliente cliente) {
         boolean result = crudCliente.updateCliente(cliente);
         if (result){
             viewCliente.updateTableCliente(cliente);
@@ -55,7 +57,7 @@ public class ControladorCliente {
         return result;
     }
 
-    public boolean deleteMaterial(int cod){
+    public boolean deleteCliente(int cod){
         boolean result = crudCliente.deleteCliente(cod);
         if (result){
             viewCliente.ShowMessage("El material con codigo: " + cod + " ha sido borrado", "CORRECTO");
@@ -63,6 +65,12 @@ public class ControladorCliente {
             viewCliente.ShowErrorMessage("El material con codigo: " + cod + " no se ha podido borrar", "ERROR");
         }
         return result;
+    }
+
+    public String[] getColumnsName() {
+
+        // TODO: 23/05/2022
+        return new String[4];
     }
 
     //endregion

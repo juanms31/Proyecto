@@ -102,7 +102,7 @@
                   <foreground color="-16756757"/>
                 </properties>
               </component>
-              <component id="5eca5" class="javax.swing.JButton" binding="buscar">
+              <component id="5eca5" class="javax.swing.JButton" binding="buttonBuscar">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -144,7 +144,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="276c7" class="javax.swing.JButton">
+              <component id="276c7" class="javax.swing.JButton" binding="buttonVolver">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>

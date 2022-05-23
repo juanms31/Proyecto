@@ -27,8 +27,8 @@ CREATE TABLE UnidadMaterial(
 
 CREATE TABLE Material (
 	id INTEGER AUTO_INCREMENT PRIMARY key,
-    grupo VARCHAR(10),
     cod VARCHAR(20),
+    grupo VARCHAR(10),
     descripcion VARCHAR(200),
     especificacion VARCHAR(200),
     unidad VARCHAR (5),

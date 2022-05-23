@@ -14,26 +14,26 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class FormCliente extends JDialog{
-    private JPanel panelPrincipal;
-
     //region Constructores
 
     public FormCliente(ViewCliente viewCliente) {
+        estado = 1;
         this.viewCliente = viewCliente;
         initWindow();
         initComps();
         initListeners();
         setVisible(true);
-        estado = 1;
+
     }
 
-    public FormCliente(ViewCliente viewCliente, Cliente cliente){
+    public FormCliente(ViewCliente viewCliente, Cliente cliente) {
         estado = 2;
+        ClienteSiendoModificado = cliente;
         this.viewCliente = viewCliente;
-        initWindow();
-        initComps();
         initListeners();
         setCliente(cliente);
+        initWindow();
+        initComps();
         setVisible(true);
     }
 
@@ -62,64 +62,127 @@ public class FormCliente extends JDialog{
         centerFrame();
         setModal(true);
         setResizable(false);
-        setMinimumSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setTitle("Clientes");
+        setTitle("Materiales");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
-    public void centerFrame(){
+    public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height/2, screen.width/2);
+        setSize(screen.height / 2, screen.width / 2);
         Dimension window = getSize();
-        int width = (screen.width - window.width)/2;
-        int height = (screen.height - window.height)/2;
+        int width = (screen.width - window.width) / 2;
+        int height = (screen.height - window.height) / 2;
         setLocation(width, height);
     }
 
-    public void initComps(){
+    public void initComps() {
 
     }
-
 
     //endregion
 
     //region Metodos privados
 
-    private  void loadNewCliente(){
-        Cliente cliente = getCliente();
-        viewCliente.getNewClienteFromFormulario(cliente);
+    private void loadNewCliente() {
+
+        boolean conErrores = checkFields();
+
+        if(conErrores){
+
+        }else{
+
+            Cliente cliente = getCliente();
+            if(viewCliente.getNewClienteFromFormulario(cliente)){
+                dispose();
+            }else{
+                ShowErrorMessage("Error", "No se ha podido crear el cliente correctamente");
+            }
+            dispose();
+        }
     }
 
-    private  void loadUpdateCliente(){
-        Cliente cliente = getCliente();
-        viewCliente.getUpdateClienteFromFormulario(cliente);
+    private void loadUpdateCliente() {
+
+        boolean conErrores = checkFields();
+
+        if(conErrores){
+
+        }else{
+            Cliente cliente = getCliente();
+            if (viewCliente.getUpdateClienteFromFormulario(cliente)){
+                dispose();
+            }else {
+                ShowErrorMessage("Error", "No se ha podido crear el cliente correctamente");
+            }
+        }
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.ERROR_MESSAGE);
     }
 
     //endregion
 
     //region SET Y GET MATERIAL
     private void setCliente(Cliente cliente) {
-
         textFieldNombre.setText(cliente.getNombre());
         textFieldDireccion.setText(cliente.getDireccion());
         textFieldMail1.setText(cliente.getMail1());
         textFieldMail2.setText(cliente.getMail2());
         textFieldTelefono1.setText(cliente.getTelef1());
         textFieldTelefono2.setText(cliente.getTelef2());
-
     }
 
-    private Cliente getCliente(){
+    private boolean checkFields() {
+        if (textFieldNombre.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Nombre no puede estar vacio");
+            return true;
+        }
+        if (textFieldDireccion.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Direccion no puede estar vacio");
+            return true;
+        }
+        if (textFieldMail1.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Mail 1 no puede estar vacio");
+            return true;
+        }
+        if (textFieldTelefono1.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Telefono 1 no puede estar vacio");
+            return true;
+        }
+
+        return false;
+    }
+
+    private Cliente getCliente() {
         Cliente cliente = new Cliente();
 
-        cliente.setNombre(textFieldNombre.getText());
-        cliente.setDireccion(textFieldDireccion.getText());
-        cliente.setMail1(textFieldMail1.getText());
-        cliente.setMail2(textFieldMail2.getText());
-        cliente.setTelef1(textFieldMail1.getText());
-        cliente.setTelef2(textFieldMail2.getText());
+        boolean conErrores = checkFields();
+
+        if (estado == 2) {
+            cliente.setId(ClienteSiendoModificado.getId());
+
+            cliente.setNombre(textFieldNombre.getText());
+            cliente.setDireccion(textFieldDireccion.getText());
+            cliente.setMail1(textFieldMail1.getText());
+            cliente.setMail2(textFieldMail2.getText());
+            cliente.setTelef1(textFieldTelefono1.getText());
+            cliente.setTelef2(textFieldTelefono2.getText());
+
+        } else {
+            cliente.setNombre(textFieldNombre.getText());
+            cliente.setDireccion(textFieldDireccion.getText());
+            cliente.setMail1(textFieldMail1.getText());
+            cliente.setMail2(textFieldMail2.getText());
+            cliente.setTelef1(textFieldTelefono1.getText());
+            cliente.setTelef2(textFieldTelefono2.getText());
+        }
 
         return cliente;
     }
@@ -128,16 +191,17 @@ public class FormCliente extends JDialog{
 
     //region Listeners
 
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         keyListeners();
     }
-    private void actionListeners(){
+
+    private void actionListeners() {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                switch (estado){
+                switch (estado) {
                     case 0 -> {
                     }
                     case 1 -> {
@@ -160,13 +224,13 @@ public class FormCliente extends JDialog{
         });
     }
 
-    private void keyListeners(){
+    private void keyListeners() {
         textFieldTelefono1.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && caracter != '\b' /*corresponde a BACK_SPACE*/) {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != '+')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
@@ -177,19 +241,17 @@ public class FormCliente extends JDialog{
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && caracter != '\b' /*corresponde a BACK_SPACE*/) {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != '+')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
-
-
-
     }
 
     //endregion
 
     //region Variables
+
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JTextField textFieldNombre;
@@ -199,7 +261,9 @@ public class FormCliente extends JDialog{
     private JTextField textFieldMail2;
     private JTextField textFieldTelefono2;
     private JLabel labelTitulo;
+    private JPanel panelPrincipal;
     private ViewCliente viewCliente;
+    private Cliente ClienteSiendoModificado;
     int estado = 0;
 
     //endregion
