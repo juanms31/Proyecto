@@ -165,22 +165,39 @@ public class ViewMaterial extends JFrame{
 
     //region CRUD
     private void createMaterial(){
-        FormMaterial formMaterial = new FormMaterial(this);
+        FormMaterial formMaterial = new FormMaterial(this,
+                proveedores,
+                grupoMateriales,
+                especificacionMateriales,
+                unidadMateriales,
+                calidadMateriales);
     }
 
     private void readMaterial(){
         Material material = getMaterial();
-        FormMaterial formMaterial = new FormMaterial(this, material, false);
+        FormMaterial formMaterial = new FormMaterial(this,
+                material,
+                proveedores,
+                grupoMateriales,
+                especificacionMateriales,
+                unidadMateriales,
+                calidadMateriales);
     }
 
     private void updateMaterial() {
         Material material = getMaterial();
-        System.out.println("Vista CODIGO: " + material.getCodigo());
-        FormMaterial formMaterial = new FormMaterial(this, material);
+        FormMaterial formMaterial = new FormMaterial(this,
+                material,
+                proveedores,
+                grupoMateriales,
+                especificacionMateriales,
+                unidadMateriales,
+                calidadMateriales);
     }
 
     private void deleteMaterial(){
         String cod = getCodMaterial();
+
         boolean result = controladorMaterial.deleteMaterial(cod);
 
         if(result){
@@ -251,9 +268,7 @@ public class ViewMaterial extends JFrame{
         int row = TableMaterial.getSelectedRow();
 
         Material material = materiales.get(row);
-
-        System.out.println("GET MATERIAL VISTA CODIGO: " + material.getCodigo());
-
+        
         return material;
     }
 

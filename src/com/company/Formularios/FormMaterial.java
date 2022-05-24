@@ -1,6 +1,6 @@
 package com.company.Formularios;
 
-import com.company.Entidades.Material;
+import com.company.Entidades.*;
 import com.company.Vistas.ViewMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -10,14 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class FormMaterial extends JDialog {
 
     //region Constructores
 
-    public FormMaterial(ViewMaterial viewMaterial) {
+    public FormMaterial(ViewMaterial viewMaterial, ArrayList<Proveedor> proveedores,
+                        ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
+                        ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales) {
         estado = 1;
         this.viewMaterial = viewMaterial;
+        this.proveedores = proveedores;
+        this.grupoMateriales = grupoMateriales;
+        this.especificacionMateriales = especificacionMateriales;
+        this.unidadMateriales = unidadMateriales;
+        this.calidadMateriales = calidadMateriales;
+
         initWindow();
         initComps();
         initListeners();
@@ -25,10 +34,17 @@ public class FormMaterial extends JDialog {
 
     }
 
-    public FormMaterial(ViewMaterial viewMaterial, Material material) {
+    public FormMaterial(ViewMaterial viewMaterial, Material material, ArrayList<Proveedor> proveedores,
+                        ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
+                        ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales) {
         estado = 2;
         MaterialSiendoModificado = material;
         this.viewMaterial = viewMaterial;
+        this.proveedores = proveedores;
+        this.grupoMateriales = grupoMateriales;
+        this.especificacionMateriales = especificacionMateriales;
+        this.unidadMateriales = unidadMateriales;
+        this.calidadMateriales = calidadMateriales;
         initListeners();
         setMaterial(material);
         initWindow();
@@ -36,7 +52,9 @@ public class FormMaterial extends JDialog {
         setVisible(true);
     }
 
-    public FormMaterial(ViewMaterial viewMaterial, Material material, boolean editable) {
+    public FormMaterial(ViewMaterial viewMaterial, Material material, ArrayList<Proveedor> proveedores,
+                        ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
+                        ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales, boolean editable) {
         this.viewMaterial = viewMaterial;
         setMaterial(material);
         initWindow();
@@ -78,35 +96,41 @@ public class FormMaterial extends JDialog {
     }
 
     public void initComps() {
-        // TODO: 20/05/2022 Rellenar JComboBox con la BBDD
 
         //Rellenar grupo
-        comboBoxGrupo.addItem("MTAC");
-        comboBoxGrupo.addItem("MTIN");
+        for(GrupoMaterial grupo: grupoMateriales){
+            comboBoxGrupo.addItem(grupo.getNombreGrupo());
+        }
 
         //Rellenar especificacion
-        comboBoxEspecificacion.addItem("Sanitario");
-        comboBoxEspecificacion.addItem("Industrial");
-        comboBoxEspecificacion.addItem("Soportacion");
-        comboBoxEspecificacion.addItem("Petroleo");
+        for(EspecificacionMaterial especificacionMaterial: especificacionMateriales){
+            comboBoxEspecificacion.addItem(especificacionMaterial.getNombreEspecificacion());
+        }
 
         //Rellenar UD
-        comboBoxUnidad.addItem("kg");
-        comboBoxUnidad.addItem("ml");
-        comboBoxUnidad.addItem("ud");
+        for(UnidadMaterial unidadMaterial: unidadMateriales){
+            comboBoxUnidad.addItem(unidadMaterial.getNombreUnidad());
+        }
 
         //Rellenar Calidad
-        comboBoxCalidad.addItem("Acero Inoxidable 304");
-        comboBoxCalidad.addItem("Acero Inoxidable 316");
+        for(CalidadMaterial calidadMaterial: calidadMateriales){
+            comboBoxCalidad.addItem(calidadMaterial.getNombreCalidad());
+        }
 
         //Rellenar Proveedor1
-        comboBoxProveedor.addItem("Proveedor 1");
+        for(Proveedor proveedor: proveedores){
+            comboBoxProveedor.addItem(proveedor.getNombre_proveedor());
+        }
 
         //Rellenar Proveedor2
-        comboBoxProveedor2.addItem("Proveedor 2");
+        for(Proveedor proveedor: proveedores){
+            comboBoxProveedor2.addItem(proveedor.getNombre_proveedor());
+        }
 
         //Rellenar Proveedor3
-        comboBoxProveedor3.addItem("Proveedor 3");
+        for(Proveedor proveedor: proveedores){
+            comboBoxProveedor3.addItem(proveedor.getNombre_proveedor());
+        }
     }
     //endregion
 
@@ -116,14 +140,14 @@ public class FormMaterial extends JDialog {
 
         boolean conErrores = checkFields();
 
-        if(conErrores){
+        if (conErrores) {
 
-        }else{
+        } else {
 
             Material material = getMaterial();
-            if(viewMaterial.getNewMaterialFromFormulario(material)){
+            if (viewMaterial.getNewMaterialFromFormulario(material)) {
                 dispose();
-            }else{
+            } else {
                 ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
             }
             dispose();
@@ -134,13 +158,13 @@ public class FormMaterial extends JDialog {
 
         boolean conErrores = checkFields();
 
-        if(conErrores){
+        if (conErrores) {
 
-        }else{
+        } else {
             Material material = getMaterial();
-            if (viewMaterial.getUpdateMaterialFromFormulario(material)){
+            if (viewMaterial.getUpdateMaterialFromFormulario(material)) {
                 dispose();
-            }else {
+            } else {
                 ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
             }
         }
@@ -334,6 +358,12 @@ public class FormMaterial extends JDialog {
 
     private ViewMaterial viewMaterial;
     int estado = 0;
+
+    ArrayList<Proveedor> proveedores;
+    ArrayList<GrupoMaterial> grupoMateriales;
+    ArrayList<EspecificacionMaterial> especificacionMateriales;
+    ArrayList<UnidadMaterial> unidadMateriales;
+    ArrayList<CalidadMaterial> calidadMateriales;
 
 
     //endregion

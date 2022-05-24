@@ -1,9 +1,6 @@
 package com.company.Vistas;
 
-import com.company.Controlador.ControladorCliente;
-import com.company.Controlador.ControladorMaterial;
-import com.company.Controlador.ControladorProveedor;
-import com.company.Controlador.ControladorTrabajador;
+import com.company.Controlador.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -64,7 +61,7 @@ public class ViewPrincipal extends JFrame{
         btnAlbaranes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewAlbaran viewAlbaran = new ViewAlbaran();
+                ControladorAlbaran controladorAlbaran = new ControladorAlbaran();
             }
         });
         btnCertificacion.addActionListener(new ActionListener() {
@@ -94,7 +91,11 @@ public class ViewPrincipal extends JFrame{
         btnFacturas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewFactura viewFactura = new ViewFactura();
+                JOptionPane.showMessageDialog(ViewPrincipal.this,
+                        "Este modulo esta en desarrollo. Intentelo más tarde.",
+                        "Error",
+                        JOptionPane.OK_OPTION,
+                        new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg"));
             }
         });
         btnTrabajadores.addActionListener(new ActionListener() {
@@ -106,7 +107,7 @@ public class ViewPrincipal extends JFrame{
         btnSeguimiento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewSeguimiento viewSeguimiento = new ViewSeguimiento();
+                ControladorSeguimiento controladorSeguimiento = new ControladorSeguimiento();
             }
         });
     }

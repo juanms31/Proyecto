@@ -25,6 +25,13 @@ CREATE TABLE UnidadMaterial(
     Descripcion VARCHAR(150)
 );
 
+CREATE TABLE CalidadMaterial(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_calidad VARCHAR(5) NOT NULL,
+    nombre_calidad VARCHAR(50),
+    Descripcion VARCHAR(150)
+);
+
 CREATE TABLE Material (
 	id INTEGER AUTO_INCREMENT PRIMARY key,
     cod VARCHAR(20),
@@ -48,7 +55,10 @@ CREATE TABLE Material (
     	REFERENCES EspecificacionMaterial (id),
     id_unidad INTEGER,
     FOREIGN KEY (id_unidad)
-    	REFERENCES UnidadMaterial (id)
+    	REFERENCES UnidadMaterial (id),
+    id_calidad INTEGER,
+    FOREIGN KEY (id_calidad)
+        REFERENCES CalidadMaterial (id)
 );
 
 CREATE TABLE MOInstalacionMaterial (
@@ -223,3 +233,4 @@ CREATE TABLE MaterialUtilizadoActuacion (
     FOREIGN KEY (id_actuacion)
     	REFERENCES Actuacion (id)
 );
+

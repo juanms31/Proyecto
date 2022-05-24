@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="65a92" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c0b1f" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -19,16 +19,17 @@
         </properties>
         <border type="none"/>
         <children>
-          <tabbedpane id="d22fb" binding="panelPestanas">
+          <tabbedpane id="accd8" binding="panelPestanas">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <alignmentX value="0.0"/>
               <alignmentY value="0.0"/>
-              <background color="-1"/>
+              <background color="-1703946"/>
               <font size="14"/>
-              <foreground color="-16756757"/>
+              <foreground color="-16055809"/>
+              <inheritsPopupMenu value="true"/>
               <tabLayoutPolicy value="1"/>
               <tabPlacement value="1"/>
             </properties>
@@ -36,42 +37,43 @@
               <color color="-16356043"/>
             </border>
             <children>
-              <grid id="bd9ba" binding="PanelAlbaranes" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="4630c" binding="PanelMaterial" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="1" left="1" bottom="1" right="1"/>
                 <constraints>
                   <tabbedpane title="Albaranes"/>
                 </constraints>
                 <properties>
-                  <background color="-16756757"/>
+                  <background color="-11617507"/>
                   <foreground color="-16356043"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <scrollpane id="dfff7">
+                  <scrollpane id="c9985">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-3421237"/>
+                      <background color="-1900570"/>
                       <focusable value="false"/>
+                      <foreground color="-16777216"/>
                       <requestFocusEnabled value="false"/>
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="4c24e" class="javax.swing.JTable" binding="TableAlbaranes">
+                      <component id="9fa78" class="javax.swing.JTable" binding="TableAlbaran">
                         <constraints/>
                         <properties>
                           <autoCreateRowSorter value="true"/>
                           <autoResizeMode value="1"/>
-                          <background color="-1"/>
+                          <background color="-3485441"/>
                           <cellSelectionEnabled value="false"/>
                           <focusTraversalPolicyProvider value="false"/>
                           <font size="16"/>
-                          <foreground color="-16756757"/>
-                          <gridColor color="-16777216"/>
+                          <foreground color="-16777216"/>
+                          <gridColor color="-11617507"/>
                           <rowSelectionAllowed value="true"/>
-                          <selectionBackground color="-16224457"/>
-                          <selectionForeground color="-1"/>
+                          <selectionBackground color="-1703946"/>
+                          <selectionForeground color="-16055809"/>
                         </properties>
                       </component>
                     </children>
@@ -80,7 +82,7 @@
               </grid>
             </children>
           </tabbedpane>
-          <grid id="930f" binding="buscador" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="c6f5d" binding="buscador" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -91,18 +93,18 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="621f2" class="javax.swing.JTextField" binding="filtro">
+              <component id="d9bc1" class="javax.swing.JTextField" binding="filtro">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <foreground color="-16756757"/>
                 </properties>
               </component>
-              <component id="bf871" class="javax.swing.JButton" binding="buscar">
+              <component id="4bac4" class="javax.swing.JButton" binding="buttonBuscar">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -115,7 +117,7 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="dec6d" class="javax.swing.JLabel">
+              <component id="cee8c" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -126,7 +128,7 @@
               </component>
             </children>
           </grid>
-          <component id="b48fc" class="javax.swing.JSeparator">
+          <component id="f16b7" class="javax.swing.JSeparator">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -134,7 +136,7 @@
               <background color="-16756757"/>
             </properties>
           </component>
-          <grid id="2e052" binding="panelBotones" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="e1123" binding="panelBotones" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
@@ -144,7 +146,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="85479" class="javax.swing.JButton">
+              <component id="9cd41" class="javax.swing.JButton" binding="buttonVolver">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -160,7 +162,7 @@
               </component>
             </children>
           </grid>
-          <grid id="d7152" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="b8bab" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -170,72 +172,73 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="b44cd" class="javax.swing.JButton" binding="buttonAnadir">
+              <component id="a0b96" class="javax.swing.JButton" binding="buttonAnadir">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
+                  <contentAreaFilled value="true"/>
                   <foreground color="-1"/>
                   <icon value="com/company/Images/Icons/anadir.png"/>
                   <text value=""/>
                 </properties>
               </component>
-              <hspacer id="bea24">
+              <hspacer id="bca2a">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-              <component id="79eac" class="javax.swing.JButton" binding="buttonEliminar">
+              <component id="a02f2" class="javax.swing.JButton" binding="buttonEliminar">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/papelera.png"/>
                   <text value=""/>
                 </properties>
               </component>
-              <component id="8d0b5" class="javax.swing.JButton" binding="buttonVer">
+              <component id="5f7be" class="javax.swing.JButton" binding="buttonVer">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/ver.png"/>
                   <text value=""/>
                 </properties>
               </component>
-              <component id="eddf7" class="javax.swing.JButton" binding="buttonEditar">
+              <component id="5356c" class="javax.swing.JButton" binding="buttonEditar">
                 <constraints>
                   <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
-                  <contentAreaFilled value="false"/>
-                  <foreground color="-1"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/lapiz.png"/>
                   <text value=""/>
                 </properties>
               </component>
-              <component id="17a31" class="javax.swing.JButton" binding="buttonRecargar">
+              <component id="fb4fe" class="javax.swing.JButton" binding="buttonRecargar">
                 <constraints>
                   <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
+                  <background color="-1703946"/>
                   <borderPainted value="false"/>
+                  <defaultCapable value="false"/>
                   <focusable value="false"/>
-                  <foreground color="-16616914"/>
+                  <foreground color="-1703946"/>
                   <icon value="com/company/Images/Icons/reload.png"/>
                   <requestFocusEnabled value="false"/>
                   <text value=""/>

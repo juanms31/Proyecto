@@ -111,6 +111,7 @@ public class ViewCertificacion extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
+    private JButton buttonVolver;
 
     //endregion
 
