@@ -235,3 +235,28 @@ CREATE TABLE MaterialUtilizadoActuacion (
     	REFERENCES Actuacion (id)
 );
 
+
+// Insercciones
+
+INSERT INTO `calidadmaterial`(`id`, `siglas_calidad`, `nombre_calidad`, `Descripcion`)
+VALUES ('1','AI304','ACERO INOXIDABLE 304 L',''),
+       ('2','AI316','ACERO INOXIDABLE 316L','');
+
+INSERT INTO `grupomaterial`(`id`, `siglas_grupo`, `nombre_grupo`, `Descripcion`)
+VALUES ('1','MTAC','Material Acero al Carbono',''),
+       ('2','MTIN','Material Inoxidable',''),
+       ('3','ALU','Chapa Aluminio',''),
+       ('4','INOX','ACERO INOXIDABLE','');
+
+INSERT INTO `unidadmaterial`(`id`, `siglas_unidad`, `nombre_unidad`, `Descripcion`)
+VALUES ('1','Kg','Kilogramos',''),
+       ('2','gr','Gramos',''),
+       ('3','L','Litros',''),
+       ('4','ml','Mililitros',''),
+       ('5','m2','Metros Cuadrados','');
+
+INSERT INTO `especificacionmaterial`(`id`, `siglas_Especificacion`, `nombre_Especificacion`, `Descripcion`)
+VALUES ('1','IN','Industrial',''),
+       ('2','PE','Petroleo',''),
+       ('3','SA','Sanitario',''),
+       ('4','SO','Soportacion','');
