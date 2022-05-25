@@ -121,8 +121,8 @@ public class ControladorMaterial {
 
     private ArrayList<EspecificacionMaterial> getEspecifiacionMaterial(){
         ArrayList<EspecificacionMaterial> listEspecificacionMaterial;
-        CRUDEspecificacion crudEspecificacion = new CRUDEspecificacion();
-        listEspecificacionMaterial = crudEspecificacion.getAll();
+        CRUDEspecificacionMaterial crudEspecificacionMaterial = new CRUDEspecificacionMaterial();
+        listEspecificacionMaterial = crudEspecificacionMaterial.getAll();
         return listEspecificacionMaterial;
     }
 

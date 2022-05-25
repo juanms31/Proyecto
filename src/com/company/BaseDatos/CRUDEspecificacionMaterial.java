@@ -1,16 +1,14 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.EspecificacionMaterial;
+import com.company.Entidades.UnidadMaterial;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class CRUDEspecificacion {
+public class CRUDEspecificacionMaterial {
 
-    public CRUDEspecificacion() {
+    public CRUDEspecificacionMaterial() {
     }
 
     // region Metodos CRUD
@@ -31,7 +29,38 @@ public class CRUDEspecificacion {
             BBDD.close();
             return  null;
         }
+    }
 
+    public int createEspecificacionMaterial(EspecificacionMaterial especificacionMaterial) throws SQLException {
+        Connection connection = BBDD.connect();
+        if (connection == null) return -1;
+        final String QUERY_INSERT = "INSERT INTO especificacionmaterial" +
+                " VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setNull(1, 1);
+            preparedStatement.setString(2, especificacionMaterial.getSiglasEspecificacion());
+            preparedStatement.setString(3, especificacionMaterial.getNombreEspecificacion());
+            preparedStatement.setString(4, especificacionMaterial.getDescripcion());
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int idRowEspecificacionMaterial = 0;
+            if(generatedKeys.next()){
+                idRowEspecificacionMaterial = generatedKeys.getInt(1);
+            }
+            BBDD.close();
+            return idRowEspecificacionMaterial;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            return  -1;
+        } finally {
+            if (!connection.isClosed()){
+                BBDD.close();
+            }
+        }
     }
 
     //endregion

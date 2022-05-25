@@ -33,7 +33,38 @@ public class CRUDGrupo {
             BBDD.close();
             return  null;
         }
+    }
 
+    public int createGrupoMaterial(GrupoMaterial grupoMaterial) throws SQLException {
+        Connection connection = BBDD.connect();
+        if (connection == null) return -1;
+        final String QUERY_INSERT = "INSERT INTO grupomaterial" +
+                " VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setNull(1, 1);
+            preparedStatement.setString(2, grupoMaterial.getSiglasGrupo());
+            preparedStatement.setString(3, grupoMaterial.getNombreGrupo());
+            preparedStatement.setString(4, grupoMaterial.getDescripcion());
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int idRowGrupoMaterial = 0;
+            if(generatedKeys.next()){
+                idRowGrupoMaterial = generatedKeys.getInt(1);
+            }
+            BBDD.close();
+            return idRowGrupoMaterial;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            return  -1;
+        } finally {
+            if (!connection.isClosed()){
+                BBDD.close();
+            }
+        }
     }
 
     /*
