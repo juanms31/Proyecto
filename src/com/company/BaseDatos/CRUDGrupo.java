@@ -19,7 +19,7 @@ public class CRUDGrupo {
 
     public ArrayList<GrupoMaterial> getAll() {
         Connection connection = BBDD.connect();
-        final String SELECT_QUERY = "SELECT * FROM grupo";
+        final String SELECT_QUERY = "SELECT * FROM GrupoMaterial";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_QUERY);

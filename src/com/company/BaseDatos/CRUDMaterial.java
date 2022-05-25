@@ -37,12 +37,12 @@ public class CRUDMaterial {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO material" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, material.getGrupo());
-            preparedStatement.setString(3, material.getCodigo());
+            preparedStatement.setString(2, material.getCodigo());
+            preparedStatement.setString(3, material.getGrupo());
             preparedStatement.setString(4, material.getDescripcion());
             preparedStatement.setString(5, material.getEspecificacion());
             preparedStatement.setString(6, material.getUnidad());
@@ -61,10 +61,10 @@ public class CRUDMaterial {
                 preparedStatement.setInt(15, material.getIdGrupo());
             }
 
-            if (material.getIdEspecifiacion() == null){
+            if (material.getIdEspecificacion() == null){
                 preparedStatement.setNull(16, 1);
             } else{
-                preparedStatement.setInt(16, material.getIdEspecifiacion());
+                preparedStatement.setInt(16, material.getIdEspecificacion());
             }
 
             if (material.getIdUnidad() == null){
@@ -72,6 +72,13 @@ public class CRUDMaterial {
             }else{
                 preparedStatement.setInt(17, material.getIdUnidad());
             }
+
+            if (material.getIdCalidad() == null){
+                preparedStatement.setNull(18, 1);
+            }else{
+                preparedStatement.setInt(18, material.getIdCalidad());
+            }
+
             //Extraemos el id autogenerado
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw  new SQLException("No se pudo guardar");
@@ -118,17 +125,19 @@ public class CRUDMaterial {
     }
 
     public boolean updateMaterial(Material material){
+
         Connection connection = BBDD.connect();
         if (connection == null)return false;
         final String QUERY_UPDATE = "UPDATE material " +
-                "SET grupo = ?, cod = ?, descripcion = ?, especificacion = ?, unidad = ?, espesor = ?, " +
+                "SET cod = ?, grupo = ?, descripcion = ?, especificacion = ?, unidad = ?, espesor = ?, " +
                 "calidad = ?, Proveedor1 = ?, precio1 = ?, Proveedor2 = ?, precio2 = ?, Proveedor3 = ?, precio3 = ?, " +
-                "id_grupo = ?, id_especifiacion = ?, id_unidad = ? " +
+                "id_grupo = ?, id_especifiacion = ?, id_unidad = ?, id_calidad = ? " +
                 "WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, material.getGrupo());
-            preparedStatement.setString(2, material.getCodigo());
+
+            preparedStatement.setString(1, material.getCodigo());
+            preparedStatement.setString(2, material.getGrupo());
             preparedStatement.setString(3, material.getDescripcion());
             preparedStatement.setString(4, material.getEspecificacion());
             preparedStatement.setString(5, material.getUnidad());
@@ -147,10 +156,10 @@ public class CRUDMaterial {
                 preparedStatement.setInt(14, material.getIdGrupo());
             }
 
-            if (material.getIdEspecifiacion() == null){
+            if (material.getIdEspecificacion() == null){
                 preparedStatement.setNull(15, 1);
             } else{
-                preparedStatement.setInt(15, material.getIdEspecifiacion());
+                preparedStatement.setInt(15, material.getIdEspecificacion());
             }
 
             if (material.getIdUnidad() == null){
@@ -158,7 +167,14 @@ public class CRUDMaterial {
             }else{
                 preparedStatement.setInt(16, material.getIdUnidad());
             }
-            preparedStatement.setInt(17, material.getId());
+
+            if (material.getIdCalidad() == null){
+                preparedStatement.setNull(17, 1);
+            }else{
+                preparedStatement.setInt(17, material.getIdCalidad());
+            }
+
+            preparedStatement.setInt(18, material.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + material.getId());
@@ -259,7 +275,7 @@ public class CRUDMaterial {
         material.setProveedor3("Proveedor3");
         material.setPrecio3(333.3);
         material.setIdGrupo(null);
-        material.setIdEspecifiacion(null);
+        material.setIdEspecificacion(null);
         material.setIdUnidad(null);
 
         int idRowMaterial = 0;

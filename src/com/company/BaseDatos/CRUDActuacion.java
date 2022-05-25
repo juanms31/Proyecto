@@ -11,7 +11,7 @@ public class CRUDActuacion {
 
     // region Metodos CRUD
 
-    public ArrayList<Actuacion> readAllActuacion() throws SQLException {
+    public ArrayList<Actuacion> getAll(){
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM actuacion";
         try {
@@ -25,10 +25,6 @@ public class CRUDActuacion {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
 
     }

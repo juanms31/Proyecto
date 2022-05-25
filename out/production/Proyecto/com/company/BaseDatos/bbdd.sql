@@ -74,7 +74,7 @@ CREATE TABLE MOInstalacionMaterial (
 
 CREATE TABLE Proveedor (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    CIF INTEGER NOT NULL,
+    CIF VARCHAR(9) NOT NULL,
     nombre_proveedor VARCHAR(150) NOT NULL,
     direccion VARCHAR(150),
     mail1 VARCHAR(100),
@@ -179,6 +179,7 @@ CREATE TABLE Trabajador(
 CREATE TABLE SeguimientoLaboral
 (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(10) NOT NULL,
     ano INTEGER NOT NULL,
     dia INTEGER NOT NULL,
     mes INTEGER NOT NULL,

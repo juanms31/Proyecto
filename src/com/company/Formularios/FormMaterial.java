@@ -46,9 +46,9 @@ public class FormMaterial extends JDialog {
         this.unidadMateriales = unidadMateriales;
         this.calidadMateriales = calidadMateriales;
         initListeners();
-        setMaterial(material);
         initWindow();
         initComps();
+        setMaterial(material);
         setVisible(true);
     }
 
@@ -56,9 +56,9 @@ public class FormMaterial extends JDialog {
                         ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
                         ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales, boolean editable) {
         this.viewMaterial = viewMaterial;
-        setMaterial(material);
         initWindow();
         initComps();
+        setMaterial(material);
         initListeners();
         //TODO ver como tratamos editable
         setVisible(true);
@@ -98,23 +98,27 @@ public class FormMaterial extends JDialog {
     public void initComps() {
 
         //Rellenar grupo
+        comboBoxGrupo.addItem("Selecciona grupo ");
         for(GrupoMaterial grupo: grupoMateriales){
-            comboBoxGrupo.addItem(grupo.getNombreGrupo());
+            comboBoxGrupo.addItem(grupo.getSiglasGrupo());
         }
 
         //Rellenar especificacion
+        comboBoxEspecificacion.addItem("Selecciona Especificacion ");
         for(EspecificacionMaterial especificacionMaterial: especificacionMateriales){
             comboBoxEspecificacion.addItem(especificacionMaterial.getNombreEspecificacion());
         }
 
         //Rellenar UD
+        comboBoxUnidad.addItem("Selecciona Unidad ");
         for(UnidadMaterial unidadMaterial: unidadMateriales){
-            comboBoxUnidad.addItem(unidadMaterial.getNombreUnidad());
+            comboBoxUnidad.addItem(unidadMaterial.getSiglasUnidad());
         }
 
         //Rellenar Calidad
+        comboBoxCalidad.addItem("Selecciona Calidad ");
         for(CalidadMaterial calidadMaterial: calidadMateriales){
-            comboBoxCalidad.addItem(calidadMaterial.getNombreCalidad());
+            comboBoxCalidad.addItem(calidadMaterial.getSiglasCalidad());
         }
 
         //Rellenar Proveedor1
@@ -184,11 +188,10 @@ public class FormMaterial extends JDialog {
 
         MaterialSiendoModificado.setId(material.getId());
         MaterialSiendoModificado.setCodigo(material.getCodigo());
-        System.out.println("Formulario CODIGO: " + material.getCodigo());
         comboBoxGrupo.setSelectedItem(material.getGrupo());
         textFieldDescripcion.setText(material.getDescripcion());
         comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
-        comboBoxUnidad.setSelectedItem(material.getIdUnidad());
+        comboBoxUnidad.setSelectedItem(material.getUnidad());
         textFieldEspesor.setText(String.valueOf(material.getEspesor()));
         comboBoxCalidad.setSelectedItem(material.getCalidad());
         comboBoxProveedor.setSelectedItem(material.getProveedor1());
@@ -234,6 +237,7 @@ public class FormMaterial extends JDialog {
 
 
         } else {
+//            material.setCodigo(MaterialSiendoModificado.getCodigo());
             material.setGrupo((String) comboBoxGrupo.getSelectedItem());
             material.setDescripcion(textFieldDescripcion.getText());
             material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
@@ -294,7 +298,7 @@ public class FormMaterial extends JDialog {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != '.')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }

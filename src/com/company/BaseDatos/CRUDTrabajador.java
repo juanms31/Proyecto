@@ -13,6 +13,10 @@ public class CRUDTrabajador {
         this.controladorTrabajador = controladorTrabajador;
 
     }
+
+    public CRUDTrabajador(){
+
+    }
     // region Metodos CRUD
 
     public ArrayList<Trabajador> getAll(){

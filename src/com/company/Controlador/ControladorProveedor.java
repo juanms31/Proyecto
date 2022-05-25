@@ -59,9 +59,9 @@ public class ControladorProveedor {
     public boolean deleteProveedor(int cod){
         boolean result = crudProveedor.deleteProveedor(cod);
         if (result){
-            viewProveedor.ShowMessage("El material con codigo: " + cod + " ha sido borrado", "CORRECTO");
+            viewProveedor.ShowMessage( "CORRECTO", "El proveedor con codigo: " + cod + " ha sido borrado");
         }else{
-            viewProveedor.ShowErrorMessage("El material con codigo: " + cod + " no se ha podido borrar", "ERROR");
+            viewProveedor.ShowErrorMessage("ERROR", "El proveedor con codigo: " + cod + " no se ha podido borrar");
         }
         return result;
     }

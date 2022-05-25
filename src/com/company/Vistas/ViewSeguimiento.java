@@ -21,9 +21,13 @@ public class ViewSeguimiento extends JFrame{
 
     //region Constructores
 
-    public ViewSeguimiento(ControladorSeguimiento controladorSeguimiento, ArrayList<SeguimientoLaboral> seguimientoLaboralList) {
+    public ViewSeguimiento(ControladorSeguimiento controladorSeguimiento,
+                           ArrayList<SeguimientoLaboral> seguimientoLaboralList, ArrayList<Trabajador> trabajadores,
+                           ArrayList<Actuacion> actuaciones) {
         this.controladorSeguimiento = controladorSeguimiento;
         this.seguimientoLaboralList = seguimientoLaboralList;
+        this.trabajadores = trabajadores;
+        this.actuaciones = actuaciones;
         initWindow();
         initListeners();
         setVisible(true);
@@ -47,8 +51,8 @@ public class ViewSeguimiento extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Seguimiento Laboral");
         String[] listColumnsName = controladorSeguimiento.getColumnsName();
-        headers = new String[listColumnsName.length-4];
-        for (int i = 0; i < listColumnsName.length-4; i++){
+        headers = new String[listColumnsName.length-1];
+        for (int i = 0; i < listColumnsName.length-1; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, seguimientoLaboralList);
@@ -149,21 +153,21 @@ public class ViewSeguimiento extends JFrame{
 
     //region CRUD
     private void createSeguimiento(){
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this);
+        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, trabajadores, actuaciones);
     }
 
     private void readSeguimiento(){
         SeguimientoLaboral seguimientoLaboral = getSeguimiento();
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, false);
+        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, false, trabajadores, actuaciones);
     }
 
-    private void updateMaterial() {
+    private void updateSeguimiento() {
         SeguimientoLaboral seguimientoLaboral = getSeguimiento();
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral);
+        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, trabajadores, actuaciones);
     }
 
     private void deleteSeguimiento(){
-        String cod = String.valueOf(getCodSeguimiento());
+        int cod = getCodSeguimiento();
 
         boolean result = controladorSeguimiento.deleteSeguimiento(cod);
 
@@ -185,7 +189,7 @@ public class ViewSeguimiento extends JFrame{
         int row = TableSeguimiento.getSelectedRow();
 
         seguimientoLaboralList.get(row).setActuacion(seguimientoLaboral.getActuacion());
-        // FIXME: 24/05/2022 dara error ya que la actuacion es un objeto tal cual
+
         seguimientoLaboralList.get(row).setTrabajador(seguimientoLaboral.getTrabajador());
         seguimientoLaboralList.get(row).setAno(seguimientoLaboral.getAno());
         seguimientoLaboralList.get(row).setDia(seguimientoLaboral.getDia());
@@ -211,8 +215,13 @@ public class ViewSeguimiento extends JFrame{
     public Object[] getSeguimientoObject(SeguimientoLaboral seguimientoLaboral){
         int y = 0;
         Object[] newSeguimiento = new Object[headers.length];
-        newSeguimiento[y++] = seguimientoLaboral.getActuacion();
-        newSeguimiento[y++] = seguimientoLaboral.getTrabajador();
+        newSeguimiento[y++] = seguimientoLaboral.getActuacion().getId();
+        newSeguimiento[y++] = seguimientoLaboral.getTipo();
+
+        Trabajador trabajador = seguimientoLaboral.getTrabajador();
+        String trabajadorSeleccionado =  trabajador.getId() + " " + trabajador.getNombre();
+
+        newSeguimiento[y++] = trabajadorSeleccionado;
         newSeguimiento[y++] = seguimientoLaboral.getAno();
         newSeguimiento[y++] = seguimientoLaboral.getDia();
         newSeguimiento[y++] = seguimientoLaboral.getMes();
@@ -263,7 +272,7 @@ public class ViewSeguimiento extends JFrame{
         buttonEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateMaterial();
+                updateSeguimiento();
             }
         });
 
@@ -302,7 +311,7 @@ public class ViewSeguimiento extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount()==2){
-                    updateMaterial();
+                    updateSeguimiento();
                 }
             }
         });
@@ -330,6 +339,8 @@ public class ViewSeguimiento extends JFrame{
     private String[] headers;
     private TableRowSorter sorter;
     private DefaultTableModel modelSeguimiento;
+    private ArrayList<Trabajador> trabajadores;
+    private ArrayList<Actuacion> actuaciones;
     
     //endregion
 }

@@ -221,9 +221,10 @@ public class ViewTrabajador extends JFrame{
         newTrabajador[y++] = trabajador.getNombre();
         newTrabajador[y++] = trabajador.getApellidos();
         newTrabajador[y++] = trabajador.getFnac();
+        newTrabajador[y++] = trabajador.getNacionalidad();
         newTrabajador[y++] = trabajador.getPuesto();
         newTrabajador[y++] = trabajador.getSalario();
-        newTrabajador[y++] = trabajador.getNacionalidad();
+
 
         return newTrabajador;
     }

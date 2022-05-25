@@ -14,6 +14,7 @@ public class Actuacion {
         this.id = id;
     }
 
+
     public String getEspecificacion() {
         return especificacion;
     }

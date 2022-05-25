@@ -54,27 +54,27 @@ public class SeguimientoLaboral {
         this.actuacion = actuacion;
     }
 
-    public Date getHora_entrada() {
+    public int getHora_entrada() {
         return hora_entrada;
     }
 
-    public void setHora_entrada(Date hora_entrada) {
+    public void setHora_entrada(int hora_entrada) {
         this.hora_entrada = hora_entrada;
     }
 
-    public Date getHora_salida() {
+    public int getHora_salida() {
         return hora_salida;
     }
 
-    public void setHora_salida(Date hora_salida) {
+    public void setHora_salida(int hora_salida) {
         this.hora_salida = hora_salida;
     }
 
-    public Date getHoras_totales() {
+    public int getHoras_totales() {
         return horas_totales;
     }
 
-    public void setHoras_totales(Date horas_totales) {
+    public void setHoras_totales(int horas_totales) {
         this.horas_totales = horas_totales;
     }
 
@@ -101,6 +101,15 @@ public class SeguimientoLaboral {
     public void setIdTrabajador(int idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     //endregion
 
     //region Metodos publicos
@@ -129,14 +138,15 @@ public class SeguimientoLaboral {
     private int ano;
     private int dia;
     private int mes;
-    private Date hora_entrada;
-    private Date hora_salida;
-    private Date horas_totales;
+    private int hora_entrada;
+    private int hora_salida;
+    private int horas_totales;
     private double horas_extra;
     private int idActuacion;
     private int idTrabajador;
     private Trabajador trabajador;
     private Actuacion actuacion;
+    private String tipo; //para controlar la entrada y la salida
 
     //endregion
 }

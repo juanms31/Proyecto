@@ -217,6 +217,7 @@ public class ViewMaterial extends JFrame{
 
         int row = TableMaterial.getSelectedRow();
 
+        materiales.get(row).setCodigo(material.getCodigo());
         materiales.get(row).setGrupo(material.getGrupo());
         materiales.get(row).setDescripcion(material.getDescripcion());
         materiales.get(row).setEspecificacion(material.getEspecificacion());

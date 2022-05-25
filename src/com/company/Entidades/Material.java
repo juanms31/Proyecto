@@ -19,8 +19,9 @@ public class Material {
     private String proveedor3;
     private double precio3;
     private Integer idGrupo;
-    private Integer idEspecifiacion;
+    private Integer idEspecificacion;
     private Integer idUnidad;
+    private Integer idCalidad;
 
     //endregion
 
@@ -145,12 +146,12 @@ public class Material {
         this.idGrupo = idGrupo;
     }
 
-    public Integer getIdEspecifiacion() {
-        return idEspecifiacion;
+    public Integer getIdEspecificacion() {
+        return idEspecificacion;
     }
 
-    public void setIdEspecifiacion(Integer idEspecifiacion) {
-        this.idEspecifiacion = idEspecifiacion;
+    public void setIdEspecificacion(Integer idEspecifiacion) {
+        this.idEspecificacion = idEspecifiacion;
     }
 
     public Integer getIdUnidad() {
@@ -159,6 +160,14 @@ public class Material {
 
     public void setIdUnidad(Integer idUnidad) {
         this.idUnidad = idUnidad;
+    }
+
+    public Integer getIdCalidad() {
+        return idCalidad;
+    }
+
+    public void setIdCalidad(Integer idCalidad) {
+        this.idCalidad = idCalidad;
     }
 
     //endregion

@@ -1,7 +1,6 @@
 package com.company.Formularios;
 
-import com.company.Entidades.Proveedor;
-import com.company.Entidades.SeguimientoLaboral;
+import com.company.Entidades.*;
 import com.company.Vistas.ViewProveedor;
 import com.company.Vistas.ViewSeguimiento;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -12,12 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class FormSeguimientoLaboral extends JDialog {
 
-    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento) {
+    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento, ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
         estado = 1;
         this.viewSeguimiento = viewSeguimiento;
+        this.trabajadores = trabajadores;
+        this.actuaciones = actuaciones;
         initWindow();
         initComps();
         initListeners();
@@ -25,10 +27,14 @@ public class FormSeguimientoLaboral extends JDialog {
 
     }
 
-    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento, SeguimientoLaboral seguimientoLaboral) {
+    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento,
+                                  SeguimientoLaboral seguimientoLaboral,
+                                  ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
         estado = 2;
         SeguimientoLaboralSiendoModificado = seguimientoLaboral;
         this.viewSeguimiento = viewSeguimiento;
+        this.trabajadores = trabajadores;
+        this.actuaciones = actuaciones;
         initListeners();
         setSeguimiento(seguimientoLaboral);
         initWindow();
@@ -36,8 +42,12 @@ public class FormSeguimientoLaboral extends JDialog {
         setVisible(true);
     }
 
-    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento, SeguimientoLaboral seguimientoLaboral, boolean editable) {
+    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento,
+                                  SeguimientoLaboral seguimientoLaboral, boolean editable,
+                                  ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
         this.viewSeguimiento = viewSeguimiento;
+        this.trabajadores = trabajadores;
+        this.actuaciones = actuaciones;
         setSeguimiento(seguimientoLaboral);
         initWindow();
         initComps();
@@ -78,6 +88,23 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     public void initComps() {
+        //Rellenar Actuaciones
+        comboBoxActuacion.addItem("Selecciona Actuacion...");
+        for(Actuacion actuacion: actuaciones){
+            comboBoxActuacion.addItem(actuacion.getId());
+        }
+
+        //Rellenar Trabajadores
+        comboBoxTrabajador.addItem("Selecciona Trabajador...");
+        for(Trabajador trabajador: trabajadores){
+            comboBoxTrabajador.addItem(trabajador.getId() + " " + trabajador.getNombre());
+        }
+
+        //Rellenar Tipo Seguimiento
+        comboBoxTipo.addItem("Selecciona Tipo...");
+        comboBoxTipo.addItem("Entrada");
+        comboBoxTipo.addItem("Salida");
+
 
     }
 
@@ -131,15 +158,20 @@ public class FormSeguimientoLaboral extends JDialog {
     //region SET Y GET MATERIAL
     private void setSeguimiento(SeguimientoLaboral seguimiento) {
 
-        // FIXME: 24/05/2022 AL SETEAR LA ACTUACION DARA ERROR
-        comboBoxActuacion.setSelectedItem(seguimiento.getActuacion());
-        comboBoxTrabajador.setSelectedItem(seguimiento.getTrabajador());
+
+        comboBoxActuacion.setSelectedItem(seguimiento.getActuacion().getId());
+
+        Trabajador trabajador = seguimiento.getTrabajador();
+        String trabajadorSeleccionado =  trabajador.getId() + " " + trabajador.getNombre();
+        comboBoxTrabajador.setSelectedItem(trabajadorSeleccionado);
+
         textFieldAno.setText(String.valueOf(seguimiento.getAno()));
         textFieldDia.setText(String.valueOf(seguimiento.getDia()));
         textFieldMes.setText(String.valueOf(seguimiento.getMes()));
         textFieldHora.setText(String.valueOf(seguimiento.getHora_entrada()));
-        // FIXME: 24/05/2022 Añadir tipo a entidad
-        //comboBoxTipo.setSelectedItem(seguimiento.getTipo());
+
+        comboBoxTipo.setSelectedItem(seguimiento.getTipo());
+
         textFieldHorasTotales.setText(String.valueOf(seguimiento.getHoras_totales()));
         textFieldHorasExtra.setText(String.valueOf(seguimiento.getHoras_extra()));
     }
@@ -172,30 +204,36 @@ public class FormSeguimientoLaboral extends JDialog {
 
         if (estado == 2) {
             seguimientoLaboral.setId(SeguimientoLaboralSiendoModificado.getId());
-            // FIXME: 24/05/2022 VER COMO TRATAMOS ESTO
-//            proveedor.setCIF(formattedTextFieldCIF.getText());
-//            proveedor.setNombre_proveedor(textFieldNombre.getText());
-//            proveedor.setDireccion(textFieldDireccion.getText());
-//            proveedor.setMail1(textFieldMail1.getText());
-//            proveedor.setMail2(textFieldMail2.getText());
-//            proveedor.setTelefono1(textFieldTelefono1.getText());
-//            proveedor.setTelefono2(textFieldTelefono2.getText());
+
+            seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1));
+
+            seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
+            seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
+            seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
+            seguimientoLaboral.setHora_entrada(Integer.parseInt(textFieldHora.getText()));
+            seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+
 
         } else {
-//            // FIXME: 24/05/2022 VER COMO TRATAMOS ESTO
-//            proveedor.setCIF(formattedTextFieldCIF.getText());
-//            proveedor.setNombre_proveedor(textFieldNombre.getText());
-//            proveedor.setDireccion(textFieldDireccion.getText());
-//            proveedor.setMail1(textFieldMail1.getText());
-//            proveedor.setMail2(textFieldMail2.getText());
-//            proveedor.setTelefono1(textFieldTelefono1.getText());
-//            proveedor.setTelefono2(textFieldTelefono2.getText());
+
+            seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1));
+
+            seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
+            seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
+            seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
+            seguimientoLaboral.setHora_entrada(Integer.parseInt(textFieldHora.getText()));
+            seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+            // FIXME: 25/05/2022 VER COMO TRATAMOS LAS HORAS TOTALES Y EXTRA
+            seguimientoLaboral.setHoras_totales(0);
+            seguimientoLaboral.setHoras_extra(0);
         }
 
         return seguimientoLaboral;
     }
 
-    //endregion MATERIAL
+    //endregion Seguimiento
 
     //region Listeners
 
@@ -282,6 +320,8 @@ public class FormSeguimientoLaboral extends JDialog {
     //endregion
 
     //region Variables
+    private ArrayList<Trabajador> trabajadores;
+    private ArrayList<Actuacion> actuaciones;
     private int estado = 0;
     private ViewSeguimiento viewSeguimiento;
     private SeguimientoLaboral SeguimientoLaboralSiendoModificado;
