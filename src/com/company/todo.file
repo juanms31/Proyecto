@@ -1,3 +1,5 @@
+Juan:
+
 FIXES:
     - Seguimiento:
     - Albaranes:
@@ -8,3 +10,8 @@ TODO:
 
 MOD:
     - Tratamiento de errores en campos de CIF.
+
+Juancho:
+
+    - Manejar eventos de propagacion
+    - Logs
