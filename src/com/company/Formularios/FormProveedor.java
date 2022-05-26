@@ -5,11 +5,14 @@ import com.company.Vistas.ViewProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 
 public class FormProveedor extends JDialog{
 
@@ -29,17 +32,17 @@ public class FormProveedor extends JDialog{
         ProveedorSiendoModificado = proveedor;
         this.viewProveedor = viewProveedor;
         initListeners();
+        initComps();
         setProveedor(proveedor);
         initWindow();
-        initComps();
         setVisible(true);
     }
 
     public FormProveedor(ViewProveedor viewProveedor, Proveedor proveedor, boolean editable) {
         this.viewProveedor = viewProveedor;
+        initComps();
         setProveedor(proveedor);
         initWindow();
-        initComps();
         initListeners();
         //TODO ver como tratamos editable
         setVisible(true);
@@ -77,7 +80,11 @@ public class FormProveedor extends JDialog{
     }
 
     public void initComps() {
-
+        try {
+            formattedTextFieldCIF.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     //endregion

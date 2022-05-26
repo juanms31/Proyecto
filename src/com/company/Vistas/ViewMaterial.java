@@ -61,8 +61,8 @@ public class ViewMaterial extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Materiales");
         String[] listColumnsName = controladorMaterial.getColumnsName();
-        headers = new String[listColumnsName.length-4];
-        for (int i = 0; i < listColumnsName.length-4; i++){
+        headers = new String[listColumnsName.length-5];
+        for (int i = 0; i < listColumnsName.length-5; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, materiales);

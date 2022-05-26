@@ -187,6 +187,7 @@
             <properties>
               <background color="-1"/>
               <foreground color="-16777216"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

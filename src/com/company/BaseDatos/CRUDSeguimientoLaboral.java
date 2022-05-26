@@ -49,8 +49,8 @@ public class CRUDSeguimientoLaboral {
             preparedStatement.setInt(3, seguimientoLaboral.getAno());
             preparedStatement.setInt(4, seguimientoLaboral.getDia());
             preparedStatement.setInt(5, seguimientoLaboral.getMes());
-            preparedStatement.setInt(6, seguimientoLaboral.getHora_entrada());
-            preparedStatement.setInt(7, seguimientoLaboral.getHora_salida());
+            preparedStatement.setString(6, seguimientoLaboral.getHora_entrada());
+            preparedStatement.setString(7, seguimientoLaboral.getHora_salida());
             preparedStatement.setInt(8, seguimientoLaboral.getHoras_totales());
             preparedStatement.setDouble(9, seguimientoLaboral.getHoras_extra());
 
@@ -110,8 +110,8 @@ public class CRUDSeguimientoLaboral {
             preparedStatement.setInt(1, seguimientoLaboral.getAno());
             preparedStatement.setInt(2, seguimientoLaboral.getDia());
             preparedStatement.setInt(3, seguimientoLaboral.getMes());
-            preparedStatement.setInt(4, seguimientoLaboral.getHora_entrada());
-            preparedStatement.setInt(5, seguimientoLaboral.getHora_salida());
+            preparedStatement.setString(4, seguimientoLaboral.getHora_entrada());
+            preparedStatement.setString(5, seguimientoLaboral.getHora_salida());
             preparedStatement.setInt(6, seguimientoLaboral.getHoras_totales());
             preparedStatement.setDouble(7, seguimientoLaboral.getHoras_extra());
             preparedStatement.setInt(8, seguimientoLaboral.getIdActuacion());
@@ -144,8 +144,7 @@ public class CRUDSeguimientoLaboral {
                 seguimientoLaboral.setAno(resultSet.getInt("ano"));
                 seguimientoLaboral.setDia(resultSet.getInt("dia"));
                 seguimientoLaboral.setMes(resultSet.getInt("mes"));
-                seguimientoLaboral.setHora_entrada(resultSet.getInt("hora_entrada"));
-                seguimientoLaboral.setHora_salida(resultSet.getInt("hora_salida"));
+                seguimientoLaboral.setHora_entrada(resultSet.getString("hora_entrada"));
                 seguimientoLaboral.setHoras_totales(resultSet.getInt("horas_totales"));
                 seguimientoLaboral.setHoras_extra(resultSet.getDouble("horas_extra"));
                 seguimientoLaboral.setIdActuacion(resultSet.getInt("id_actuacion"));

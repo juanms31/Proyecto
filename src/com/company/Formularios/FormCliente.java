@@ -3,13 +3,18 @@ package com.company.Formularios;
 import com.company.Entidades.Cliente;
 import com.company.Vistas.ViewCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.mysql.cj.protocol.a.AbstractRowFactory;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.Locale;
 
 public class FormCliente extends JDialog{
     //region Constructores
@@ -29,17 +34,17 @@ public class FormCliente extends JDialog{
         ClienteSiendoModificado = cliente;
         this.viewCliente = viewCliente;
         initListeners();
+        initComps();
         setCliente(cliente);
         initWindow();
-        initComps();
         setVisible(true);
     }
 
     public FormCliente(ViewCliente viewCliente, Cliente cliente, boolean editable) {
         this.viewCliente = viewCliente;
+        initComps();
         setCliente(cliente);
         initWindow();
-        initComps();
         initListeners();
         //TODO ver como tratamos editable
         setVisible(true);
@@ -77,6 +82,11 @@ public class FormCliente extends JDialog{
     }
 
     public void initComps() {
+        try {
+            formattedTextFieldCIF.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -237,6 +247,19 @@ public class FormCliente extends JDialog{
                 }
             }
         });
+
+        formattedTextFieldCIF.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && !Character.isLetter(caracter)) {
+                    e.consume();  // ignorar el evento de teclado
+                }
+
+            }
+        });
+
 
         textFieldTelefono2.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {

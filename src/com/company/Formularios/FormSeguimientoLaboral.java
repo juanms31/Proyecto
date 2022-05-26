@@ -210,7 +210,18 @@ public class FormSeguimientoLaboral extends JDialog {
             seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
             seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
             seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
-            seguimientoLaboral.setHora_entrada(Integer.parseInt(textFieldHora.getText()));
+
+            if(comboBoxTipo.getSelectedItem().toString().equals("Entrada")){
+                seguimientoLaboral.setHora_entrada(textFieldHora.getText());
+                seguimientoLaboral.setHora_salida("");
+
+
+            }else{
+                seguimientoLaboral.setHora_salida(textFieldHora.getText());
+                seguimientoLaboral.setHora_entrada("");
+
+            }
+
             seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
 
 
@@ -222,8 +233,19 @@ public class FormSeguimientoLaboral extends JDialog {
             seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
             seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
             seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
-            seguimientoLaboral.setHora_entrada(Integer.parseInt(textFieldHora.getText()));
             seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+            if(comboBoxTipo.getSelectedItem().toString().equals("Entrada")){
+                seguimientoLaboral.setHora_entrada(textFieldHora.getText());
+                seguimientoLaboral.setHora_salida("");
+
+
+            }else{
+                seguimientoLaboral.setHora_salida(textFieldHora.getText());
+                seguimientoLaboral.setHora_entrada("");
+
+            }
+
 
             // FIXME: 25/05/2022 VER COMO TRATAMOS LAS HORAS TOTALES Y EXTRA
             seguimientoLaboral.setHoras_totales(0);

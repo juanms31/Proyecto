@@ -304,6 +304,7 @@ public class FormMaterial extends JDialog {
             }
         });
 
+
         spinnerPrecio1.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();

@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Entidades.Actuacion;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -112,6 +113,16 @@ public class ViewActuacion extends JFrame{
     private JButton buttonRecargar;
     private JPanel panelBotones;
     private JButton buttonVolver;
+
+    public boolean getUpdateActuacionFromFormulario(Actuacion actuacion) {
+
+        return false;
+    }
+
+    public boolean getNewActuacionFromFormulario(Actuacion actuacion) {
+
+        return false;
+    }
 
     //endregion
 }

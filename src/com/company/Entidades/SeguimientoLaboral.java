@@ -54,19 +54,19 @@ public class SeguimientoLaboral {
         this.actuacion = actuacion;
     }
 
-    public int getHora_entrada() {
+    public String getHora_entrada() {
         return hora_entrada;
     }
 
-    public void setHora_entrada(int hora_entrada) {
+    public void setHora_entrada(String hora_entrada) {
         this.hora_entrada = hora_entrada;
     }
 
-    public int getHora_salida() {
+    public String getHora_salida() {
         return hora_salida;
     }
 
-    public void setHora_salida(int hora_salida) {
+    public void setHora_salida(String hora_salida) {
         this.hora_salida = hora_salida;
     }
 
@@ -138,8 +138,8 @@ public class SeguimientoLaboral {
     private int ano;
     private int dia;
     private int mes;
-    private int hora_entrada;
-    private int hora_salida;
+    private String hora_entrada;
+    private String hora_salida;
     private int horas_totales;
     private double horas_extra;
     private int idActuacion;

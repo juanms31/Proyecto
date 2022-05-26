@@ -226,10 +226,23 @@ public class ViewSeguimiento extends JFrame{
         newSeguimiento[y++] = seguimientoLaboral.getDia();
         newSeguimiento[y++] = seguimientoLaboral.getMes();
         newSeguimiento[y++] = seguimientoLaboral.getHora_entrada();
-        newSeguimiento[y++] = seguimientoLaboral.getHoras_totales();
-        newSeguimiento[y++] = seguimientoLaboral.getHoras_extra();
+        newSeguimiento[y++] = getHoras(seguimientoLaboral);
+        newSeguimiento[y++] = getHoras(seguimientoLaboral);
 
         return newSeguimiento;
+    }
+    
+    private int getHoras(SeguimientoLaboral seguimientoLaboral){
+
+        // TODO: 26/05/2022 VER COMO GESTIONAMOS LAS HORAS TOTALES Y EXTRAS 
+        
+        //Comprobacion para ver si hay mas de un registro diario para un mismo trabajador
+        boolean hayMasDeUnRegistro = false;
+        int contador = 0;
+        
+        return 1;
+
+        
     }
 
     private SeguimientoLaboral getSeguimiento() {

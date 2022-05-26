@@ -173,7 +173,7 @@ CREATE TABLE Trabajador(
   fecha_nacimiento DATE,
   nacionalidad VARCHAR (20),
   puesto VARCHAR (100),
-  salario double
+  salario DOUBLE
 );
 
 CREATE TABLE SeguimientoLaboral
@@ -183,10 +183,10 @@ CREATE TABLE SeguimientoLaboral
     ano INTEGER NOT NULL,
     dia INTEGER NOT NULL,
     mes INTEGER NOT NULL,
-    hora_entrada DATE NOT NULL,
-    hora_salida DATE,
-    horas_totales DATE,
-    horas_extra INTEGER,
+    hora_entrada VARCHAR(10) NOT NULL,
+    hora_salida VARCHAR(10),
+    horas_totales DOUBLE,
+    horas_extra DOUBLE,
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),

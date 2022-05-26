@@ -191,6 +191,7 @@ public class ViewProveedor extends JFrame{
 
         int row = TableProveedor.getSelectedRow();
 
+        proveedores.get(row).setCIF(proveedor.getCIF());
         proveedores.get(row).setNombre_proveedor(proveedor.getNombre_proveedor());
         proveedores.get(row).setDireccion(proveedor.getDireccion());
         proveedores.get(row).setMail1(proveedor.getMail1());
