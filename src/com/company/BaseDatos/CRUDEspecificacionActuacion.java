@@ -40,9 +40,9 @@ public class CRUDEspecificacionActuacion {
             while (resultSet.next()){
                 EspecificacionActuacion especificacionActuacion = new EspecificacionActuacion();
                 especificacionActuacion.setId(resultSet.getInt("id"));
-                especificacionActuacion.setSiglasEspecificacion(resultSet.getString("siglas_grupo"));
-                especificacionActuacion.setNombreEspecificacion(resultSet.getString("nombre_grupo"));
-                especificacionActuacion.setDescripcion(resultSet.getString("Descripcion"));
+                especificacionActuacion.setSiglasEspecificacion(resultSet.getString("siglas_especificacion"));
+                especificacionActuacion.setNombreEspecificacion(resultSet.getString("nombre_especificacion"));
+                especificacionActuacion.setDescripcion(resultSet.getString("descripcion"));
 
                 especificacionActuaciones.add(especificacionActuacion);
             }

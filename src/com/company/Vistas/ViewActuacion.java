@@ -29,6 +29,8 @@ public class ViewActuacion extends JFrame{
                          ArrayList<EspecificacionActuacion> especificacionesActuacion) {
         this.controladorActuacion = controladorActuacion;
         this.actuaciones = actuaciones;
+        this.clientes = clientes;
+        this.especificacionesActuacion = especificacionesActuacion;
         initWindow();
         initListeners();
         setVisible(true);
@@ -351,10 +353,7 @@ public class ViewActuacion extends JFrame{
     private DefaultTableModel modelActuacion;
     
     private JPanel panelPrincipal;
-    private JTabbedPane panelPestanas;
-    private JPanel PanelActuacion;
     private JTable TableActuacion;
-    private JPanel buscador;
     private JTextField filtro;
     private JButton buttonBuscar;
     private JButton buttonAnadir;
@@ -362,8 +361,11 @@ public class ViewActuacion extends JFrame{
     private JButton buttonVer;
     private JButton buttonEditar;
     private JButton buttonRecargar;
-    private JPanel panelBotones;
     private JButton buttonVolver;
-    
+    private JTabbedPane panelPestanas;
+    private JPanel PanelMaterial;
+    private JPanel buscador;
+    private JPanel panelBotones;
+
     //endregion
 }

@@ -73,7 +73,8 @@ public class FormTrabajador extends JDialog{
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height / 2, screen.width / 2);
+        setSize( screen.width / 2, screen.height / 2);
+
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;

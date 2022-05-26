@@ -95,7 +95,7 @@ CREATE TABLE Cliente(
 );
 
 CREATE TABLE Actuacion (
-	id INTEGER PRIMARY KEY,
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
     especificacion VARCHAR(200),
     estado VARCHAR(100),
     fecha_solicitud DATE NOT NULL,
@@ -119,12 +119,10 @@ CREATE TABLE Actuacion (
 );
 
 CREATE TABLE EspecificacionActuacion (
-	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    nombre_especifiacion VARCHAR(50) NOT NULL,
-    detalle_especifiacion VARCHAR(200) NOT NULL,
-    id_actuacion INTEGER,
-    FOREIGN KEY (id_actuacion)
-    	REFERENCES Actuacion (id)
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_Especificacion VARCHAR(5) NOT NULL,
+    nombre_Especificacion VARCHAR(50),
+    Descripcion VARCHAR(150)
 );
 
 CREATE TABLE EstadoActuaciob(
@@ -236,7 +234,7 @@ CREATE TABLE MaterialUtilizadoActuacion (
 );
 
 
-// Insercciones
+-- Insercciones
 
 INSERT INTO `calidadmaterial`(`id`, `siglas_calidad`, `nombre_calidad`, `Descripcion`)
 VALUES ('1','AI304','ACERO INOXIDABLE 304 L',''),
@@ -260,3 +258,9 @@ VALUES ('1','IN','Industrial',''),
        ('2','PE','Petroleo',''),
        ('3','SA','Sanitario',''),
        ('4','SO','Soportacion','');
+
+INSERT INTO `especificacionactuacion`(`id`, `siglas_Especificacion`, `nombre_Especificacion`, `Descripcion`)
+VALUES ('1','REP','Reparacion',''),
+       ('2','MAN','Mantenimiento',''),
+       ('3','NUEVA','Nueva Obra',''),
+       ('4','AIS','Aislacion','');

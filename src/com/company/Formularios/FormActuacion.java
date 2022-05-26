@@ -8,10 +8,7 @@ import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,7 +85,7 @@ public class FormActuacion extends JDialog{
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height / 2, screen.width / 2);
+        setSize(screen.width / 2, screen.height - 200);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;
@@ -118,7 +115,7 @@ public class FormActuacion extends JDialog{
         //Rellenando Cliente
         comboBoxCliente.addItem("Selecciona Cliente");
         for(Cliente cliente : clientes){
-            comboBoxCliente.addItem(cliente.getNombre());
+            comboBoxCliente.addItem(cliente.getCIF() + " - " + cliente.getNombre());
         }
 
         //Rellando Especificacion
@@ -187,6 +184,7 @@ public class FormActuacion extends JDialog{
     private void setActuacion(Actuacion actuacion) {
         comboBoxCliente.setSelectedItem(actuacion.getCliente().getNombre());
         formattedTextFieldCIFCliente.setText(actuacion.getCliente().getCIF());
+
         comboBoxEspecificacion.setSelectedItem(actuacion.getEspecificacion());
         comboBoxEstado.setSelectedItem(actuacion.getEstado());
 
@@ -273,7 +271,7 @@ public class FormActuacion extends JDialog{
 
                 UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
                 SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_envio(SQLDate);
+                actuacion.setFecha_finalizacion(SQLDate);
 
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -323,14 +321,14 @@ public class FormActuacion extends JDialog{
                 throw new RuntimeException(e);
             }
 
-            actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
-            actuacion.setImporte((Double) spinnerImporte.getValue());
+            actuacion.setGastoMaterial(Double.parseDouble(String.valueOf(spinnerGastoMaterial.getValue())));
+            actuacion.setImporte(Double.parseDouble(String.valueOf(spinnerImporte.getValue())));
 
             actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
             actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
 
-            actuacion.setTotalCertificicaciones((Double) spinnerTotalCertificacion.getValue());
-            actuacion.setPorPertificar((Double) spinnerPorCertificar.getValue());
+            actuacion.setTotalCertificicaciones(Double.parseDouble(String.valueOf(spinnerTotalCertificacion.getValue())));
+            actuacion.setPorPertificar(Double.parseDouble(String.valueOf(spinnerPorCertificar.getValue())));
 
             actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
             actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
@@ -350,6 +348,7 @@ public class FormActuacion extends JDialog{
     private void initListeners() {
         actionListeners();
         keyListeners();
+        itemListeners();
     }
 
     private void actionListeners() {
@@ -505,14 +504,27 @@ public class FormActuacion extends JDialog{
 
     }
 
+    public void itemListeners(){
+        comboBoxCliente.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getItem().equals("Selecciona Cliente")){
+                    formattedTextFieldCIFCliente.setText("");
+                }else formattedTextFieldCIFCliente.setText(String.valueOf(clientes.get(comboBoxCliente.getSelectedIndex()-1).getCIF()));
+
+            }
+        });
+
+    }
+
     //endregion
 
     //region Variables
     private int estado = 0;
     private ViewActuacion viewActuacion;
     private Actuacion ActuacionSiendoModificada;
-    ArrayList<Cliente> clientes;
-    ArrayList<EspecificacionActuacion> especificacionesActuacion;
+    private ArrayList<Cliente> clientes;
+    private ArrayList<EspecificacionActuacion> especificacionesActuacion;
 
     private JPanel panelFecha;
     private JPanel panelPrincipal;
