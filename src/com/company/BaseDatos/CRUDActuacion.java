@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class CRUDActuacion {
 
+    public CRUDActuacion(){
+
+    }
+
     // region Metodos CRUD
 
     public ArrayList<Actuacion> getAll(){
@@ -82,7 +86,7 @@ public class CRUDActuacion {
         return new Actuacion();
     }
 
-    public boolean deleteActuacion(int id) throws SQLException {
+    public boolean deleteActuacion(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM actuacion WHERE id = ?";
         try {
@@ -95,14 +99,10 @@ public class CRUDActuacion {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
-    public boolean updateActuacion(Actuacion actuacion) throws SQLException {
+    public boolean updateActuacion(Actuacion actuacion){
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE actuacion " +
@@ -141,10 +141,6 @@ public class CRUDActuacion {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
@@ -187,6 +183,28 @@ public class CRUDActuacion {
             BBDD.close();
             return listaActuacion;
         }
+    }
+
+    public String[] getColumnActuacion() {
+        Connection connection = BBDD.connect();
+        try {
+            final String SELECT_CLIENTES = "SELECT * FROM actuacion";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_CLIENTES);
+            String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
+            if (columnsName[0] == null){
+                System.out.println("Fallo en sacar los metatados");
+            }
+            BBDD.close();
+            return  columnsName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            String columnsName[] = new String[1];
+            columnsName[0] = "Error en CRUD";
+            return columnsName;
+        }
+
     }
 
     // endregion

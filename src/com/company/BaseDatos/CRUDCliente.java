@@ -18,6 +18,10 @@ public class CRUDCliente {
         this.controladorCliente = controladorCliente;
     }
 
+    public CRUDCliente(){
+
+    }
+
     // region Metodos CRUD
 
     public ArrayList<Cliente> getAll() {

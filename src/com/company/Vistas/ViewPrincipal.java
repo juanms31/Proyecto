@@ -79,7 +79,7 @@ public class ViewPrincipal extends JFrame{
         btnObras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewActuacion viewActuacion = new ViewActuacion();
+                ControladorActuacion controladorActuacion = new ControladorActuacion();
             }
         });
         btnProveedores.addActionListener(new ActionListener() {

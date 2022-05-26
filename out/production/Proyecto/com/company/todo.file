@@ -6,7 +6,9 @@ FIXES:
 
 TODO:
     - Certificacion
-    - Obras
+    - Obras:
+        º Cambiar Iconos Botones
+        º Controlador Actuacion
 
 MOD:
     - Tratamiento de errores en campos de CIF.

@@ -124,7 +124,7 @@ public class ViewActuacion extends JFrame{
         return controladorActuacion.createActuacion(actuacion);
     }
 
-    public boolean getUpdateTrabajadorFromFormulario(Actuacion actuacion) {
+    public boolean getUpdateActuacionFromFormulario(Actuacion actuacion) {
         return controladorActuacion.updateActuacion(actuacion);
     }
 
@@ -174,7 +174,7 @@ public class ViewActuacion extends JFrame{
 
         Actuacion actuacion = getActuacion();
 
-        boolean result = controladorActuacion.deleteActuacion(actuacion);
+        boolean result = controladorActuacion.deleteActuacion(actuacion.getId());
 
         if(result){
             int row = TableActuacion.getSelectedRow();
