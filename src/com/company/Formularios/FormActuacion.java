@@ -12,7 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FormActuacion extends JDialog{
@@ -121,7 +123,7 @@ public class FormActuacion extends JDialog{
 
         //Rellando Especificacion
         comboBoxEspecificacion.addItem("Selecciona Especificacion");
-        for (EspecificacionActuacion especificacionActuacion : espeficificacionesActuacion){
+        for (EspecificacionActuacion especificacionActuacion : especificacionesActuacion){
             comboBoxEspecificacion.addItem(especificacionActuacion.getSiglasEspecificacion());
         }
 
@@ -188,11 +190,19 @@ public class FormActuacion extends JDialog{
         comboBoxEspecificacion.setSelectedItem(actuacion.getEspecificacion());
         comboBoxEstado.setSelectedItem(actuacion.getEstado());
 
-        // FIXME: 26/05/2022
-        formattedTextFieldFechaSolicitud.setText(actuacion.getFecha_solicitud());
-        formattedTextFieldFechaEnvio.setText(actuacion.getFecha_envio());
-        formattedTextFieldFechaComienzo.setText(actuacion.getFecha_comienzo());
-        formattedTextFieldFechaFinalizacion.setText(actuacion.getFecha_finalizacion());
+       //Procesamos Fechas
+        SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String UTILDate = OldDateFormat.format(actuacion.getFecha_solicitud());
+        formattedTextFieldFechaSolicitud.setText(UTILDate.toString());
+
+        UTILDate = OldDateFormat.format(actuacion.getFecha_envio());
+        formattedTextFieldFechaEnvio.setText(UTILDate.toString());
+
+        UTILDate = OldDateFormat.format(actuacion.getFecha_comienzo());
+        formattedTextFieldFechaComienzo.setText(UTILDate.toString());
+
+        UTILDate = OldDateFormat.format(actuacion.getFecha_finalizacion());
+        formattedTextFieldFechaFinalizacion.setText(UTILDate.toString());
 
         spinnerGastoMaterial.setValue(actuacion.getGastoMaterial());
         spinnerImporte.setValue(actuacion.getImporte());
@@ -201,9 +211,8 @@ public class FormActuacion extends JDialog{
         spinnerTotalCertificacion.setValue(actuacion.getTotalCertificicaciones());
         spinnerPorCertificar.setValue(actuacion.getPorPertificar());
 
-        // FIXME: 26/05/2022
-        textFieldHorasOfertadas.setText(actuacion.getHorasOfertadas());
-        textFieldHorasEjecutadas.setText(actuacion.getHorasEjecutadas());
+        textFieldHorasOfertadas.setText(String.valueOf(actuacion.getHorasOfertadas()));
+        textFieldHorasEjecutadas.setText(String.valueOf(actuacion.getHorasEjecutadas()));
 
         spinnerResultadoBalance.setValue(actuacion.getResultadoBalance());
         textAreaDescripcion.setText(actuacion.getDescripcion());
@@ -246,11 +255,29 @@ public class FormActuacion extends JDialog{
             actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
             actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
 
-            // FIXME: 26/05/2022
-            actuacion.setFecha_solicitud(formattedTextFieldFechaSolicitud.getText());
-            actuacion.setFecha_envio(formattedTextFieldFechaEnvio.getText());
-            actuacion.setFecha_comienzo(formattedTextFieldFechaComienzo.getText());
-            actuacion.setFecha_finalizacion(formattedTextFieldFechaFinalizacion.getText());
+            //Procesamos Fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            try {
+                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
+                java.sql.Date SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_solicitud(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_envio(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_comienzo(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_envio(SQLDate);
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
             actuacion.setImporte((Double) spinnerImporte.getValue());
@@ -272,11 +299,29 @@ public class FormActuacion extends JDialog{
             actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
             actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
 
-            // FIXME: 26/05/2022
-            actuacion.setFecha_solicitud(formattedTextFieldFechaSolicitud.getText());
-            actuacion.setFecha_envio(formattedTextFieldFechaEnvio.getText());
-            actuacion.setFecha_comienzo(formattedTextFieldFechaComienzo.getText());
-            actuacion.setFecha_finalizacion(formattedTextFieldFechaFinalizacion.getText());
+            //Procesamos Fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            try {
+                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
+                java.sql.Date SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_solicitud(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_envio(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_comienzo(SQLDate);
+
+                UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_envio(SQLDate);
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
             actuacion.setImporte((Double) spinnerImporte.getValue());
