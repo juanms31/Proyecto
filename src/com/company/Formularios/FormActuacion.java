@@ -131,6 +131,11 @@ public class FormActuacion extends JDialog{
         comboBoxEstado.addItem("Rechazada");
         comboBoxEstado.addItem("Cancelada");
 
+        //Inicializamos a 0 los diferentes campos numericos
+        textFieldHorasOfertadas.setText("0");
+        textFieldHorasEjecutadas.setText("0");
+
+
     }
 
     //endregion
@@ -182,25 +187,16 @@ public class FormActuacion extends JDialog{
 
     //region SET Y GET MATERIAL
     private void setActuacion(Actuacion actuacion) {
-        comboBoxCliente.setSelectedItem(actuacion.getCliente().getNombre());
+        textFieldNombreActuacion.setText(actuacion.getNombre());
+
+        comboBoxCliente.setSelectedItem(actuacion.getCliente().getCIF() + " - " + actuacion.getCliente().getNombre());
         formattedTextFieldCIFCliente.setText(actuacion.getCliente().getCIF());
 
         comboBoxEspecificacion.setSelectedItem(actuacion.getEspecificacion());
         comboBoxEstado.setSelectedItem(actuacion.getEstado());
 
        //Procesamos Fechas
-        SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String UTILDate = OldDateFormat.format(actuacion.getFecha_solicitud());
-        formattedTextFieldFechaSolicitud.setText(UTILDate.toString());
-
-        UTILDate = OldDateFormat.format(actuacion.getFecha_envio());
-        formattedTextFieldFechaEnvio.setText(UTILDate.toString());
-
-        UTILDate = OldDateFormat.format(actuacion.getFecha_comienzo());
-        formattedTextFieldFechaComienzo.setText(UTILDate.toString());
-
-        UTILDate = OldDateFormat.format(actuacion.getFecha_finalizacion());
-        formattedTextFieldFechaFinalizacion.setText(UTILDate.toString());
+        setProcesarFechas(actuacion);
 
         spinnerGastoMaterial.setValue(actuacion.getGastoMaterial());
         spinnerImporte.setValue(actuacion.getImporte());
@@ -215,8 +211,6 @@ public class FormActuacion extends JDialog{
         spinnerResultadoBalance.setValue(actuacion.getResultadoBalance());
         textAreaDescripcion.setText(actuacion.getDescripcion());
 
-        
-        
     }
 
     private boolean checkFields() {
@@ -232,7 +226,7 @@ public class FormActuacion extends JDialog{
             ShowErrorMessage("Error", "Campo Estado no puede estar vacio");
             return true;
         }
-        if (formattedTextFieldFechaSolicitud.getText().equals(" - - ")) {
+        if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
             ShowErrorMessage("Error", "Campo Fecha Solicitud no puede estar vacio");
             return true;
         }
@@ -246,102 +240,166 @@ public class FormActuacion extends JDialog{
 
         boolean conErrores = checkFields();
 
-        if (estado == 2) {
-            actuacion.setId(ActuacionSiendoModificada.getId());
+        if(conErrores){
 
-            actuacion.setCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1));
-            actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
-            actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
 
-            //Procesamos Fecha
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        }else {
 
-            try {
-                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
-                java.sql.Date SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_solicitud(SQLDate);
+            if (estado == 2) {
+                actuacion.setId(ActuacionSiendoModificada.getId());
 
-                UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_envio(SQLDate);
+                actuacion.setNombre(textFieldNombreActuacion.getText());
 
-                UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_comienzo(SQLDate);
+                actuacion.setCliente(clientes.get(comboBoxCliente.getSelectedIndex() - 1));
+                actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
+                actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
 
-                UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_finalizacion(SQLDate);
+                actuacion = getProcesarFechas(actuacion);
 
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+                actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
+                actuacion.setImporte((Double) spinnerImporte.getValue());
+
+                actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
+                actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
+
+                actuacion.setTotalCertificicaciones((Double) spinnerTotalCertificacion.getValue());
+                actuacion.setPorPertificar((Double) spinnerPorCertificar.getValue());
+
+                actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
+                actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
+
+                actuacion.setDescripcion(textAreaDescripcion.getText());
+
+                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1).getId());
+
+            } else {
+
+                actuacion.setNombre(textFieldNombreActuacion.getText());
+
+                actuacion.setCliente(clientes.get(comboBoxCliente.getSelectedIndex() - 1));
+                actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
+                actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
+
+                //Procesamos Fecha
+
+                actuacion = getProcesarFechas(actuacion);
+
+                actuacion.setGastoMaterial(Double.parseDouble(String.valueOf(spinnerGastoMaterial.getValue())));
+                actuacion.setImporte(Double.parseDouble(String.valueOf(spinnerImporte.getValue())));
+
+                actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
+                actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
+
+                actuacion.setTotalCertificicaciones(Double.parseDouble(String.valueOf(spinnerTotalCertificacion.getValue())));
+                actuacion.setPorPertificar(Double.parseDouble(String.valueOf(spinnerPorCertificar.getValue())));
+
+                actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
+                actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
+
+                actuacion.setDescripcion(textAreaDescripcion.getText());
+
+                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1).getId());
+
+
             }
-
-            actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
-            actuacion.setImporte((Double) spinnerImporte.getValue());
-
-            actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
-            actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
-
-            actuacion.setTotalCertificicaciones((Double) spinnerTotalCertificacion.getValue());
-            actuacion.setPorPertificar((Double) spinnerPorCertificar.getValue());
-
-            actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
-            actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
-
-            actuacion.setDescripcion(textAreaDescripcion.getText());
-
-        } else {
-
-            actuacion.setCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1));
-            actuacion.setEspecificacion(comboBoxEspecificacion.getSelectedItem().toString());
-            actuacion.setEstado(comboBoxEstado.getSelectedItem().toString());
-
-            //Procesamos Fecha
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-            try {
-                java.util.Date UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
-                java.sql.Date SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_solicitud(SQLDate);
-
-                UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_envio(SQLDate);
-
-                UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_comienzo(SQLDate);
-
-                UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
-                SQLDate = new Date(UTILDate.getTime());
-                actuacion.setFecha_envio(SQLDate);
-
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            actuacion.setGastoMaterial(Double.parseDouble(String.valueOf(spinnerGastoMaterial.getValue())));
-            actuacion.setImporte(Double.parseDouble(String.valueOf(spinnerImporte.getValue())));
-
-            actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
-            actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
-
-            actuacion.setTotalCertificicaciones(Double.parseDouble(String.valueOf(spinnerTotalCertificacion.getValue())));
-            actuacion.setPorPertificar(Double.parseDouble(String.valueOf(spinnerPorCertificar.getValue())));
-
-            actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
-            actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
-
-            actuacion.setDescripcion(textAreaDescripcion.getText());
-
-
         }
 
         return actuacion;
     }
 
-    //endregion MATERIAL
+    private Actuacion getProcesarFechas(Actuacion actuacion){
+
+        //Procesamos Fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date UTILDate;
+        java.sql.Date SQLDate;
+
+        try {
+            if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
+                actuacion.setFecha_solicitud(null);
+            }else{
+                UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_solicitud(SQLDate);
+            }
+
+
+            if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
+                actuacion.setFecha_envio(null);
+            }else{
+                 UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
+                 SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_envio(SQLDate);
+            }
+
+            if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
+                actuacion.setFecha_comienzo(null);
+            }else{
+                UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_comienzo(SQLDate);
+            }
+
+            if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
+                actuacion.setFecha_finalizacion(null);
+            }else{
+                UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
+                SQLDate = new Date(UTILDate.getTime());
+                actuacion.setFecha_finalizacion(SQLDate);
+            }
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return actuacion;
+    }
+
+    private Actuacion setProcesarFechas(Actuacion actuacion){
+
+        //Procesamos Fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String UTILDate;
+        java.sql.Date SQLDate;
+
+        if (actuacion.getFecha_solicitud() == null) {
+
+        }else{
+            SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            UTILDate = OldDateFormat.format(actuacion.getFecha_solicitud());
+            formattedTextFieldFechaSolicitud.setText(UTILDate.toString());
+        }
+
+        if (actuacion.getFecha_envio() == null) {
+
+        }else{
+            SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            UTILDate = OldDateFormat.format(actuacion.getFecha_envio());
+            formattedTextFieldFechaEnvio.setText(UTILDate.toString());
+        }
+
+        if (actuacion.getFecha_comienzo() == null) {
+
+        }else{
+            SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            UTILDate = OldDateFormat.format(actuacion.getFecha_comienzo());
+            formattedTextFieldFechaComienzo.setText(UTILDate.toString());
+        }
+
+        if (actuacion.getFecha_finalizacion() == null) {
+
+        }else{
+            SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            UTILDate = OldDateFormat.format(actuacion.getFecha_finalizacion());
+            formattedTextFieldFechaFinalizacion.setText(UTILDate.toString());
+        }
+
+        return actuacion;
+    }
+
+
+
+    //endregion Actuacion
 
     //region Listeners
 
@@ -508,7 +566,7 @@ public class FormActuacion extends JDialog{
         comboBoxCliente.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(e.getItem().equals("Selecciona Cliente")){
+                if(comboBoxCliente.getSelectedItem().equals("Selecciona Cliente")){
                     formattedTextFieldCIFCliente.setText("");
                 }else formattedTextFieldCIFCliente.setText(String.valueOf(clientes.get(comboBoxCliente.getSelectedIndex()-1).getCIF()));
 
@@ -552,5 +610,6 @@ public class FormActuacion extends JDialog{
     private JTextField textFieldHojaPresupuesto;
     private JFormattedTextField formattedTextFieldCIFCliente;
     private JSpinner spinnerResultadoBalance;
+    private JTextField textFieldNombreActuacion;
     //endregion
 }

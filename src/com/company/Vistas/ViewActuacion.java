@@ -54,8 +54,8 @@ public class ViewActuacion extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Actuaciones");
         String[] listColumnsName = controladorActuacion.getColumnsName();
-        headers = new String[listColumnsName.length - 1];
-        for (int i = 0; i < listColumnsName.length-1; i++){
+        headers = new String[listColumnsName.length - 12];
+        for (int i = 0; i < listColumnsName.length-12; i++){
             headers[i] = listColumnsName[i+1].toUpperCase();
         }
         refreshTable(headers, actuaciones);
@@ -194,6 +194,7 @@ public class ViewActuacion extends JFrame{
 
         int row = TableActuacion.getSelectedRow();
 
+        actuaciones.get(row).setNombre(actuacion.getNombre());
         actuaciones.get(row).setCliente(actuacion.getCliente());
         actuaciones.get(row).setEspecificacion(actuacion.getEspecificacion());
         actuaciones.get(row).setEstado(actuacion.getEstado());
@@ -229,6 +230,7 @@ public class ViewActuacion extends JFrame{
         int y = 0;
         Object[] newActuacion = new Object[headers.length];
 
+        newActuacion[y++] = actuacion.getNombre();
         newActuacion[y++] = actuacion.getCliente().getNombre();
         newActuacion[y++] = actuacion.getEspecificacion();
         newActuacion[y++] = actuacion.getEstado();
@@ -236,16 +238,16 @@ public class ViewActuacion extends JFrame{
         newActuacion[y++] = actuacion.getFecha_envio();
         newActuacion[y++] = actuacion.getFecha_comienzo();
         newActuacion[y++] = actuacion.getFecha_finalizacion();
-        newActuacion[y++] = actuacion.getDescripcion();
-        newActuacion[y++] = actuacion.getGastoMaterial();
-        newActuacion[y++] = actuacion.getImporte();
-        newActuacion[y++] = actuacion.getHojaPlanificacion();
-        newActuacion[y++] = actuacion.getHojaPresupuesto();
-        newActuacion[y++] = actuacion.getTotalCertificicaciones();
-        newActuacion[y++] = actuacion.getPorPertificar();
-        newActuacion[y++] = actuacion.getHorasOfertadas();
-        newActuacion[y++] = actuacion.getHorasEjecutadas();
-        newActuacion[y++] = actuacion.getResultadoBalance();
+//        newActuacion[y++] = actuacion.getDescripcion();
+//        newActuacion[y++] = actuacion.getGastoMaterial();
+//        newActuacion[y++] = actuacion.getImporte();
+//        newActuacion[y++] = actuacion.getHojaPlanificacion();
+//        newActuacion[y++] = actuacion.getHojaPresupuesto();
+//        newActuacion[y++] = actuacion.getTotalCertificicaciones();
+//        newActuacion[y++] = actuacion.getPorPertificar();
+//        newActuacion[y++] = actuacion.getHorasOfertadas();
+//        newActuacion[y++] = actuacion.getHorasEjecutadas();
+//        newActuacion[y++] = actuacion.getResultadoBalance();
 
         return newActuacion;
     }

@@ -88,7 +88,7 @@ public class FormMaterial extends JDialog {
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.width / 2, screen.height / 2);
+        setSize(screen.width / 2, screen.height - 100);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;

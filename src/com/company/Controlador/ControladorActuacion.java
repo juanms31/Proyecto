@@ -13,10 +13,11 @@ public class ControladorActuacion {
     //Constructor
     public ControladorActuacion(){
         crudActuacion = new CRUDActuacion();
-        ArrayList<Actuacion> actuaciones = crudActuacion.getAll();
-        ArrayList<EspecificacionActuacion> especificacionActuacions = getEspecificacionActuacion();
-        ArrayList<Cliente> clientes = getClientes();
-        viewActuacion = new ViewActuacion(this, actuaciones,clientes, especificacionActuacions);
+        actuaciones = crudActuacion.getAll();
+        especificacionesActuacion = getEspecificacionActuacion();
+        clientes = getClientes();
+        setClienteObject();
+        viewActuacion = new ViewActuacion(this, actuaciones,clientes, especificacionesActuacion);
     }
 
     //region CRUD
@@ -99,11 +100,28 @@ public class ControladorActuacion {
         return listClientes;
     }
 
+    private void setClienteObject() {
+        int posicion = 0;
+        for (Actuacion actuacion : actuaciones){
+
+            for(Cliente cliente : clientes){
+                if(actuacion.getIdCliente() ==  cliente.getId()) {
+                    actuaciones.get(posicion).setCliente(cliente);
+                }
+            }
+
+            posicion++;
+        }
+    }
+
     //endregion
 
     //region Variables
-    CRUDActuacion crudActuacion;
-    ViewActuacion viewActuacion;
+    private CRUDActuacion crudActuacion;
+    private ViewActuacion viewActuacion;
+    private ArrayList<Actuacion> actuaciones;
+    private ArrayList<EspecificacionActuacion> especificacionesActuacion;
+    private ArrayList<Cliente> clientes;
 
     //endregion
 }

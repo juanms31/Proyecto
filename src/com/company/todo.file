@@ -8,7 +8,8 @@ TODO:
     - Certificacion
     - Obras:
         º Cambiar Iconos Botones
-        º Controlador Actuacion
+        º Comentar el tamaño de la tabla con Juancho
+        º Implementar funcionalidad en botones
 
 MOD:
     - Tratamiento de errores en campos de CIF.
