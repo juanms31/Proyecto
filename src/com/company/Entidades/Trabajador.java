@@ -2,7 +2,7 @@ package com.company.Entidades;
 
 import java.sql.Date;
 
-public class Trabajador {
+public class Trabajador extends Persona{
 
     //region SETTER AND GETTER
     public int getId() {
@@ -92,12 +92,6 @@ public class Trabajador {
     //region ATRIBUTOS
 
     private int id;
-
-    private String DNI;
-    private Date fnac;
-    private String nacionalidad;
-    private String apellidos;
-    private String nombre;
     private String puesto;
     private double salario;
 

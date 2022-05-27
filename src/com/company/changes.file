@@ -1,5 +1,12 @@
+27/05/2022
 - Obras:
     º Añadido campo nombre en Obra para identificar la obra
     º Añadido campo Nombre Cliente para identificar al cliente al que se le hace la obra
     º Metodos para setear el objeto cliente  en el controlador
     º Vista reducida de los diferentes campos
+
+- Trabajador
+    º Hereda de persona
+
+- Usuario
+    º Hereda de persona

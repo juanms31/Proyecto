@@ -59,7 +59,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
-              <foreground color="-16187260"/>
+              <foreground color="-4125952"/>
               <text value="Cancelar"/>
             </properties>
           </component>
@@ -69,7 +69,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
-              <foreground color="-16187260"/>
+              <foreground color="-16604104"/>
               <text value="Entrar"/>
             </properties>
           </component>

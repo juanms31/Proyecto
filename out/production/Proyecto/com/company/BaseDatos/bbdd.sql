@@ -96,6 +96,7 @@ CREATE TABLE Cliente(
 
 CREATE TABLE Actuacion (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(30),
     especificacion VARCHAR(200),
     estado VARCHAR(100),
     fecha_solicitud DATE NOT NULL,
