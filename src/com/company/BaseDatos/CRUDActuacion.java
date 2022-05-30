@@ -43,23 +43,27 @@ public class CRUDActuacion {
             preparedStatement.setNull(1, 1);
             preparedStatement.setString(2, actuacion.getNombre());
             preparedStatement.setString(3, actuacion.getEspecificacion());
-            preparedStatement.setString(4, actuacion.getEstado());
-            preparedStatement.setDate(5, actuacion.getFecha_solicitud());
-            preparedStatement.setDate(6, actuacion.getFecha_envio());
-            preparedStatement.setDate(7, actuacion.getFecha_comienzo());
-            preparedStatement.setDate(8, actuacion.getFecha_finalizacion());
-            preparedStatement.setString(9, actuacion.getDescripcion());
-            preparedStatement.setDouble(10, actuacion.getImporte());
-            preparedStatement.setString(11, actuacion.getHojaPlanificacion());
-            preparedStatement.setString(12, actuacion.getHojaPresupuesto());
-            preparedStatement.setDouble(13, actuacion.getTotalCertificicaciones());
-            preparedStatement.setDouble(14, actuacion.getPorPertificar());
+            preparedStatement.setInt(4, actuacion.getIdCliente());
+            preparedStatement.setString(5, actuacion.getEstado());
+
+            preparedStatement.setString(6, actuacion.getDescripcion());
+            preparedStatement.setDouble(7, actuacion.getImporte());
+            preparedStatement.setDouble(8, actuacion.getPorPertificar());
+            preparedStatement.setDouble(9, actuacion.getTotalCertificicaciones());
+            preparedStatement.setDouble(10, actuacion.getGastoMaterial());
+            preparedStatement.setDouble(11, actuacion.getMaterialOfertado());
+            preparedStatement.setDouble(12, actuacion.getResultadoBalance());
+
+            preparedStatement.setString(13, actuacion.getHojaPlanificacion());
+            preparedStatement.setString(14, actuacion.getHojaPresupuesto());
+
             preparedStatement.setInt(15, actuacion.getHorasOfertadas());
             preparedStatement.setInt(16, actuacion.getHorasEjecutadas());
-            preparedStatement.setDouble(17, actuacion.getMaterialOfertado());
-            preparedStatement.setDouble(18, actuacion.getGastoMaterial());
-            preparedStatement.setDouble(19, actuacion.getResultadoBalance());
-            preparedStatement.setInt(20, actuacion.getIdCliente());
+
+            preparedStatement.setDate(17, actuacion.getFecha_solicitud());
+            preparedStatement.setDate(18, actuacion.getFecha_envio());
+            preparedStatement.setDate(19, actuacion.getFecha_comienzo());
+            preparedStatement.setDate(20, actuacion.getFecha_finalizacion());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
@@ -132,8 +136,9 @@ public class CRUDActuacion {
             preparedStatement.setDouble(16, actuacion.getGastoMaterial());
             preparedStatement.setDouble(17, actuacion.getResultadoBalance());
             preparedStatement.setInt(18, actuacion.getIdCliente());
-            preparedStatement.setInt(19, actuacion.getId());
-            preparedStatement.setString(20, actuacion.getNombre());
+            preparedStatement.setString(19, actuacion.getNombre());
+            preparedStatement.setInt(20, actuacion.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + actuacion.getId());

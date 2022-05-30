@@ -45,7 +45,7 @@ public class FormTrabajador extends JDialog{
         initWindow();
         initComps();
         initListeners();
-        //TODO ver como tratamos editable
+        initview(editable);
         setVisible(true);
     }
 
@@ -70,6 +70,17 @@ public class FormTrabajador extends JDialog{
         setTitle("Trabajadores");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
+
+    private void initview(boolean editable) {
+        textFieldDNI.setEditable(editable);
+        textFieldNombre.setEditable(editable);
+        textFieldApellidos.setEditable(editable);
+        formattedTextFieldFechaNacimiento.setEditable(editable);
+        textFieldPuesto.setEditable(editable);
+        textFieldSalario.setEditable(editable);
+        textFieldNacionalidad.setEditable(editable);
+    }
+
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -250,6 +261,7 @@ public class FormTrabajador extends JDialog{
 
                 switch (estado) {
                     case 0 -> {
+                        dispose();
                     }
                     case 1 -> {
                         loadNewTrabajador();

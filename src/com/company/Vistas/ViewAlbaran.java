@@ -218,7 +218,7 @@ public class ViewAlbaran extends JFrame{
         // FIXME: 24/05/2022  cuando añadimos actuacion da fallo porque es un objeto tal cual.
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
-        newAlbaran[y++] = albaran.getActuacion();
+        newAlbaran[y++] = albaran.getActuacion().getNombre();
         newAlbaran[y++] = albaran.getProveedor();
         newAlbaran[y++] = albaran.getConcepto();
         newAlbaran[y++] = albaran.getUnidades();

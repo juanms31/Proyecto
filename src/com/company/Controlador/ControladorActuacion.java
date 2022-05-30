@@ -26,7 +26,7 @@ public class ControladorActuacion {
             int idActuacion = crudActuacion.createActuacion(actuacion);
             actuacion.setId(idActuacion);
             viewActuacion.addTableActuacion(actuacion);
-            viewActuacion.ShowMessage( "CORRECTO", "Actuacion " + actuacion.getId() + " agregado con exito");
+            viewActuacion.ShowMessage( "CORRECTO", "Actuacion " + actuacion.getNombre() + " agregado con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,25 +35,13 @@ public class ControladorActuacion {
         }
     }
 
-//    public Cliente readProveedor(int cod){
-//        Cliente cliente = crudProveedor.readProveedor(cod);
-//        if (cliente.getId() > 0){
-//            viewProveedor.ShowMessage("CORRECTO", "No se ha podido cargar el cliente con codigo: " + cod, );
-//            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-//        }else{
-//            viewProveedor.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-//            //TODO quizas este mensaje sobre y no sea necesario
-//        }
-//        return  cliente;
-//    }
-
     public boolean updateActuacion(Actuacion actuacion) {
         boolean result = crudActuacion.updateActuacion(actuacion);
         if (result){
             viewActuacion.updateTableActuacion(actuacion);
-            viewActuacion.ShowMessage("CORRECTO","La actuacion " + actuacion.getId() + " ha sido actualizada");
+            viewActuacion.ShowMessage("CORRECTO","La actuacion " + actuacion.getNombre() + " ha sido actualizada");
         }else{
-            viewActuacion.ShowErrorMessage("ERROR", "No se ha podiddo actualizar la actuacion " + actuacion.getId());
+            viewActuacion.ShowErrorMessage("ERROR", "No se ha podiddo actualizar la actuacion " + actuacion.getNombre());
         }
         return result;
     }
@@ -61,9 +49,9 @@ public class ControladorActuacion {
     public boolean deleteActuacion(int id){
         boolean result = crudActuacion.deleteActuacion(id);
         if (result){
-            viewActuacion.ShowMessage( "CORRECTO", "La actuacion " + id + " ha sido actualizada");
+            viewActuacion.ShowMessage( "CORRECTO", "La actuacion " + id + " ha sido eliminada");
         }else{
-            viewActuacion.ShowErrorMessage("ERROR", "La actuacion " + id + " ha sido actualizada");
+            viewActuacion.ShowErrorMessage("ERROR", "La actuacion " + id + " ha sido eliminada");
         }
         return result;
     }
@@ -74,6 +62,18 @@ public class ControladorActuacion {
 
     public String[] getColumnsName(){
         String[] listColumnsName = crudActuacion.getColumnActuacion();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
+    }
+
+    public String[] getColumnsNameCliente(){
+        CRUDCliente crudCliente = new CRUDCliente();
+        String[] listColumnsName = crudCliente.getColumnsCliente();
         if (listColumnsName[0] == null){
             System.out.println("Fallo en base de datos");
         }

@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorAlbaran;
 import com.company.Entidades.Actuacion;
 import com.company.Entidades.Albaran;
 import com.company.Entidades.Cliente;
@@ -10,9 +11,20 @@ import java.util.ArrayList;
 
 public class CRUDAlbaran {
 
+    //region Constructor
+    public CRUDAlbaran(ControladorAlbaran controladorAlbaran) {
+
+    }
+
+    public CRUDAlbaran() {
+
+    }
+
+    //endregion
+
     // region Metodos CRUD
 
-    public ArrayList<Albaran> readAllAlbaran() throws SQLException {
+    public ArrayList<Albaran> getAll() throws SQLException {
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM albaran";
         try {
@@ -96,7 +108,7 @@ public class CRUDAlbaran {
         }
     }
 
-    public boolean updateAlbaran(Albaran albaran) throws SQLException {
+    public boolean updateAlbaran(Albaran albaran) {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE albaran " +
@@ -124,8 +136,12 @@ public class CRUDAlbaran {
             BBDD.close();
             return false;
         } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
+            try {
+                if (!connection.isClosed()){
+                    BBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

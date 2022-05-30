@@ -181,7 +181,8 @@ public class ViewMaterial extends JFrame{
                 grupoMateriales,
                 especificacionMateriales,
                 unidadMateriales,
-                calidadMateriales);
+                calidadMateriales,
+                false);
     }
 
     private void updateMaterial() {

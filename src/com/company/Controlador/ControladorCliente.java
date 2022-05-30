@@ -24,25 +24,13 @@ public class ControladorCliente {
             int idCliente = crudCliente.createCliente(cliente);
             cliente.setId(idCliente);
             viewCliente.addTableCliente(cliente);
-            viewCliente.ShowMessage("Cliente " + cliente.getNombre() + " agregado con exito", "CORRECTO");
+            viewCliente.ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " agregado con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            viewCliente.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
+            viewCliente.ShowErrorMessage( "ERROR", "No se ha podido agregar el registro");
             return false;
         }
-    }
-
-    public Cliente readCliente(int cod){
-        Cliente cliente = crudCliente.readCliente(cod);
-        if (cliente.getId() > 0){
-            viewCliente.ShowMessage("No se ha podido cargar el cliente con codigo: " + cod, "CORRECTO");
-            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-        }else{
-            viewCliente.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-            //TODO quizas este mensaje sobre y no sea necesario
-        }
-        return  cliente;
     }
 
     public boolean updateCliente(Cliente cliente) {

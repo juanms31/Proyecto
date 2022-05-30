@@ -33,18 +33,6 @@ public class ControladorProveedor {
         }
     }
 
-//    public Cliente readProveedor(int cod){
-//        Cliente cliente = crudProveedor.readProveedor(cod);
-//        if (cliente.getId() > 0){
-//            viewProveedor.ShowMessage("CORRECTO", "No se ha podido cargar el cliente con codigo: " + cod, );
-//            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-//        }else{
-//            viewProveedor.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-//            //TODO quizas este mensaje sobre y no sea necesario
-//        }
-//        return  cliente;
-//    }
-
     public boolean updateProveedor(Proveedor proveedor) {
         boolean result = crudProveedor.updateProveedor(proveedor);
         if (result){

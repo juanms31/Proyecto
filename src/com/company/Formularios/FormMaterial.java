@@ -55,12 +55,18 @@ public class FormMaterial extends JDialog {
     public FormMaterial(ViewMaterial viewMaterial, Material material, ArrayList<Proveedor> proveedores,
                         ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
                         ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales, boolean editable) {
+        estado = 0;
         this.viewMaterial = viewMaterial;
+        this.proveedores = proveedores;
+        this.grupoMateriales = grupoMateriales;
+        this.especificacionMateriales = especificacionMateriales;
+        this.unidadMateriales = unidadMateriales;
+        this.calidadMateriales = calidadMateriales;
         initWindow();
         initComps();
         setMaterial(material);
         initListeners();
-        //TODO ver como tratamos editable
+        initView(editable);
         setVisible(true);
     }
 
@@ -84,6 +90,22 @@ public class FormMaterial extends JDialog {
         setLocationRelativeTo(null);
         setTitle("Materiales");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+    }
+
+    private void initView(boolean editable) {
+        comboBoxGrupo.setEditable(editable);
+        textFieldDescripcion.setEditable(editable);
+        comboBoxEspecificacion.setEditable(editable);
+        comboBoxUnidad.setEditable(editable);
+        textFieldEspesor.setEditable(editable);
+        comboBoxCalidad.setEditable(editable);
+        comboBoxProveedor.setEnabled(editable);
+        comboBoxProveedor2.setEnabled(editable);
+        comboBoxProveedor3.setEnabled(editable);
+        spinnerPrecio1.setEnabled(editable);
+        spinnerPrecio2.setEnabled(editable);
+        spinnerPrecio3.setEnabled(editable);
+
     }
 
     public void centerFrame() {
@@ -186,20 +208,39 @@ public class FormMaterial extends JDialog {
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
 
-        MaterialSiendoModificado.setId(material.getId());
-        MaterialSiendoModificado.setCodigo(material.getCodigo());
-        comboBoxGrupo.setSelectedItem(material.getGrupo());
-        textFieldDescripcion.setText(material.getDescripcion());
-        comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
-        comboBoxUnidad.setSelectedItem(material.getUnidad());
-        textFieldEspesor.setText(String.valueOf(material.getEspesor()));
-        comboBoxCalidad.setSelectedItem(material.getCalidad());
-        comboBoxProveedor.setSelectedItem(material.getProveedor1());
-        spinnerPrecio1.setValue(material.getPrecio1());
-        comboBoxProveedor2.setSelectedItem(material.getProveedor2());
-        spinnerPrecio2.setValue(material.getPrecio2());
-        comboBoxProveedor3.setSelectedItem(material.getProveedor3());
-        spinnerPrecio3.setValue(material.getPrecio3());
+        if(estado != 0){
+            MaterialSiendoModificado.setId(material.getId());
+            MaterialSiendoModificado.setCodigo(material.getCodigo());
+            comboBoxGrupo.setSelectedItem(material.getGrupo());
+            textFieldDescripcion.setText(material.getDescripcion());
+            comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
+            comboBoxUnidad.setSelectedItem(material.getUnidad());
+            textFieldEspesor.setText(String.valueOf(material.getEspesor()));
+            comboBoxCalidad.setSelectedItem(material.getCalidad());
+            comboBoxProveedor.setSelectedItem(material.getProveedor1());
+            spinnerPrecio1.setValue(material.getPrecio1());
+            comboBoxProveedor2.setSelectedItem(material.getProveedor2());
+            spinnerPrecio2.setValue(material.getPrecio2());
+            comboBoxProveedor3.setSelectedItem(material.getProveedor3());
+            spinnerPrecio3.setValue(material.getPrecio3());
+
+        }else{
+
+            comboBoxGrupo.setSelectedItem(material.getGrupo());
+            textFieldDescripcion.setText(material.getDescripcion());
+            comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
+            comboBoxUnidad.setSelectedItem(material.getUnidad());
+            textFieldEspesor.setText(String.valueOf(material.getEspesor()));
+            comboBoxCalidad.setSelectedItem(material.getCalidad());
+            comboBoxProveedor.setSelectedItem(material.getProveedor1());
+            spinnerPrecio1.setValue(material.getPrecio1());
+            comboBoxProveedor2.setSelectedItem(material.getProveedor2());
+            spinnerPrecio2.setValue(material.getPrecio2());
+            comboBoxProveedor3.setSelectedItem(material.getProveedor3());
+            spinnerPrecio3.setValue(material.getPrecio3());
+        }
+
+
     }
 
     private boolean checkFields() {
@@ -271,6 +312,7 @@ public class FormMaterial extends JDialog {
 
                 switch (estado) {
                     case 0 -> {
+                        dispose();
                     }
                     case 1 -> {
                         loadNewMaterial();

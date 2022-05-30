@@ -36,9 +36,9 @@ public class FormSeguimientoLaboral extends JDialog {
         this.trabajadores = trabajadores;
         this.actuaciones = actuaciones;
         initListeners();
+        initComps();
         setSeguimiento(seguimientoLaboral);
         initWindow();
-        initComps();
         setVisible(true);
     }
 
@@ -48,17 +48,28 @@ public class FormSeguimientoLaboral extends JDialog {
         this.viewSeguimiento = viewSeguimiento;
         this.trabajadores = trabajadores;
         this.actuaciones = actuaciones;
+        initComps();
         setSeguimiento(seguimientoLaboral);
         initWindow();
-        initComps();
         initListeners();
-        //TODO ver como tratamos editable
+        initview(editable);
         setVisible(true);
     }
+
+
 
     //endregion
 
     //region Metodos Vista
+
+    private void initview(boolean editable) {
+        textFieldAno.setEditable(editable);
+        textFieldDia.setEditable(editable);
+        textFieldMes.setEditable(editable);
+        textFieldHorasTotales.setEditable(editable);
+        textFieldHorasExtra.setEditable(editable);
+        textFieldHora.setEditable(editable);
+    }
 
     private void initWindow() {
         add(panelPrincipal);
@@ -95,16 +106,15 @@ public class FormSeguimientoLaboral extends JDialog {
         }
 
         //Rellenar Trabajadores
-        comboBoxTrabajador.addItem("Selecciona Trabajador...");
+        comboBoxTrabajador.addItem("Selecciona Trabajador");
         for(Trabajador trabajador: trabajadores){
-            comboBoxTrabajador.addItem(trabajador.getId() + " " + trabajador.getNombre());
+            comboBoxTrabajador.addItem(trabajador.getId() + " - " + trabajador.getNombre());
         }
 
         //Rellenar Tipo Seguimiento
-        comboBoxTipo.addItem("Selecciona Tipo...");
+        comboBoxTipo.addItem("Selecciona Tipo");
         comboBoxTipo.addItem("Entrada");
         comboBoxTipo.addItem("Salida");
-
 
     }
 
@@ -159,10 +169,10 @@ public class FormSeguimientoLaboral extends JDialog {
     private void setSeguimiento(SeguimientoLaboral seguimiento) {
 
 
-        comboBoxActuacion.setSelectedItem(seguimiento.getActuacion().getId());
+        comboBoxActuacion.setSelectedItem(seguimiento.getActuacion().getId() + " - " + seguimiento.getActuacion().getNombre());
 
         Trabajador trabajador = seguimiento.getTrabajador();
-        String trabajadorSeleccionado =  trabajador.getId() + " " + trabajador.getNombre();
+        String trabajadorSeleccionado =  trabajador.getId() + " - " + trabajador.getNombre();
         comboBoxTrabajador.setSelectedItem(trabajadorSeleccionado);
 
         textFieldAno.setText(String.valueOf(seguimiento.getAno()));
@@ -295,6 +305,7 @@ public class FormSeguimientoLaboral extends JDialog {
 
                 switch (estado) {
                     case 0 -> {
+                        dispose();
                     }
                     case 1 -> {
                         loadNewSeguimiento();

@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class FormActuacion extends JDialog{
+public class FormActuacion extends JDialog {
 
     //region Constructores
     public FormActuacion(ViewActuacion viewActuacion,
@@ -114,13 +114,13 @@ public class FormActuacion extends JDialog{
 
         //Rellenando Cliente
         comboBoxCliente.addItem("Selecciona Cliente");
-        for(Cliente cliente : clientes){
+        for (Cliente cliente : clientes) {
             comboBoxCliente.addItem(cliente.getCIF() + " - " + cliente.getNombre());
         }
 
         //Rellando Especificacion
         comboBoxEspecificacion.addItem("Selecciona Especificacion");
-        for (EspecificacionActuacion especificacionActuacion : especificacionesActuacion){
+        for (EspecificacionActuacion especificacionActuacion : especificacionesActuacion) {
             comboBoxEspecificacion.addItem(especificacionActuacion.getSiglasEspecificacion());
         }
 
@@ -146,14 +146,14 @@ public class FormActuacion extends JDialog{
 
         boolean conErrores = checkFields();
 
-        if(conErrores){
+        if (conErrores) {
 
-        }else{
+        } else {
 
             Actuacion actuacion = getActuacion();
-            if(viewActuacion.getNewActuacionFromFormulario(actuacion)){
+            if (viewActuacion.getNewActuacionFromFormulario(actuacion)) {
                 dispose();
-            }else{
+            } else {
                 ShowErrorMessage("Error", "No se ha podido crear la actuacion correctamente");
             }
             dispose();
@@ -164,13 +164,13 @@ public class FormActuacion extends JDialog{
 
         boolean conErrores = checkFields();
 
-        if(conErrores){
+        if (conErrores) {
 
-        }else{
+        } else {
             Actuacion actuacion = getActuacion();
-            if (viewActuacion.getUpdateActuacionFromFormulario(actuacion)){
+            if (viewActuacion.getUpdateActuacionFromFormulario(actuacion)) {
                 dispose();
-            }else {
+            } else {
                 ShowErrorMessage("Error", "No se ha podido crear la actuacion correctamente. Intentelo de nuevo más tarde.");
             }
         }
@@ -195,7 +195,7 @@ public class FormActuacion extends JDialog{
         comboBoxEspecificacion.setSelectedItem(actuacion.getEspecificacion());
         comboBoxEstado.setSelectedItem(actuacion.getEstado());
 
-       //Procesamos Fechas
+        //Procesamos Fechas
         setProcesarFechas(actuacion);
 
         spinnerGastoMaterial.setValue(actuacion.getGastoMaterial());
@@ -240,10 +240,10 @@ public class FormActuacion extends JDialog{
 
         boolean conErrores = checkFields();
 
-        if(conErrores){
+        if (conErrores) {
 
 
-        }else {
+        } else {
 
             if (estado == 2) {
                 actuacion.setId(ActuacionSiendoModificada.getId());
@@ -256,21 +256,21 @@ public class FormActuacion extends JDialog{
 
                 actuacion = getProcesarFechas(actuacion);
 
-                actuacion.setGastoMaterial((Double) spinnerGastoMaterial.getValue());
-                actuacion.setImporte((Double) spinnerImporte.getValue());
+                actuacion.setGastoMaterial(Double.valueOf((String.valueOf(spinnerGastoMaterial.getValue()))));
+                actuacion.setImporte(Double.valueOf((String.valueOf(spinnerImporte.getValue()))));
 
                 actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
                 actuacion.setHojaPresupuesto(textFieldHojaPresupuesto.getText());
 
-                actuacion.setTotalCertificicaciones((Double) spinnerTotalCertificacion.getValue());
-                actuacion.setPorPertificar((Double) spinnerPorCertificar.getValue());
+                actuacion.setTotalCertificicaciones(Double.valueOf((String.valueOf(spinnerTotalCertificacion.getValue()))));
+                actuacion.setPorPertificar(Double.valueOf((String.valueOf(spinnerPorCertificar.getValue()))));
 
                 actuacion.setHorasEjecutadas(Integer.parseInt(textFieldHorasEjecutadas.getText()));
                 actuacion.setHorasOfertadas(Integer.parseInt(textFieldHorasOfertadas.getText()));
 
                 actuacion.setDescripcion(textAreaDescripcion.getText());
 
-                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1).getId());
+                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex() - 1).getId());
 
             } else {
 
@@ -298,7 +298,7 @@ public class FormActuacion extends JDialog{
 
                 actuacion.setDescripcion(textAreaDescripcion.getText());
 
-                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex()-1).getId());
+                actuacion.setIdCliente(clientes.get(comboBoxCliente.getSelectedIndex() - 1).getId());
 
 
             }
@@ -307,55 +307,73 @@ public class FormActuacion extends JDialog{
         return actuacion;
     }
 
-    private Actuacion getProcesarFechas(Actuacion actuacion){
+    private Actuacion getProcesarFechas(Actuacion actuacion) {
 
+        // FIXME: 30/05/2022 COMPROBAR QUE LAS FECHAS SEAN CORRECTAS (NO SIRVE CON EL CATCH)
         //Procesamos Fecha
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date UTILDate;
         java.sql.Date SQLDate;
 
-        try {
-            if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
-                actuacion.setFecha_solicitud(null);
-            }else{
+        if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
+            actuacion.setFecha_solicitud(null);
+        } else {
+            try {
+
                 UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_solicitud(SQLDate);
+
+            } catch (ParseException e) {
+                ShowErrorMessage("Error", "La fecha de solicitud no es valida");
             }
 
+        }
 
-            if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
-                actuacion.setFecha_envio(null);
-            }else{
-                 UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
-                 SQLDate = new Date(UTILDate.getTime());
+
+        if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
+            actuacion.setFecha_envio(null);
+        } else {
+            try {
+                UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
+                SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_envio(SQLDate);
+            } catch (ParseException e) {
+                ShowErrorMessage("Error", "La fecha de envio no es valida");
             }
 
-            if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
-                actuacion.setFecha_comienzo(null);
-            }else{
+        }
+
+        if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
+            actuacion.setFecha_comienzo(null);
+        } else {
+            try {
                 UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_comienzo(SQLDate);
+            } catch (ParseException e) {
+                ShowErrorMessage("Error", "La fecha de comienzo no es valida");
             }
 
-            if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
-                actuacion.setFecha_finalizacion(null);
-            }else{
+        }
+
+        if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
+            actuacion.setFecha_finalizacion(null);
+        } else {
+            try {
                 UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_finalizacion(SQLDate);
+            } catch (ParseException e) {
+                ShowErrorMessage("Error", "La fecha de finalización no es valida");
             }
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
 
         return actuacion;
     }
 
-    private Actuacion setProcesarFechas(Actuacion actuacion){
+    private Actuacion setProcesarFechas(Actuacion actuacion) {
 
         //Procesamos Fecha
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -364,7 +382,7 @@ public class FormActuacion extends JDialog{
 
         if (actuacion.getFecha_solicitud() == null) {
 
-        }else{
+        } else {
             SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             UTILDate = OldDateFormat.format(actuacion.getFecha_solicitud());
             formattedTextFieldFechaSolicitud.setText(UTILDate.toString());
@@ -372,7 +390,7 @@ public class FormActuacion extends JDialog{
 
         if (actuacion.getFecha_envio() == null) {
 
-        }else{
+        } else {
             SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             UTILDate = OldDateFormat.format(actuacion.getFecha_envio());
             formattedTextFieldFechaEnvio.setText(UTILDate.toString());
@@ -380,7 +398,7 @@ public class FormActuacion extends JDialog{
 
         if (actuacion.getFecha_comienzo() == null) {
 
-        }else{
+        } else {
             SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             UTILDate = OldDateFormat.format(actuacion.getFecha_comienzo());
             formattedTextFieldFechaComienzo.setText(UTILDate.toString());
@@ -388,7 +406,7 @@ public class FormActuacion extends JDialog{
 
         if (actuacion.getFecha_finalizacion() == null) {
 
-        }else{
+        } else {
             SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             UTILDate = OldDateFormat.format(actuacion.getFecha_finalizacion());
             formattedTextFieldFechaFinalizacion.setText(UTILDate.toString());
@@ -396,7 +414,6 @@ public class FormActuacion extends JDialog{
 
         return actuacion;
     }
-
 
 
     //endregion Actuacion
@@ -562,13 +579,14 @@ public class FormActuacion extends JDialog{
 
     }
 
-    public void itemListeners(){
+    public void itemListeners() {
         comboBoxCliente.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(comboBoxCliente.getSelectedItem().equals("Selecciona Cliente")){
+                if (comboBoxCliente.getSelectedItem().equals("Selecciona Cliente")) {
                     formattedTextFieldCIFCliente.setText("");
-                }else formattedTextFieldCIFCliente.setText(String.valueOf(clientes.get(comboBoxCliente.getSelectedIndex()-1).getCIF()));
+                } else
+                    formattedTextFieldCIFCliente.setText(String.valueOf(clientes.get(comboBoxCliente.getSelectedIndex() - 1).getCIF()));
 
             }
         });

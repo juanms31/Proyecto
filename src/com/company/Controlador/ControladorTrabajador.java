@@ -35,18 +35,6 @@ public class ControladorTrabajador {
         }
     }
 
-//    public Trabajador readTrabajador(int cod){
-//        Cliente cliente = crudCliente.readCliente(cod);
-//        if (cliente.getId() > 0){
-//            viewCliente.ShowMessage("No se ha podido cargar el cliente con codigo: " + cod, "CORRECTO");
-//            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-//        }else{
-//            viewCliente.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-//            //TODO quizas este mensaje sobre y no sea necesario
-//        }
-//        return  cliente;
-//    }
-
     public boolean updateTrabajador(Trabajador trabajador) {
         boolean result = crudTrabajador.updateTrabajador(trabajador);
         if (result){
