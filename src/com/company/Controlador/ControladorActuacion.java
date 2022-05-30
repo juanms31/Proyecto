@@ -1,9 +1,7 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDActuacion;
-import com.company.BaseDatos.CRUDProveedor;
-import com.company.Entidades.Actuacion;
-import com.company.Entidades.Proveedor;
+import com.company.BaseDatos.*;
+import com.company.Entidades.*;
 import com.company.Vistas.ViewActuacion;
 import com.company.Vistas.ViewProveedor;
 
@@ -14,55 +12,46 @@ public class ControladorActuacion {
 
     //Constructor
     public ControladorActuacion(){
-        crudActuacion = new CRUDActuacion(this);
-        ArrayList<Actuacion> actuaciones = crudActuacion.getAll();
-        viewActuacion = new ViewProveedor(this, actuaciones);
+        crudActuacion = new CRUDActuacion();
+        actuaciones = crudActuacion.getAll();
+        especificacionesActuacion = getEspecificacionActuacion();
+        clientes = getClientes();
+        setClienteObject();
+        viewActuacion = new ViewActuacion(this, actuaciones,clientes, especificacionesActuacion);
     }
 
     //region CRUD
-    public boolean createProveedor(Proveedor proveedor){
+    public boolean createActuacion (Actuacion actuacion){
         try {
-            int idProveedor = crudProveedor.createProveedor(proveedor);
-            proveedor.setId(idProveedor);
-            viewProveedor.addTableProveedor(proveedor);
-            viewProveedor.ShowMessage( "CORRECTO", "Proveedor " + proveedor.getNombre_proveedor() + " agregado con exito");
+            int idActuacion = crudActuacion.createActuacion(actuacion);
+            actuacion.setId(idActuacion);
+            viewActuacion.addTableActuacion(actuacion);
+            viewActuacion.ShowMessage( "CORRECTO", "Actuacion " + actuacion.getNombre() + " agregado con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            viewProveedor.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
+            viewActuacion.ShowErrorMessage("No se ha podido agregar el registro", "ERROR");
             return false;
         }
     }
 
-//    public Cliente readProveedor(int cod){
-//        Cliente cliente = crudProveedor.readProveedor(cod);
-//        if (cliente.getId() > 0){
-//            viewProveedor.ShowMessage("CORRECTO", "No se ha podido cargar el cliente con codigo: " + cod, );
-//            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-//        }else{
-//            viewProveedor.ShowMessage("Correcto, cargando cliente...", "CORRECTO");
-//            //TODO quizas este mensaje sobre y no sea necesario
-//        }
-//        return  cliente;
-//    }
-
-    public boolean updateProveedor(Proveedor proveedor) {
-        boolean result = crudProveedor.updateProveedor(proveedor);
+    public boolean updateActuacion(Actuacion actuacion) {
+        boolean result = crudActuacion.updateActuacion(actuacion);
         if (result){
-            viewProveedor.updateTableProveedor(proveedor);
-            viewProveedor.ShowMessage("CORRECTO","El proveedor " + proveedor.getNombre_proveedor() + " ha sido actualizado");
+            viewActuacion.updateTableActuacion(actuacion);
+            viewActuacion.ShowMessage("CORRECTO","La actuacion " + actuacion.getNombre() + " ha sido actualizada");
         }else{
-            viewProveedor.ShowErrorMessage("ERROR", "No se ha podiddo actualizar el proveedor " + proveedor.getNombre_proveedor());
+            viewActuacion.ShowErrorMessage("ERROR", "No se ha podiddo actualizar la actuacion " + actuacion.getNombre());
         }
         return result;
     }
 
-    public boolean deleteProveedor(int cod){
-        boolean result = crudProveedor.deleteProveedor(cod);
+    public boolean deleteActuacion(int id){
+        boolean result = crudActuacion.deleteActuacion(id);
         if (result){
-            viewProveedor.ShowMessage( "CORRECTO", "El proveedor con codigo: " + cod + " ha sido borrado");
+            viewActuacion.ShowMessage( "CORRECTO", "La actuacion " + id + " ha sido eliminada");
         }else{
-            viewProveedor.ShowErrorMessage("ERROR", "El proveedor con codigo: " + cod + " no se ha podido borrar");
+            viewActuacion.ShowErrorMessage("ERROR", "La actuacion " + id + " ha sido eliminada");
         }
         return result;
     }
@@ -72,7 +61,19 @@ public class ControladorActuacion {
     // region MetaDatos
 
     public String[] getColumnsName(){
-        String[] listColumnsName = crudProveedor.getColumnsProveedor();
+        String[] listColumnsName = crudActuacion.getColumnActuacion();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
+    }
+
+    public String[] getColumnsNameCliente(){
+        CRUDCliente crudCliente = new CRUDCliente();
+        String[] listColumnsName = crudCliente.getColumnsCliente();
         if (listColumnsName[0] == null){
             System.out.println("Fallo en base de datos");
         }
@@ -84,9 +85,43 @@ public class ControladorActuacion {
 
     //endregion
 
+    //region Parametros Constructor
+    private ArrayList<EspecificacionActuacion> getEspecificacionActuacion(){
+        ArrayList<EspecificacionActuacion> listEspecificacionActuacion;
+        CRUDEspecificacionActuacion crudEspecificacionActuacion = new CRUDEspecificacionActuacion();
+        listEspecificacionActuacion = crudEspecificacionActuacion.getAll();
+        return listEspecificacionActuacion;
+    }
+
+    private ArrayList<Cliente> getClientes(){
+        ArrayList<Cliente> listClientes;
+        CRUDCliente crudCliente = new CRUDCliente();
+        listClientes = crudCliente.getAll();
+        return listClientes;
+    }
+
+    private void setClienteObject() {
+        int posicion = 0;
+        for (Actuacion actuacion : actuaciones){
+
+            for(Cliente cliente : clientes){
+                if(actuacion.getIdCliente() ==  cliente.getId()) {
+                    actuaciones.get(posicion).setCliente(cliente);
+                }
+            }
+
+            posicion++;
+        }
+    }
+
+    //endregion
+
     //region Variables
-    CRUDActuacion crudActuacion;
-    ViewActuacion viewActuacion;
+    private CRUDActuacion crudActuacion;
+    private ViewActuacion viewActuacion;
+    private ArrayList<Actuacion> actuaciones;
+    private ArrayList<EspecificacionActuacion> especificacionesActuacion;
+    private ArrayList<Cliente> clientes;
 
     //endregion
 }

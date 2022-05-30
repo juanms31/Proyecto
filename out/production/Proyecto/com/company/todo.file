@@ -6,7 +6,10 @@ FIXES:
 
 TODO:
     - Certificacion
-    - Obras
+    - Obras:
+        º Cambiar Iconos Botones
+        º Comentar el tamaño de la tabla con Juancho
+        º Implementar funcionalidad en botones
 
 MOD:
     - Tratamiento de errores en campos de CIF.

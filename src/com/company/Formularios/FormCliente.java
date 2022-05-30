@@ -17,7 +17,18 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class FormCliente extends JDialog{
+
     //region Constructores
+    public FormCliente(Cliente cliente, boolean editable) {
+        estado = 0;
+        this.viewCliente = viewCliente;
+        initComps();
+        setCliente(cliente);
+        initWindow();
+        initListeners();
+        initView(editable);
+        setVisible(true);
+    }
 
     public FormCliente(ViewCliente viewCliente) {
         estado = 1;
@@ -40,14 +51,16 @@ public class FormCliente extends JDialog{
         setVisible(true);
     }
 
-    public FormCliente(ViewCliente viewCliente, Cliente cliente, boolean editable) {
-        this.viewCliente = viewCliente;
-        initComps();
-        setCliente(cliente);
-        initWindow();
-        initListeners();
-        //TODO ver como tratamos editable
-        setVisible(true);
+
+    private void initView(boolean editable) {
+        formattedTextFieldCIF.setEditable(editable);
+        textFieldNombre.setEditable(editable);
+        textFieldDireccion.setEditable(editable);
+        textFieldMail1.setEditable(editable);
+        textFieldTelefono1.setEditable(editable);
+        textFieldMail2.setEditable(editable);
+        textFieldTelefono2.setEditable(editable);
+
     }
 
     //endregion
@@ -74,7 +87,7 @@ public class FormCliente extends JDialog{
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height / 2, screen.width / 2);
+        setSize(screen.width / 2, screen.height / 2);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;
@@ -106,7 +119,7 @@ public class FormCliente extends JDialog{
             if(viewCliente.getNewClienteFromFormulario(cliente)){
                 dispose();
             }else{
-                ShowErrorMessage("Error", "No se ha podido crear el cliente correctamente");
+
             }
             dispose();
         }
@@ -123,7 +136,7 @@ public class FormCliente extends JDialog{
             if (viewCliente.getUpdateClienteFromFormulario(cliente)){
                 dispose();
             }else {
-                ShowErrorMessage("Error", "No se ha podido crear el cliente correctamente");
+
             }
         }
     }
@@ -215,6 +228,7 @@ public class FormCliente extends JDialog{
 
                 switch (estado) {
                     case 0 -> {
+                        dispose();
                     }
                     case 1 -> {
                         loadNewCliente();

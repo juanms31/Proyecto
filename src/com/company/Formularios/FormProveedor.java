@@ -44,8 +44,18 @@ public class FormProveedor extends JDialog{
         setProveedor(proveedor);
         initWindow();
         initListeners();
-        //TODO ver como tratamos editable
+        initView(editable);
         setVisible(true);
+    }
+
+    private void initView(boolean editable) {
+        formattedTextFieldCIF.setEditable(editable);
+        textFieldNombre.setEditable(editable);
+        textFieldDireccion.setEditable(editable);
+        textFieldMail1.setEditable(editable);
+        textFieldTelefono1.setEditable(editable);
+        textFieldMail2.setEditable(editable);
+        textFieldTelefono2.setEditable(editable);
     }
 
     //endregion
@@ -72,7 +82,7 @@ public class FormProveedor extends JDialog{
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.height / 2, screen.width / 2);
+        setSize(screen.width / 2, screen.height / 2);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;

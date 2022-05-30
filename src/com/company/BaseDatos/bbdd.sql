@@ -95,36 +95,39 @@ CREATE TABLE Cliente(
 );
 
 CREATE TABLE Actuacion (
-	id INTEGER PRIMARY KEY,
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(30),
     especificacion VARCHAR(200),
+    id_cliente INTEGER,
     estado VARCHAR(100),
+    descripcion VARCHAR(300),
+    importe DECIMAL(10,2),
+    por_certificar INTEGER,
+    total_certificaciones DECIMAL(10,2),
+    gasto_material DECIMAL(10,2),
+    material_ofertado DECIMAL(10,2),
+    resultado_balance DECIMAL(10,2),
+
+    hoja_planificacion VARCHAR(200),
+    hoja_presupuesto VARCHAR(200),
+
+    horas_ofertadas INTEGER,
+    horas_ejecutadas INTEGER,
+
     fecha_solicitud DATE NOT NULL,
     fecha_envio DATE,
     fecha_comienzo DATE,
     fecha_finalizacion DATE,
-    descripcion VARCHAR(300),
-    importe DECIMAL(10,2),
-    hoja_planificacion VARCHAR(200),
-    hoja_presupuesto VARCHAR(200),
-    total_certificaciones DECIMAL(10,2),
-    por_certificar INTEGER,
-    horas_ofertadas INTEGER,
-    horas_ejecutadas INTEGER,
-    material_ofertado INTEGER,
-    gasto_material DECIMAL(10,2),
-    resultado_balance DECIMAL(10,2),
-    id_cliente INTEGER,
+
     FOREIGN KEY (id_cliente)
     	REFERENCES Cliente (id)
 );
 
 CREATE TABLE EspecificacionActuacion (
-	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    nombre_especifiacion VARCHAR(50) NOT NULL,
-    detalle_especifiacion VARCHAR(200) NOT NULL,
-    id_actuacion INTEGER,
-    FOREIGN KEY (id_actuacion)
-    	REFERENCES Actuacion (id)
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    siglas_Especificacion VARCHAR(5) NOT NULL,
+    nombre_Especificacion VARCHAR(50),
+    Descripcion VARCHAR(150)
 );
 
 CREATE TABLE EstadoActuaciob(
@@ -179,7 +182,9 @@ CREATE TABLE Trabajador(
 CREATE TABLE SeguimientoLaboral
 (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id_trabajador INTEGER,
     tipo VARCHAR(10) NOT NULL,
+    id_actuacion INTEGER,
     ano INTEGER NOT NULL,
     dia INTEGER NOT NULL,
     mes INTEGER NOT NULL,
@@ -187,10 +192,8 @@ CREATE TABLE SeguimientoLaboral
     hora_salida VARCHAR(10),
     horas_totales DOUBLE,
     horas_extra DOUBLE,
-    id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
-    id_trabajador INTEGER,
     FOREIGN KEY (id_trabajador)
         REFERENCES Trabajador (id)
 
@@ -236,7 +239,7 @@ CREATE TABLE MaterialUtilizadoActuacion (
 );
 
 
-// Insercciones
+-- Insercciones
 
 INSERT INTO `calidadmaterial`(`id`, `siglas_calidad`, `nombre_calidad`, `Descripcion`)
 VALUES ('1','AI304','ACERO INOXIDABLE 304 L',''),
@@ -260,3 +263,9 @@ VALUES ('1','IN','Industrial',''),
        ('2','PE','Petroleo',''),
        ('3','SA','Sanitario',''),
        ('4','SO','Soportacion','');
+
+INSERT INTO `especificacionactuacion`(`id`, `siglas_Especificacion`, `nombre_Especificacion`, `Descripcion`)
+VALUES ('1','REP','Reparacion',''),
+       ('2','MAN','Mantenimiento',''),
+       ('3','NUEVA','Nueva Obra',''),
+       ('4','AIS','Aislacion','');

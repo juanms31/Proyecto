@@ -156,7 +156,7 @@ public class ViewCliente extends JFrame{
 
     private void readCliente(){
         Cliente cliente = getCliente();
-        FormCliente formCliente = new FormCliente(this, cliente, false);
+        FormCliente formCliente = new FormCliente( cliente, false);
     }
 
     private void updateCliente() {

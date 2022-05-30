@@ -171,7 +171,7 @@ public class ViewAlbaran extends JFrame{
 
         Albaran albaran = getAlbaran();
 
-        boolean result = controladorAlbaran.deleteAlbaran(albaran);
+        boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
 
         if(result){
             int row = TableAlbaran.getSelectedRow();
@@ -218,7 +218,7 @@ public class ViewAlbaran extends JFrame{
         // FIXME: 24/05/2022  cuando añadimos actuacion da fallo porque es un objeto tal cual.
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
-        newAlbaran[y++] = albaran.getActuacion();
+        newAlbaran[y++] = albaran.getActuacion().getNombre();
         newAlbaran[y++] = albaran.getProveedor();
         newAlbaran[y++] = albaran.getConcepto();
         newAlbaran[y++] = albaran.getUnidades();
@@ -245,7 +245,7 @@ public class ViewAlbaran extends JFrame{
         int row = TableAlbaran.getSelectedRow();
         return albaranes.get(row).getId();
     }
-    
+
     //endregion
 
     //region Listeners
@@ -316,9 +316,9 @@ public class ViewAlbaran extends JFrame{
     }
 
     //endregion
-    
-    
-    
+
+
+
     //region Variables
     private JPanel panelPrincipal;
     private JButton buttonAnadir;
@@ -334,7 +334,7 @@ public class ViewAlbaran extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
-    
+
     private ControladorAlbaran controladorAlbaran;
     private int estado = 0;
     private Albaran AlbaranSiendoModificado;

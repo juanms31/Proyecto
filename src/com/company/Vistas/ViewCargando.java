@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewCargando extends JFrame{
-    private JProgressBar progressBar1;
+    private JProgressBar progressBarCargando;
     private JPanel panelPrincipal;
+    private JLabel JLabelMensajeError;
 
     public ViewCargando() throws HeadlessException {
         add(panelPrincipal);

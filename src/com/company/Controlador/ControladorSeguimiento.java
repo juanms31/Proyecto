@@ -2,7 +2,6 @@ package com.company.Controlador;
 
 import com.company.BaseDatos.*;
 import com.company.Entidades.*;
-import com.company.Vistas.ViewProveedor;
 import com.company.Vistas.ViewSeguimiento;
 
 import java.sql.SQLException;
@@ -13,9 +12,13 @@ public class ControladorSeguimiento {
     //Constructor
     public ControladorSeguimiento(){
         crudSeguimientoLaboral = new CRUDSeguimientoLaboral(this);
-        ArrayList<SeguimientoLaboral> seguimientoLaborales = crudSeguimientoLaboral.getAll();
-        ArrayList<Trabajador> trabajadores = getTrabajadores();
-         ArrayList<Actuacion> actuaciones = getActuaciones();
+        seguimientoLaborales = crudSeguimientoLaboral.getAll();
+        trabajadores = getTrabajadores();
+        actuaciones = getActuaciones();
+
+        setTrabajadorObject();
+        setActuacionObject();
+
         viewSeguimiento = new ViewSeguimiento(this, seguimientoLaborales, trabajadores, actuaciones);
     }
     
@@ -88,10 +91,49 @@ public class ControladorSeguimiento {
         return listActuacion;
     }
 
+    //endregion
+
+    //region Completar ArrayList
+    private void setActuacionObject() {
+
+        int posicion = 0;
+        for (SeguimientoLaboral seguimientoLaboral : seguimientoLaborales){
+            for(Actuacion actuacion : actuaciones){
+                if(seguimientoLaboral.getIdActuacion() ==  actuacion.getId()) {
+                    System.out.println("Actuacion: " + actuacion.getId());
+                    seguimientoLaborales.get(posicion).setActuacion(actuacion);
+                    seguimientoLaborales.get(posicion).setIdActuacion(actuacion.getId());
+                }
+            }
+
+            posicion++;
+        }
+    }
+
+    private void setTrabajadorObject() {
+
+        int posicion = 0;
+        for (SeguimientoLaboral seguimientoLaboral : seguimientoLaborales){
+            for(Trabajador trabajador : trabajadores){
+                if(seguimientoLaboral.getIdTrabajador() ==  trabajador.getId()) {
+                    System.out.println("Trabajador: " + trabajador.getId());
+                    seguimientoLaborales.get(posicion).setTrabajador(trabajador);
+                    seguimientoLaborales.get(posicion).setIdTrabajador(trabajador.getId());
+                }
+            }
+
+            posicion++;
+        }
+    }
 
     //endregion
 
+
+
     //region Variables
-    CRUDSeguimientoLaboral  crudSeguimientoLaboral;
-    ViewSeguimiento viewSeguimiento;
+    private CRUDSeguimientoLaboral  crudSeguimientoLaboral;
+    private ViewSeguimiento viewSeguimiento;
+    private ArrayList<SeguimientoLaboral> seguimientoLaborales;
+    private ArrayList<Trabajador> trabajadores;
+    private ArrayList<Actuacion> actuaciones;
 }

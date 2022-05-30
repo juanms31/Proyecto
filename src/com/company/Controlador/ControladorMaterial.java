@@ -16,7 +16,6 @@ public class ControladorMaterial {
     public ControladorMaterial() {
         crudMaterial = new CRUDMaterial(this);
         ArrayList<Material> materiales = crudMaterial.getAll();
-        //TODO ver si entra en constructor o al llamar a formulario
         ArrayList<Proveedor> proveedores = getProveedores();
         ArrayList<GrupoMaterial> grupoMateriales = getGruposMaterial();
         ArrayList<EspecificacionMaterial> especificacionMateriales = getEspecifiacionMaterial();
@@ -51,18 +50,6 @@ public class ControladorMaterial {
             estado = false;
         }
         return estado;
-    }
-
-    public Material readMaterial(String cod){
-        Material material = crudMaterial.readMaterial(cod);
-        if (material.getCodigo() == null || material.getCodigo().isEmpty()){
-            viewMaterial.ShowMessage("No se ha podido cargar el material con codigo: " + cod, "CORRECTO");
-            //TODO en principio se puede leer el material sin consultar a la bbdd ya que esta cargado en memoria
-        }else{
-            viewMaterial.ShowMessage("Correcto, cargando material...", "CORRECTO");
-            //TODO quizas este mensaje sobre y no sea necesario
-        }
-        return  material;
     }
 
     public boolean updateMaterial(Material material) {
