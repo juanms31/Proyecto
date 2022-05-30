@@ -1,14 +1,15 @@
 Juan:
 
 FIXES:
-    - Seguimiento:
     - Albaranes:
+    - Registro y login de usuario
+    - Vista cargando
+    - Vista principal (modulos: calendario, chat, bbdd, graficos)
 
 TODO:
     - Certificacion
     - Obras:
         º Cambiar Iconos Botones
-        º Comentar el tamaño de la tabla con Juancho
         º Implementar funcionalidad en botones
 
 MOD:
@@ -22,3 +23,6 @@ Juancho:
     - CRUD Usuarios
     - Chat: http://aitorrm.github.io/java%20ee/websockets_chat_minimalista/
     - Calendario:
+    - Encriptar contraseñas de login
+    - Creamos usuarios y tu luego le metes la clave (ejemplo: calvoReluciente)
+    - Documentación
