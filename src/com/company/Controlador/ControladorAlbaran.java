@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ControladorAlbaran {
     //Constructor
-    public ControladorAlbaran(){
+    public ControladorAlbaran() throws SQLException {
         crudAlbaran = new CRUDAlbaran(this);
         ArrayList<Albaran> albaranes = crudAlbaran.getAll();
         viewAlbaran = new ViewAlbaran(this, albaranes);
@@ -47,14 +47,15 @@ public class ControladorAlbaran {
         return result;
     }
 
-    public boolean deleteProveedor(int cod){
-        boolean result = crudProveedor.deleteProveedor(cod);
-        if (result){
-            viewProveedor.ShowMessage( "CORRECTO", "El proveedor con codigo: " + cod + " ha sido borrado");
-        }else{
-            viewProveedor.ShowErrorMessage("ERROR", "El proveedor con codigo: " + cod + " no se ha podido borrar");
-        }
-        return result;
+    public boolean deleteAlbaran(int cod){
+//        boolean result = crudProveedor.deleteProveedor(cod);
+//        if (result){
+//            viewProveedor.ShowMessage( "CORRECTO", "El proveedor con codigo: " + cod + " ha sido borrado");
+//        }else{
+//            viewProveedor.ShowErrorMessage("ERROR", "El proveedor con codigo: " + cod + " no se ha podido borrar");
+//        }
+//        return result;
+        return false;
     }
 
     //endregion
@@ -62,14 +63,15 @@ public class ControladorAlbaran {
     // region MetaDatos
 
     public String[] getColumnsName(){
-        String[] listColumnsName = crudProveedor.getColumnsProveedor();
-        if (listColumnsName[0] == null){
-            System.out.println("Fallo en base de datos");
-        }
-        if (listColumnsName[0].equals("Error en CRUD")){
-            System.out.println("Fallo en CRUD");
-        }
-        return listColumnsName;
+//        String[] listColumnsName = crudProveedor.getColumnsProveedor();
+//        if (listColumnsName[0] == null){
+//            System.out.println("Fallo en base de datos");
+//        }
+//        if (listColumnsName[0].equals("Error en CRUD")){
+//            System.out.println("Fallo en CRUD");
+//        }
+//        return listColumnsName;
+        return new String[4];
     }
 
     //endregion

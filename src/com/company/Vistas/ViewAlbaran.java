@@ -171,7 +171,7 @@ public class ViewAlbaran extends JFrame{
 
         Albaran albaran = getAlbaran();
 
-        boolean result = controladorAlbaran.deleteAlbaran(albaran);
+        boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
 
         if(result){
             int row = TableAlbaran.getSelectedRow();
@@ -245,7 +245,7 @@ public class ViewAlbaran extends JFrame{
         int row = TableAlbaran.getSelectedRow();
         return albaranes.get(row).getId();
     }
-    
+
     //endregion
 
     //region Listeners
@@ -316,9 +316,9 @@ public class ViewAlbaran extends JFrame{
     }
 
     //endregion
-    
-    
-    
+
+
+
     //region Variables
     private JPanel panelPrincipal;
     private JButton buttonAnadir;
@@ -334,7 +334,7 @@ public class ViewAlbaran extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
-    
+
     private ControladorAlbaran controladorAlbaran;
     private int estado = 0;
     private Albaran AlbaranSiendoModificado;
