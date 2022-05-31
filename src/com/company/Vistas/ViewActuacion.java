@@ -68,13 +68,41 @@ public class ViewActuacion extends JFrame {
             headersFechasActuacion[i - 16] = listColumnsNameActuacion[i].toUpperCase();
         }
 
-        headersCliente = new String[listColumsNameCliente.length-1];
+        headersCliente = new String[listColumsNameCliente.length - 1];
         for (int i = 1; i < listColumsNameCliente.length; i++) {
-            headersCliente[i-1] = listColumsNameCliente[i].toUpperCase();
+            headersCliente[i - 1] = listColumsNameCliente[i].toUpperCase();
         }
 
         refreshTable(headersActuacion, headersFechasActuacion, actuaciones);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+
+//        // TODO: 31/05/2022 IMPLEMENTAR FILECHOOSER
+//        JFileChooser pathing = new JFileChooser();
+//        pathing.setCurrentDirectory(new File("src/com/company"));
+//        pathing.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        pathing.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if(pathing.isValid()) settingsFilled = true;
+//            }
+//        });
+//
+//        //Para el filtro de archivos
+//        png = new JCheckBox(".png");
+//        png.setBounds(170, 100, 50, 25);
+//        png.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (png.isSelected()) {
+//                    jpeg.setSelected(false);
+//                    gif.setSelected(false);
+//                    FileNameExtensionFilter filtroPNG = new FileNameExtensionFilter("*.png", "png");
+//                    pathing.setFileFilter(filtroPNG);
+//                    settingsFilled = true;
+//                }
+//            }
+//        });
+//
     }
 
     //endregion
@@ -489,12 +517,13 @@ public class ViewActuacion extends JFrame {
     private JPanel buscador;
     private JPanel panelBotones;
     private JButton ButtonHojaPlanificacion;
-    private JButton ButtonHojaPresupuesto;
     private JProgressBar progressBarProgreso;
     private JTextField textFieldHorasOfertadas;
     private JTextField textFieldHorasEjecutadas;
     private JTable TableFechas;
     private JTable TableClientes;
+    private JLabel JLabelHojaPlanificacion;
+    private JLabel JLabelHojaPresupuesto;
 
 
     //endregion
