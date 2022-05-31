@@ -40,17 +40,18 @@ public class CRUDTrabajador {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO trabajador" +
-                " VALUES (?,?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?,?, ?, ?,?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
             preparedStatement.setString(2, trabajador.getDNI());
             preparedStatement.setString(3, trabajador.getNombre());
             preparedStatement.setString(4, trabajador.getApellidos());
-            preparedStatement.setDate(5, trabajador.getFnac());
-            preparedStatement.setString(6, trabajador.getNacionalidad());
-            preparedStatement.setString(7, trabajador.getPuesto());
-            preparedStatement.setDouble(8, trabajador.getSalario());
+            preparedStatement.setString(5, trabajador.getTelefono());
+            preparedStatement.setDate(6, trabajador.getFnac());
+            preparedStatement.setString(7, trabajador.getNacionalidad());
+            preparedStatement.setString(8, trabajador.getPuesto());
+            preparedStatement.setDouble(9, trabajador.getSalario());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -98,7 +99,7 @@ public class CRUDTrabajador {
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE trabajador " +
                 "SET fecha_nacimiento = ?, nacionalidad = ?, nombre = ?, apellidos = ?," +
-                " puesto = ?, salario = ?, DNI = ? WHERE id = ?";
+                " puesto = ?, salario = ?, DNI = ?, telefono = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setDate(1, trabajador.getFnac());
@@ -108,7 +109,8 @@ public class CRUDTrabajador {
             preparedStatement.setString(5, trabajador.getPuesto());
             preparedStatement.setDouble(6, trabajador.getSalario());
             preparedStatement.setString(7, trabajador.getDNI());
-            preparedStatement.setInt(8, trabajador.getId());
+            preparedStatement.setString(8, trabajador.getTelefono());
+            preparedStatement.setInt(9, trabajador.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + trabajador.getId());
@@ -157,6 +159,7 @@ public class CRUDTrabajador {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(resultSet.getInt("id"));
                 trabajador.setDNI(resultSet.getString("DNI"));
+                trabajador.setTelefono(resultSet.getString("telefono"));
                 trabajador.setNombre(resultSet.getString("nombre"));
                 trabajador.setApellidos(resultSet.getString("apellidos"));
                 trabajador.setFnac(resultSet.getDate("fecha_nacimiento"));

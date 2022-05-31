@@ -61,6 +61,14 @@ public class Persona {
         this.nacionalidad = nacionalidad;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     //endregion
 
     public String nombre;
@@ -70,4 +78,5 @@ public class Persona {
     public Date fnac;
     public int edad;
     public  String nacionalidad;
+    public String telefono;
 }

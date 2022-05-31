@@ -173,6 +173,7 @@ CREATE TABLE Trabajador(
   DNI VARCHAR (9) NOT NULL,
   nombre VARCHAR(30)  NOT NULL,
   apellidos VARCHAR(50),
+  telefono VARCHAR(9),
   fecha_nacimiento DATE,
   nacionalidad VARCHAR (20),
   puesto VARCHAR (100),

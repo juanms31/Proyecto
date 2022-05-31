@@ -141,6 +141,8 @@ CREATE TABLE EstadoActuaciob(
 );
 CREATE TABLE Albaran(
     id VARCHAR(20) PRIMARY KEY,
+    id_actuacion INTEGER,
+    id_proveedor INTEGER,
     concepto VARCHAR (100),
     unidades VARCHAR (20),
     fecha_entrada_albarán DATE,
@@ -148,12 +150,27 @@ CREATE TABLE Albaran(
     base_imponible DECIMAL(5,2),
     naturaleza VARCHAR(30),
 
+    FOREIGN KEY (id_actuacion)
+        REFERENCES Actuacion (id),
+    FOREIGN KEY (id_proveedor)
+        REFERENCES Proveedor (id)
+);
+
+CREATE TABLE MaterialCompradoProveedores(
+    id INTEGER PRIMARY KEY,
+    fecha_compra DATE,
+    id_material INTEGER,
+    FOREIGN KEY (id_material)
+        REFERENCES Material (id),
+    id_proveedor INTEGER,
+    FOREIGN KEY (id_proveedor)
+        REFERENCES Proveedor (id),
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
-    id_proveedor INTEGER,
-    FOREIGN KEY (id_proveedor)
-        REFERENCES Proveedor (id)
+    id_albaran VARCHAR(20),
+    FOREIGN KEY (id_albaran)
+        REFERENCES Albaran (id)
 );
 
 
@@ -173,6 +190,7 @@ CREATE TABLE Trabajador(
   DNI VARCHAR (9) NOT NULL,
   nombre VARCHAR(30)  NOT NULL,
   apellidos VARCHAR(50),
+  telefono VARCHAR(9),
   fecha_nacimiento DATE,
   nacionalidad VARCHAR (20),
   puesto VARCHAR (100),
@@ -211,22 +229,6 @@ CREATE TABLE Vacaciones (
         REFERENCES Trabajador (id)
 );
 
-CREATE TABLE MaterialCompradoProveedores(
-	id INTEGER PRIMARY KEY,
-    fecha_compra DATE,
-    id_material INTEGER,
-    FOREIGN KEY (id_material)
-    	REFERENCES Material (id),
-    id_proveedor INTEGER,
-    FOREIGN KEY (id_proveedor)
-    	REFERENCES Proveedor (id),
-    id_actuacion INTEGER,
-    FOREIGN KEY (id_actuacion)
-    	REFERENCES Actuacion (id),
-    id_albaran VARCHAR(20),
-    FOREIGN KEY (id_albaran)
-    	REFERENCES Albaran (id)
-);
 
 CREATE TABLE MaterialUtilizadoActuacion (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,

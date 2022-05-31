@@ -1,22 +1,22 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDActuacion;
 import com.company.BaseDatos.CRUDAlbaran;
-import com.company.BaseDatos.CRUDProveedor;
+import com.company.BaseDatos.CRUDCliente;
+import com.company.BaseDatos.CRUDMaterial;
 import com.company.Entidades.Albaran;
-import com.company.Entidades.Proveedor;
+import com.company.Entidades.Cliente;
+import com.company.Entidades.Material;
 import com.company.Vistas.ViewAlbaran;
-import com.company.Vistas.ViewProveedor;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControladorAlbaran {
     //Constructor
-    public ControladorAlbaran() throws SQLException {
+    public ControladorAlbaran() {
         crudAlbaran = new CRUDAlbaran(this);
-        ArrayList<Albaran> albaranes = crudAlbaran.getAll();
-        viewAlbaran = new ViewAlbaran(this, albaranes);
+        albaranes = crudAlbaran.getAll();
+        materiales = getMateriales();
+        viewAlbaran = new ViewAlbaran(this, albaranes, materiales);
     }
 
     //region CRUD
@@ -48,14 +48,13 @@ public class ControladorAlbaran {
     }
 
     public boolean deleteAlbaran(int cod){
-//        boolean result = crudProveedor.deleteProveedor(cod);
-//        if (result){
-//            viewProveedor.ShowMessage( "CORRECTO", "El proveedor con codigo: " + cod + " ha sido borrado");
-//        }else{
-//            viewProveedor.ShowErrorMessage("ERROR", "El proveedor con codigo: " + cod + " no se ha podido borrar");
-//        }
-//        return result;
-        return false;
+        boolean result = crudAlbaran.deleteAlbaran(cod);
+        if (result){
+            viewAlbaran.ShowMessage( "CORRECTO", "El albaran con codigo: " + cod + " ha sido borrado");
+        }else{
+            viewAlbaran.ShowErrorMessage("ERROR", "El albaran con codigo: " + cod + " no se ha podido borrar");
+        }
+        return result;
     }
 
     //endregion
@@ -63,22 +62,31 @@ public class ControladorAlbaran {
     // region MetaDatos
 
     public String[] getColumnsName(){
-//        String[] listColumnsName = crudProveedor.getColumnsProveedor();
-//        if (listColumnsName[0] == null){
-//            System.out.println("Fallo en base de datos");
-//        }
-//        if (listColumnsName[0].equals("Error en CRUD")){
-//            System.out.println("Fallo en CRUD");
-//        }
-//        return listColumnsName;
-        return new String[4];
+        String[] listColumnsName = crudAlbaran.getColumnsAlbaran();
+        if (listColumnsName[0] == null){
+            System.out.println("Fallo en base de datos");
+        }
+        if (listColumnsName[0].equals("Error en CRUD")){
+            System.out.println("Fallo en CRUD");
+        }
+        return listColumnsName;
+    }
+    //endregion
+
+    //region Parametros Constructor
+    private ArrayList<Material> getMateriales(){
+        ArrayList<Material> listMaterial;
+        CRUDMaterial crudMaterial = new CRUDMaterial();
+        listMaterial = crudMaterial.getAll();
+        return listMaterial;
     }
 
-    //endregion
 
     //region Variables
     CRUDAlbaran crudAlbaran;
     ViewAlbaran viewAlbaran;
+    ArrayList<Albaran> albaranes;
+    ArrayList<Material> materiales;
 
     //endregion
 }

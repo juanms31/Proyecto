@@ -41,9 +41,9 @@ public class FormTrabajador extends JDialog{
 
     public FormTrabajador(ViewTrabajador viewTrabajador, Trabajador trabajador, boolean editable) {
         this.viewTrabajador = viewTrabajador;
-        setTrabajador(trabajador);
         initWindow();
         initComps();
+        setTrabajador(trabajador);
         initListeners();
         initview(editable);
         setVisible(true);
@@ -72,7 +72,7 @@ public class FormTrabajador extends JDialog{
     }
 
     private void initview(boolean editable) {
-        textFieldDNI.setEditable(editable);
+        formattedTextFieldDNI.setEditable(editable);
         textFieldNombre.setEditable(editable);
         textFieldApellidos.setEditable(editable);
         formattedTextFieldFechaNacimiento.setEditable(editable);
@@ -98,6 +98,10 @@ public class FormTrabajador extends JDialog{
         try {
             formatterFNAC = new MaskFormatter("##-##-####");
             formattedTextFieldFechaNacimiento.setFormatterFactory(new DefaultFormatterFactory(formatterFNAC));
+
+            formattedTextFieldDNI.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
+
+            formattedTextFieldTelefono.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("#########")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -155,13 +159,14 @@ public class FormTrabajador extends JDialog{
     //region SET Y GET MATERIAL
     private void setTrabajador(Trabajador trabajador) {
 
-        textFieldDNI.setText(trabajador.getDNI());
+        formattedTextFieldDNI.setText(trabajador.getDNI());
         textFieldNombre.setText(trabajador.getNombre());
         textFieldApellidos.setText(trabajador.getApellidos());
 
+        formattedTextFieldTelefono.setText(trabajador.getTelefono());
+
         //Procesamos Fecha
         SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
         String UTILDate = OldDateFormat.format(trabajador.getFnac());
 
         formattedTextFieldFechaNacimiento.setText(UTILDate.toString());
@@ -173,7 +178,7 @@ public class FormTrabajador extends JDialog{
 
     private boolean checkFields() {
 
-        if (textFieldDNI.getText().isEmpty()) {
+        if (formattedTextFieldDNI.getText().isEmpty()) {
             ShowErrorMessage("Error", "Campo DNI no puede estar vacio");
             return true;
         }
@@ -190,6 +195,11 @@ public class FormTrabajador extends JDialog{
             return true;
         }
 
+        if (formattedTextFieldTelefono.getText().isEmpty()) {
+            ShowErrorMessage("Error", "Campo Telefono no puede estar vacio");
+            return true;
+        }
+
         return false;
     }
 
@@ -201,9 +211,10 @@ public class FormTrabajador extends JDialog{
         if (estado == 2) {
             trabajador.setId(TrabajadorSiendoModificado.getId());
 
-            trabajador.setDNI(textFieldDNI.getText());
+            trabajador.setDNI(formattedTextFieldDNI.getText());
             trabajador.setNombre(textFieldNombre.getText());
             trabajador.setApellidos(textFieldApellidos.getText());
+            trabajador.setTelefono(formattedTextFieldTelefono.getText());
 
             //Procesamos Fecha
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -221,10 +232,12 @@ public class FormTrabajador extends JDialog{
             trabajador.setNacionalidad(textFieldNacionalidad.getText());
 
         } else {
-            trabajador.setDNI(textFieldDNI.getText());
+            trabajador.setDNI(formattedTextFieldDNI.getText());
 
             trabajador.setNombre(textFieldNombre.getText());
             trabajador.setApellidos(textFieldApellidos.getText());
+            trabajador.setTelefono(formattedTextFieldTelefono.getText());
+
 
             //Procesamos Fecha
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -309,7 +322,8 @@ public class FormTrabajador extends JDialog{
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JPanel panelPrincipal;
-    private JTextField textFieldDNI;
+    private JFormattedTextField formattedTextFieldDNI;
+    private JFormattedTextField formattedTextFieldTelefono;
     private ViewTrabajador viewTrabajador;
     private int estado = 0;
     private Trabajador TrabajadorSiendoModificado;

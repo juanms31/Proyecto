@@ -61,7 +61,7 @@ public class ViewPrincipal extends JFrame{
         btnAlbaranes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                ControladorAlbaran controladorAlbaran = new ControladorAlbaran();
+                ControladorAlbaran controladorAlbaran = new ControladorAlbaran();
             }
         });
         btnCertificacion.addActionListener(new ActionListener() {

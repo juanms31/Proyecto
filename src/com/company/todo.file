@@ -3,6 +3,7 @@ Juan:
 FIXES:
     - Seguimiento:
     - Albaranes:
+        - Tratamiento de Materiales en Albaranes: añadir materiales con boton a partir del formulario FormMaterialesAlbaran.form el cual habrira la vista de Materiales y esta devolverá el material seleccionado (con doble click).
 
 TODO:
     - Certificacion

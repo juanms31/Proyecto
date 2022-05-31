@@ -120,40 +120,43 @@ public class FormMaterial extends JDialog {
     public void initComps() {
 
         //Rellenar grupo
-        comboBoxGrupo.addItem("Selecciona grupo ");
+        comboBoxGrupo.addItem("Selecciona grupo");
         for(GrupoMaterial grupo: grupoMateriales){
             comboBoxGrupo.addItem(grupo.getSiglasGrupo());
         }
 
         //Rellenar especificacion
-        comboBoxEspecificacion.addItem("Selecciona Especificacion ");
+        comboBoxEspecificacion.addItem("Selecciona Especificacion");
         for(EspecificacionMaterial especificacionMaterial: especificacionMateriales){
             comboBoxEspecificacion.addItem(especificacionMaterial.getNombreEspecificacion());
         }
 
         //Rellenar UD
-        comboBoxUnidad.addItem("Selecciona Unidad ");
+        comboBoxUnidad.addItem("Selecciona Unidad");
         for(UnidadMaterial unidadMaterial: unidadMateriales){
             comboBoxUnidad.addItem(unidadMaterial.getSiglasUnidad());
         }
 
         //Rellenar Calidad
-        comboBoxCalidad.addItem("Selecciona Calidad ");
+        comboBoxCalidad.addItem("Selecciona Calidad");
         for(CalidadMaterial calidadMaterial: calidadMateriales){
             comboBoxCalidad.addItem(calidadMaterial.getSiglasCalidad());
         }
 
         //Rellenar Proveedor1
+        comboBoxProveedor.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor.addItem(proveedor.getNombre_proveedor());
         }
 
         //Rellenar Proveedor2
+        comboBoxProveedor2.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor2.addItem(proveedor.getNombre_proveedor());
         }
 
         //Rellenar Proveedor3
+        comboBoxProveedor3.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor3.addItem(proveedor.getNombre_proveedor());
         }
@@ -263,33 +266,84 @@ public class FormMaterial extends JDialog {
         if (estado == 2) {
             material.setId(MaterialSiendoModificado.getId());
             material.setCodigo(MaterialSiendoModificado.getCodigo());
-            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona grupo")){
+                material.setGrupo("");
+            }else material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
             material.setDescripcion(textFieldDescripcion.getText());
-            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
-            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona Especificacion")){
+                material.setEspecificacion("");
+            }else material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+
+            if(comboBoxUnidad.getSelectedItem().equals("Selecciona Unidad")){
+                material.setUnidad("");
+            }else material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
             material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
-            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
-            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
+            if(comboBoxCalidad.getSelectedItem().equals("Selecciona Calidad")){
+                material.setCalidad("");
+            }else material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+
+            if(comboBoxProveedor.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor1("");
+            }else material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
             material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
-            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
+            if(comboBoxProveedor2.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor2("");
+            }else material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
             material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
-            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
+            if(comboBoxProveedor3.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor3("");
+            }else material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
             material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
 
 
         } else {
-//            material.setCodigo(MaterialSiendoModificado.getCodigo());
-            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona grupo")){
+                material.setGrupo("");
+            }else material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
             material.setDescripcion(textFieldDescripcion.getText());
-            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
-            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona Especificacion")){
+                material.setEspecificacion("");
+            }else material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+
+            if(comboBoxUnidad.getSelectedItem().equals("Selecciona Unidad")){
+                material.setUnidad("");
+            }else material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
             material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
-            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
-            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
+            if(comboBoxCalidad.getSelectedItem().equals("Selecciona Calidad")){
+                material.setCalidad("");
+            }else material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+
+            if(comboBoxProveedor.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor1("");
+            }else material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
             material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
-            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
+            if(comboBoxProveedor2.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor2("");
+            }else material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
             material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
-            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
+            if(comboBoxProveedor3.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor3("");
+            }else material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
             material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
         }
 

@@ -1,9 +1,8 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Albaran;
-import com.company.Entidades.Cliente;
+import com.company.Entidades.Material;
 import com.company.Vistas.ViewAlbaran;
-import com.company.Vistas.ViewCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -13,13 +12,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class FormAlbaran extends JDialog {
     //region Constructores
 
-    public FormAlbaran(ViewAlbaran viewAlbaran) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, ArrayList<Material> materiales) {
         estado = 1;
         this.viewAlbaran = viewAlbaran;
+        this.materiales = materiales;
         initWindow();
         initComps();
         initListeners();
@@ -27,22 +28,26 @@ public class FormAlbaran extends JDialog {
 
     }
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales) {
         estado = 2;
         AlbaranSiendoModificado = albaran;
         this.viewAlbaran = viewAlbaran;
+        this.materiales = materiales;
+
         initListeners();
-        setAlbaran(albaran);
         initWindow();
         initComps();
+        setAlbaran(albaran);
+
         setVisible(true);
     }
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, boolean editable) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales, boolean editable) {
         this.viewAlbaran = viewAlbaran;
-        setAlbaran(albaran);
+        this.materiales = materiales;
         initWindow();
         initComps();
+        setAlbaran(albaran);
         initListeners();
         //TODO ver como tratamos editable
         setVisible(true);
@@ -80,6 +85,14 @@ public class FormAlbaran extends JDialog {
     }
 
     public void initComps() {
+
+        //Rellenamos el combo box con los materiales
+        comboBoxMateriales.addItem("Selecciona Material");
+        for (Material material :  materiales){
+            //Acotamos el nombre para que no sea muy largo a 15 caracteres..
+            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0,15) + "...");
+
+        }
 
     }
 
@@ -136,7 +149,6 @@ public class FormAlbaran extends JDialog {
         textFieldUnidades.setText(String.valueOf(albaran.getUnidades()));
         textFieldPrecioUnitario.setText(String.valueOf(albaran.getPrecioUnidad()));
         textFieldBase.setText(String.valueOf(albaran.getBaseImponible()));
-        comboBoxNaturaleza.setSelectedItem(albaran.getNaturaleza());
         formattedTextFieldFechaEntrada.setText(String.valueOf(albaran.getFechaEntradaAlbaran()));
     }
 
@@ -153,10 +165,10 @@ public class FormAlbaran extends JDialog {
             ShowErrorMessage("Error", "Campo Precio Unitario no puede estar vacio");
             return true;
         }
-        if (comboBoxNaturaleza.getSelectedItem().equals("")) {
-            ShowErrorMessage("Error", "Campo Naturaleza no puede estar vacio");
-            return true;
-        }
+//        if (comboBoxNaturaleza.getSelectedItem().equals("Selecciona Naturaleza")) {
+//            ShowErrorMessage("Error", "Campo Naturaleza no puede estar vacio");
+//            return true;
+//        }
         if (formattedTextFieldFechaEntrada.getText().isEmpty()) {
             ShowErrorMessage("Error", "Campo Fecha Entrada no puede estar vacio");
             return true;
@@ -176,14 +188,12 @@ public class FormAlbaran extends JDialog {
             albaran.setUnidades(Integer.parseInt(textFieldUnidades.getText()));
             albaran.setPrecioUnidad(Double.parseDouble(textFieldPrecioUnitario.getText()));
             albaran.setBaseImponible(Double.parseDouble(textFieldBase.getText()));
-            albaran.setNaturaleza(comboBoxNaturaleza.getSelectedItem().toString());
             albaran.setFechaEntradaAlbaran(Date.valueOf(formattedTextFieldFechaEntrada.getText()));
 
         } else {
             albaran.setUnidades(Integer.parseInt(textFieldUnidades.getText()));
             albaran.setPrecioUnidad(Double.parseDouble(textFieldPrecioUnitario.getText()));
             albaran.setBaseImponible(Double.parseDouble(textFieldBase.getText()));
-            albaran.setNaturaleza(comboBoxNaturaleza.getSelectedItem().toString());
             albaran.setFechaEntradaAlbaran(Date.valueOf(formattedTextFieldFechaEntrada.getText()));
         }
 
@@ -278,6 +288,7 @@ public class FormAlbaran extends JDialog {
 
     //region Variables
 
+    private ArrayList<Material> materiales;
     private ViewAlbaran viewAlbaran;
     private JLabel labelTitulo;
     private JTextField textFieldCodigo;
@@ -287,8 +298,9 @@ public class FormAlbaran extends JDialog {
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JFormattedTextField formattedTextFieldFechaEntrada;
-    private JComboBox comboBoxNaturaleza;
     private JPanel panelPrincipal;
+    private JButton button1;
+    private JComboBox comboBoxMateriales;
     int estado = 0;
     private Albaran AlbaranSiendoModificado;
 
