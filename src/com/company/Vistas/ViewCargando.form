@@ -11,7 +11,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="e88b5" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
+      <component id="e88b5" class="javax.swing.JProgressBar" binding="progressBarCargando">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -42,7 +42,7 @@
           <verticalTextPosition value="1"/>
         </properties>
       </component>
-      <component id="f7aa6" class="javax.swing.JLabel">
+      <component id="f7aa6" class="javax.swing.JLabel" binding="JLabelMensajeError">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -51,6 +51,7 @@
           <foreground color="-4520192"/>
           <icon value="com/company/Images/Icons/error.png"/>
           <text value="MENSAJE DE ERROR"/>
+          <visible value="false"/>
         </properties>
       </component>
     </children>

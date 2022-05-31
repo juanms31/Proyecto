@@ -37,28 +37,33 @@ public class CRUDActuacion {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO actuacion" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setString(2, actuacion.getEspecificacion());
-            preparedStatement.setString(3, actuacion.getEstado());
-            preparedStatement.setDate(4, actuacion.getFecha_solicitud());
-            preparedStatement.setDate(5, actuacion.getFecha_envio());
-            preparedStatement.setDate(6, actuacion.getFecha_comienzo());
-            preparedStatement.setDate(7, actuacion.getFecha_finalizacion());
-            preparedStatement.setString(8, actuacion.getDescripcion());
-            preparedStatement.setDouble(9, actuacion.getImporte());
-            preparedStatement.setString(10, actuacion.getHojaPlanificacion());
-            preparedStatement.setString(11, actuacion.getHojaPresupuesto());
-            preparedStatement.setDouble(12, actuacion.getTotalCertificicaciones());
-            preparedStatement.setDouble(13, actuacion.getPorPertificar());
-            preparedStatement.setInt(14, actuacion.getHorasOfertadas());
-            preparedStatement.setInt(15, actuacion.getHorasEjecutadas());
-            preparedStatement.setDouble(16, actuacion.getMaterialOfertado());
-            preparedStatement.setDouble(17, actuacion.getGastoMaterial());
-            preparedStatement.setDouble(18, actuacion.getResultadoBalance());
-            preparedStatement.setInt(19, actuacion.getIdCliente());
+            preparedStatement.setString(2, actuacion.getNombre());
+            preparedStatement.setString(3, actuacion.getEspecificacion());
+            preparedStatement.setInt(4, actuacion.getIdCliente());
+            preparedStatement.setString(5, actuacion.getEstado());
+
+            preparedStatement.setString(6, actuacion.getDescripcion());
+            preparedStatement.setDouble(7, actuacion.getImporte());
+            preparedStatement.setDouble(8, actuacion.getPorPertificar());
+            preparedStatement.setDouble(9, actuacion.getTotalCertificicaciones());
+            preparedStatement.setDouble(10, actuacion.getGastoMaterial());
+            preparedStatement.setDouble(11, actuacion.getMaterialOfertado());
+            preparedStatement.setDouble(12, actuacion.getResultadoBalance());
+
+            preparedStatement.setString(13, actuacion.getHojaPlanificacion());
+            preparedStatement.setString(14, actuacion.getHojaPresupuesto());
+
+            preparedStatement.setInt(15, actuacion.getHorasOfertadas());
+            preparedStatement.setInt(16, actuacion.getHorasEjecutadas());
+
+            preparedStatement.setDate(17, actuacion.getFecha_solicitud());
+            preparedStatement.setDate(18, actuacion.getFecha_envio());
+            preparedStatement.setDate(19, actuacion.getFecha_comienzo());
+            preparedStatement.setDate(20, actuacion.getFecha_finalizacion());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
@@ -109,7 +114,7 @@ public class CRUDActuacion {
                 "SET especificacion = ?, estado = ?, fecha_solicitud = ?, fecha_envio = ?," +
                 " fecha_comienzo = ?, fecha_finalizacion = ?, descripcion = ?, importe = ?, hoja_planificacion = ?, hoja_presupuesto = ?," +
                 " total_certificaciones = ?, por_certificar = ?, horas_ofertadas = ?, horas_ejecutadas = ?, " +
-                " material_ofertado = ?, gasto_material = ?, resultado_balance = ?, id_cliente = ?" +
+                " material_ofertado = ?, gasto_material = ?, resultado_balance = ?, id_cliente = ?, nombre = ?" +
                 " WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
@@ -131,7 +136,9 @@ public class CRUDActuacion {
             preparedStatement.setDouble(16, actuacion.getGastoMaterial());
             preparedStatement.setDouble(17, actuacion.getResultadoBalance());
             preparedStatement.setInt(18, actuacion.getIdCliente());
-            preparedStatement.setInt(19, actuacion.getId());
+            preparedStatement.setString(19, actuacion.getNombre());
+            preparedStatement.setInt(20, actuacion.getId());
+
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + actuacion.getId());
@@ -154,7 +161,9 @@ public class CRUDActuacion {
             while (resultSet.next()){
                 Actuacion actuacion = new Actuacion();
                 actuacion.setId(resultSet.getInt("id"));
+                actuacion.setNombre(resultSet.getString("nombre"));
                 actuacion.setEspecificacion(resultSet.getString("especificacion"));
+
                 actuacion.setEstado(resultSet.getString("estado"));
                 actuacion.setFecha_solicitud(resultSet.getDate("fecha_solicitud"));
                 actuacion.setFecha_envio(resultSet.getDate("fecha_envio"));
@@ -165,7 +174,7 @@ public class CRUDActuacion {
                 actuacion.setHojaPlanificacion(resultSet.getString("hoja_planificacion"));
                 actuacion.setHojaPresupuesto(resultSet.getString("hoja_presupuesto"));
                 actuacion.setTotalCertificicaciones(resultSet.getDouble("total_certificaciones"));
-                actuacion.setPorPertificar(resultSet.getDouble("por_certificacr"));
+                actuacion.setPorPertificar(resultSet.getDouble("por_certificar"));
                 actuacion.setHorasOfertadas(resultSet.getInt("horas_ofertadas"));
                 actuacion.setHorasEjecutadas(resultSet.getInt("horas_ejecutadas"));
                 actuacion.setMaterialOfertado(resultSet.getDouble("material_ofertado"));

@@ -1,6 +1,7 @@
 package com.company.Entidades;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Albaran {
 
@@ -70,14 +71,6 @@ public class Albaran {
         BaseImponible = baseImponible;
     }
 
-    public String getNaturaleza() {
-        return naturaleza;
-    }
-
-    public void setNaturaleza(String naturaleza) {
-        this.naturaleza = naturaleza;
-    }
-
     public int getIdActuacion() {
         return idActuacion;
     }
@@ -93,6 +86,15 @@ public class Albaran {
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
     }
+
+    public ArrayList<Material> getMateriales() {
+        return materiales;
+    }
+
+    public void setMateriales(ArrayList<Material> materiales) {
+        this.materiales = materiales;
+    }
+
     //endregion
 
     //region Metodos publicos
@@ -108,7 +110,6 @@ public class Albaran {
                 ", fechaEntradaAlbaran=" + fechaEntradaAlbaran +
                 ", PrecioUnidad=" + PrecioUnidad +
                 ", BaseImponible=" + BaseImponible +
-                ", naturaleza='" + naturaleza + '\'' +
                 '}';
     }
 
@@ -124,9 +125,9 @@ public class Albaran {
     private Date fechaEntradaAlbaran;
     private double PrecioUnidad;
     private double BaseImponible;
-    private String naturaleza;
     private int idActuacion;
     private int idProveedor;
+    private ArrayList<Material> materiales;
 
     //endregion
 }

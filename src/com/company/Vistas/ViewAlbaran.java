@@ -1,10 +1,8 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorAlbaran;
-import com.company.Entidades.Albaran;
-import com.company.Entidades.Cliente;
+import com.company.Entidades.Albaran;import com.company.Entidades.Material;
 import com.company.Formularios.FormAlbaran;
-import com.company.Formularios.FormCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -21,9 +19,10 @@ import java.util.ArrayList;
 public class ViewAlbaran extends JFrame{
 
 
-    public ViewAlbaran(ControladorAlbaran controladorAlbaran, ArrayList<Albaran> albaranes) {
+    public ViewAlbaran(ControladorAlbaran controladorAlbaran, ArrayList<Albaran> albaranes, ArrayList<Material> materiales) {
         this.controladorAlbaran = controladorAlbaran;
         this.albaranes = albaranes;
+        this.materiales = materiales;
         initWindow();
         initListeners();
         setVisible(true);
@@ -152,17 +151,17 @@ public class ViewAlbaran extends JFrame{
 
     //region CRUD
     private void createAlbaran(){
-        FormAlbaran formAlbaran = new FormAlbaran(this);
+        FormAlbaran formAlbaran = new FormAlbaran(this, materiales);
     }
 
     private void readAlbaran(){
         Albaran albaran = getAlbaran();
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, false);
+        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, false);
     }
 
     private void updateAlbaran() {
         Albaran albaran = getAlbaran();
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran);
+        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales);
 
 
     }
@@ -171,7 +170,7 @@ public class ViewAlbaran extends JFrame{
 
         Albaran albaran = getAlbaran();
 
-        boolean result = controladorAlbaran.deleteAlbaran(albaran);
+        boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
 
         if(result){
             int row = TableAlbaran.getSelectedRow();
@@ -196,7 +195,6 @@ public class ViewAlbaran extends JFrame{
         albaranes.get(row).setFechaEntradaAlbaran(albaran.getFechaEntradaAlbaran());
         albaranes.get(row).setPrecioUnidad(albaran.getPrecioUnidad());
         albaranes.get(row).setBaseImponible(albaran.getBaseImponible());
-        albaranes.get(row).setNaturaleza(albaran.getNaturaleza());
         albaranes.get(row).setIdActuacion(albaran.getIdActuacion());
         albaranes.get(row).setIdProveedor(albaran.getIdProveedor());
 
@@ -218,14 +216,13 @@ public class ViewAlbaran extends JFrame{
         // FIXME: 24/05/2022  cuando añadimos actuacion da fallo porque es un objeto tal cual.
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
-        newAlbaran[y++] = albaran.getActuacion();
+        newAlbaran[y++] = albaran.getActuacion().getNombre();
         newAlbaran[y++] = albaran.getProveedor();
         newAlbaran[y++] = albaran.getConcepto();
         newAlbaran[y++] = albaran.getUnidades();
         newAlbaran[y++] = albaran.getFechaEntradaAlbaran();
         newAlbaran[y++] = albaran.getPrecioUnidad();
         newAlbaran[y++] = albaran.getBaseImponible();
-        newAlbaran[y++] = albaran.getNaturaleza();
         newAlbaran[y++] = albaran.getIdActuacion();
         newAlbaran[y++] = albaran.getIdProveedor();
 
@@ -245,7 +242,7 @@ public class ViewAlbaran extends JFrame{
         int row = TableAlbaran.getSelectedRow();
         return albaranes.get(row).getId();
     }
-    
+
     //endregion
 
     //region Listeners
@@ -316,17 +313,16 @@ public class ViewAlbaran extends JFrame{
     }
 
     //endregion
-    
-    
-    
+
+
+
     //region Variables
     private JPanel panelPrincipal;
     private JButton buttonAnadir;
     private JButton buttonEliminar;
     private JButton buttonVer;
     private JButton buttonEditar;
-    private JTabbedPane panelPestanas;
-    private JPanel PanelMaterial;
+    private JPanel PanelAlbaran;
     private JTable TableAlbaran;
     private JPanel buscador;
     private JTextField filtro;
@@ -334,11 +330,14 @@ public class ViewAlbaran extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
-    
+    private JTable tableActuacion;
+    private JList listMateriales;
+
     private ControladorAlbaran controladorAlbaran;
     private int estado = 0;
     private Albaran AlbaranSiendoModificado;
     private ArrayList<Albaran> albaranes;
+    private ArrayList<Material> materiales;
     private String[] headers;
     private TableRowSorter sorter;
     private DefaultTableModel modelAlbaran;

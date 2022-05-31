@@ -55,12 +55,18 @@ public class FormMaterial extends JDialog {
     public FormMaterial(ViewMaterial viewMaterial, Material material, ArrayList<Proveedor> proveedores,
                         ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
                         ArrayList<UnidadMaterial> unidadMateriales, ArrayList<CalidadMaterial> calidadMateriales, boolean editable) {
+        estado = 0;
         this.viewMaterial = viewMaterial;
+        this.proveedores = proveedores;
+        this.grupoMateriales = grupoMateriales;
+        this.especificacionMateriales = especificacionMateriales;
+        this.unidadMateriales = unidadMateriales;
+        this.calidadMateriales = calidadMateriales;
         initWindow();
         initComps();
         setMaterial(material);
         initListeners();
-        //TODO ver como tratamos editable
+        initView(editable);
         setVisible(true);
     }
 
@@ -86,9 +92,25 @@ public class FormMaterial extends JDialog {
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
 
+    private void initView(boolean editable) {
+        comboBoxGrupo.setEditable(editable);
+        textFieldDescripcion.setEditable(editable);
+        comboBoxEspecificacion.setEditable(editable);
+        comboBoxUnidad.setEditable(editable);
+        textFieldEspesor.setEditable(editable);
+        comboBoxCalidad.setEditable(editable);
+        comboBoxProveedor.setEnabled(editable);
+        comboBoxProveedor2.setEnabled(editable);
+        comboBoxProveedor3.setEnabled(editable);
+        spinnerPrecio1.setEnabled(editable);
+        spinnerPrecio2.setEnabled(editable);
+        spinnerPrecio3.setEnabled(editable);
+
+    }
+
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.width / 2, screen.height / 2);
+        setSize(screen.width / 2, screen.height - 100);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;
@@ -98,40 +120,43 @@ public class FormMaterial extends JDialog {
     public void initComps() {
 
         //Rellenar grupo
-        comboBoxGrupo.addItem("Selecciona grupo ");
+        comboBoxGrupo.addItem("Selecciona grupo");
         for(GrupoMaterial grupo: grupoMateriales){
             comboBoxGrupo.addItem(grupo.getSiglasGrupo());
         }
 
         //Rellenar especificacion
-        comboBoxEspecificacion.addItem("Selecciona Especificacion ");
+        comboBoxEspecificacion.addItem("Selecciona Especificacion");
         for(EspecificacionMaterial especificacionMaterial: especificacionMateriales){
             comboBoxEspecificacion.addItem(especificacionMaterial.getNombreEspecificacion());
         }
 
         //Rellenar UD
-        comboBoxUnidad.addItem("Selecciona Unidad ");
+        comboBoxUnidad.addItem("Selecciona Unidad");
         for(UnidadMaterial unidadMaterial: unidadMateriales){
             comboBoxUnidad.addItem(unidadMaterial.getSiglasUnidad());
         }
 
         //Rellenar Calidad
-        comboBoxCalidad.addItem("Selecciona Calidad ");
+        comboBoxCalidad.addItem("Selecciona Calidad");
         for(CalidadMaterial calidadMaterial: calidadMateriales){
             comboBoxCalidad.addItem(calidadMaterial.getSiglasCalidad());
         }
 
         //Rellenar Proveedor1
+        comboBoxProveedor.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor.addItem(proveedor.getNombre_proveedor());
         }
 
         //Rellenar Proveedor2
+        comboBoxProveedor2.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor2.addItem(proveedor.getNombre_proveedor());
         }
 
         //Rellenar Proveedor3
+        comboBoxProveedor3.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
             comboBoxProveedor3.addItem(proveedor.getNombre_proveedor());
         }
@@ -186,20 +211,39 @@ public class FormMaterial extends JDialog {
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {
 
-        MaterialSiendoModificado.setId(material.getId());
-        MaterialSiendoModificado.setCodigo(material.getCodigo());
-        comboBoxGrupo.setSelectedItem(material.getGrupo());
-        textFieldDescripcion.setText(material.getDescripcion());
-        comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
-        comboBoxUnidad.setSelectedItem(material.getUnidad());
-        textFieldEspesor.setText(String.valueOf(material.getEspesor()));
-        comboBoxCalidad.setSelectedItem(material.getCalidad());
-        comboBoxProveedor.setSelectedItem(material.getProveedor1());
-        spinnerPrecio1.setValue(material.getPrecio1());
-        comboBoxProveedor2.setSelectedItem(material.getProveedor2());
-        spinnerPrecio2.setValue(material.getPrecio2());
-        comboBoxProveedor3.setSelectedItem(material.getProveedor3());
-        spinnerPrecio3.setValue(material.getPrecio3());
+        if(estado != 0){
+            MaterialSiendoModificado.setId(material.getId());
+            MaterialSiendoModificado.setCodigo(material.getCodigo());
+            comboBoxGrupo.setSelectedItem(material.getGrupo());
+            textFieldDescripcion.setText(material.getDescripcion());
+            comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
+            comboBoxUnidad.setSelectedItem(material.getUnidad());
+            textFieldEspesor.setText(String.valueOf(material.getEspesor()));
+            comboBoxCalidad.setSelectedItem(material.getCalidad());
+            comboBoxProveedor.setSelectedItem(material.getProveedor1());
+            spinnerPrecio1.setValue(material.getPrecio1());
+            comboBoxProveedor2.setSelectedItem(material.getProveedor2());
+            spinnerPrecio2.setValue(material.getPrecio2());
+            comboBoxProveedor3.setSelectedItem(material.getProveedor3());
+            spinnerPrecio3.setValue(material.getPrecio3());
+
+        }else{
+
+            comboBoxGrupo.setSelectedItem(material.getGrupo());
+            textFieldDescripcion.setText(material.getDescripcion());
+            comboBoxEspecificacion.setSelectedItem(material.getEspecificacion());
+            comboBoxUnidad.setSelectedItem(material.getUnidad());
+            textFieldEspesor.setText(String.valueOf(material.getEspesor()));
+            comboBoxCalidad.setSelectedItem(material.getCalidad());
+            comboBoxProveedor.setSelectedItem(material.getProveedor1());
+            spinnerPrecio1.setValue(material.getPrecio1());
+            comboBoxProveedor2.setSelectedItem(material.getProveedor2());
+            spinnerPrecio2.setValue(material.getPrecio2());
+            comboBoxProveedor3.setSelectedItem(material.getProveedor3());
+            spinnerPrecio3.setValue(material.getPrecio3());
+        }
+
+
     }
 
     private boolean checkFields() {
@@ -222,33 +266,84 @@ public class FormMaterial extends JDialog {
         if (estado == 2) {
             material.setId(MaterialSiendoModificado.getId());
             material.setCodigo(MaterialSiendoModificado.getCodigo());
-            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona grupo")){
+                material.setGrupo("");
+            }else material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
             material.setDescripcion(textFieldDescripcion.getText());
-            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
-            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona Especificacion")){
+                material.setEspecificacion("");
+            }else material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+
+            if(comboBoxUnidad.getSelectedItem().equals("Selecciona Unidad")){
+                material.setUnidad("");
+            }else material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
             material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
-            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
-            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
+            if(comboBoxCalidad.getSelectedItem().equals("Selecciona Calidad")){
+                material.setCalidad("");
+            }else material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+
+            if(comboBoxProveedor.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor1("");
+            }else material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
             material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
-            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
+            if(comboBoxProveedor2.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor2("");
+            }else material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
             material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
-            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
+            if(comboBoxProveedor3.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor3("");
+            }else material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
             material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
 
 
         } else {
-//            material.setCodigo(MaterialSiendoModificado.getCodigo());
-            material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona grupo")){
+                material.setGrupo("");
+            }else material.setGrupo((String) comboBoxGrupo.getSelectedItem());
+
             material.setDescripcion(textFieldDescripcion.getText());
-            material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
-            material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
+            if(comboBoxGrupo.getSelectedItem().equals("Selecciona Especificacion")){
+                material.setEspecificacion("");
+            }else material.setEspecificacion((String) comboBoxEspecificacion.getSelectedItem());
+
+            if(comboBoxUnidad.getSelectedItem().equals("Selecciona Unidad")){
+                material.setUnidad("");
+            }else material.setUnidad((String) comboBoxUnidad.getSelectedItem());
+
             material.setEspesor(Double.parseDouble(textFieldEspesor.getText()));
-            material.setCalidad((String) comboBoxCalidad.getSelectedItem());
-            material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
+            if(comboBoxCalidad.getSelectedItem().equals("Selecciona Calidad")){
+                material.setCalidad("");
+            }else material.setCalidad((String) comboBoxCalidad.getSelectedItem());
+
+            if(comboBoxProveedor.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor1("");
+            }else material.setProveedor1((String) comboBoxProveedor.getSelectedItem());
+
             material.setPrecio1(Double.valueOf(String.valueOf(spinnerPrecio1.getValue())));
-            material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
+            if(comboBoxProveedor2.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor2("");
+            }else material.setProveedor2((String) comboBoxProveedor2.getSelectedItem());
+
             material.setPrecio2(Double.valueOf(String.valueOf(spinnerPrecio2.getValue())));
-            material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
+            if(comboBoxProveedor3.getSelectedItem().equals("Selecciona Proveedor")){
+                material.setProveedor3("");
+            }else material.setProveedor3((String) comboBoxProveedor3.getSelectedItem());
+
             material.setPrecio3(Double.valueOf(String.valueOf(spinnerPrecio3.getValue())));
         }
 
@@ -271,6 +366,7 @@ public class FormMaterial extends JDialog {
 
                 switch (estado) {
                     case 0 -> {
+                        dispose();
                     }
                     case 1 -> {
                         loadNewMaterial();

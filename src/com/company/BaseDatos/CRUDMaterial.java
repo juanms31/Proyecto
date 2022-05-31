@@ -11,6 +11,11 @@ public class CRUDMaterial {
     public CRUDMaterial(ControladorMaterial controladorMaterial) {
         this.controladorMaterial = controladorMaterial;
     }
+
+    public CRUDMaterial() {
+
+    }
+
     //region Metodos CRUD
 
     //TODO hacer getMAterial por id;
@@ -297,6 +302,6 @@ public class CRUDMaterial {
     }
 
     //region ATRIBUTOS
-    private final ControladorMaterial controladorMaterial;
+    private ControladorMaterial controladorMaterial;
     //endregion
 }

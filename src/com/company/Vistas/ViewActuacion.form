@@ -3,12 +3,12 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="537" height="400"/>
+      <xy x="20" y="20" width="1198" height="726"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="2ff11" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="2ff11" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="9" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -19,69 +19,6 @@
         </properties>
         <border type="none"/>
         <children>
-          <tabbedpane id="9d2d4" binding="panelPestanas">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentX value="0.0"/>
-              <alignmentY value="0.0"/>
-              <background color="-1703946"/>
-              <font size="14"/>
-              <foreground color="-16055809"/>
-              <inheritsPopupMenu value="true"/>
-              <tabLayoutPolicy value="1"/>
-              <tabPlacement value="1"/>
-            </properties>
-            <border type="none">
-              <color color="-16356043"/>
-            </border>
-            <children>
-              <grid id="f75f5" binding="PanelMaterial" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="1" left="1" bottom="1" right="1"/>
-                <constraints>
-                  <tabbedpane title="Actuaciones"/>
-                </constraints>
-                <properties>
-                  <background color="-11617507"/>
-                  <foreground color="-16356043"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <scrollpane id="1975">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <background color="-1900570"/>
-                      <focusable value="false"/>
-                      <foreground color="-16777216"/>
-                      <requestFocusEnabled value="false"/>
-                    </properties>
-                    <border type="none"/>
-                    <children>
-                      <component id="a25a1" class="javax.swing.JTable" binding="TableActuacion">
-                        <constraints/>
-                        <properties>
-                          <autoCreateRowSorter value="true"/>
-                          <autoResizeMode value="1"/>
-                          <background color="-3485441"/>
-                          <cellSelectionEnabled value="false"/>
-                          <focusTraversalPolicyProvider value="false"/>
-                          <font size="16"/>
-                          <foreground color="-16777216"/>
-                          <gridColor color="-11617507"/>
-                          <rowSelectionAllowed value="true"/>
-                          <selectionBackground color="-1703946"/>
-                          <selectionForeground color="-16055809"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </scrollpane>
-                </children>
-              </grid>
-            </children>
-          </tabbedpane>
           <grid id="7ce42" binding="buscador" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
@@ -130,7 +67,7 @@
           </grid>
           <component id="7581d" class="javax.swing.JSeparator">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="4" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-16756757"/>
@@ -139,7 +76,7 @@
           <grid id="87d34" binding="panelBotones" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
@@ -165,7 +102,7 @@
           <grid id="3e0d1" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
@@ -247,6 +184,227 @@
               </component>
             </children>
           </grid>
+          <grid id="79fb9" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="88b10" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Hoja Planificacion"/>
+                </properties>
+              </component>
+              <component id="e6629" class="javax.swing.JButton" binding="ButtonHojaPlanificacion">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <foreground color="-16382782"/>
+                  <text value="CARPETAICON"/>
+                </properties>
+              </component>
+              <component id="660fc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Hoja Presupuesto"/>
+                </properties>
+              </component>
+              <component id="f5995" class="javax.swing.JButton" binding="ButtonHojaPresupuesto">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <foreground color="-16382782"/>
+                  <text value="CARPETAICON"/>
+                </properties>
+              </component>
+              <component id="94512" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <scrollpane id="f0d88">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="795b9" class="javax.swing.JTable" binding="TableFechas">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="true"/>
+                  <autoResizeMode value="1"/>
+                  <background color="-3485441"/>
+                  <cellSelectionEnabled value="false"/>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font size="16"/>
+                  <foreground color="-16777216"/>
+                  <gridColor color="-11617507"/>
+                  <rowSelectionAllowed value="true"/>
+                  <selectionBackground color="-1703946"/>
+                  <selectionForeground color="-16055809"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <grid id="df21d" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="751cf" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Horas Ofertadas"/>
+                </properties>
+              </component>
+              <component id="4ad90" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Horas Ejecutadas"/>
+                </properties>
+              </component>
+              <component id="95336" class="javax.swing.JTextField" binding="textFieldHorasOfertadas">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <editable value="false"/>
+                  <foreground color="-16382782"/>
+                </properties>
+              </component>
+              <component id="cc38b" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="a43f3" class="javax.swing.JTextField" binding="textFieldHorasEjecutadas">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <editable value="false"/>
+                  <foreground color="-16382782"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="3aadd" class="javax.swing.JProgressBar" binding="progressBarProgreso">
+            <constraints>
+              <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16598212"/>
+              <stringPainted value="true"/>
+              <value value="0"/>
+            </properties>
+          </component>
+          <component id="fad40" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Progreso Actuacion"/>
+            </properties>
+          </component>
+          <scrollpane id="38a32">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="8ca87" class="javax.swing.JTable" binding="TableClientes">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="true"/>
+                  <autoResizeMode value="1"/>
+                  <background color="-3485441"/>
+                  <cellSelectionEnabled value="false"/>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font size="16"/>
+                  <foreground color="-16777216"/>
+                  <gridColor color="-11617507"/>
+                  <rowSelectionAllowed value="true"/>
+                  <selectionBackground color="-1703946"/>
+                  <selectionForeground color="-16055809"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="1975">
+            <constraints>
+              <grid row="3" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1900570"/>
+              <focusable value="false"/>
+              <foreground color="-16777216"/>
+              <requestFocusEnabled value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="a25a1" class="javax.swing.JTable" binding="TableActuaciones">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="true"/>
+                  <autoResizeMode value="1"/>
+                  <background color="-3485441"/>
+                  <cellSelectionEnabled value="false"/>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font size="16"/>
+                  <foreground color="-16777216"/>
+                  <gridColor color="-11617507"/>
+                  <rowSelectionAllowed value="true"/>
+                  <selectionBackground color="-1703946"/>
+                  <selectionForeground color="-16055809"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
     </children>

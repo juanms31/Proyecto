@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ViewSeguimiento extends JFrame{
 
@@ -52,8 +53,16 @@ public class ViewSeguimiento extends JFrame{
         setTitle("Seguimiento Laboral");
         String[] listColumnsName = controladorSeguimiento.getColumnsName();
         headers = new String[listColumnsName.length-1];
+
+        //Si hace referencia al ID poner el nombre que corresponda
         for (int i = 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
+            if(listColumnsName[i+1].equals("id_trabajador")){
+                headers[i] = "Trabajador".toUpperCase();
+            }else if(listColumnsName[i+1].equals("id_actuacion")){
+                headers[i] = "Actuacion".toUpperCase();
+            }else{
+                headers[i] = listColumnsName[i+1].toUpperCase();
+            }
         }
         refreshTable(headers, seguimientoLaboralList);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -215,13 +224,15 @@ public class ViewSeguimiento extends JFrame{
     public Object[] getSeguimientoObject(SeguimientoLaboral seguimientoLaboral){
         int y = 0;
         Object[] newSeguimiento = new Object[headers.length];
-        newSeguimiento[y++] = seguimientoLaboral.getActuacion().getId();
-        newSeguimiento[y++] = seguimientoLaboral.getTipo();
 
         Trabajador trabajador = seguimientoLaboral.getTrabajador();
         String trabajadorSeleccionado =  trabajador.getId() + " " + trabajador.getNombre();
-
         newSeguimiento[y++] = trabajadorSeleccionado;
+
+        newSeguimiento[y++] = seguimientoLaboral.getTipo();
+
+        newSeguimiento[y++] = seguimientoLaboral.getActuacion().getNombre();
+
         newSeguimiento[y++] = seguimientoLaboral.getAno();
         newSeguimiento[y++] = seguimientoLaboral.getDia();
         newSeguimiento[y++] = seguimientoLaboral.getMes();
@@ -240,9 +251,7 @@ public class ViewSeguimiento extends JFrame{
         boolean hayMasDeUnRegistro = false;
         int contador = 0;
         
-        return 1;
-
-        
+        return 0;
     }
 
     private SeguimientoLaboral getSeguimiento() {

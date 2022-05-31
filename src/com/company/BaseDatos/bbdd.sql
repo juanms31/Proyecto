@@ -96,24 +96,29 @@ CREATE TABLE Cliente(
 
 CREATE TABLE Actuacion (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(30),
     especificacion VARCHAR(200),
+    id_cliente INTEGER,
     estado VARCHAR(100),
+    descripcion VARCHAR(300),
+    importe DECIMAL(10,2),
+    por_certificar INTEGER,
+    total_certificaciones DECIMAL(10,2),
+    gasto_material DECIMAL(10,2),
+    material_ofertado DECIMAL(10,2),
+    resultado_balance DECIMAL(10,2),
+
+    hoja_planificacion VARCHAR(200),
+    hoja_presupuesto VARCHAR(200),
+
+    horas_ofertadas INTEGER,
+    horas_ejecutadas INTEGER,
+
     fecha_solicitud DATE NOT NULL,
     fecha_envio DATE,
     fecha_comienzo DATE,
     fecha_finalizacion DATE,
-    descripcion VARCHAR(300),
-    importe DECIMAL(10,2),
-    hoja_planificacion VARCHAR(200),
-    hoja_presupuesto VARCHAR(200),
-    total_certificaciones DECIMAL(10,2),
-    por_certificar INTEGER,
-    horas_ofertadas INTEGER,
-    horas_ejecutadas INTEGER,
-    material_ofertado INTEGER,
-    gasto_material DECIMAL(10,2),
-    resultado_balance DECIMAL(10,2),
-    id_cliente INTEGER,
+
     FOREIGN KEY (id_cliente)
     	REFERENCES Cliente (id)
 );
@@ -136,6 +141,8 @@ CREATE TABLE EstadoActuaciob(
 );
 CREATE TABLE Albaran(
     id VARCHAR(20) PRIMARY KEY,
+    id_actuacion INTEGER,
+    id_proveedor INTEGER,
     concepto VARCHAR (100),
     unidades VARCHAR (20),
     fecha_entrada_albarán DATE,
@@ -143,12 +150,27 @@ CREATE TABLE Albaran(
     base_imponible DECIMAL(5,2),
     naturaleza VARCHAR(30),
 
+    FOREIGN KEY (id_actuacion)
+        REFERENCES Actuacion (id),
+    FOREIGN KEY (id_proveedor)
+        REFERENCES Proveedor (id)
+);
+
+CREATE TABLE MaterialCompradoProveedores(
+    id INTEGER PRIMARY KEY,
+    fecha_compra DATE,
+    id_material INTEGER,
+    FOREIGN KEY (id_material)
+        REFERENCES Material (id),
+    id_proveedor INTEGER,
+    FOREIGN KEY (id_proveedor)
+        REFERENCES Proveedor (id),
     id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
-    id_proveedor INTEGER,
-    FOREIGN KEY (id_proveedor)
-        REFERENCES Proveedor (id)
+    id_albaran VARCHAR(20),
+    FOREIGN KEY (id_albaran)
+        REFERENCES Albaran (id)
 );
 
 
@@ -168,6 +190,7 @@ CREATE TABLE Trabajador(
   DNI VARCHAR (9) NOT NULL,
   nombre VARCHAR(30)  NOT NULL,
   apellidos VARCHAR(50),
+  telefono VARCHAR(9),
   fecha_nacimiento DATE,
   nacionalidad VARCHAR (20),
   puesto VARCHAR (100),
@@ -177,7 +200,9 @@ CREATE TABLE Trabajador(
 CREATE TABLE SeguimientoLaboral
 (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id_trabajador INTEGER,
     tipo VARCHAR(10) NOT NULL,
+    id_actuacion INTEGER,
     ano INTEGER NOT NULL,
     dia INTEGER NOT NULL,
     mes INTEGER NOT NULL,
@@ -185,10 +210,8 @@ CREATE TABLE SeguimientoLaboral
     hora_salida VARCHAR(10),
     horas_totales DOUBLE,
     horas_extra DOUBLE,
-    id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
-    id_trabajador INTEGER,
     FOREIGN KEY (id_trabajador)
         REFERENCES Trabajador (id)
 
@@ -206,22 +229,6 @@ CREATE TABLE Vacaciones (
         REFERENCES Trabajador (id)
 );
 
-CREATE TABLE MaterialCompradoProveedores(
-	id INTEGER PRIMARY KEY,
-    fecha_compra DATE,
-    id_material INTEGER,
-    FOREIGN KEY (id_material)
-    	REFERENCES Material (id),
-    id_proveedor INTEGER,
-    FOREIGN KEY (id_proveedor)
-    	REFERENCES Proveedor (id),
-    id_actuacion INTEGER,
-    FOREIGN KEY (id_actuacion)
-    	REFERENCES Actuacion (id),
-    id_albaran VARCHAR(20),
-    FOREIGN KEY (id_albaran)
-    	REFERENCES Albaran (id)
-);
 
 CREATE TABLE MaterialUtilizadoActuacion (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,

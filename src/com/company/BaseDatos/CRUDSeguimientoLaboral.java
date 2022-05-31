@@ -45,17 +45,15 @@ public class CRUDSeguimientoLaboral {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
             preparedStatement.setInt(2, seguimientoLaboral.getIdTrabajador());
-
-            preparedStatement.setInt(3, seguimientoLaboral.getAno());
-            preparedStatement.setInt(4, seguimientoLaboral.getDia());
-            preparedStatement.setInt(5, seguimientoLaboral.getMes());
-            preparedStatement.setString(6, seguimientoLaboral.getHora_entrada());
-            preparedStatement.setString(7, seguimientoLaboral.getHora_salida());
-            preparedStatement.setInt(8, seguimientoLaboral.getHoras_totales());
-            preparedStatement.setDouble(9, seguimientoLaboral.getHoras_extra());
-
-            preparedStatement.setInt(10, seguimientoLaboral.getIdActuacion());
-            preparedStatement.setInt(11, seguimientoLaboral.getIdTrabajador());
+            preparedStatement.setString(3, seguimientoLaboral.getTipo());
+            preparedStatement.setInt(4, seguimientoLaboral.getIdActuacion());
+            preparedStatement.setInt(5, seguimientoLaboral.getAno());
+            preparedStatement.setInt(6, seguimientoLaboral.getDia());
+            preparedStatement.setInt(7, seguimientoLaboral.getMes());
+            preparedStatement.setString(8, seguimientoLaboral.getHora_entrada());
+            preparedStatement.setString(9, seguimientoLaboral.getHora_salida());
+            preparedStatement.setInt(10, seguimientoLaboral.getHoras_totales());
+            preparedStatement.setDouble(11, seguimientoLaboral.getHoras_extra());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -144,6 +142,7 @@ public class CRUDSeguimientoLaboral {
                 seguimientoLaboral.setAno(resultSet.getInt("ano"));
                 seguimientoLaboral.setDia(resultSet.getInt("dia"));
                 seguimientoLaboral.setMes(resultSet.getInt("mes"));
+                seguimientoLaboral.setTipo(resultSet.getString("tipo"));
                 seguimientoLaboral.setHora_entrada(resultSet.getString("hora_entrada"));
                 seguimientoLaboral.setHoras_totales(resultSet.getInt("horas_totales"));
                 seguimientoLaboral.setHoras_extra(resultSet.getDouble("horas_extra"));

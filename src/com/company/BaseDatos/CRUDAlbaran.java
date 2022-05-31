@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorAlbaran;
 import com.company.Entidades.Actuacion;
 import com.company.Entidades.Albaran;
 import com.company.Entidades.Cliente;
@@ -10,9 +11,20 @@ import java.util.ArrayList;
 
 public class CRUDAlbaran {
 
+    //region Constructor
+    public CRUDAlbaran(ControladorAlbaran controladorAlbaran) {
+
+    }
+
+    public CRUDAlbaran() {
+
+    }
+
+    //endregion
+
     // region Metodos CRUD
 
-    public ArrayList<Albaran> readAllAlbaran() throws SQLException {
+    public ArrayList<Albaran> getAll() {
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM albaran";
         try {
@@ -26,10 +38,6 @@ public class CRUDAlbaran {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
 
     }
@@ -38,7 +46,7 @@ public class CRUDAlbaran {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO albaran" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
@@ -47,9 +55,8 @@ public class CRUDAlbaran {
             preparedStatement.setDate(4, albaran.getFechaEntradaAlbaran());
             preparedStatement.setDouble(5, albaran.getPrecioUnidad());
             preparedStatement.setDouble(6, albaran.getBaseImponible());
-            preparedStatement.setString(7, albaran.getNaturaleza());
-            preparedStatement.setInt(8, albaran.getIdActuacion());
-            preparedStatement.setInt(9, albaran.getIdProveedor());
+            preparedStatement.setInt(7, albaran.getIdActuacion());
+            preparedStatement.setInt(8, albaran.getIdProveedor());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
 
@@ -76,7 +83,7 @@ public class CRUDAlbaran {
         return new Actuacion();
     }
 
-    public boolean deleteAlbaran(int id) throws SQLException {
+    public boolean deleteAlbaran(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM albaran WHERE id = ?";
         try {
@@ -89,14 +96,10 @@ public class CRUDAlbaran {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
-    public boolean updateAlbaran(Albaran albaran) throws SQLException {
+    public boolean updateAlbaran(Albaran albaran) {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE albaran " +
@@ -110,7 +113,6 @@ public class CRUDAlbaran {
             preparedStatement.setDate(3, albaran.getFechaEntradaAlbaran());
             preparedStatement.setDouble(4, albaran.getPrecioUnidad());
             preparedStatement.setDouble(5, albaran.getBaseImponible());
-            preparedStatement.setString(6, albaran.getNaturaleza());
             preparedStatement.setInt(7, albaran.getIdActuacion());
             preparedStatement.setInt(8, albaran.getIdProveedor());
             preparedStatement.setInt(9, albaran.getId());
@@ -124,8 +126,12 @@ public class CRUDAlbaran {
             BBDD.close();
             return false;
         } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
+            try {
+                if (!connection.isClosed()){
+                    BBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -145,7 +151,6 @@ public class CRUDAlbaran {
                 albaran.setFechaEntradaAlbaran(resultSet.getDate("fecha_entrada_albarán")); //TODO qiuitar tilde de la bbdd
                 albaran.setPrecioUnidad(resultSet.getDouble("precio_unitario"));
                 albaran.setBaseImponible(resultSet.getDouble("base_imponible"));
-                albaran.setNaturaleza(resultSet.getString("naturaleza"));
                 albaran.setIdActuacion(resultSet.getInt("id_actuacion"));
                 albaran.setIdProveedor(resultSet.getInt("id_proveedor"));
 
@@ -162,4 +167,25 @@ public class CRUDAlbaran {
     }
 
     // endregion
+
+    public String[] getColumnsAlbaran(){
+        Connection connection = BBDD.connect();
+        try {
+            final String SELECT_PROVEEDORES = "SELECT * FROM albaran";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDORES);
+            String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
+            if (columnsName[0] == null){
+                System.out.println("Fallo en sacar los metatados");
+            }
+            BBDD.close();
+            return  columnsName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            String columnsName[] = new String[1];
+            columnsName[0] = "Error en CRUD";
+            return columnsName;
+        }
+    }
 }
