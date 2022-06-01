@@ -78,5 +78,6 @@ public class Persona {
     public Date fnac;
     public int edad;
     public  String nacionalidad;
+
     public String telefono;
 }

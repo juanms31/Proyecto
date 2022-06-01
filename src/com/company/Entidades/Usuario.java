@@ -18,6 +18,16 @@ public class Usuario extends Persona{
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String pass;
     private String email;
+
+    private int id;
 }

@@ -1,6 +1,5 @@
 package com.company.Vistas;
 
-import com.company.DB.dataBase;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.event.*;
@@ -10,12 +9,9 @@ public class ViewCargando extends JFrame {
     private JPanel contentPane;
     private JProgressBar progressBar;
     private JLabel porcentaje;
-    private dataBase db;
     private JFrame parent;
 
-    public ViewCargando(JFrame parent, dataBase db, String DNI) {
-        this.db = db;
-        this.DNI = DNI;
+    public ViewCargando(JFrame parent) {
         this.parent = parent;
 
         setSize(570, 400);
@@ -32,6 +28,7 @@ public class ViewCargando extends JFrame {
         }
         setTitle("Validando DNI");
         setIconImage(new ImageIcon("src/images/verificacion25.png").getImage());
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -58,40 +55,6 @@ public class ViewCargando extends JFrame {
                         numAle = (int) (Math.random() * 500) + 1;
                         progressBar.setString("Validando DNI..");
                     } else if (i == 99) {
-                        progressBar.setString("Validando DNI..");
-                        numAle = 2000;
-                        progressBar.setString("Validando DNI...");
-                        if (db.validateDNIpaciente(DNI)) {
-                            dispose();
-                            parent.dispose();
-                            pacientesPage pacientesPage = new pacientesPage(db, DNI);
-                            pacientesPage.setVisible(true);
-                        } else if (db.validateDNImedico(DNI)) {
-                            dispose();
-                            parent.dispose();
-                            medicosPage medicosPage = new medicosPage(db, DNI);
-                            medicosPage.setVisible(true);
-                        } else if (db.validateDNIadmin(DNI)) {
-                            dispose();
-                            parent.dispose();
-                            adminPage adminPage = new adminPage(db, DNI);
-                            adminPage.setVisible(true);
-                        } else {
-                            //If a DNI it's not found it redirects to create a new paciente
-                            int op = JOptionPane.showConfirmDialog(null, "Quieres proceder a darte de alta?", "DNI no encontrado", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                            switch (op) {
-                                case 0: {
-                                    dispose();
-                                    parent.dispose();
-                                    altaPaciente altaPaciente = new altaPaciente(db, DNI, false);
-                                    altaPaciente.setVisible(true);
-                                    break;
-                                }
-                                case 1: {
-                                    JOptionPane.showMessageDialog(null, "Adios!");
-                                }
-                            }
-                        }
                         progressBar.setString("Validando...");
                     } else if (i < 30) {
                         numAle = (int) (Math.random() * 250) + 1;

@@ -15,7 +15,7 @@ public class Welcome extends JFrame{
     public Welcome(){
         initWindow();
         add(jpWelcome);
-        setTitle("App Alhambra Metal");
+        listeners();
     }
 
     //Inicio de ventana
@@ -30,25 +30,25 @@ public class Welcome extends JFrame{
         setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
-        setTitle("Login");
-        //setIconImage(new ImageIcon("src/images/logolittle.png").getImage());
+        setTitle("Alhambra Metal");
+        setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+
     }
 
     private void listeners(){
         btnEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ViewLogin viewLogin = new ViewLogin();
-                //viewLogin.setVisible(true);
+                ViewLogin viewLogin = new ViewLogin();
                 dispose();
             }
         });
+
         btnEnter.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    //ViewLogin viewLogin = new ViewLogin();
-                    //viewLogin.setVisible(true);
+                    ViewLogin viewLogin = new ViewLogin();
                     dispose();
                 }
             }
