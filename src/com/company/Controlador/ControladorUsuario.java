@@ -5,17 +5,17 @@ import com.company.BaseDatos.CRUDUsuario;
 import com.company.Entidades.Trabajador;
 import com.company.Entidades.Usuario;
 import com.company.Vistas.ViewTrabajador;
+import com.company.Vistas.ViewUsuario;
 
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControladorUsuario {
-    private CRUDUsuario crudUsuario;
-    private ViewTrabajador viewTrabajador;
-
     //Constructor
     public ControladorUsuario() {
         crudUsuario = new CRUDUsuario();
+        viewUsuario = new ViewUsuario();
         ArrayList<Usuario> usuarios = crudUsuario.getAll();
     }
 
@@ -26,17 +26,43 @@ public class ControladorUsuario {
     }
 
     public boolean createUsuario(Usuario usuario){
-        int idUsuario = crudUsuario.createUsuario(usuario);
-        if(idUsuario != 0){
+        try {
+            int idUsuario = crudUsuario.createUsuario(usuario);
             usuario.setId(idUsuario);
-            viewTrabajador.ShowMessage("CORRECTO", "Usuario " + usuario.getNombre() + " agregado con exito");
+
+            ShowMessage("CORRECTO", "Usuario " + usuario.getNombre() + " agregado con exito");
             return true;
-        }else{
-            viewTrabajador.ShowErrorMessage("ERROR", "No se ha podido agregar al usuario: " + usuario.getNombre());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ShowErrorMessage("ERROR", "No se ha podido agregar el registro");
             return false;
         }
 
     }
+
+    //region Mensajes
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(null,
+                msg ,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(null,
+                msg ,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(null,
+                msg ,
+                title,
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    //endregion
 
 //    public boolean updateTrabajador(Trabajador trabajador) {
 //        boolean result = crudTrabajador.updateTrabajador(trabajador);
@@ -75,4 +101,10 @@ public class ControladorUsuario {
 //    }
 
     //endregion
+
+    //region Variables
+    private CRUDUsuario crudUsuario;
+    private ViewUsuario viewUsuario;
+    //endregion
+
 }

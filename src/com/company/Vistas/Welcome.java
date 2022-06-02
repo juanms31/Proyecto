@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Welcome extends JFrame{
-    private JButton btnEnter;
+    private JButton buttonEnter;
     private JPanel jpWelcome;
 
     public Welcome(){
@@ -36,7 +36,7 @@ public class Welcome extends JFrame{
     }
 
     private void listeners(){
-        btnEnter.addActionListener(new ActionListener() {
+        buttonEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ViewLogin viewLogin = new ViewLogin();
@@ -44,12 +44,12 @@ public class Welcome extends JFrame{
             }
         });
 
-        btnEnter.addKeyListener(new KeyAdapter() {
+        buttonEnter.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    ViewLogin viewLogin = new ViewLogin();
                     dispose();
+                    ViewLogin viewLogin = new ViewLogin();
                 }
             }
         });

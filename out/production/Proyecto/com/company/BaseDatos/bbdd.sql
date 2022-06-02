@@ -240,6 +240,20 @@ CREATE TABLE MaterialUtilizadoActuacion (
     	REFERENCES Actuacion (id)
 );
 
+CREATE TABLE Usuario(
+  id INTEGER  AUTO_INCREMENT PRIMARY KEY,
+  DNI VARCHAR (9) NOT NULL,
+  nombre VARCHAR(30)  NOT NULL,
+  apellidos VARCHAR(50),
+  telefono VARCHAR(9),
+  fecha_nacimiento DATE,
+  nacionalidad VARCHAR (20),
+  email VARCHAR(40) NOT NULL,
+  pass VARCHAR(256) NOT NULL
+);
+
+
+
 
 -- Insercciones
 
@@ -271,3 +285,6 @@ VALUES ('1','REP','Reparacion',''),
        ('2','MAN','Mantenimiento',''),
        ('3','NUEVA','Nueva Obra',''),
        ('4','AIS','Aislacion','');
+
+INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
+VALUES ('1','00000000K','admin','','','','','admin','admin')

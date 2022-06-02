@@ -87,12 +87,12 @@ public class FormAlbaran extends JDialog {
     public void initComps() {
 
         //Rellenamos el combo box con los materiales
-        comboBoxMateriales.addItem("Selecciona Material");
-        for (Material material :  materiales){
-            //Acotamos el nombre para que no sea muy largo a 15 caracteres..
-            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0,15) + "...");
-
-        }
+//        comboBoxMateriales.addItem("Selecciona Material");
+//        for (Material material :  materiales){
+//            //Acotamos el nombre para que no sea muy largo a 15 caracteres..
+//            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0,15) + "...");
+//
+//        }
 
     }
 
@@ -140,6 +140,13 @@ public class FormAlbaran extends JDialog {
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
+    //endregion
+
+    //region Metodos Privados
+    public void setMaterialesFromFormulario(ArrayList<Material> materiales) {
+        this.materiales = materiales;
+    }
+
 
     //endregion
 
@@ -165,10 +172,6 @@ public class FormAlbaran extends JDialog {
             ShowErrorMessage("Error", "Campo Precio Unitario no puede estar vacio");
             return true;
         }
-//        if (comboBoxNaturaleza.getSelectedItem().equals("Selecciona Naturaleza")) {
-//            ShowErrorMessage("Error", "Campo Naturaleza no puede estar vacio");
-//            return true;
-//        }
         if (formattedTextFieldFechaEntrada.getText().isEmpty()) {
             ShowErrorMessage("Error", "Campo Fecha Entrada no puede estar vacio");
             return true;
@@ -200,7 +203,7 @@ public class FormAlbaran extends JDialog {
         return albaran;
     }
 
-    //endregion MATERIAL
+    //endregion Albaran
 
     //region Listeners
 
@@ -233,6 +236,20 @@ public class FormAlbaran extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+            }
+        });
+
+        buttonAnadirMateriales.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(textFieldCodigo.getText().isEmpty()){
+
+                    ShowErrorMessage("Error", "El campo \"Codigo Albaran\" tiene que estar relleno.");
+
+                }else {
+                    FormMaterialesAlbaran formMaterialesAlbaran = new FormMaterialesAlbaran(FormAlbaran.this, textFieldCodigo.getText(), materiales);
+                }
+
             }
         });
     }
@@ -288,7 +305,7 @@ public class FormAlbaran extends JDialog {
 
     //region Variables
 
-    private ArrayList<Material> materiales;
+    private ArrayList<Material> materiales = new ArrayList<>();
     private ViewAlbaran viewAlbaran;
     private JLabel labelTitulo;
     private JTextField textFieldCodigo;
@@ -299,8 +316,7 @@ public class FormAlbaran extends JDialog {
     private JButton cancelarButton;
     private JFormattedTextField formattedTextFieldFechaEntrada;
     private JPanel panelPrincipal;
-    private JButton button1;
-    private JComboBox comboBoxMateriales;
+    private JButton buttonAnadirMateriales;
     int estado = 0;
     private Albaran AlbaranSiendoModificado;
 

@@ -54,7 +54,7 @@
             </constraints>
             <properties>
               <foreground color="-16777216"/>
-              <text value="Codigo"/>
+              <text value="Codigo Albaran"/>
             </properties>
           </component>
           <component id="80386" class="javax.swing.JLabel">
@@ -113,7 +113,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
-              <foreground color="-16777216"/>
+              <foreground color="-16756757"/>
             </properties>
           </component>
           <component id="be0eb" class="javax.swing.JTextField" binding="textFieldPrecioUnitario">
@@ -158,13 +158,13 @@
               <text value="Añadir Materiales"/>
             </properties>
           </component>
-          <component id="b7658" class="javax.swing.JButton" binding="button1" default-binding="true">
+          <component id="b7658" class="javax.swing.JButton" binding="buttonAnadirMateriales">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1703946"/>
-              <foreground color="-11617507"/>
+              <foreground color="-16382782"/>
               <text value="+"/>
             </properties>
           </component>

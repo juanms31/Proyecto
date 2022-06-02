@@ -22,7 +22,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="c16c1" class="javax.swing.JButton" binding="btnEnter">
+      <component id="c16c1" class="javax.swing.JButton" binding="buttonEnter">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

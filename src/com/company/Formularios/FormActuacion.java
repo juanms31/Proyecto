@@ -613,8 +613,8 @@ public class FormActuacion extends JDialog {
     private JTextArea textAreaDescripcion;
     private JSpinner spinnerImporte;
     private JTextField textFieldHojaPlanificacion;
-    private JButton button1;
-    private JButton button2;
+    private JButton buttonHojaPlanificacion;
+    private JButton buttonHojaPresupuesto;
     private JFormattedTextField formattedTextFieldFechaSolicitud;
     private JFormattedTextField formattedTextFieldFechaEnvio;
     private JFormattedTextField formattedTextFieldFechaComienzo;
@@ -629,5 +629,7 @@ public class FormActuacion extends JDialog {
     private JFormattedTextField formattedTextFieldCIFCliente;
     private JSpinner spinnerResultadoBalance;
     private JTextField textFieldNombreActuacion;
+    private JList list1;
+    private JButton buttonAnadir;
     //endregion
 }

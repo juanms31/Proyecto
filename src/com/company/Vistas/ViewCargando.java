@@ -1,17 +1,20 @@
 package com.company.Vistas;
 
+import com.company.Entidades.Usuario;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Locale;
 
 public class ViewCargando extends JFrame {
     public static String DNI;
     private JPanel contentPane;
     private JProgressBar progressBar;
     private JLabel porcentaje;
+    private JLabel JLabelBienvenido;
     private JFrame parent;
 
-    public ViewCargando(JFrame parent) {
+    public ViewCargando(JFrame parent, Usuario usuario) {
         this.parent = parent;
 
         setSize(570, 400);
@@ -27,7 +30,8 @@ public class ViewCargando extends JFrame {
             e.printStackTrace();
         }
         setTitle("Validando DNI");
-        setIconImage(new ImageIcon("src/images/verificacion25.png").getImage());
+        // FIXME: 02/06/2022 CAMBIAR ICONO
+//        setIconImage(new ImageIcon("src/images/verificacion25.png").getImage());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -51,15 +55,34 @@ public class ViewCargando extends JFrame {
             public void run() {
                 for (int i = 0; i <= 100; i++) {
                     int numAle = 0;
-                    if (i < 10) {
+                    if (i > 0 && i < 10) {
                         numAle = (int) (Math.random() * 500) + 1;
-                        progressBar.setString("Validando DNI..");
-                    } else if (i == 99) {
-                        progressBar.setString("Validando...");
-                    } else if (i < 30) {
+                        progressBar.setString("Validando Email...");
+
+                    } else if (i > 90 && i < 99) {
+                        progressBar.setString("Cargando...");
+
+                    } else if (i > 30 && i < 40) {
                         numAle = (int) (Math.random() * 250) + 1;
-                        progressBar.setString("Validando..");
-                    } else numAle = (int) (Math.random() * 10) + 1;
+                        progressBar.setString("Validando Contraseña.");
+
+                    } else if (i > 40 && i < 50) {
+                        numAle = (int) (Math.random() * 250) + 1;
+                        progressBar.setString("Cargando Vistas...");
+
+                    } else if (i > 50 && i < 60) {
+                        numAle = (int) (Math.random() * 250) + 1;
+                        progressBar.setString("Cargando Iconos..");
+
+                    } else if (i > 60 && i < 70) {
+                        numAle = (int) (Math.random() * 250) + 1;
+                        progressBar.setString("Cargando Modulos..");
+                    } else if (i > 70 && i < 90) {
+                        numAle = (int) (Math.random() * 250) + 1;
+                        progressBar.setString("Cargando..");
+                        JLabelBienvenido.setText("Bienvenido " + usuario.getNombre());
+                    }else progressBar.setString("Listo!");
+
                     progressBar.setValue(i);
                     porcentaje.setText(i + "%");
                     try {
