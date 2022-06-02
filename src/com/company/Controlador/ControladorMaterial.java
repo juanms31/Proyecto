@@ -35,18 +35,15 @@ public class ControladorMaterial {
             material.setCodigo(material.getGrupo()+idMaterial);
             boolean result = crudMaterial.updateMaterial(material);
             if (result){
-                viewMaterial.ShowMessage("CORRECTO", "Material con codigo " + material.getCodigo() + " agregado con exito");
                 estado = true;
             }
             else{
                 material.setCodigo("NA");
-                viewMaterial.ShowMessage("CORRECTO", "Material con id " + material.getId() + " agregado con exito");
                 estado = true;
             }
             viewMaterial.addTableMaterial(material);
         } catch (SQLException e) {
             e.printStackTrace();
-            viewMaterial.ShowErrorMessage("ERROR","No se ha podido agregar el registro" );
             estado = false;
         }
         return estado;
@@ -56,21 +53,12 @@ public class ControladorMaterial {
         boolean result = crudMaterial.updateMaterial(material);
         if (result){
             viewMaterial.updateTableMaterial(material);
-            viewMaterial.ShowMessage( "CORRECTO", "El material con codigo: " + material.getCodigo() + " ha sido actualizado");
-        }else{
-            viewMaterial.ShowErrorMessage( "ERROR", "No se ha podiddo actualizar material con el codigo: " + material.getCodigo());
         }
         return result;
     }
 
     public boolean deleteMaterial(String id){
-        boolean result = crudMaterial.deleteMaterial(id);
-        if (result){
-            viewMaterial.ShowMessage("CORRECTO","El material con codigo: " + id + " ha sido borrado");
-        }else{
-            viewMaterial.ShowErrorMessage( "ERROR","El material con codigo: " + id + " no se ha podido borrar");
-        }
-        return result;
+        return crudMaterial.deleteMaterial(id);
     }
 
     //endregion

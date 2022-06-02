@@ -52,7 +52,7 @@ public class ViewProveedor extends JFrame{
         String[] listColumnsName = controladorProveedor.getColumnsName();
         headers = new String[listColumnsName.length - 1];
         for (int i = 0; i < listColumnsName.length- 1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
+            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');;
         }
         refreshTable(headers, proveedores);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());

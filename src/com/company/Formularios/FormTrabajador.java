@@ -124,6 +124,7 @@ public class FormTrabajador extends JDialog{
             Trabajador trabajador = getTrabajador();
             if(viewTrabajador.getNewTrabajadorFromFormulario(trabajador)){
                 dispose();
+                viewTrabajador.ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " agregado con exito");
             }else{
                 ShowErrorMessage("Error", "No se ha podido crear el trabajador correctamente");
             }
@@ -141,6 +142,7 @@ public class FormTrabajador extends JDialog{
             Trabajador trabajador = getTrabajador();
             if (viewTrabajador.getUpdateTrabajadorFromFormulario(trabajador)){
                 dispose();
+                viewTrabajador.ShowMessage( "CORRECTO", "Cliente " + trabajador.getNombre() + " ha sido actualizado");
             }else {
                 ShowErrorMessage("Error", "No se ha podido crear el trabajadorr correctamente");
             }

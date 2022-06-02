@@ -176,6 +176,7 @@ public class FormMaterial extends JDialog {
             Material material = getMaterial();
             if (viewMaterial.getNewMaterialFromFormulario(material)) {
                 dispose();
+                viewMaterial.ShowMessage("CORRECTO", "Material con codigo " + material.getCodigo() + " agregado con exito");
             } else {
                 ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
             }
@@ -193,20 +194,41 @@ public class FormMaterial extends JDialog {
             Material material = getMaterial();
             if (viewMaterial.getUpdateMaterialFromFormulario(material)) {
                 dispose();
+                viewMaterial.ShowMessage( "CORRECTO", "El material con codigo: " + material.getCodigo() + " ha sido actualizado");
             } else {
-                ShowErrorMessage("Error", "No se ha podido crear el material correctamente");
+                viewMaterial.ShowErrorMessage( "ERROR", "No se ha podiddo actualizar material con el codigo: " + material.getCodigo());
+
             }
         }
     }
 
+    //endregion
+
+    //region Mensajes
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg ,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
     public void ShowErrorMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg,
+                msg ,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
 
     //endregion
+
+
 
     //region SET Y GET MATERIAL
     private void setMaterial(Material material) {

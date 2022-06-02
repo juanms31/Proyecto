@@ -1,7 +1,9 @@
 package com.company.Formularios;
 
+import com.company.Entidades.Actuacion;
 import com.company.Entidades.Albaran;
 import com.company.Entidades.Material;
+import com.company.Entidades.Proveedor;
 import com.company.Vistas.ViewAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -17,10 +19,13 @@ import java.util.ArrayList;
 public class FormAlbaran extends JDialog {
     //region Constructores
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, ArrayList<Material> materiales) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, ArrayList<Material> materiales, ArrayList<Actuacion> actuaciones, ArrayList<Proveedor> proveedores) {
         estado = 1;
         this.viewAlbaran = viewAlbaran;
         this.materiales = materiales;
+        this.actuaciones = actuaciones;
+        this.proveedores = proveedores;
+
         initWindow();
         initComps();
         initListeners();
@@ -28,11 +33,13 @@ public class FormAlbaran extends JDialog {
 
     }
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales, ArrayList<Actuacion> actuaciones, ArrayList<Proveedor> proveedores) {
         estado = 2;
         AlbaranSiendoModificado = albaran;
         this.viewAlbaran = viewAlbaran;
         this.materiales = materiales;
+        this.actuaciones = actuaciones;
+        this.proveedores = proveedores;
 
         initListeners();
         initWindow();
@@ -42,14 +49,16 @@ public class FormAlbaran extends JDialog {
         setVisible(true);
     }
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales, boolean editable) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales, ArrayList<Actuacion> actuaciones, ArrayList<Proveedor> proveedores, boolean editable) {
         this.viewAlbaran = viewAlbaran;
         this.materiales = materiales;
+        this.actuaciones = actuaciones;
+        this.proveedores = proveedores;
+
         initWindow();
         initComps();
         setAlbaran(albaran);
         initListeners();
-        //TODO ver como tratamos editable
         setVisible(true);
     }
 
@@ -86,13 +95,17 @@ public class FormAlbaran extends JDialog {
 
     public void initComps() {
 
-        //Rellenamos el combo box con los materiales
-//        comboBoxMateriales.addItem("Selecciona Material");
-//        for (Material material :  materiales){
-//            //Acotamos el nombre para que no sea muy largo a 15 caracteres..
-//            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0,15) + "...");
-//
-//        }
+        //Rellenar Actuaciones
+        comboBoxActuaciones.addItem("Selecciona Actuacion");
+        for(Actuacion actuacion: actuaciones){
+            comboBoxActuaciones.addItem(actuacion.getId() + " - " + actuacion.getNombre());
+        }
+
+        //Rellenar Proveedor
+        comboBoxProveedores.addItem("Selecciona Proveedor");
+        for(Proveedor proveedor: proveedores){
+            comboBoxProveedores.addItem(proveedor.getNombre_proveedor());
+        }
 
     }
 
@@ -255,27 +268,6 @@ public class FormAlbaran extends JDialog {
     }
 
     private void keyListeners() {
-        textFieldUnidades.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        textFieldPrecioUnitario.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ',')) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
 
         textFieldBase.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -317,6 +309,12 @@ public class FormAlbaran extends JDialog {
     private JFormattedTextField formattedTextFieldFechaEntrada;
     private JPanel panelPrincipal;
     private JButton buttonAnadirMateriales;
+    private JComboBox comboBoxProveedores;
+    private JComboBox comboBoxActuaciones;
+
+    private ArrayList<Actuacion> actuaciones;
+    private ArrayList<Proveedor> proveedores;
+
     int estado = 0;
     private Albaran AlbaranSiendoModificado;
 

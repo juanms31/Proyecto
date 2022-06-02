@@ -70,7 +70,7 @@ public class ViewActuacion extends JFrame {
 
         headersCliente = new String[listColumsNameCliente.length - 1];
         for (int i = 1; i < listColumsNameCliente.length; i++) {
-            headersCliente[i - 1] = listColumsNameCliente[i].toUpperCase();
+            headersCliente[i - 1] = listColumsNameCliente[i].toUpperCase().replace('_', ' ');;
         }
 
         refreshTable(headersActuacion, headersFechasActuacion, actuaciones);

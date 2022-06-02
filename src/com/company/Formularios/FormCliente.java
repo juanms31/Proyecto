@@ -118,8 +118,10 @@ public class FormCliente extends JDialog{
             Cliente cliente = getCliente();
             if(viewCliente.getNewClienteFromFormulario(cliente)){
                 dispose();
-            }else{
+                viewCliente.ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " agregado con exito");
 
+            }else{
+                viewCliente.ShowErrorMessage( "ERROR", "No se ha podido agregar el registro");
             }
             dispose();
         }
@@ -135,8 +137,10 @@ public class FormCliente extends JDialog{
             Cliente cliente = getCliente();
             if (viewCliente.getUpdateClienteFromFormulario(cliente)){
                 dispose();
-            }else {
+                viewCliente.ShowMessage( "CORRECTO", "Cliente " + cliente.getNombre() + " ha sido actualizado");
 
+            }else {
+                viewCliente.ShowErrorMessage("ERROR", "No se ha podiddo actualizar cliente con el codigo: " + cliente.getId());
             }
         }
     }

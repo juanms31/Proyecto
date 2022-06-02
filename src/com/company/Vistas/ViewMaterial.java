@@ -63,7 +63,7 @@ public class ViewMaterial extends JFrame{
         String[] listColumnsName = controladorMaterial.getColumnsName();
         headers = new String[listColumnsName.length-5];
         for (int i = 0; i < listColumnsName.length-5; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
+            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');;
         }
         refreshTable(headers, materiales);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -201,14 +201,16 @@ public class ViewMaterial extends JFrame{
 
         boolean result = controladorMaterial.deleteMaterial(cod);
 
-        if(result){
+        if (result){
+            ShowMessage("CORRECTO","El material con codigo: " + cod + " ha sido borrado");
             int row = TableMaterial.getSelectedRow();
-
             materiales.remove(row);
             refreshTable(headers, materiales);
+
+        }else{
+            ShowErrorMessage( "ERROR","El material con codigo: " + cod + " no se ha podido borrar");
         }
     }
-
 
     //endregion
 

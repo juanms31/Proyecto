@@ -57,15 +57,6 @@
               <text value="Codigo Albaran"/>
             </properties>
           </component>
-          <component id="80386" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Unidades"/>
-            </properties>
-          </component>
           <component id="42511" class="javax.swing.JLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -84,15 +75,6 @@
               <text value="Fecha Entrada"/>
             </properties>
           </component>
-          <component id="440e1" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Precio Unitario"/>
-            </properties>
-          </component>
           <component id="3ef4e" class="javax.swing.JTextField" binding="textFieldCodigo">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -103,28 +85,6 @@
               <background color="-1"/>
               <foreground color="-16777216"/>
               <text value=""/>
-            </properties>
-          </component>
-          <component id="7ed33" class="javax.swing.JTextField" binding="textFieldUnidades">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16756757"/>
-            </properties>
-          </component>
-          <component id="be0eb" class="javax.swing.JTextField" binding="textFieldPrecioUnitario">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
             </properties>
           </component>
           <component id="8d3d2" class="javax.swing.JTextField" binding="textFieldBase">
@@ -166,6 +126,43 @@
               <background color="-1703946"/>
               <foreground color="-16382782"/>
               <text value="+"/>
+            </properties>
+          </component>
+          <component id="e0462" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Proveedor"/>
+            </properties>
+          </component>
+          <component id="bcb1f" class="javax.swing.JComboBox" binding="comboBoxProveedores">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1900570"/>
+              <foreground color="-16777216"/>
+              <model/>
+            </properties>
+          </component>
+          <component id="c5856" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Actuacion"/>
+            </properties>
+          </component>
+          <component id="9b102" class="javax.swing.JComboBox" binding="comboBoxActuaciones">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1900570"/>
+              <foreground color="-16777216"/>
             </properties>
           </component>
         </children>

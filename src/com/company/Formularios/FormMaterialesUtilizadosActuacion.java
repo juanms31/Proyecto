@@ -3,6 +3,16 @@ package com.company.Formularios;
 import javax.swing.*;
 
 public class FormMaterialesUtilizadosActuacion {
+
+
+
+
+
+
+
+
+
+    //region Variables
     private JLabel labelTitulo;
     private JTextField textFieldActuacion;
     private JList listMateriales;
@@ -10,5 +20,8 @@ public class FormMaterialesUtilizadosActuacion {
     private JButton cancelarButton;
     private JButton buttonAnadir;
     private JButton buttonEliminar;
-    // TODO: 05/05/2022  
+    private JTable tableMateriales;
+    private JScrollPane JScrollPaneMateriales;
+    //endregion
+
 }

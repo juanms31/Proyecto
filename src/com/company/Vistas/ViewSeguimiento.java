@@ -61,7 +61,7 @@ public class ViewSeguimiento extends JFrame{
             }else if(listColumnsName[i+1].equals("id_actuacion")){
                 headers[i] = "Actuacion".toUpperCase();
             }else{
-                headers[i] = listColumnsName[i+1].toUpperCase();
+                headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');;
             }
         }
         refreshTable(headers, seguimientoLaboralList);

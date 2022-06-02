@@ -122,8 +122,8 @@ public class CRUDCliente {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE cliente " +
-                "SET nombre = ?, direccion = ?, mail1 = ?, mail2 = ?," +
-                " telefono1 = ?, telefono2 = ?, CIF = ? WHERE id = ?";
+                "SET nombre = ?, direccion = ?, mail_1 = ?, mail_2 = ?," +
+                " telefono_1 = ?, telefono_2 = ?, CIF = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, cliente.getNombre());
@@ -192,10 +192,10 @@ public class CRUDCliente {
                 cliente.setCIF(resultSet.getString("CIF"));
                 cliente.setNombre(resultSet.getString("nombre"));
                 cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setMail1(resultSet.getString("mail1"));
-                cliente.setTelef1(resultSet.getString("telefono1"));
-                cliente.setMail2(resultSet.getString("mail2"));
-                cliente.setTelef2(resultSet.getString("telefono2"));
+                cliente.setMail1(resultSet.getString("mail_1"));
+                cliente.setTelef1(resultSet.getString("telefono_1"));
+                cliente.setMail2(resultSet.getString("mail_2"));
+                cliente.setTelef2(resultSet.getString("telefono_2"));
 
                 clientes.add(cliente);
             }

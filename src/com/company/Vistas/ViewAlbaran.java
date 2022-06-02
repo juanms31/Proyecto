@@ -1,7 +1,10 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorAlbaran;
-import com.company.Entidades.Albaran;import com.company.Entidades.Material;
+import com.company.Entidades.Actuacion;
+import com.company.Entidades.Albaran;
+import com.company.Entidades.Material;
+import com.company.Entidades.Proveedor;
 import com.company.Formularios.FormAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -16,13 +19,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class ViewAlbaran extends JFrame{
-
-
-    public ViewAlbaran(ControladorAlbaran controladorAlbaran, ArrayList<Albaran> albaranes, ArrayList<Material> materiales) {
+public class ViewAlbaran extends JFrame {
+    public ViewAlbaran(ControladorAlbaran controladorAlbaran,
+                       ArrayList<Albaran> albaranes,
+                       ArrayList<Material> materiales,
+                       ArrayList<Actuacion> actuaciones,
+                       ArrayList<Proveedor> proveedores) {
         this.controladorAlbaran = controladorAlbaran;
         this.albaranes = albaranes;
         this.materiales = materiales;
+        this.actuaciones = actuaciones;
+        this.proveedores = proveedores;
+
         initWindow();
         initListeners();
         setVisible(true);
@@ -42,14 +50,13 @@ public class ViewAlbaran extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(750,750));
+        setMinimumSize(new Dimension(750, 750));
         setLocationRelativeTo(null);
         setTitle("Albaranes");
-        String[] listColumnsName = controladorAlbaran.getColumnsName();
-        headers = new String[listColumnsName.length - 1];
-        for (int i = 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
-        }
+
+        initHeaders();
+        initSecondaryTables();
+
         refreshTable(headers, albaranes);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
     }
@@ -58,9 +65,65 @@ public class ViewAlbaran extends JFrame{
 
     //region Metodos Tabla
 
-    public void refreshTable(String[] headers, ArrayList<Albaran> albaranes){
+    public void initHeaders(){
+        String[] listColumnsName = controladorAlbaran.getColumnsName();
+        headers = new String[listColumnsName.length - 4];
+        for (int i = 0; i < listColumnsName.length - 4; i++) {
 
-        if(albaranes.size() == 0) {
+            if (listColumnsName[i + 1].equals("id_actuacion")) {
+
+                headers[i] = "ACTUACION";
+
+            } else if (listColumnsName[i + 1].equals("id_proveedor")) {
+
+                headers[i] = "PROVEEDOR";
+
+            } else headers[i] = listColumnsName[i + 1].toUpperCase().replace('_', ' ');
+        }
+
+    }
+    
+    private void initSecondaryTables(){
+        TableMaterialesAlbaran.setShowGrid(true);
+        TableMaterialesAlbaran.setCellSelectionEnabled(false);
+        TableMaterialesAlbaran.setAutoCreateRowSorter(true);
+        TableMaterialesAlbaran.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TableMaterialesAlbaran.setRowSelectionAllowed(true);
+        TableMaterialesAlbaran.setDefaultEditor(Object.class, null);
+        TableMaterialesAlbaran.setDragEnabled(false);
+        sorter = new TableRowSorter<TableModel>(TableMaterialesAlbaran.getModel());
+
+        TableMaterialesAlbaran.setRowSorter(sorter);
+
+        //Filling Headers
+        modelMaterialesAlbaran = new DefaultTableModel(headersMateriales, 0);
+
+        TableMaterialesAlbaran.setModel(modelMaterialesAlbaran);
+        
+        /////////////////////////////////
+
+        TableActuacionesAlbaran.setShowGrid(true);
+        TableActuacionesAlbaran.setCellSelectionEnabled(false);
+        TableActuacionesAlbaran.setAutoCreateRowSorter(true);
+        TableActuacionesAlbaran.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TableActuacionesAlbaran.setRowSelectionAllowed(true);
+        TableActuacionesAlbaran.setDefaultEditor(Object.class, null);
+        TableActuacionesAlbaran.setDragEnabled(false);
+        sorter = new TableRowSorter<TableModel>(TableActuacionesAlbaran.getModel());
+
+        TableActuacionesAlbaran.setRowSorter(sorter);
+
+        //Filling Headers
+        modelActuacionesAlbaran = new DefaultTableModel(headersMateriales, 0);
+
+        TableActuacionesAlbaran.setModel(modelActuacionesAlbaran);
+        
+        
+    }
+
+    public void refreshTable(String[] headers, ArrayList<Albaran> albaranes) {
+
+        if (albaranes.size() == 0) {
             TableAlbaran.setShowGrid(true);
             TableAlbaran.setCellSelectionEnabled(false);
             TableAlbaran.setAutoCreateRowSorter(true);
@@ -76,7 +139,7 @@ public class ViewAlbaran extends JFrame{
             modelAlbaran = new DefaultTableModel(headers, 0);
 
             TableAlbaran.setModel(modelAlbaran);
-        }else {
+        } else {
 
             TableAlbaran.setShowGrid(true);
             TableAlbaran.setCellSelectionEnabled(false);
@@ -104,7 +167,7 @@ public class ViewAlbaran extends JFrame{
         }
     }
 
-    private void filter(){
+    private void filter() {
         DefaultTableModel Model = (DefaultTableModel) TableAlbaran.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
         TableAlbaran.setRowSorter(tr);
@@ -114,7 +177,7 @@ public class ViewAlbaran extends JFrame{
 
     //region Metodos Desde el Formulario
 
-    public boolean getNewAlbaranFromFormulario(Albaran albaran){
+    public boolean getNewAlbaranFromFormulario(Albaran albaran) {
         return controladorAlbaran.createAlbaran(albaran);
     }
 
@@ -128,21 +191,21 @@ public class ViewAlbaran extends JFrame{
     //region Mensajes
     public void ShowMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void ShowWarningMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
 
     public void ShowErrorMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
@@ -150,29 +213,27 @@ public class ViewAlbaran extends JFrame{
     //endregion
 
     //region CRUD
-    private void createAlbaran(){
-        FormAlbaran formAlbaran = new FormAlbaran(this, materiales);
+    private void createAlbaran() {
+        FormAlbaran formAlbaran = new FormAlbaran(this, materiales, actuaciones, proveedores );
     }
 
-    private void readAlbaran(){
+    private void readAlbaran() {
         Albaran albaran = getAlbaran();
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, false);
+        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, actuaciones, proveedores,false);
     }
 
     private void updateAlbaran() {
         Albaran albaran = getAlbaran();
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales);
-
-
+        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, actuaciones, proveedores);
     }
 
-    private void deleteAlbaran(){
+    private void deleteAlbaran() {
 
         Albaran albaran = getAlbaran();
 
         boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
 
-        if(result){
+        if (result) {
             int row = TableAlbaran.getSelectedRow();
 
             albaranes.remove(row);
@@ -202,7 +263,7 @@ public class ViewAlbaran extends JFrame{
 
     }
 
-    public void addTableAlbaran(Albaran albaran){
+    public void addTableAlbaran(Albaran albaran) {
 
         Object[] newAlbaran = getAlbaranObject(albaran);
         modelAlbaran.addRow(newAlbaran);
@@ -211,7 +272,7 @@ public class ViewAlbaran extends JFrame{
 
     }
 
-    public Object[] getAlbaranObject(Albaran albaran){
+    public Object[] getAlbaranObject(Albaran albaran) {
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
         newAlbaran[y++] = albaran.getActuacion().getNombre();
@@ -226,7 +287,6 @@ public class ViewAlbaran extends JFrame{
 
         return newAlbaran;
     }
-
 
 
     private Albaran getAlbaran() {
@@ -244,12 +304,12 @@ public class ViewAlbaran extends JFrame{
     //endregion
 
     //region Listeners
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         mouseListeners();
     }
 
-    private void actionListeners(){
+    private void actionListeners() {
         buttonAnadir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -259,7 +319,9 @@ public class ViewAlbaran extends JFrame{
 
         buttonVer.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { readAlbaran();            }
+            public void actionPerformed(ActionEvent e) {
+                readAlbaran();
+            }
         });
 
         buttonEditar.addActionListener(new ActionListener() {
@@ -299,11 +361,11 @@ public class ViewAlbaran extends JFrame{
 
     }
 
-    private void mouseListeners(){
+    private void mouseListeners() {
         TableAlbaran.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount()==2){
+                if (e.getClickCount() == 2) {
                     updateAlbaran();
                 }
             }
@@ -311,7 +373,6 @@ public class ViewAlbaran extends JFrame{
     }
 
     //endregion
-
 
 
     //region Variables
@@ -328,16 +389,25 @@ public class ViewAlbaran extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
-    private JTable tableActuacion;
-    private JList listMateriales;
+    private JTable TableActuacionesAlbaran;
+    private JTable TableMaterialesAlbaran;
 
     private ControladorAlbaran controladorAlbaran;
     private int estado = 0;
     private Albaran AlbaranSiendoModificado;
     private ArrayList<Albaran> albaranes;
     private ArrayList<Material> materiales;
+    private ArrayList<Actuacion> actuaciones;
+    private final ArrayList<Proveedor> proveedores;
     private String[] headers;
+
+    private String[] headersMateriales = {"COD","DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO", "BASE IMPONIBLE"};
+
+    private String[] headersActuacion = {"!","asdfsa","{"};
+
     private TableRowSorter sorter;
     private DefaultTableModel modelAlbaran;
+    private DefaultTableModel modelMaterialesAlbaran;
+    private DefaultTableModel modelActuacionesAlbaran;
     //endregion
 }

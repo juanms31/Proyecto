@@ -287,4 +287,4 @@ VALUES ('1','REP','Reparacion',''),
        ('4','AIS','Aislacion','');
 
 INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
-VALUES ('1','00000000K','admin','','','','','admin','admin')
+VALUES ('1','00000000K','admin','','31-05-1999','','','admin','admin')

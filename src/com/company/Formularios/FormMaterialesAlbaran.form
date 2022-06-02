@@ -88,11 +88,12 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="1c9fb" class="javax.swing.JList" binding="listMateriales">
+              <component id="5ddef" class="javax.swing.JTable" binding="TableMateriales">
                 <constraints/>
                 <properties>
-                  <background color="-1"/>
-                  <foreground color="-1900570"/>
+                  <background color="-1575937"/>
+                  <foreground color="-16777216"/>
+                  <gridColor color="-11617507"/>
                 </properties>
               </component>
             </children>

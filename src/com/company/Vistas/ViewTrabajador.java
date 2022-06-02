@@ -54,7 +54,7 @@ public class ViewTrabajador extends JFrame{
         String[] listColumnsName = controladorTrabajador.getColumnsName();
         headers = new String[listColumnsName.length - 1];
         for (int i = 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
+            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');
         }
         refreshTable(headers, trabajadores);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -178,9 +178,12 @@ public class ViewTrabajador extends JFrame{
 
         if(result){
             int row = TableTrabajador.getSelectedRow();
-
             trabajadores.remove(row);
             refreshTable(headers, trabajadores);
+            ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido borrado");
+
+        }else{
+            ShowErrorMessage("ERROR","Trabajador " + trabajador.getNombre() + " no se ha podido borrar");
         }
     }
 

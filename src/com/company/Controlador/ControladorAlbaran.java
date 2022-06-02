@@ -1,11 +1,7 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDAlbaran;
-import com.company.BaseDatos.CRUDCliente;
-import com.company.BaseDatos.CRUDMaterial;
-import com.company.Entidades.Albaran;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
+import com.company.BaseDatos.*;
+import com.company.Entidades.*;
 import com.company.Vistas.ViewAlbaran;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +12,9 @@ public class ControladorAlbaran {
         crudAlbaran = new CRUDAlbaran(this);
         albaranes = crudAlbaran.getAll();
         materiales = getMateriales();
-        viewAlbaran = new ViewAlbaran(this, albaranes, materiales);
+        actuaciones = getActuaciones();
+        proveedores = getProveedores();
+        viewAlbaran = new ViewAlbaran(this, albaranes, materiales, actuaciones, proveedores);
     }
 
     //region CRUD
@@ -81,12 +79,31 @@ public class ControladorAlbaran {
         return listMaterial;
     }
 
+    private ArrayList<Actuacion> getActuaciones(){
+        ArrayList<Actuacion> listActuacion;
+        CRUDActuacion crudActuacion = new CRUDActuacion();
+        listActuacion = crudActuacion.getAll();
+        return listActuacion;
+    }
+
+    private ArrayList<Proveedor> getProveedores(){
+        ArrayList<Proveedor> listProveedores;
+        CRUDProveedor crudProveedor = new CRUDProveedor();
+        listProveedores = crudProveedor.getAll();
+        return listProveedores;
+    }
+
+
+    //endregion
+
 
     //region Variables
     CRUDAlbaran crudAlbaran;
     ViewAlbaran viewAlbaran;
     ArrayList<Albaran> albaranes;
     ArrayList<Material> materiales;
+    ArrayList<Actuacion> actuaciones;
+    ArrayList<Proveedor> proveedores;
 
     //endregion
 }

@@ -26,11 +26,9 @@ public class ControladorTrabajador {
             int idTrabajador = crudTrabajador.createTrabajador(trabajador);
             trabajador.setId(idTrabajador);
             viewTrabajador.addTableTrabajador(trabajador);
-            viewTrabajador.ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " agregado con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            viewTrabajador.ShowErrorMessage("ERROR", "No se ha podido agregar el registro");
             return false;
         }
     }
@@ -39,20 +37,13 @@ public class ControladorTrabajador {
         boolean result = crudTrabajador.updateTrabajador(trabajador);
         if (result){
             viewTrabajador.updateTableTrabajador(trabajador);
-            viewTrabajador.ShowMessage( "CORRECTO", "Cliente " + trabajador.getNombre() + " ha sido actualizado");
-        }else{
-            viewTrabajador.ShowErrorMessage("ERROR", "No se ha podiddo actualizar cliente con el codigo: " + trabajador.getId());
         }
         return result;
     }
 
     public boolean deleteTrabajador(Trabajador trabajador){
         boolean result = crudTrabajador.deleteTrabajador(trabajador.getId());
-        if (result){
-            viewTrabajador.ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido borrado");
-        }else{
-            viewTrabajador.ShowErrorMessage("ERROR","Trabajador " + trabajador.getNombre() + " no se ha podido borrar");
-        }
+
         return result;
     }
 

@@ -48,7 +48,7 @@ public class ViewCliente extends JFrame{
         String[] listColumnsName = controladorCliente.getColumnsName();
         headers = new String[listColumnsName.length - 1];
         for (int i = 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase();
+            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');;
         }
         refreshTable(headers, clientes);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -174,9 +174,11 @@ public class ViewCliente extends JFrame{
 
         if(result){
             int row = TableCliente.getSelectedRow();
-
             clientes.remove(row);
             refreshTable(headers, clientes);
+            ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " ha sido borrado");
+        }else{
+            ShowErrorMessage("ERROR","Cliente " + cliente.getNombre() + " no se ha podido borrar");
         }
     }
 
