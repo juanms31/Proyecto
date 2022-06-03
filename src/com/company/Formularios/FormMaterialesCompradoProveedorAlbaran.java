@@ -1,8 +1,8 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Material;
+import com.company.Entidades.MaterialCompradoProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.event.CellEditorListener;
@@ -18,10 +18,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
 
-public class FormMaterialesAlbaran extends JDialog {
+public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     //region Constructor
 
-    public FormMaterialesAlbaran(FormAlbaran formAlbaran, String codAlbaran, ArrayList<Material> materiales) {
+    public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran, String codAlbaran, ArrayList<Material> materiales) {
         this.formAlbaran = formAlbaran;
         this.codAlbaran = codAlbaran;
         this.materiales = materiales;
@@ -67,7 +67,7 @@ public class FormMaterialesAlbaran extends JDialog {
         comboBoxMateriales.addItem("Selecciona Material");
         for (Material material : materiales) {
             //Acotamos el nombre para que no sea muy largo a 15 caracteres..
-            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0, material.getDescripcion().length()/2) + "...");
+            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0, material.getDescripcion().length() / 2) + "...");
 
         }
 
@@ -76,12 +76,17 @@ public class FormMaterialesAlbaran extends JDialog {
         initTable();
     }
 
-    public void initTable(){
+    //endregion
+
+    //region METODOS TABLA
+    public void initTable() {
         TableMateriales.setShowGrid(true);
-        TableMateriales.setCellSelectionEnabled(true);
+        TableMateriales.setCellSelectionEnabled(false);
         TableMateriales.setAutoCreateRowSorter(true);
+        TableMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TableMateriales.setRowSelectionAllowed(true);
         TableMateriales.setDragEnabled(false);
+
         TableCellEditor tableCellEditor = new TableCellEditor() {
             @Override
             public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
@@ -176,33 +181,46 @@ public class FormMaterialesAlbaran extends JDialog {
                 dispose();
             }
         });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
-    private void mouseListeners(){
+    private void mouseListeners() {
         TableMateriales.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount()==2){
+                if (e.getClickCount() == 2) {
                     TableMateriales.isCellEditable(TableMateriales.getSelectedRow(), TableMateriales.getSelectedColumn());
                 }
             }
         });
     }
 
+    //endregion
+
     //region Metodos Privados
 
-    public void addElement(){
-        int row = comboBoxMateriales.getSelectedIndex();
-        if (row == 0) {
-            ShowErrorMessage("Error", "Selecciona un material antes de añadirlo");
+    public void addElement() {
+        if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
+            ShowErrorMessage("Error", "Selecciona solo un material por línea.");
         } else {
-            Material material = materiales.get(row - 1);
-            materialesOut.add(material);
-            modelMaterialesAlbaran.addRow(getMaterialObject(material));
+            int row = comboBoxMateriales.getSelectedIndex();
+            if (row == 0) {
+                ShowErrorMessage("Error", "Selecciona un material de la lista para añadirlo");
+            } else {
+                Material material = materiales.get(row - 1);
+                materialesOut.add(material);
+                modelMaterialesAlbaran.addRow(getMaterialObject(material));
+            }
         }
     }
 
-    public Object[] getMaterialObject(Material material){
+    public Object[] getMaterialObject(Material material) {
         int y = 0;
         Object[] newMaterial = new Object[headers.length];
         newMaterial[y++] = material.getCodigo();
@@ -211,19 +229,46 @@ public class FormMaterialesAlbaran extends JDialog {
         return newMaterial;
     }
 
-    public void removeElement(){
+    public void removeElement() {
         int row = TableMateriales.getSelectedRow();
-        Material material = materiales.get(row);
-        materialesOut.remove(row);
-        TableMateriales.remove(row);
+        if (row == -1) {
+
+            ShowErrorMessage("Error", "Selecciona un material para eliminar.");
+
+        } else {
+            Material material = materiales.get(row);
+            materialesOut.remove(row);
+            modelMaterialesAlbaran.removeRow(row);
+        }
+
     }
 
-    public ArrayList<Material> getMateriales(){
+    public ArrayList<Material> getMateriales() {
         return materialesOut;
     }
 
-    //endregion
+    public ArrayList<MaterialCompradoProveedor> getMaterialCompradoProveedor() {
 
+        ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
+
+        for (int i = 0; i < TableMateriales.getRowCount(); i++) {
+            int j = 1;
+
+            MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
+            materialCompradoProveedor.setMaterial(materialesOut.get(i));
+            j++;
+
+            materialCompradoProveedor.setUnidades((Integer) TableMateriales.getValueAt(i, j++));
+            materialCompradoProveedor.setPrecioUnidad((Integer) TableMateriales.getValueAt(i, j++));
+            materialCompradoProveedor.setBaseImponible((Integer) TableMateriales.getValueAt(i, j++));
+
+            materialesCompradoProveedor.add(materialCompradoProveedor);
+        }
+
+        return materialesCompradoProveedor;
+    }
+
+    //endregion
 
 
     //region Variables
@@ -243,7 +288,7 @@ public class FormMaterialesAlbaran extends JDialog {
     private DefaultTableModel modelMaterialesAlbaran;
     private TableRowSorter sorter;
 
-    private String[] headers = {"COD","DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO", "BASE IMPONIBLE"};
+    private String[] headers = {"COD", "DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO", "BASE IMPONIBLE"};
 
     //endregion
 

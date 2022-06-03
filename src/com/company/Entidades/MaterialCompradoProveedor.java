@@ -14,44 +14,60 @@ public class MaterialCompradoProveedor {
         this.id = id;
     }
 
-    public int getId_material() {
-        return id_material;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setId_material(int id_material) {
-        this.id_material = id_material;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
-    public int getId_proveedor() {
-        return id_proveedor;
+    public Actuacion getActuacion() {
+        return actuacion;
     }
 
-    public void setId_proveedor(int id_proveedor) {
-        this.id_proveedor = id_proveedor;
+    public void setActuacion(Actuacion actuacion) {
+        this.actuacion = actuacion;
     }
 
-    public int getId_actuacion() {
-        return id_actuacion;
+    public Albaran getAlbaran() {
+        return albaran;
     }
 
-    public void setId_actuacion(int id_actuacion) {
-        this.id_actuacion = id_actuacion;
+    public void setAlbaran(Albaran albaran) {
+        this.albaran = albaran;
     }
 
-    public int getId_albaran() {
-        return id_albaran;
+    public int getUnidades() {
+        return unidades;
     }
 
-    public void setId_albaran(int id_albaran) {
-        this.id_albaran = id_albaran;
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
     }
 
-    public Date getFecha_compra() {
-        return fecha_compra;
+    public double getPrecioUnidad() {
+        return PrecioUnidad;
     }
 
-    public void setFecha_compra(Date fecha_compra) {
-        this.fecha_compra = fecha_compra;
+    public void setPrecioUnidad(double precioUnidad) {
+        PrecioUnidad = precioUnidad;
+    }
+
+    public double getBaseImponible() {
+        return BaseImponible;
+    }
+
+    public void setBaseImponible(double baseImponible) {
+        BaseImponible = baseImponible;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     //endregion
@@ -62,24 +78,32 @@ public class MaterialCompradoProveedor {
     public String toString() {
         return "MaterialCompradoProveedor{" +
                 "id=" + id +
-                ", id_material=" + id_material +
-                ", id_proveedor=" + id_proveedor +
-                ", id_actuacion=" + id_actuacion +
-                ", id_albaran=" + id_albaran +
-                ", fecha_compra=" + fecha_compra +
+                ", material=" + material +
+                ", proveedor=" + proveedor +
+                ", actuacion=" + actuacion +
+                ", albaran=" + albaran +
+                ", unidades=" + unidades +
+                ", PrecioUnidad=" + PrecioUnidad +
+                ", BaseImponible=" + BaseImponible +
                 '}';
     }
+
 
     //endregion
 
     //region ATRIBUTOS
 
     private int id;
-    private int id_material;
-    private int id_proveedor;
-    private int id_actuacion;
-    private int id_albaran;
-    private Date fecha_compra;
+    private Material material;
+    private Proveedor proveedor;
+    private Actuacion actuacion;
+    private Albaran albaran;
+    private int unidades;
+    private double PrecioUnidad;
+    private double BaseImponible;
+//    private int id_proveedor;
+//    private int id_actuacion;
+//    private String id_albaran;
 
     //endregion
 }

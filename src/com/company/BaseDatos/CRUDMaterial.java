@@ -135,7 +135,7 @@ public class CRUDMaterial {
         if (connection == null)return false;
         final String QUERY_UPDATE = "UPDATE material " +
                 "SET cod = ?, grupo = ?, descripcion = ?, especificacion = ?, unidad = ?, espesor = ?, " +
-                "calidad = ?, Proveedor1 = ?, precio1 = ?, Proveedor2 = ?, precio2 = ?, Proveedor3 = ?, precio3 = ?, " +
+                "calidad = ?, Proveedor_1 = ?, precio_1 = ?, Proveedor_2 = ?, precio_2 = ?, Proveedor_3 = ?, precio_3 = ?, " +
                 "id_grupo = ?, id_especifiacion = ?, id_unidad = ?, id_calidad = ? " +
                 "WHERE id = ?";
         try {
@@ -235,12 +235,12 @@ public class CRUDMaterial {
                 material.setEspesor(resultSet.getDouble("espesor"));
                 material.setGrupo(resultSet.getString("grupo"));
                 //TODO plantear si incluir o no id de foreigh key
-                material.setPrecio1(resultSet.getDouble("precio1"));
-                material.setPrecio2(resultSet.getDouble("precio2"));
-                material.setPrecio3(resultSet.getDouble("precio2"));
-                material.setProveedor1(resultSet.getString("proveedor1"));
-                material.setProveedor2(resultSet.getString("proveedor2"));
-                material.setProveedor3(resultSet.getString("proveedor3"));
+                material.setPrecio1(resultSet.getDouble("precio_1"));
+                material.setPrecio2(resultSet.getDouble("precio_2"));
+                material.setPrecio3(resultSet.getDouble("precio_2"));
+                material.setProveedor1(resultSet.getString("proveedor_1"));
+                material.setProveedor2(resultSet.getString("proveedor_2"));
+                material.setProveedor3(resultSet.getString("proveedor_3"));
                 material.setUnidad(resultSet.getString("unidad"));
 
                 materiales.add(material);

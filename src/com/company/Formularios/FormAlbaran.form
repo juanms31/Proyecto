@@ -57,18 +57,9 @@
               <text value="Codigo Albaran"/>
             </properties>
           </component>
-          <component id="42511" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Base Imponible"/>
-            </properties>
-          </component>
           <component id="7494" class="javax.swing.JLabel">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-16777216"/>
@@ -87,7 +78,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="8d3d2" class="javax.swing.JTextField" binding="textFieldBase">
+          <component id="36f46" class="javax.swing.JFormattedTextField" binding="formattedTextFieldFechaEntrada">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -98,20 +89,9 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="36f46" class="javax.swing.JFormattedTextField" binding="formattedTextFieldFechaEntrada">
-            <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
           <component id="ecfb" class="javax.swing.JLabel">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-16777216"/>
@@ -120,7 +100,7 @@
           </component>
           <component id="b7658" class="javax.swing.JButton" binding="buttonAnadirMateriales">
             <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1703946"/>
@@ -162,6 +142,26 @@
             </constraints>
             <properties>
               <background color="-1900570"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="247e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Concepto"/>
+            </properties>
+          </component>
+          <component id="4fb2" class="javax.swing.JTextArea" binding="textAreaConcepto">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
               <foreground color="-16777216"/>
             </properties>
           </component>

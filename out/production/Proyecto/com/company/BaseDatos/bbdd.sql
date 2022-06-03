@@ -33,7 +33,7 @@ CREATE TABLE CalidadMaterial(
 );
 
 CREATE TABLE Material (
-	id INTEGER AUTO_INCREMENT PRIMARY key,
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
     cod VARCHAR(20),
     grupo VARCHAR(10),
     descripcion VARCHAR(200),
@@ -41,12 +41,12 @@ CREATE TABLE Material (
     unidad VARCHAR (5),
     espesor DECIMAL(5,2),
     calidad VARCHAR(100),
-    proveedor1 VARCHAR(100),
-    precio1 DECIMAL (10,2),
-    proveedor2 VARCHAR (100),
-    precio2 DECIMAL (10,2),
-    proveedor3 VARCHAR (100),
-    precio3 DECIMAL (10,2),
+    proveedor_1 VARCHAR(100),
+    precio_1 DECIMAL (10,2),
+    proveedor_2 VARCHAR (100),
+    precio_2 DECIMAL (10,2),
+    proveedor_3 VARCHAR (100),
+    precio_3 DECIMAL (10,2),
     id_grupo INTEGER,
     FOREIGN KEY (id_grupo)
     	REFERENCES GrupoMaterial (id),
@@ -63,10 +63,10 @@ CREATE TABLE Material (
 
 CREATE TABLE MOInstalacionMaterial (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    proveedor1 VARCHAR(100),
-    precio1 DECIMAL (10,2),
-    proveedor2 VARCHAR (100),
-    precio2 DECIMAL (10,2),
+    proveedor_1 VARCHAR(100),
+    precio_1 DECIMAL (10,2),
+    proveedor_2 VARCHAR (100),
+    precio_2 DECIMAL (10,2),
     id_material INTEGER,
     FOREIGN KEY (id_material)
     	REFERENCES Material (id)
@@ -77,10 +77,10 @@ CREATE TABLE Proveedor (
     CIF VARCHAR(9) NOT NULL,
     nombre_proveedor VARCHAR(150) NOT NULL,
     direccion VARCHAR(150),
-    mail1 VARCHAR(100),
-    telefono1 VARCHAR(12),
-    mail2 VARCHAR(100),
-    telefono2 VARCHAR(20)
+    mail_1 VARCHAR(100),
+    telefono_1 VARCHAR(12),
+    mail_2 VARCHAR(100),
+    telefono_2 VARCHAR(20)
 );
 
 CREATE TABLE Cliente(
@@ -88,10 +88,10 @@ CREATE TABLE Cliente(
     CIF VARCHAR(9) NOT NULL,
     nombre VARCHAR (30),
     direccion VARCHAR (200),
-    mail1 VARCHAR (50),
-    telefono1 VARCHAR(12),
-    mail2 VARCHAR(100),
-    telefono2 VARCHAR(20)
+    mail_1 VARCHAR (50),
+    telefono_1 VARCHAR(12),
+    mail_2 VARCHAR(100),
+    telefono_2 VARCHAR(20)
 );
 
 CREATE TABLE Actuacion (
@@ -140,15 +140,12 @@ CREATE TABLE EstadoActuaciob(
     	REFERENCES Actuacion (id)
 );
 CREATE TABLE Albaran(
-    id VARCHAR(20) PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    cod varchar(20) NOT NULL,
     id_actuacion INTEGER,
     id_proveedor INTEGER,
     concepto VARCHAR (100),
-    unidades VARCHAR (20),
     fecha_entrada_albarán DATE,
-    precio_unitario DECIMAL(5,2),
-    base_imponible DECIMAL(5,2),
-    naturaleza VARCHAR(30),
 
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
@@ -160,15 +157,15 @@ CREATE TABLE MaterialCompradoProveedores(
     id INTEGER PRIMARY KEY,
     fecha_compra DATE,
     id_material INTEGER,
-    FOREIGN KEY (id_material)
-        REFERENCES Material (id),
     id_proveedor INTEGER,
-    FOREIGN KEY (id_proveedor)
-        REFERENCES Proveedor (id),
     id_actuacion INTEGER,
+    id_albaran INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
-    id_albaran VARCHAR(20),
+    FOREIGN KEY (id_proveedor)
+        REFERENCES Proveedor (id),
+    FOREIGN KEY (id_material)
+        REFERENCES Material (id),
     FOREIGN KEY (id_albaran)
         REFERENCES Albaran (id)
 );
@@ -288,3 +285,13 @@ VALUES ('1','REP','Reparacion',''),
 
 INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
 VALUES ('1','00000000K','admin','','31-05-1999','','','admin','admin')
+
+
+INSERT INTO `proveedor`(`id`, `CIF`, `nombre_proveedor`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
+VALUES ('1','36598655P','Soleos SLU','Avd Madrid','soleosslu@gmail.com','698332657','',''),
+    ('2','36598655L','Latigos SLU','Avd Malaga','latigosslu@gmail.com','654223698','',''),
+    ('3','36598655U','Bombonas SLU','Avd Almeria','bombonasslu@gmail.com','625456896','','');
+
+INSERT INTO `cliente`(`id`, `CIF`, `nombre`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
+VALUES ('1','21035545K','PITA','Avd PITA','parquetecnologico@gmail.com','632554789','',''),
+       ('2','36598874P','PTS','Avd PTS','parquetecnologico@gmail.com','65988547','','');

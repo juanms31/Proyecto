@@ -18,18 +18,18 @@ public class ControladorAlbaran {
     }
 
     //region CRUD
-    public boolean createAlbaran(Albaran albaran){
+    public boolean createAlbaran(ArrayList<Albaran> albaranes){
+
+        Albaran albaran = albaranes.get(0);
 
         try {
             int idAlbaran = crudAlbaran.createAlbaran(albaran);
             albaran.setId(idAlbaran);
             viewAlbaran.addTableAlbaran(albaran);
-            viewAlbaran.ShowMessage( "CORRECTO", "Albaran " + albaran.getId() + " agregado con exito");
             return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            viewAlbaran.ShowErrorMessage("ERROR", "No se ha podido agregar el registro");
             return false;
         }
     }
@@ -38,9 +38,6 @@ public class ControladorAlbaran {
         boolean result = crudAlbaran.updateAlbaran(albaran);
         if (result){
             viewAlbaran.updateTableAlbaran(albaran);
-            viewAlbaran.ShowMessage("CORRECTO","El albaran " + albaran.getId() + " ha sido actualizado");
-        }else{
-            viewAlbaran.ShowErrorMessage("ERROR", "No se ha podiddo actualizar el albaran " + albaran.getId());
         }
         return result;
     }
@@ -53,6 +50,17 @@ public class ControladorAlbaran {
             viewAlbaran.ShowErrorMessage("ERROR", "El albaran con codigo: " + cod + " no se ha podido borrar");
         }
         return result;
+    }
+
+    public boolean createMaterialesCompradoProveedor(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+//        boolean result = crudAlbaran.createMaterialesCompradoProveedor(materialesCompradoProveedor);
+//        if (result){
+//            viewAlbaran.ShowMessage( "CORRECTO", "El albaran con codigo: " + cod + " ha sido borrado");
+//        }else{
+//            viewAlbaran.ShowErrorMessage("ERROR", "El albaran con codigo: " + cod + " no se ha podido borrar");
+//        }
+//        return result;
+        return true;
     }
 
     //endregion
@@ -104,6 +112,8 @@ public class ControladorAlbaran {
     ArrayList<Material> materiales;
     ArrayList<Actuacion> actuaciones;
     ArrayList<Proveedor> proveedores;
+
+
 
     //endregion
 }

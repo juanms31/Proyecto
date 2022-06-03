@@ -1,12 +1,10 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorAlbaran;
-import com.company.Entidades.Actuacion;
-import com.company.Entidades.Albaran;
-import com.company.Entidades.Material;
-import com.company.Entidades.Proveedor;
+import com.company.Entidades.*;
 import com.company.Formularios.FormAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -67,8 +65,8 @@ public class ViewAlbaran extends JFrame {
 
     public void initHeaders(){
         String[] listColumnsName = controladorAlbaran.getColumnsName();
-        headers = new String[listColumnsName.length - 4];
-        for (int i = 0; i < listColumnsName.length - 4; i++) {
+        headers = new String[listColumnsName.length - 1];
+        for (int i = 0; i < listColumnsName.length - 1; i++) {
 
             if (listColumnsName[i + 1].equals("id_actuacion")) {
 
@@ -177,12 +175,16 @@ public class ViewAlbaran extends JFrame {
 
     //region Metodos Desde el Formulario
 
-    public boolean getNewAlbaranFromFormulario(Albaran albaran) {
-        return controladorAlbaran.createAlbaran(albaran);
+    public boolean getNewAlbaranFromFormulario(ArrayList<Albaran> albaranes) {
+        return controladorAlbaran.createAlbaran(albaranes);
     }
 
     public boolean getUpdateAlbaranFromFormulario(Albaran albaran) {
         return controladorAlbaran.updateAlbaran(albaran);
+    }
+
+    public boolean getMaterialesAlbaranFromFormulario(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+        return controladorAlbaran.createMaterialesCompradoProveedor(materialesCompradoProveedor);
     }
 
 
@@ -252,12 +254,7 @@ public class ViewAlbaran extends JFrame {
         albaranes.get(row).setActuacion(albaran.getActuacion());
         albaranes.get(row).setProveedor(albaran.getProveedor());
         albaranes.get(row).setConcepto(albaran.getConcepto());
-        albaranes.get(row).setUnidades(albaran.getUnidades());
         albaranes.get(row).setFechaEntradaAlbaran(albaran.getFechaEntradaAlbaran());
-        albaranes.get(row).setPrecioUnidad(albaran.getPrecioUnidad());
-        albaranes.get(row).setBaseImponible(albaran.getBaseImponible());
-        albaranes.get(row).setIdActuacion(albaran.getIdActuacion());
-        albaranes.get(row).setIdProveedor(albaran.getIdProveedor());
 
         refreshTable(headers, albaranes);
 
@@ -275,15 +272,13 @@ public class ViewAlbaran extends JFrame {
     public Object[] getAlbaranObject(Albaran albaran) {
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
+
+        newAlbaran[y++] = albaran.getCod();
         newAlbaran[y++] = albaran.getActuacion().getNombre();
-        newAlbaran[y++] = albaran.getProveedor();
+        newAlbaran[y++] = albaran.getProveedor().getNombre_proveedor();
+        System.out.println("Proveedor: " + albaran.getProveedor().getNombre_proveedor());
         newAlbaran[y++] = albaran.getConcepto();
-        newAlbaran[y++] = albaran.getUnidades();
         newAlbaran[y++] = albaran.getFechaEntradaAlbaran();
-        newAlbaran[y++] = albaran.getPrecioUnidad();
-        newAlbaran[y++] = albaran.getBaseImponible();
-        newAlbaran[y++] = albaran.getIdActuacion();
-        newAlbaran[y++] = albaran.getIdProveedor();
 
         return newAlbaran;
     }
@@ -409,5 +404,6 @@ public class ViewAlbaran extends JFrame {
     private DefaultTableModel modelAlbaran;
     private DefaultTableModel modelMaterialesAlbaran;
     private DefaultTableModel modelActuacionesAlbaran;
+
     //endregion
 }

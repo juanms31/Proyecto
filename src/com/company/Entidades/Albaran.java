@@ -39,12 +39,20 @@ public class Albaran {
         this.concepto = concepto;
     }
 
-    public int getUnidades() {
-        return unidades;
+    public ArrayList<Material> getMateriales() {
+        return materiales;
     }
 
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
+    public void setMateriales(ArrayList<Material> materiales) {
+        this.materiales = materiales;
+    }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
     public Date getFechaEntradaAlbaran() {
@@ -55,78 +63,50 @@ public class Albaran {
         this.fechaEntradaAlbaran = fechaEntradaAlbaran;
     }
 
-    public double getPrecioUnidad() {
-        return PrecioUnidad;
+    public int getId_actuacion() {
+        return id_actuacion;
     }
 
-    public void setPrecioUnidad(double precioUnidad) {
-        PrecioUnidad = precioUnidad;
+    public void setId_actuacion(int id_actuacion) {
+        this.id_actuacion = id_actuacion;
     }
 
-    public double getBaseImponible() {
-        return BaseImponible;
+    public int getId_proveedor() {
+        return id_proveedor;
     }
 
-    public void setBaseImponible(double baseImponible) {
-        BaseImponible = baseImponible;
+    public void setId_proveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
     }
-
-    public int getIdActuacion() {
-        return idActuacion;
-    }
-
-    public void setIdActuacion(int idActuacion) {
-        this.idActuacion = idActuacion;
-    }
-
-    public int getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
-    }
-
-    public ArrayList<Material> getMateriales() {
-        return materiales;
-    }
-
-    public void setMateriales(ArrayList<Material> materiales) {
-        this.materiales = materiales;
-    }
-
-    //endregion
-
-    //region Metodos publicos
 
     @Override
     public String toString() {
         return "Albaran{" +
                 "id=" + id +
+                ", cod='" + cod + '\'' +
                 ", actuacion=" + actuacion +
                 ", proveedor=" + proveedor +
+                ", id_actuacion=" + id_actuacion +
+                ", id_proveedor=" + id_proveedor +
                 ", concepto='" + concepto + '\'' +
-                ", unidades=" + unidades +
                 ", fechaEntradaAlbaran=" + fechaEntradaAlbaran +
-                ", PrecioUnidad=" + PrecioUnidad +
-                ", BaseImponible=" + BaseImponible +
+                ", materiales=" + materiales +
                 '}';
     }
 
     //endregion
 
+
     //region ATRIBUTOS
 
     private int id;
+    private String cod;
     private Actuacion actuacion;
     private Proveedor proveedor;
+    private int id_actuacion;
+    private int id_proveedor;
     private String concepto;
-    private int unidades;
     private Date fechaEntradaAlbaran;
-    private double PrecioUnidad;
-    private double BaseImponible;
-    private int idActuacion;
-    private int idProveedor;
     private ArrayList<Material> materiales;
 
     //endregion
