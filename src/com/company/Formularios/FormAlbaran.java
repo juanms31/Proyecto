@@ -50,11 +50,13 @@ public class FormAlbaran extends JDialog {
         setVisible(true);
     }
 
-    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales, ArrayList<Actuacion> actuaciones, ArrayList<Proveedor> proveedores, boolean editable) {
+    public FormAlbaran(ViewAlbaran viewAlbaran, Albaran albaran, ArrayList<Material> materiales,
+                       ArrayList<Actuacion> actuaciones, ArrayList<Proveedor> proveedores, boolean editable) {
         this.viewAlbaran = viewAlbaran;
         this.materiales = materiales;
         this.actuaciones = actuaciones;
         this.proveedores = proveedores;
+        AlbaranSiendoModificado = albaran;
 
         initWindow();
         initComps();
@@ -105,7 +107,7 @@ public class FormAlbaran extends JDialog {
         //Rellenar Proveedor
         comboBoxProveedores.addItem("Selecciona Proveedor");
         for(Proveedor proveedor: proveedores){
-            comboBoxProveedores.addItem(proveedor.getNombre_proveedor());
+            comboBoxProveedores.addItem(proveedor.getCIF() + " - " + proveedor.getNombre_proveedor());
         }
 
         MaskFormatter formatter = null;
@@ -132,11 +134,15 @@ public class FormAlbaran extends JDialog {
         }else{
 
             if(viewAlbaran.getNewAlbaranFromFormulario(getAlbaran())){
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 if(viewAlbaran.getMaterialesAlbaranFromFormulario(materialesCompradoProveedor)) {
                     dispose();
-                    ShowErrorMessage("Correcto", "Se ha creado el albaran correctamente");
+                    ShowMessage("Correcto", "Se ha creado el albaran correctamente");
                 }
-
             }else{
                 ShowErrorMessage("Error", "No se ha podido crear el albaran correctamente");
             }
@@ -159,12 +165,28 @@ public class FormAlbaran extends JDialog {
 //        }
     }
 
+    //region Mensajes
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
     public void ShowErrorMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
                 msg,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
+
     //endregion
 
     //region Metodos Privados
@@ -176,6 +198,15 @@ public class FormAlbaran extends JDialog {
 
     //region SET Y GET MATERIAL
     private void setAlbaran(Albaran albaran) {
+        textFieldCodigo.setText(albaran.getCod());
+        comboBoxActuaciones.setSelectedItem(albaran.getActuacion().getId() + " - " + albaran.getActuacion().getNombre());
+        comboBoxProveedores.setSelectedItem(albaran.getProveedor().getCIF() + " - " + albaran.getProveedor().getNombre_proveedor());
+        textAreaConcepto.setText(albaran.getConcepto());
+        //Procesamos Fecha
+        SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String UTILDate = OldDateFormat.format(albaran.getFechaEntradaAlbaran());
+
+        formattedTextFieldFechaEntrada.setText(UTILDate.toString());
 
     }
 
@@ -200,16 +231,19 @@ public class FormAlbaran extends JDialog {
         return false;
     }
 
-    private ArrayList<Albaran> getAlbaran() {
+    private Albaran getAlbaran() {
 
-        ArrayList<Albaran> albaranesOut = new ArrayList<>();
+        Albaran albaran = new Albaran();
         int cont = 0;
 
         if(materialesOut.isEmpty()) {
-            Albaran albaran = new Albaran();
+
+
+
             MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
 
             albaran.setCod(textFieldCodigo.getText());
+            System.out.println("ID ALBARAN FROM FORMULARIO1: " + textFieldCodigo.getText());
             albaran.setProveedor(proveedores.get(comboBoxProveedores.getSelectedIndex() - 1));
             albaran.setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
             albaran.setConcepto(textAreaConcepto.getText());
@@ -225,11 +259,11 @@ public class FormAlbaran extends JDialog {
                 throw new RuntimeException(e);
             }
 
-            albaranesOut.add(albaran);
+            materialesCompradoProveedor.add(materialCompradoProveedor);
         }else {
 
             for (Material material : materialesOut) {
-                Albaran albaran = new Albaran();
+
                 MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
 
                 albaran.setCod(textFieldCodigo.getText());
@@ -254,13 +288,11 @@ public class FormAlbaran extends JDialog {
                 materialCompradoProveedor.setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
                 materialCompradoProveedor.setAlbaran(albaran);
 
-                albaranesOut.add(albaran);
                 materialesCompradoProveedor.add(materialCompradoProveedor);
                 cont++;
             }
         }
-
-        return albaranesOut;
+        return albaran;
     }
 
     //endregion Albaran
@@ -334,11 +366,7 @@ public class FormAlbaran extends JDialog {
     //region Variables
 
     private ViewAlbaran viewAlbaran;
-    private JLabel labelTitulo;
     private JTextField textFieldCodigo;
-    private JTextField textFieldUnidades;
-    private JTextField textFieldPrecioUnitario;
-    private JTextField textFieldBase;
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JFormattedTextField formattedTextFieldFechaEntrada;
@@ -347,12 +375,13 @@ public class FormAlbaran extends JDialog {
     private JComboBox comboBoxProveedores;
     private JComboBox comboBoxActuaciones;
     private JTextArea textAreaConcepto;
+    private JLabel labelTitulo;
 
     private ArrayList<Actuacion> actuaciones;
     private ArrayList<Proveedor> proveedores;
     private ArrayList<Material> materiales;
     private ArrayList<Material> materialesOut =  new ArrayList<>();
-    private ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor;
+    private ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
 
 
 

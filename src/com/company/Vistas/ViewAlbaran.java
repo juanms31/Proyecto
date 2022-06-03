@@ -175,8 +175,8 @@ public class ViewAlbaran extends JFrame {
 
     //region Metodos Desde el Formulario
 
-    public boolean getNewAlbaranFromFormulario(ArrayList<Albaran> albaranes) {
-        return controladorAlbaran.createAlbaran(albaranes);
+    public boolean getNewAlbaranFromFormulario(Albaran albaran) {
+        return controladorAlbaran.createAlbaran(albaran);
     }
 
     public boolean getUpdateAlbaranFromFormulario(Albaran albaran) {
@@ -184,6 +184,7 @@ public class ViewAlbaran extends JFrame {
     }
 
     public boolean getMaterialesAlbaranFromFormulario(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+        this.materialesCompradosProveedor = materialesCompradosProveedor;
         return controladorAlbaran.createMaterialesCompradoProveedor(materialesCompradoProveedor);
     }
 
@@ -269,6 +270,12 @@ public class ViewAlbaran extends JFrame {
 
     }
 
+    public void addTableMaterialAlbaran(Material material) {
+
+        materialesCompradosProveedor.add(material);
+
+    }
+
     public Object[] getAlbaranObject(Albaran albaran) {
         int y = 0;
         Object[] newAlbaran = new Object[headers.length];
@@ -276,7 +283,6 @@ public class ViewAlbaran extends JFrame {
         newAlbaran[y++] = albaran.getCod();
         newAlbaran[y++] = albaran.getActuacion().getNombre();
         newAlbaran[y++] = albaran.getProveedor().getNombre_proveedor();
-        System.out.println("Proveedor: " + albaran.getProveedor().getNombre_proveedor());
         newAlbaran[y++] = albaran.getConcepto();
         newAlbaran[y++] = albaran.getFechaEntradaAlbaran();
 
@@ -290,6 +296,11 @@ public class ViewAlbaran extends JFrame {
         return albaranes.get(row);
 
     }
+
+    private void setMateriales(Albaran albaran) {
+        // TODO: 03/06/2022 RELLENAR TABLA MATERIALES DE ALBARAN CUANDO SE DE CLICK EN LA TABLA ALBARAN
+    }
+
 
     private int getCodAlbaran() {
         int row = TableAlbaran.getSelectedRow();
@@ -360,6 +371,12 @@ public class ViewAlbaran extends JFrame {
         TableAlbaran.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+                if(e.getClickCount() == 1){
+                    Albaran albaran = getAlbaran();
+                    setMateriales(albaran);
+                }
+
                 if (e.getClickCount() == 2) {
                     updateAlbaran();
                 }
@@ -392,6 +409,7 @@ public class ViewAlbaran extends JFrame {
     private Albaran AlbaranSiendoModificado;
     private ArrayList<Albaran> albaranes;
     private ArrayList<Material> materiales;
+    private ArrayList<Material> materialesCompradosProveedor = new ArrayList<>();
     private ArrayList<Actuacion> actuaciones;
     private final ArrayList<Proveedor> proveedores;
     private String[] headers;

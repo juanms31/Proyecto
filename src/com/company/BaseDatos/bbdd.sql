@@ -155,11 +155,13 @@ CREATE TABLE Albaran(
 
 CREATE TABLE MaterialCompradoProveedores(
     id INTEGER PRIMARY KEY,
-    fecha_compra DATE,
     id_material INTEGER,
     id_proveedor INTEGER,
     id_actuacion INTEGER,
     id_albaran INTEGER,
+    unidades DOUBLE,
+    precio_Unidad DOUBLE,
+    base_Imponible DOUBLE,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id),
     FOREIGN KEY (id_proveedor)
@@ -284,8 +286,7 @@ VALUES ('1','REP','Reparacion',''),
        ('4','AIS','Aislacion','');
 
 INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
-VALUES ('1','00000000K','admin','','31-05-1999','','','admin','admin')
-
+VALUES ('1','00000000K','admin','','31-05-1999','','','admin','admin');
 
 INSERT INTO `proveedor`(`id`, `CIF`, `nombre_proveedor`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
 VALUES ('1','36598655P','Soleos SLU','Avd Madrid','soleosslu@gmail.com','698332657','',''),

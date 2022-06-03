@@ -154,6 +154,7 @@ public class CRUDMaterial {
             preparedStatement.setDouble(11, material.getPrecio2());
             preparedStatement.setString(12, material.getProveedor3());
             preparedStatement.setDouble(13, material.getPrecio3());
+
             //Es necesario comprobar si entran a null las Foreigh key
             if (material.getIdGrupo() == null){
                 preparedStatement.setNull(14, 1);

@@ -101,9 +101,6 @@ public class MaterialCompradoProveedor {
     private int unidades;
     private double PrecioUnidad;
     private double BaseImponible;
-//    private int id_proveedor;
-//    private int id_actuacion;
-//    private String id_albaran;
 
     //endregion
 }
