@@ -14,9 +14,10 @@ public class ControladorAlbaran {
         crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
         albaranes = crudAlbaran.getAll();
         materiales = getMateriales();
+        materialesCompradosProveedor = getMaterialesCompradosProveedor();
         actuaciones = getActuaciones();
         proveedores = getProveedores();
-        viewAlbaran = new ViewAlbaran(this, albaranes, materiales, actuaciones, proveedores);
+        viewAlbaran = new ViewAlbaran(this, albaranes, materiales, materialesCompradosProveedor, actuaciones, proveedores);
     }
 
     //region CRUD
@@ -94,7 +95,7 @@ public class ControladorAlbaran {
                     result = true;
                 }
 
-                viewAlbaran.addTableMaterialAlbaran(materialCompradoProveedor.getMaterial());
+                viewAlbaran.addTableMaterialAlbaran(materialCompradoProveedor);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,6 +128,12 @@ public class ControladorAlbaran {
         return listMaterial;
     }
 
+    private ArrayList<MaterialCompradoProveedor> getMaterialesCompradosProveedor() {
+        crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+        return crudMaterialCompradoProveedor.getAll();
+
+    }
+
     private ArrayList<Actuacion> getActuaciones() {
         ArrayList<Actuacion> listActuacion;
         CRUDActuacion crudActuacion = new CRUDActuacion();
@@ -152,6 +159,7 @@ public class ControladorAlbaran {
     ViewAlbaran viewAlbaran;
     ArrayList<Albaran> albaranes;
     ArrayList<Material> materiales;
+    ArrayList<MaterialCompradoProveedor> materialesCompradosProveedor;
     ArrayList<Actuacion> actuaciones;
     ArrayList<Proveedor> proveedores;
 

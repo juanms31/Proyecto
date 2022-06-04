@@ -225,6 +225,9 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         Object[] newMaterial = new Object[headers.length];
         newMaterial[y++] = material.getCodigo();
         newMaterial[y++] = material.getDescripcion();
+        newMaterial[y++] = "";
+        newMaterial[y++] = material.getPrecio1();
+
 
         return newMaterial;
     }
@@ -288,7 +291,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     private DefaultTableModel modelMaterialesAlbaran;
     private TableRowSorter sorter;
 
-    private String[] headers = {"COD", "DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO", "BASE IMPONIBLE"};
+    private String[] headers = {"COD", "DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO"};
 
     //endregion
 

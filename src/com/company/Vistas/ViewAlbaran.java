@@ -21,11 +21,13 @@ public class ViewAlbaran extends JFrame {
     public ViewAlbaran(ControladorAlbaran controladorAlbaran,
                        ArrayList<Albaran> albaranes,
                        ArrayList<Material> materiales,
+                       ArrayList<MaterialCompradoProveedor> materialesCompradosProveedor,
                        ArrayList<Actuacion> actuaciones,
                        ArrayList<Proveedor> proveedores) {
         this.controladorAlbaran = controladorAlbaran;
         this.albaranes = albaranes;
         this.materiales = materiales;
+        this.materialesCompradosProveedor = materialesCompradosProveedor;
         this.actuaciones = actuaciones;
         this.proveedores = proveedores;
 
@@ -270,9 +272,8 @@ public class ViewAlbaran extends JFrame {
 
     }
 
-    public void addTableMaterialAlbaran(Material material) {
-
-        materialesCompradosProveedor.add(material);
+    public void addTableMaterialAlbaran(MaterialCompradoProveedor materialCompradoProveedor) {
+        materialesCompradosProveedor.add(materialCompradoProveedor);
 
     }
 
@@ -298,9 +299,44 @@ public class ViewAlbaran extends JFrame {
     }
 
     private void setMateriales(Albaran albaran) {
-        // TODO: 03/06/2022 RELLENAR TABLA MATERIALES DE ALBARAN CUANDO SE DE CLICK EN LA TABLA ALBARAN
+        modelMaterialesAlbaran = new DefaultTableModel(headersMateriales, 0);
+        TableMaterialesAlbaran.setModel(modelMaterialesAlbaran);
+
+        for(MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor){
+            if(albaran.getId() == materialCompradoProveedor.getAlbaran().getId()){
+
+                Material material = getMaterialFromCod(materialCompradoProveedor.getMaterial().getId());
+                setMaterial(material, materialCompradoProveedor);
+
+            }
+        }
     }
 
+    private void setMaterial(Material material, MaterialCompradoProveedor materialCompradoProveedor) {
+
+        int y = 0;
+
+        Object[] newMaterial = new Object[headersMateriales.length];
+        newMaterial[y++] = material.getCodigo();
+        newMaterial[y++] = material.getDescripcion();
+
+        // FIXME: 04/06/2022 ESTOS DATOS SE PIERDEN POR EL CAMINO
+        // newMaterial[y++] = materialCompradoProveedor.getUnidades();
+        // newMaterial[y++] = materialCompradoProveedor.getPrecioUnidad();
+        // newMaterial[y++] = materialCompradoProveedor.getBaseImponible();
+
+        modelMaterialesAlbaran.addRow(newMaterial);
+
+    }
+
+    private Material getMaterialFromCod(int id){
+        for(Material material : materiales){
+            if(material.getId() == id){
+                return material;
+            }
+        }
+        return new Material();
+    }
 
     private int getCodAlbaran() {
         int row = TableAlbaran.getSelectedRow();
@@ -409,7 +445,7 @@ public class ViewAlbaran extends JFrame {
     private Albaran AlbaranSiendoModificado;
     private ArrayList<Albaran> albaranes;
     private ArrayList<Material> materiales;
-    private ArrayList<Material> materialesCompradosProveedor = new ArrayList<>();
+    private ArrayList<MaterialCompradoProveedor> materialesCompradosProveedor = new ArrayList<>();
     private ArrayList<Actuacion> actuaciones;
     private final ArrayList<Proveedor> proveedores;
     private String[] headers;

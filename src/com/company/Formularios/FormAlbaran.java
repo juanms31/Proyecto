@@ -134,11 +134,6 @@ public class FormAlbaran extends JDialog {
         }else{
 
             if(viewAlbaran.getNewAlbaranFromFormulario(getAlbaran())){
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 if(viewAlbaran.getMaterialesAlbaranFromFormulario(materialesCompradoProveedor)) {
                     dispose();
                     ShowMessage("Correcto", "Se ha creado el albaran correctamente");
