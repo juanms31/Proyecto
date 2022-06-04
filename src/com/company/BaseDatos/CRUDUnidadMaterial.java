@@ -1,11 +1,11 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.CalidadMaterial;
-import com.company.Entidades.EspecificacionMaterial;
 import com.company.Entidades.UnidadMaterial;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDUnidadMaterial {
 
@@ -26,9 +26,10 @@ public class CRUDUnidadMaterial {
             var listUnidadMaterial = setListaEspecificacionMaterial(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en UnidadMaterial = exito");
             return  listUnidadMaterial;
-
         } catch (SQLException e) {
+            LOGGER.log(Level.INFO, "GetAll en UnidadMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -47,7 +48,10 @@ public class CRUDUnidadMaterial {
             preparedStatement.setString(3, unidadMaterial.getNombreUnidad());
             preparedStatement.setString(4, unidadMaterial.getDescripcion());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "createUnidadMaterial en UnidadMaterial = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowUnidadMaterial = 0;
@@ -55,8 +59,10 @@ public class CRUDUnidadMaterial {
                 idRowUnidadMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createUnidadMaterial en UnidadMaterial = exito");
             return idRowUnidadMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createUnidadMaterial en UnidadMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -85,9 +91,10 @@ public class CRUDUnidadMaterial {
                 listUnidadMaterials.add(unidadMaterial);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "setListaEspecificacionMaterial en UnidadMaterial = exito");
             return listUnidadMaterials;
         } catch (SQLException e) {
-            //TODO incluis log para bbdd
+            LOGGER.log(Level.SEVERE, "setListaEspecificacionMaterial en UnidadMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return listUnidadMaterials;
@@ -95,4 +102,11 @@ public class CRUDUnidadMaterial {
     }
 
     // endregion
+
+    //region Atributos
+
+    String nameClase = this.getClass().getSimpleName();
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDUnidadMaterial");
+
+    //endregion
 }

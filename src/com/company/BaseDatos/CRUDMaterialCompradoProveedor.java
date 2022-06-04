@@ -1,11 +1,11 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.Cliente;
 import com.company.Entidades.MaterialCompradoProveedor;
-import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDMaterialCompradoProveedor {
 
@@ -19,8 +19,10 @@ public class CRUDMaterialCompradoProveedor {
             var listaMaterialCompradoProveedor = setListaMaterialCompradoProveedor(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "readAllMaterialCompradoProveedor en MaterialCompradoProveedor = exito");
             return  listaMaterialCompradoProveedor;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "readAllMaterialCompradoProveedor en MaterialCompradoProveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -59,8 +61,10 @@ public class CRUDMaterialCompradoProveedor {
                 idRow = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createMaterialCompradoProveedor en MaterialCompradoProveedor = exito");
             return idRow;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createMaterialCompradoProveedor en MaterialCompradoProveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -84,8 +88,10 @@ public class CRUDMaterialCompradoProveedor {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteMaterialCompradoProveedor en MaterialCompradoProveedor = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteMaterialCompradoProveedor en MaterialCompradoProveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -115,10 +121,16 @@ public class CRUDMaterialCompradoProveedor {
 
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + materialCompradoProveedor.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "updateMaterialCompradoProveedor en MaterialCompradoProveedor = no afecto a ningun registro");
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateMaterialCompradoProveedor en MaterialCompradoProveedor = exito");
+                return true;
+            }
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateMaterialCompradoProveedor en MaterialCompradoProveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -160,4 +172,10 @@ public class CRUDMaterialCompradoProveedor {
     }
 
     // endregion
+
+    //region Atributus
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDMaterialCompradoProveedor");
+
+    //endreigon
 }

@@ -1,12 +1,12 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.Cliente;
 import com.company.Entidades.MOInstalacionMaterial;
 import com.company.Entidades.SeguimientoLaboral;
-import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDMOInstalacionMaterial {
 
@@ -21,8 +21,10 @@ public class CRUDMOInstalacionMaterial {
             var listaMOInstalacionMaterial = setListaMOInstalacionMaterial(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "readAllMOInstalacionMaterial en MOInstalacionMaterial = exito");
             return  listaMOInstalacionMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "readAllMOInstalacionMaterial en MOInstalacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -31,7 +33,6 @@ public class CRUDMOInstalacionMaterial {
                 BBDD.close();
             }
         }
-
     }
 
     public int createMOInstalacionMaterial(MOInstalacionMaterial moInstalacionMaterial) throws SQLException {
@@ -48,16 +49,20 @@ public class CRUDMOInstalacionMaterial {
             preparedStatement.setDouble(5, moInstalacionMaterial.getPrecio2());
             preparedStatement.setInt(6, moInstalacionMaterial.getIdMaterial());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
-
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "createMOInstalacionMaterial en MOInstalacionMaterial = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowMOInstalacionMaterial = 0;
             if(generatedKeys.next()){
                 idRowMOInstalacionMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createMOInstalacionMaterial en MOInstalacionMaterial = exito");
             return idRowMOInstalacionMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createMOInstalacionMaterial en MOInstalacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -81,8 +86,10 @@ public class CRUDMOInstalacionMaterial {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteMOInstalacionMaterial en MOInstalacionMaterial = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteMOInstalacionMaterial en MOInstalacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -109,10 +116,17 @@ public class CRUDMOInstalacionMaterial {
             preparedStatement.setInt(6, MOInstalacionMaterial.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + MOInstalacionMaterial.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "updateMOInstalacionMaterial en MOInstalacionMaterial = no afecto a ningun registro");
+                throw  new SQLException("No se pudo actualizar registro id = " + MOInstalacionMaterial.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateMOInstalacionMaterial en MOInstalacionMaterial = exito");
+                return true;
+            }
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateMOInstalacionMaterial en MOInstalacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -153,37 +167,10 @@ public class CRUDMOInstalacionMaterial {
 
     // endregion
 
-    public static void main(String[] args) throws SQLException {
-        CRUDMOInstalacionMaterial crudMOInstalacionMaterial = new CRUDMOInstalacionMaterial();
-        //READ ALL
-        var listaMOInstalacionMaterial = crudMOInstalacionMaterial.readAllMOInstalacionMaterial();
-        System.out.println("Lista: " + listaMOInstalacionMaterial.get(0).toString());
+    //region Atributos
 
-        //DELETE
-        var borradoOK = crudMOInstalacionMaterial.deleteMOInstalacionMaterial(1);
-        System.out.println(borradoOK);
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDMOInstalacionMaterial");
 
-        //CREATE
-        MOInstalacionMaterial moInstalacionMaterial = new MOInstalacionMaterial();
-        moInstalacionMaterial.setNombreProveedor1("Proovedor1 creado java");
-        moInstalacionMaterial.setPrecio1(23893.2);
-        moInstalacionMaterial.setNombreProveedor2("Proovedor2 creado java");
-        moInstalacionMaterial.setPrecio2(233.2);
-        moInstalacionMaterial.setIdMaterial(1); //TODO hay que hacer un trabajador primero
-
-        int idRowMOInstalacionMaterial = 0;
-        idRowMOInstalacionMaterial = crudMOInstalacionMaterial.createMOInstalacionMaterial(moInstalacionMaterial);
-        System.out.println("Nuevo moInstalacionMaterial con id: " + idRowMOInstalacionMaterial);
-        moInstalacionMaterial.setId(idRowMOInstalacionMaterial);
-
-        //UPDATE
-        moInstalacionMaterial.setNombreProveedor2("Proveedor 2 modificado");
-        boolean updateOk = crudMOInstalacionMaterial.updateMOInstalacionMaterial(moInstalacionMaterial);
-        if (updateOk){
-            System.out.println("Actualizado");
-        }else{
-            System.out.println("Error");
-        }
-    }
+    //endregion
 }
 

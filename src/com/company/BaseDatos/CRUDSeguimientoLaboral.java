@@ -7,9 +7,10 @@ import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDSeguimientoLaboral {
-
 
     public CRUDSeguimientoLaboral(ControladorSeguimiento controladorSeguimiento) {
         this.controladorSeguimiento = controladorSeguimiento;
@@ -27,18 +28,18 @@ public class CRUDSeguimientoLaboral {
             var listaSeguimientoLaboral = setListaSeguimientoLaboral(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en SeguimientoLaboral = exito");
             return  listaSeguimientoLaboral;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en SeguimientoLaboral = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
         }
-
     }
 
     public int createSeguimientoLaboral(SeguimientoLaboral seguimientoLaboral) throws SQLException {
         Connection connection = BBDD.connect();
-        if (connection == null) return -1;
         final String QUERY_INSERT = "INSERT INTO seguimientolaboral" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -55,16 +56,20 @@ public class CRUDSeguimientoLaboral {
             preparedStatement.setInt(10, seguimientoLaboral.getHoras_totales());
             preparedStatement.setDouble(11, seguimientoLaboral.getHoras_extra());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
-
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "createSeguimientoLaboral en SeguimientoLaboral = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRow = 0;
             if(generatedKeys.next()){
                 idRow = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createSeguimientoLaboral en SeguimientoLaboral = exito");
             return idRow;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createSeguimientoLaboral en SeguimientoLaboral = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -88,8 +93,10 @@ public class CRUDSeguimientoLaboral {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteSeguimientoLaboral en SeguimientoLaboral = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteSeguimientoLaboral en SeguimientoLaboral = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -119,10 +126,18 @@ public class CRUDSeguimientoLaboral {
 
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + seguimientoLaboral.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "updateSeguimientoLaboral en SeguimientoLaboral = no afecto a ningun registro");
+                throw  new SQLException("No se pudo actualizar registro id = " + seguimientoLaboral.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateSeguimientoLaboral en SeguimientoLaboral = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "updateSeguimientoLaboral en SeguimientoLaboral = afecto a mas de un registro");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateSeguimientoLaboral en SeguimientoLaboral = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -171,11 +186,13 @@ public class CRUDSeguimientoLaboral {
             ResultSet resultSet = statement.executeQuery(SELECT_SEGUIMIENTO);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumsSeguimiento en SeguimientoLaboral = no afecto a ninguna columna");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumsSeguimiento en SeguimientoLaboral = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumsSeguimiento en SeguimientoLaboral = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -187,7 +204,10 @@ public class CRUDSeguimientoLaboral {
     //endregion
 
     //region Variables
+
     ControladorSeguimiento controladorSeguimiento;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDSeguimientoLaboral");
+
     //endregion
 
 }

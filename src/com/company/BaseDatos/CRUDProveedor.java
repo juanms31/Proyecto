@@ -6,6 +6,8 @@ import com.company.Entidades.Proveedor;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDProveedor {
 
@@ -15,8 +17,7 @@ public class CRUDProveedor {
         this.controladorProveedor = controladorProveedor;
     }
 
-    public CRUDProveedor() {
-    }
+    public CRUDProveedor() {}
 
     //endregion
 
@@ -31,14 +32,15 @@ public class CRUDProveedor {
             var listaProveedor = setListaProveedor(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Proveedor = exito");
             return  listaProveedor;
 
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Proveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
         }
-
     }
 
     public int createProveedor(Proveedor proveedor) throws SQLException {
@@ -57,7 +59,10 @@ public class CRUDProveedor {
             preparedStatement.setString(7, proveedor.getMail2());
             preparedStatement.setString(8, proveedor.getTelefono2());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "createProveedor en Proveedor = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowProveedor = 0;
@@ -65,8 +70,10 @@ public class CRUDProveedor {
                 idRowProveedor = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createProveedor en Proveedor = exito");
             return idRowProveedor;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createProveedor en Proveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -90,8 +97,10 @@ public class CRUDProveedor {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteProveedor en Proveedor = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteProveedor en Proveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -117,10 +126,17 @@ public class CRUDProveedor {
 
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + proveedor.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "updateProveedor en Proveedor = no afecto a ningun registro");
+                throw  new SQLException("No se pudo actualizar registro id = " + proveedor.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateProveedor en Proveedor = exito");
+                return true;
+            }
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateProveedor en Proveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
         }
@@ -140,11 +156,13 @@ public class CRUDProveedor {
             ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDORES);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumnsProveedor en Proveedor = no devolvio ninguna columan");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnsProveedor en Proveedor = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsProveedor en Proveedor = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -188,6 +206,7 @@ public class CRUDProveedor {
     //region Variables
 
     private ControladorProveedor controladorProveedor;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDProveedor");
 
     //endregion
 }

@@ -6,6 +6,8 @@ import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDVacaciones {
 
@@ -20,8 +22,10 @@ public class CRUDVacaciones {
             var listaVacaciones = setListaVacaciones(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "readAllVacaciones en Vacaciones = exito");
             return  listaVacaciones;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "readAllVacaciones en Vacaciones = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -48,7 +52,10 @@ public class CRUDVacaciones {
             preparedStatement.setString(6, vacaciones.getObservaciones());
             preparedStatement.setInt(7, vacaciones.getIdTrabajador());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "createVacaciones en Vacaciones = afecto a 0 registros");
+                throw new SQLException("No se pudo guardar");
+            }
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowVacaciones = 0;
@@ -56,8 +63,10 @@ public class CRUDVacaciones {
                 idRowVacaciones = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createVacaciones en Vacaciones = exito");
             return idRowVacaciones;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createVacaciones en Vacaciones = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -81,8 +90,10 @@ public class CRUDVacaciones {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteVacaciones en Vacaciones = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteVacaciones en Vacaciones = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -110,10 +121,18 @@ public class CRUDVacaciones {
             preparedStatement.setInt(7, vacaciones.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + vacaciones.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "deleteVacaciones en Vacaciones = afecto a 0 registros");
+                throw  new SQLException("No se pudo actualizar registro id = " + vacaciones.getId());
+            }
+            if (affectedRows == 1){
+                LOGGER.log(Level.INFO, "deleteVacaciones en Vacaciones = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "deleteVacaciones en Vacaciones = afecto a mas de 1 registros");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteVacaciones en Vacaciones = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -144,9 +163,10 @@ public class CRUDVacaciones {
                 listaVacaciones.add(vacaciones);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "setListaVacaciones en Vacaciones = exito");
             return listaVacaciones;
         } catch (SQLException e) {
-            //TODO incluis log para bbdd
+            LOGGER.log(Level.SEVERE, "setListaVacaciones en Vacaciones = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return listaVacaciones;
@@ -155,34 +175,9 @@ public class CRUDVacaciones {
 
     // endregion
 
-    public static void main(String[] args) throws SQLException {
-        CRUDVacaciones crudVacaciones = new CRUDVacaciones();
-        var listaVacaciones = crudVacaciones.readAllVacaciones();
-        System.out.println("Lista: " + listaVacaciones.get(0).toString());
+    //region Atributos
 
-        var borradoOK = crudVacaciones.deleteVacaciones(0);
-        System.out.println(borradoOK);
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDVacaciones");
 
-        Vacaciones vacaciones = new Vacaciones();
-        vacaciones.setFecha_solicitada_inicio(Date.valueOf("1995-10-10"));
-        vacaciones.setFecha_solicitada_fin(Date.valueOf("1996-10-10"));
-        vacaciones.setFecha_aprobada_inicio(Date.valueOf("1997-10-10"));
-        vacaciones.setFecha_aprobada_fin(Date.valueOf("1995-10-10"));
-        vacaciones.setObservaciones("observacon vacioenes");
-        vacaciones.setIdTrabajador(1); //TODO hay que hacer un trabajador primero
-
-        int idRowVacaciones = 0;
-        idRowVacaciones = crudVacaciones.createVacaciones(vacaciones);
-        System.out.println("Nuevo vacaciones con id: " + idRowVacaciones);
-        vacaciones.setId(idRowVacaciones);
-
-        //UPDATE
-        vacaciones.setObservaciones("Observacion actualiza");
-        boolean updateOk = crudVacaciones.updateVacaciones(vacaciones);
-        if (updateOk){
-            System.out.println("Actualizado");
-        }else{
-            System.out.println("Error");
-        }
-    }
+    //endregion
 }

@@ -6,6 +6,8 @@ import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDMaterialUtilizadoActuacion {
 
@@ -20,8 +22,10 @@ public class CRUDMaterialUtilizadoActuacion {
             var listamaterialutilizadoactuacion = setListaMaterialUtilizadoActuacion(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "readAllMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
             return  listamaterialutilizadoactuacion;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "readAllMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -52,8 +56,10 @@ public class CRUDMaterialUtilizadoActuacion {
                 idRowMaterialUtilizadoActuacion = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
             return idRowMaterialUtilizadoActuacion;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -77,8 +83,10 @@ public class CRUDMaterialUtilizadoActuacion {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -101,10 +109,17 @@ public class CRUDMaterialUtilizadoActuacion {
             preparedStatement.setInt(3, materialUtilizadoActuacion.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + materialUtilizadoActuacion.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "updateMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = no afecto a ningun registro");
+                throw  new SQLException("No se pudo actualizar registro id = " + materialUtilizadoActuacion.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
+                return true;
+            }
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -141,4 +156,10 @@ public class CRUDMaterialUtilizadoActuacion {
     }
 
     // endregion
+
+    //region Atributos
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.public class CRUDMaterialUtilizadoActuacion");
+
+    //endregion
 }
