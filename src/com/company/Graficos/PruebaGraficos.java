@@ -64,6 +64,9 @@ public class PruebaGraficos extends JFrame{
 
         pack();
         repaint();
+
+        //TODO ahora hay q hacer que entren parametros y vamos hasiendo cositas chulas
+        //TODO la dificultad estaria (en el caso de usarlo en las propias tablas) de add hilos >> Pero se me da bien coser
     }
 
     public static void main(String[] args) {
