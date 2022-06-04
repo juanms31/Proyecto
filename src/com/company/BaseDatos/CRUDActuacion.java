@@ -1,8 +1,6 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Actuacion;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;

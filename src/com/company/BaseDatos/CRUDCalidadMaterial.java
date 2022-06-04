@@ -1,11 +1,11 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.CalidadMaterial;
-import com.company.Entidades.UnidadMaterial;
-import com.company.Entidades.Vacaciones;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDCalidadMaterial {
 
@@ -26,9 +26,11 @@ public class CRUDCalidadMaterial {
             var listCalidadMaterial = setListaCalidadMaterial(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en CalidadMaterial = exito");
             return  listCalidadMaterial;
 
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en CalidadMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -56,8 +58,10 @@ public class CRUDCalidadMaterial {
                 idRowCalidadMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createCalidadMaterial en CalidadMaterial = exito");
             return idRowCalidadMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createCalidadMaterial en CalidadMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -95,4 +99,10 @@ public class CRUDCalidadMaterial {
     }
 
     // endregion
+
+    //region ATRIBUTOS
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDCalidadMaterial");
+
+    //endregion
 }
