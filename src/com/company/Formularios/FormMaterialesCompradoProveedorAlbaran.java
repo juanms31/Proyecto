@@ -177,9 +177,15 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                formAlbaran.setMaterialesFromFormulario(getMateriales());
-                formAlbaran.setMaterialesCompradoProveedorFromFormulario(getMaterialCompradoProveedor());
-                dispose();
+                if (UnidadesFilled()) {
+
+                    formAlbaran.setMaterialesFromFormulario(getMateriales());
+                    formAlbaran.setMaterialesCompradoProveedorFromFormulario(getMaterialCompradoProveedor());
+                    dispose();
+
+                } else {
+                    ShowErrorMessage("Error", "Complete el campo Unidades");
+                }
             }
         });
 
@@ -253,6 +259,8 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
     public ArrayList<MaterialCompradoProveedor> getMaterialCompradoProveedor() {
 
+        boolean result = UnidadesFilled();
+
         ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
 
         for (int i = 0; i < TableMateriales.getRowCount(); i++) {
@@ -260,16 +268,35 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
             MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
             materialCompradoProveedor.setMaterial(materialesOut.get(i));
+
             j++;
 
             materialCompradoProveedor.setUnidades(Integer.valueOf(String.valueOf(TableMateriales.getValueAt(i, j++))));
             materialCompradoProveedor.setPrecioUnidad(Double.valueOf(String.valueOf(TableMateriales.getValueAt(i, j))));
-            materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades()*materialCompradoProveedor.getPrecioUnidad());
+            materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades() * materialCompradoProveedor.getPrecioUnidad());
 
             materialesCompradoProveedor.add(materialCompradoProveedor);
         }
 
         return materialesCompradoProveedor;
+
+
+    }
+
+    private boolean UnidadesFilled() {
+
+        for (int i = 0; i < TableMateriales.getRowCount(); i++) {
+            int j = 2;
+
+            try {
+                int unidades = Integer.valueOf(String.valueOf(TableMateriales.getValueAt(i, j++)));
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+
+        }
+        return false;
     }
 
     //endregion

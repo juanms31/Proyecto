@@ -131,6 +131,7 @@ public class FormAlbaran extends JDialog {
 
         if(conErrores){
 
+
         }else{
 
             if(viewAlbaran.getNewAlbaranFromFormulario(getAlbaran())){
@@ -229,6 +230,11 @@ public class FormAlbaran extends JDialog {
         }
         if (formattedTextFieldFechaEntrada.getText().equals("  -  -    ")) {
             ShowErrorMessage("Error", "Campo Fecha Entrada no puede estar vacio");
+            return true;
+        }
+
+        if(materialesCompradoProveedor.isEmpty()){
+            ShowErrorMessage("Error", "Debes añadir materiales al albaran.");
             return true;
         }
 
