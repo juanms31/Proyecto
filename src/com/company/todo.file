@@ -16,8 +16,7 @@ MOD:
 Juancho:
 
     - Manejar eventos de propagacion
-    - Logs: https://medium.com/el-acordeon-del-programador/logs-en-java-con-java-util-logging-d344ae2ba7bc#:~:text=La%20forma%20en%20que%20opera,aparezcan%20automáticamente%20en%20la%20consola
     - Graficos:
-    - CRUD Usuarios
     - Chat: http://aitorrm.github.io/java%20ee/websockets_chat_minimalista/
     - Calendario:
+    - jasperReport

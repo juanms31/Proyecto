@@ -10,7 +10,7 @@ import java.util.logging.*;
 public class Main {
 
     private static final Logger LOG_RAIZ = Logger.getLogger("com.company");
-    private static final Logger LOG_SUBNIVEL = Logger.getLogger("com.company.BaseDatos");
+//    private static final Logger LOG_SUBNIVEL = Logger.getLogger("com.company.BaseDatos");
 
     //Log para el main
     private static final Logger LOGGER = Logger.getLogger("com.company.Main");
@@ -36,12 +36,6 @@ public class Main {
             LOG_RAIZ.addHandler(consoleHandler);
             LOG_RAIZ.addHandler(fileHandler);
 
-            //Pruebas
-
-            //LOG_SUBNIVEL.addHandler(consoleHandler);
-            //LOG_SUBNIVEL.addHandler(fileHandler);
-
-            //fin pruebas
             consoleHandler.setLevel(Level.SEVERE);
             fileHandler.setLevel(Level.ALL);
 
