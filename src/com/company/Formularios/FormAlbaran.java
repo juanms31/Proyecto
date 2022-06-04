@@ -134,6 +134,10 @@ public class FormAlbaran extends JDialog {
         }else{
 
             if(viewAlbaran.getNewAlbaranFromFormulario(getAlbaran())){
+                for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
+
+                    System.out.println("FORMULARIO:" + materialCompradoProveedor.toString());
+                }
                 if(viewAlbaran.getMaterialesAlbaranFromFormulario(materialesCompradoProveedor)) {
                     dispose();
                     ShowMessage("Correcto", "Se ha creado el albaran correctamente");
@@ -189,6 +193,11 @@ public class FormAlbaran extends JDialog {
         this.materialesOut = materiales;
     }
 
+    public void setMaterialesCompradoProveedorFromFormulario(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+
+        this.materialesCompradoProveedor = materialesCompradoProveedor;
+    }
+
     //endregion
 
     //region SET Y GET MATERIAL
@@ -229,19 +238,16 @@ public class FormAlbaran extends JDialog {
     private Albaran getAlbaran() {
 
         Albaran albaran = new Albaran();
+//        materialesCompradoProveedor = new ArrayList<>();
         int cont = 0;
 
         if(materialesOut.isEmpty()) {
 
-
-
-            MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
-
             albaran.setCod(textFieldCodigo.getText());
-            System.out.println("ID ALBARAN FROM FORMULARIO1: " + textFieldCodigo.getText());
             albaran.setProveedor(proveedores.get(comboBoxProveedores.getSelectedIndex() - 1));
             albaran.setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
             albaran.setConcepto(textAreaConcepto.getText());
+
             //Procesamos Fecha
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -254,7 +260,11 @@ public class FormAlbaran extends JDialog {
                 throw new RuntimeException(e);
             }
 
-            materialesCompradoProveedor.add(materialCompradoProveedor);
+            materialesCompradoProveedor.get(cont).setMaterial(materialesOut.get(cont));
+            materialesCompradoProveedor.get(cont).setProveedor(proveedores.get(comboBoxProveedores.getSelectedIndex() - 1));
+            materialesCompradoProveedor.get(cont).setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
+            materialesCompradoProveedor.get(cont).setAlbaran(albaran);
+
         }else {
 
             for (Material material : materialesOut) {
@@ -278,18 +288,16 @@ public class FormAlbaran extends JDialog {
                     throw new RuntimeException(e);
                 }
 
-                materialCompradoProveedor.setMaterial(materialesOut.get(cont));
-                materialCompradoProveedor.setProveedor(proveedores.get(comboBoxProveedores.getSelectedIndex() - 1));
-                materialCompradoProveedor.setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
-                materialCompradoProveedor.setAlbaran(albaran);
+                materialesCompradoProveedor.get(cont).setMaterial(materialesOut.get(cont));
+                materialesCompradoProveedor.get(cont).setProveedor(proveedores.get(comboBoxProveedores.getSelectedIndex() - 1));
+                materialesCompradoProveedor.get(cont).setActuacion(actuaciones.get(comboBoxActuaciones.getSelectedIndex() - 1));
+                materialesCompradoProveedor.get(cont).setAlbaran(albaran);
 
-                materialesCompradoProveedor.add(materialCompradoProveedor);
                 cont++;
             }
         }
         return albaran;
     }
-
     //endregion Albaran
 
     //region Listeners
@@ -371,15 +379,11 @@ public class FormAlbaran extends JDialog {
     private JComboBox comboBoxActuaciones;
     private JTextArea textAreaConcepto;
     private JLabel labelTitulo;
-
     private ArrayList<Actuacion> actuaciones;
     private ArrayList<Proveedor> proveedores;
     private ArrayList<Material> materiales;
     private ArrayList<Material> materialesOut =  new ArrayList<>();
     private ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
-
-
-
     int estado = 0;
     private Albaran AlbaranSiendoModificado;
 

@@ -178,6 +178,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 formAlbaran.setMaterialesFromFormulario(getMateriales());
+                formAlbaran.setMaterialesCompradoProveedorFromFormulario(getMaterialCompradoProveedor());
                 dispose();
             }
         });
@@ -261,9 +262,9 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
             materialCompradoProveedor.setMaterial(materialesOut.get(i));
             j++;
 
-            materialCompradoProveedor.setUnidades((Integer) TableMateriales.getValueAt(i, j++));
-            materialCompradoProveedor.setPrecioUnidad((Integer) TableMateriales.getValueAt(i, j++));
-            materialCompradoProveedor.setBaseImponible((Integer) TableMateriales.getValueAt(i, j++));
+            materialCompradoProveedor.setUnidades(Integer.valueOf(String.valueOf(TableMateriales.getValueAt(i, j++))));
+            materialCompradoProveedor.setPrecioUnidad(Double.valueOf(String.valueOf(TableMateriales.getValueAt(i, j))));
+            materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades()*materialCompradoProveedor.getPrecioUnidad());
 
             materialesCompradoProveedor.add(materialCompradoProveedor);
         }

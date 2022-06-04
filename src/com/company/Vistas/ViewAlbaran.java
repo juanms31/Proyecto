@@ -4,7 +4,6 @@ import com.company.Controlador.ControladorAlbaran;
 import com.company.Entidades.*;
 import com.company.Formularios.FormAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -187,10 +186,9 @@ public class ViewAlbaran extends JFrame {
 
     public boolean getMaterialesAlbaranFromFormulario(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
         this.materialesCompradosProveedor = materialesCompradosProveedor;
+
         return controladorAlbaran.createMaterialesCompradoProveedor(materialesCompradoProveedor);
     }
-
-
     //endregion
 
     //region Mensajes
@@ -321,9 +319,9 @@ public class ViewAlbaran extends JFrame {
         newMaterial[y++] = material.getDescripcion();
 
         // FIXME: 04/06/2022 ESTOS DATOS SE PIERDEN POR EL CAMINO
-        // newMaterial[y++] = materialCompradoProveedor.getUnidades();
-        // newMaterial[y++] = materialCompradoProveedor.getPrecioUnidad();
-        // newMaterial[y++] = materialCompradoProveedor.getBaseImponible();
+         newMaterial[y++] = materialCompradoProveedor.getUnidades();
+         newMaterial[y++] = materialCompradoProveedor.getPrecioUnidad();
+         newMaterial[y++] = materialCompradoProveedor.getBaseImponible();
 
         modelMaterialesAlbaran.addRow(newMaterial);
 
