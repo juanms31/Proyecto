@@ -6,6 +6,8 @@ import com.company.Entidades.Trabajador;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDTrabajador {
 
@@ -28,8 +30,10 @@ public class CRUDTrabajador {
             var listaTrabajadores = setListaTrabajador(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Trabajador = exito");
             return  listaTrabajadores;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Trabajador = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -53,7 +57,10 @@ public class CRUDTrabajador {
             preparedStatement.setString(8, trabajador.getPuesto());
             preparedStatement.setDouble(9, trabajador.getSalario());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "createTrabajador en Trabajador = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowTrabajador = 0;
@@ -61,8 +68,10 @@ public class CRUDTrabajador {
                 idRowTrabajador = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createTrabajador en Trabajador = exito");
             return idRowTrabajador;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createTrabajador en Trabajador = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -86,8 +95,10 @@ public class CRUDTrabajador {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteTrabajador en Trabajador = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteTrabajador en Trabajador = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -113,10 +124,18 @@ public class CRUDTrabajador {
             preparedStatement.setInt(9, trabajador.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + trabajador.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "updateTrabajador en Trabajador = no afecto a ningun registro");
+                throw  new SQLException("No se pudo actualizar registro id = " + trabajador.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateTrabajador en Trabajador = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "updateTrabajador en Trabajador = afecto a mas de un registro");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateTrabajador en Trabajador = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -135,11 +154,13 @@ public class CRUDTrabajador {
             ResultSet resultSet = statement.executeQuery(SELECT_TRABAJADORES);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumnsTrabajador en Trabajador = devolvio 0 columnas");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnsTrabajador en Trabajador = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsTrabajador en Trabajador = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -184,6 +205,7 @@ public class CRUDTrabajador {
     //region Variables
 
     private ControladorTrabajador controladorTrabajador;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDTrabajador");
 
     //endregion
 }

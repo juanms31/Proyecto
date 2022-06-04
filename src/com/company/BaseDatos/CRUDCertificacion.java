@@ -6,6 +6,8 @@ import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDCertificacion {
 
@@ -20,8 +22,10 @@ public class CRUDCertificacion {
             var listaCertificaciones = setListaCertificacion(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Certificacion = exito");
             return  listaCertificaciones;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Certificacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -55,8 +59,10 @@ public class CRUDCertificacion {
                 idRowCertificacion = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createCertificacion en Certificacion = exito");
             return idRowCertificacion;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createCertificacion en Certificacion = "  + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -80,8 +86,10 @@ public class CRUDCertificacion {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteCertificacion en Certificacion = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteCertificacion en Certificacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -108,10 +116,17 @@ public class CRUDCertificacion {
 
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + certificacion.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "updateCertificacion en Certificacion = no afecto a ningun registro");
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateCertificacion en Certificacion = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "updateCertificacion en Certificacion = afectó a mas de un registro");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateCertificacion en Certificacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -150,5 +165,11 @@ public class CRUDCertificacion {
     }
 
     // endregion
+
+    //region ATRIBUTOS
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDCertificacion");
+
+    //endregion
 }
 

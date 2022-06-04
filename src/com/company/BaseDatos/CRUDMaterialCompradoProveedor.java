@@ -1,6 +1,8 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.*;
+import com.company.Entidades.Cliente;
+import com.company.Entidades.MaterialCompradoProveedor;
+import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 public class CRUDMaterialCompradoProveedor {
 
     // region Metodos CRUD
-    public ArrayList<MaterialCompradoProveedor> getAll(){
+    public ArrayList<MaterialCompradoProveedor> readAllMaterialCompradoProveedor() throws SQLException {
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM materialcompradoproveedores";
         try {
@@ -22,6 +24,10 @@ public class CRUDMaterialCompradoProveedor {
             e.printStackTrace();
             BBDD.close();
             return  null;
+        } finally {
+            if (!connection.isClosed()){
+                BBDD.close();
+            }
         }
 
     }
@@ -128,78 +134,29 @@ public class CRUDMaterialCompradoProveedor {
     //region Metodos privados
 
     private ArrayList<MaterialCompradoProveedor> setListaMaterialCompradoProveedor(ResultSet resultSet) {
-        ArrayList<MaterialCompradoProveedor> materialCompradoProveedores = new ArrayList<>();
-        try {
-            while (resultSet.next()){
-                MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
-                materialCompradoProveedor.setId(resultSet.getInt("id"));
-                materialCompradoProveedor.setMaterial(setMaterialfromId(resultSet.getInt("id_material")));
-                materialCompradoProveedor.setProveedor(setProveedorfromId(resultSet.getInt("id_proveedor")));
-                materialCompradoProveedor.setActuacion(setActuacionfromId(resultSet.getInt("id_actuacion")));
-                materialCompradoProveedor.setAlbaran(setAlbaranfromId(resultSet.getInt("id_albaran")));
-                materialCompradoProveedor.setUnidades(resultSet.getInt("unidades"));
-                materialCompradoProveedor.setPrecioUnidad(resultSet.getInt("precio_unidad"));
-                materialCompradoProveedor.setBaseImponible(resultSet.getInt("base_imponible"));
+//        ArrayList<MaterialCompradoProveedor> materialCompradoProveedores = new ArrayList<>();
+//        try {
+//            while (resultSet.next()){
+//                MaterialCompradoProveedor cliente = new MaterialCompradoProveedor();
+//                cliente.setId(resultSet.getInt("id"));
+//                cliente.setFecha_compra(resultSet.getDate("fecha_compra"));
+//                cliente.setId_material(resultSet.getInt("id_material"));
+//                cliente.setId_material(resultSet.getInt("id_proveedor"));
+//                cliente.setId_material(resultSet.getInt("id_actuacion"));
+//                cliente.setId_material(resultSet.getInt("id_albaran"));
+//
+//                materialCompradoProveedores.add(cliente);
+//            }
+//            BBDD.close();
+//            return materialCompradoProveedores;
+//        } catch (SQLException e) {
+//            //TODO incluis log para bbdd
+//            e.printStackTrace();
+//            BBDD.close();
+//            return materialCompradoProveedores;
+//        }
 
-                materialCompradoProveedores.add(materialCompradoProveedor);
-            }
-            BBDD.close();
-            return materialCompradoProveedores;
-        } catch (SQLException e) {
-            //TODO incluis log para bbdd
-            e.printStackTrace();
-            BBDD.close();
-            return materialCompradoProveedores;
-        }
-    }
-
-    private Albaran setAlbaranfromId(int id_albaran) {
-        ArrayList<Albaran> albaranes;
-        CRUDAlbaran crudAlbaran = new CRUDAlbaran();
-        albaranes = crudAlbaran.getAll();
-        for(Albaran albaran : albaranes){
-            if(id_albaran == albaran.getId()){
-                return albaran;
-            }
-        }
-        return new Albaran();
-    }
-
-
-    private Actuacion setActuacionfromId(int id_actuacion) {
-        ArrayList<Actuacion> actuaciones;
-        CRUDActuacion crudActuacion = new CRUDActuacion();
-        actuaciones = crudActuacion.getAll();
-        for(Actuacion actuacion : actuaciones){
-            if(id_actuacion == actuacion.getId()){
-                return actuacion;
-            }
-        }
-        return new Actuacion();
-    }
-
-    private Proveedor setProveedorfromId(int id_proveedor) {
-        ArrayList<Proveedor> proveedores;
-        CRUDProveedor crudProveedor = new CRUDProveedor();
-        proveedores = crudProveedor.getAll();
-        for(Proveedor proveedor : proveedores){
-            if(id_proveedor == proveedor.getId()){
-                return proveedor;
-            }
-        }
-        return new Proveedor();
-    }
-
-    private Material setMaterialfromId(int id_material) {
-        ArrayList<Material> materiales;
-        CRUDMaterial crudMaterial = new CRUDMaterial();
-        materiales = crudMaterial.getAll();
-        for(Material material : materiales){
-            if(id_material == material.getId()){
-                return material;
-            }
-        }
-        return new Material();
+        return new ArrayList<>();
     }
 
     // endregion

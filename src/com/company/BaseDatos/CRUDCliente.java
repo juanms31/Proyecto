@@ -5,14 +5,10 @@ import com.company.Entidades.Cliente;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDCliente {
-
-    //region ATRIBUTOS
-
-    private ControladorCliente controladorCliente;
-
-    //endregion
 
     public CRUDCliente(ControladorCliente controladorCliente) {
         this.controladorCliente = controladorCliente;
@@ -33,8 +29,10 @@ public class CRUDCliente {
             var listaClientes = setListaClientes(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Cliente = exito");
             return  listaClientes;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Cliente = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -102,8 +100,10 @@ public class CRUDCliente {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteCliente en Cliente = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteCliente en Cliente = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -136,10 +136,17 @@ public class CRUDCliente {
             preparedStatement.setInt(8, cliente.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "updateCliente en Cliente = no afecto a ningun cliente");
+                throw  new SQLException("No se pudo actualizar registro id = " + cliente.getId());
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateCliente en Cliente = exito");
+                return true;
+            }
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateCliente en Cliente = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -156,7 +163,7 @@ public class CRUDCliente {
 
     // endregion
 
-    //region consultas Meta Datos
+    //region consultas MetaDatos
 
     public String[] getColumnsCliente(){
         Connection connection = BBDD.connect();
@@ -166,11 +173,13 @@ public class CRUDCliente {
             ResultSet resultSet = statement.executeQuery(SELECT_CLIENTES);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.INFO, "getColumnsCliente en Cliente = devolvio 0 columnas");
             }
+            LOGGER.log(Level.INFO, "getColumnsCliente en Cliente = exito");
             BBDD.close();
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsCliente en Cliente = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -210,4 +219,11 @@ public class CRUDCliente {
     }
 
     // endregion
+
+    //region ATRIBUTOS
+
+    private ControladorCliente controladorCliente;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDCliente");
+
+    //endregion
 }

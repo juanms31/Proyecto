@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDEspecificacionActuacion {
     // region Metodos CRUD
@@ -21,9 +23,11 @@ public class CRUDEspecificacionActuacion {
             var listaEspecifiaciones = setListaEspecificaciones(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en EspecificacionActuacion = exito");
             return  listaEspecifiaciones;
 
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en EspecificacionActuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -55,6 +59,12 @@ public class CRUDEspecificacionActuacion {
             return especificacionActuaciones;
         }
     }
+
+    //endregion
+
+    //region ATRIBUTOS
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDEspecificacionActuacion");
 
     //endregion
 

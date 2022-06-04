@@ -1,11 +1,11 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Actuacion;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDActuacion {
 
@@ -24,8 +24,10 @@ public class CRUDActuacion {
             var listaActuaciones = setListaActuacion(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Actuacion = exito");
             return  listaActuaciones;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Actuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -74,8 +76,10 @@ public class CRUDActuacion {
                 idRowActuacion = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createActuacion en Actuacion = exito");
             return idRowActuacion;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createActuacion en Actuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -99,8 +103,10 @@ public class CRUDActuacion {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteActuacion en Actuacion = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createActuacion en Actuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -142,9 +148,14 @@ public class CRUDActuacion {
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + actuacion.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateActuacion en Actuacion = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "updateActuacion en Actuacion = no devuelve datos");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "updateActuacion en Actuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -203,10 +214,13 @@ public class CRUDActuacion {
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
                 System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumnActuacion en Actuacion = no devuelve columnas");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnActuacion en Actuacion = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createActuacion en Actuacion = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -217,4 +231,10 @@ public class CRUDActuacion {
     }
 
     // endregion
+
+    //region ATRIBUTOS
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDActuacion");
+
+    //endregion
 }

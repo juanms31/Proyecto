@@ -1,10 +1,11 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.EspecificacionMaterial;
-import com.company.Entidades.UnidadMaterial;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDEspecificacionMaterial {
 
@@ -22,9 +23,11 @@ public class CRUDEspecificacionMaterial {
             var listaEspecificacionMaterial = setListaEspecificacionMaterial(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en EspecificacionMaterial = exito");
             return  listaEspecificacionMaterial;
 
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en EspecificacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -51,8 +54,10 @@ public class CRUDEspecificacionMaterial {
                 idRowEspecificacionMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createEspecificacionMaterial en EspecificacionMaterial = exito");
             return idRowEspecificacionMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createEspecificacionMaterial en EspecificacionMaterial = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -90,4 +95,10 @@ public class CRUDEspecificacionMaterial {
     }
 
     // endregion
+
+    //region ATRIBUTOS
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDEspecificacionMaterial");
+
+    //endregion
 }

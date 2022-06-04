@@ -5,6 +5,8 @@ import com.company.Entidades.GrupoMaterial;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDGrupo {
 
@@ -26,9 +28,11 @@ public class CRUDGrupo {
             var listaGrupos = setListaGrupos(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Grupo = exito");
             return  listaGrupos;
 
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Grupo = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -47,7 +51,10 @@ public class CRUDGrupo {
             preparedStatement.setString(3, grupoMaterial.getNombreGrupo());
             preparedStatement.setString(4, grupoMaterial.getDescripcion());
             int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+            if (affectedRows == 0) {
+                LOGGER.log(Level.WARNING, "createGrupoMaterial en Grupo = no afecto a ningun registro");
+                throw new SQLException("No se pudo guardar");
+            }
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             int idRowGrupoMaterial = 0;
@@ -55,8 +62,10 @@ public class CRUDGrupo {
                 idRowGrupoMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createGrupoMaterial en Grupo = exito");
             return idRowGrupoMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createGrupoMaterial en Grupo = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -168,7 +177,7 @@ public class CRUDGrupo {
 
     // endregion
 
-    //region consultas Meta Datos
+    //region consultas MetaDatos
 
     public String[] getColumnsProveedor(){
         Connection connection = BBDD.connect();
@@ -178,11 +187,13 @@ public class CRUDGrupo {
             ResultSet resultSet = statement.executeQuery(SELECT_PROVEEDORES);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumnsProveedor en Grupo = no devolvio columnas");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnsProveedor en Grupo = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsProveedor en Grupo = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -208,9 +219,10 @@ public class CRUDGrupo {
                 grupoMaterials.add(grupoMaterial);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "setListaGrupos en Grupo = exito");
             return grupoMaterials;
         } catch (SQLException e) {
-            //TODO incluis log para bbdd
+            LOGGER.log(Level.SEVERE, "setListaGrupos en Grupo = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return grupoMaterials;
@@ -222,6 +234,8 @@ public class CRUDGrupo {
     //region Variables
 
     private ControladorProveedor controladorProveedor;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDGrupo");
 
     //endregion
+
 }

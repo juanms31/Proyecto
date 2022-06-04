@@ -1,10 +1,11 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.Trabajador;
 import com.company.Entidades.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDUsuario {
 
@@ -17,8 +18,10 @@ public class CRUDUsuario {
             var listaTrabajadores = setListaUsuarios(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Usuario = exito");
             return  listaTrabajadores;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Usuario = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -50,8 +53,10 @@ public class CRUDUsuario {
                 idRowUsuario = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createUsuario en Usuario = exito");
             return idRowUsuario;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createUsuario en Usuario = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -82,12 +87,19 @@ public class CRUDUsuario {
                 usuarios.add(usuario);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "setListaUsuarios en Usuario = exito");
             return usuarios;
         } catch (SQLException e) {
-            //TODO incluis log para bbdd
+            LOGGER.log(Level.SEVERE, "setListaUsuarios en Usuario = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return usuarios;
         }
     }
+
+    //region Atributos
+
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDUsuario");
+
+    //enderegion
 }

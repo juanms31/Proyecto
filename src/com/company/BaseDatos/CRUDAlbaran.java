@@ -5,6 +5,8 @@ import com.company.Entidades.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDAlbaran {
 
@@ -13,9 +15,7 @@ public class CRUDAlbaran {
 
     }
 
-    public CRUDAlbaran() {
-
-    }
+    public CRUDAlbaran() {}
 
     //endregion
 
@@ -30,8 +30,10 @@ public class CRUDAlbaran {
             var listaAlbaranes = setListaAlbaran(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Albaran = exito");
             return  listaAlbaranes;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Albaran = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  null;
@@ -61,8 +63,10 @@ public class CRUDAlbaran {
                 idRowActuacion = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "createAlbaran en Albaran = exito");
             return idRowActuacion;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "GetAll en Albaran = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return  -1;
@@ -81,8 +85,10 @@ public class CRUDAlbaran {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             BBDD.close();
+            LOGGER.log(Level.INFO, "deleteAlbaran en Albaran = exito");
             return  true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteAlbaran en Albaran = "+ e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -106,10 +112,17 @@ public class CRUDAlbaran {
             preparedStatement.setInt(6, albaran.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + albaran.getId());
-            if (affectedRows == 1) return true;
+            if (affectedRows == 0){
+                LOGGER.log(Level.WARNING, "updateAlbaran en Albaran = no ha afectado a ningun registro");
+            }
+            if (affectedRows == 1) {
+                LOGGER.log(Level.INFO, "updateAlbaran en Albaran = exito");
+                return true;
+            }
+            LOGGER.log(Level.WARNING, "createAlbaran en Albaran = ha afectado a mas de un registro");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "createAlbaran en Albaran = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -181,11 +194,13 @@ public class CRUDAlbaran {
             ResultSet resultSet = statement.executeQuery(SELECT_ALBARANES);
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
-                System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "getColumnsAlbaran en Albaran = no devolvió columnas");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnsAlbaran en Albaran = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsAlbaran en Albaran = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -208,7 +223,12 @@ public class CRUDAlbaran {
         return listActuaciones;
     }
 
+    //region ATRIBUTOS
+
     ArrayList<Actuacion> listActuaciones = getActuaciones();
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDAlbaran");
+
+    //endregion
 
 
 }
