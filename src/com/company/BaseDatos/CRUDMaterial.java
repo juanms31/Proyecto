@@ -4,6 +4,8 @@ import com.company.Controlador.ControladorMaterial;
 import com.company.Entidades.Material;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUDMaterial {
 
@@ -30,9 +32,10 @@ public class CRUDMaterial {
             var listMateriales = setListMateriales(resultSet);
 
             BBDD.close();
+            LOGGER.log(Level.INFO, "GetAll en Materiales = exito");
             return listMateriales;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "GetAll en Materiales = " + e.getMessage());
             BBDD.close();
             return null;
         }
@@ -94,8 +97,10 @@ public class CRUDMaterial {
                 idRowMaterial = generatedKeys.getInt(1);
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "Crear material = exito");
             return idRowMaterial;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Crear material = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return -1;
@@ -120,9 +125,11 @@ public class CRUDMaterial {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setString(1, id);
             preparedStatement.execute();
+            LOGGER.log(Level.INFO, "Borrar material = exito");
             BBDD.close();
             return true;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Borrar material = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;
@@ -185,8 +192,10 @@ public class CRUDMaterial {
             BBDD.close();
             if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + material.getId());
             if (affectedRows == 1) return true;
+            LOGGER.log(Level.INFO, "Actualizar material = exito");
             return false;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Actualizar material = " + e.getMessage());
             BBDD.close();
             e.printStackTrace();
             return false;
@@ -196,7 +205,7 @@ public class CRUDMaterial {
 
     //endregion
 
-    //region consultas Meta Datos
+    //region consultas MetaDatos
 
     public String[] getColumnsMaterial(){
         Connection connection = BBDD.connect();
@@ -207,10 +216,13 @@ public class CRUDMaterial {
             String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
             if (columnsName[0] == null){
                 System.out.println("Fallo en sacar los metatados");
+                LOGGER.log(Level.WARNING, "Fallo en sacar los metatados o columnas = 0");
             }
             BBDD.close();
+            LOGGER.log(Level.INFO, "Actualizar material = exito");
             return  columnsName;
         } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Actualizar material = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             String columnsName[] = new String[1];
@@ -258,51 +270,8 @@ public class CRUDMaterial {
 
     //endregion
 
-    public static void main(String[] args) {
-        CRUDMaterial crudMaterial = new CRUDMaterial(null);
-        var listMateriales = crudMaterial.getAll();
-        System.out.println("Lista: " + listMateriales.get(0).toString());
-        //System.out.println("Lista: " + listMateriales.get(1).toString());
-      //  var borradoOK = crudMaterial.deleteMaterial(2);
-      //  System.out.println(borradoOK);
-
-        Material material = new Material();
-        material.setGrupo("Grupo");
-        material.setCodigo("cod");
-        material.setDescripcion("Descripcion");
-        material.setEspecificacion("Especificacion");
-        material.setUnidad("Un");
-        material.setEspesor(120.2);
-        material.setCalidad("Calidad");
-        material.setProveedor1("Proveedor1");
-        material.setPrecio1(111.1);
-        material.setProveedor2("Proovedor2");
-        material.setPrecio2(222.2);
-        material.setProveedor3("Proveedor3");
-        material.setPrecio3(333.3);
-        material.setIdGrupo(null);
-        material.setIdEspecificacion(null);
-        material.setIdUnidad(null);
-
-        int idRowMaterial = 0;
-        try {
-            idRowMaterial = crudMaterial.createMaterial(material);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Nuevo registro con id = " + idRowMaterial);
-        material.setId(idRowMaterial);
-        //UPDATE
-        material.setCalidad("Calidad editada");
-        boolean updateOk = crudMaterial.updateMaterial(material);
-        if (updateOk){
-            System.out.println("Actulizado");
-        }else {
-            System.out.println("Problemas");
-        }
-    }
-
     //region ATRIBUTOS
     private ControladorMaterial controladorMaterial;
+    private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDMaterial");
     //endregion
 }

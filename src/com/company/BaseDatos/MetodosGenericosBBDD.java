@@ -1,6 +1,5 @@
 package com.company.BaseDatos;
 
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
