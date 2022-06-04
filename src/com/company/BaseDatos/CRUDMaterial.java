@@ -219,7 +219,7 @@ public class CRUDMaterial {
                 LOGGER.log(Level.WARNING, "Fallo en sacar los metatados o columnas = 0");
             }
             BBDD.close();
-            LOGGER.log(Level.INFO, "Actualizar material = exito");
+            LOGGER.log(Level.INFO, "getColumnsMaterial material = exito");
             return  columnsName;
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Actualizar material = " + e.getMessage());
