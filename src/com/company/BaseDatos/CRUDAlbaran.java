@@ -105,6 +105,7 @@ public class CRUDAlbaran {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, albaran.getCod());
+            System.out.println("FECHA ALBARAN: " + albaran.getFechaEntradaAlbaran());
             preparedStatement.setDate(2, albaran.getFechaEntradaAlbaran());
             preparedStatement.setInt(3, albaran.getActuacion().getId());
             preparedStatement.setInt(4, albaran.getProveedor().getId());

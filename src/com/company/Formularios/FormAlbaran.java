@@ -50,7 +50,7 @@ public class FormAlbaran extends JDialog {
 
         for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
 
-            System.out.println("FORMULARIO CONS:" + materialCompradoProveedor.toString());
+            System.out.println("FORMULARIO ALBARAN CONS:" + materialCompradoProveedor.toString());
         }
 
         initListeners();

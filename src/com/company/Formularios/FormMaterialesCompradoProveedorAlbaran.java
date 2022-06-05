@@ -44,6 +44,11 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         this.materiales = materiales;
         this.materialesCompradoProveedor = materialesCompradoProveedor;
 
+        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
+
+            System.out.println("FORMULARIO ALBARAN MATERIALES CONS:" + materialCompradoProveedor.toString());
+        }
+
         materialesOut = new ArrayList<>();
         initWindow();
         initComps();
@@ -385,9 +390,11 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     }
 
     public ArrayList<MaterialCompradoProveedor> getMaterialCompradoProveedor() {
+
+        ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
+
         if(estado == 1){
 
-            ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
 
             for (int i = 0; i < modelMaterialesAlbaran.getRowCount(); i++) {
                 int j = 1;
@@ -406,15 +413,13 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
             }
         } else if (estado == 2) {
 
-            ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
-
             for (int i = 0; i < modelMaterialesAlbaran.getRowCount(); i++) {
                 int j = 1;
 
                 MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
 
 
-                materialCompradoProveedor.setId(materialesCompradoProveedor.get(i).getId());
+                materialCompradoProveedor.setId(this.materialesCompradoProveedor.get(i).getId());
                 materialCompradoProveedor.setMaterial(materialesOut.get(i));
 
                 j++;
@@ -428,10 +433,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
         }
 
-
         return materialesCompradoProveedor;
-
-
     }
 
     public void setMaterialCompradoProveedor() {
