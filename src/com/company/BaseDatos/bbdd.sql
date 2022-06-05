@@ -154,7 +154,7 @@ CREATE TABLE Albaran(
 );
 
 CREATE TABLE MaterialCompradoProveedores(
-    id INTEGER PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
     id_material INTEGER,
     id_proveedor INTEGER,
     id_actuacion INTEGER,
@@ -163,13 +163,21 @@ CREATE TABLE MaterialCompradoProveedores(
     precio_Unidad DOUBLE,
     base_Imponible DOUBLE,
     FOREIGN KEY (id_actuacion)
-        REFERENCES Actuacion (id),
+        REFERENCES Actuacion (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (id_proveedor)
-        REFERENCES Proveedor (id),
+        REFERENCES Proveedor (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (id_material)
-        REFERENCES Material (id),
+        REFERENCES Material (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (id_albaran)
         REFERENCES Albaran (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 

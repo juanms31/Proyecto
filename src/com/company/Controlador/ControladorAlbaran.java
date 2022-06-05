@@ -67,11 +67,6 @@ public class ControladorAlbaran {
 
     public boolean deleteAlbaran(int cod) {
         boolean result = crudAlbaran.deleteAlbaran(cod);
-        if (result) {
-            viewAlbaran.ShowMessage("CORRECTO", "El albaran con codigo: " + cod + " ha sido borrado");
-        } else {
-            viewAlbaran.ShowErrorMessage("ERROR", "El albaran con codigo: " + cod + " no se ha podido borrar");
-        }
         return result;
     }
 
@@ -96,6 +91,27 @@ public class ControladorAlbaran {
                 }
 
                 viewAlbaran.addTableMaterialAlbaran(materialCompradoProveedor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return result;
+    }
+
+    public boolean updateMaterialesAlbaran(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+        int i = 0;
+        boolean result = false;
+        Albaran albaran = getAlbaranFromCod(materialesCompradoProveedor.get(0).getAlbaran().getCod());
+
+        try {
+            for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor) {
+
+                materialCompradoProveedor.setAlbaran(albaran);
+
+                result = crudMaterialCompradoProveedor.updateMaterialCompradoProveedor(materialCompradoProveedor);
+
+                viewAlbaran.updateMaterialesCompradosAlbaran(materialCompradoProveedor);
             }
         } catch (SQLException e) {
             e.printStackTrace();

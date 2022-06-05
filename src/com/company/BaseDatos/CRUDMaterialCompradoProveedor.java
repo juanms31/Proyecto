@@ -64,6 +64,38 @@ public class CRUDMaterialCompradoProveedor {
         }
     }
 
+    public boolean updateMaterialCompradoProveedor(MaterialCompradoProveedor materialCompradoProveedor) throws SQLException {
+        Connection connection = BBDD.connect();
+        if (connection == null) return false;
+        final String QUERY_UPDATE = "UPDATE materialcompradoproveedores " +
+                "SET id_material = ?, id_proveedor = ?, id_actuacion = ?, unidades = ?, precio_unidad = ?, base_imponible = ? " +
+                "WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+            preparedStatement.setInt(1, materialCompradoProveedor.getMaterial().getId());
+            preparedStatement.setInt(2, materialCompradoProveedor.getProveedor().getId());
+            preparedStatement.setInt(3, materialCompradoProveedor.getActuacion().getId());
+            preparedStatement.setInt(4, materialCompradoProveedor.getUnidades());
+            preparedStatement.setDouble(5, materialCompradoProveedor.getPrecioUnidad());
+            preparedStatement.setDouble(6, materialCompradoProveedor.getBaseImponible());
+            preparedStatement.setInt(7, materialCompradoProveedor.getId());
+
+            int affectedRows = preparedStatement.executeUpdate();
+            BBDD.close();
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + materialCompradoProveedor.getId());
+            if (affectedRows == 1) return true;
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            BBDD.close();
+            return false;
+        } finally {
+            if (!connection.isClosed()){
+                BBDD.close();
+            }
+        }
+    }
+
     public MaterialCompradoProveedor readMaterialCompradoProveedor(int cod){
 
         return new MaterialCompradoProveedor();
@@ -89,38 +121,7 @@ public class CRUDMaterialCompradoProveedor {
         }
     }
 
-    public boolean updateMaterialCompradoProveedor(MaterialCompradoProveedor materialCompradoProveedor) throws SQLException {
-        Connection connection = BBDD.connect();
-        if (connection == null) return false;
-        final String QUERY_UPDATE = "UPDATE materialcompradoproveedores " +
-                "SET id_material = ?, id_proveedor = ?, id_actuacion = ?, id_albaran = ?, unidades = ?, precio_unidad = ?, base_imponible = ? " +
-                "WHERE id = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setInt(1, materialCompradoProveedor.getMaterial().getId());
-            preparedStatement.setInt(2, materialCompradoProveedor.getProveedor().getId());
-            preparedStatement.setInt(3, materialCompradoProveedor.getActuacion().getId());
-            preparedStatement.setInt(4, materialCompradoProveedor.getAlbaran().getId());
-            preparedStatement.setInt(5, materialCompradoProveedor.getUnidades());
-            preparedStatement.setDouble(6, materialCompradoProveedor.getPrecioUnidad());
-            preparedStatement.setDouble(7, materialCompradoProveedor.getBaseImponible());
-            preparedStatement.setInt(8, materialCompradoProveedor.getId());
 
-            int affectedRows = preparedStatement.executeUpdate();
-            BBDD.close();
-            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + materialCompradoProveedor.getId());
-            if (affectedRows == 1) return true;
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            BBDD.close();
-            return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
-        }
-    }
 
     // endregion
 

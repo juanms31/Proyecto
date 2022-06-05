@@ -105,24 +105,28 @@ public class CRUDAlbaran {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, albaran.getCod());
-            preparedStatement.setInt(2, albaran.getActuacion().getId());
-            preparedStatement.setInt(3, albaran.getProveedor().getId());
-            preparedStatement.setString(4, albaran.getConcepto());
-            preparedStatement.setDate(5, albaran.getFechaEntradaAlbaran());
+            preparedStatement.setDate(2, albaran.getFechaEntradaAlbaran());
+            preparedStatement.setInt(3, albaran.getActuacion().getId());
+            preparedStatement.setInt(4, albaran.getProveedor().getId());
+            preparedStatement.setString(5, albaran.getConcepto());
             preparedStatement.setInt(6, albaran.getId());
             int affectedRows = preparedStatement.executeUpdate();
             BBDD.close();
             if (affectedRows == 0){
                 LOGGER.log(Level.WARNING, "updateAlbaran en Albaran = no ha afectado a ningun registro");
+                return false;
             }
             if (affectedRows == 1) {
                 LOGGER.log(Level.INFO, "updateAlbaran en Albaran = exito");
                 return true;
             }
-            LOGGER.log(Level.WARNING, "createAlbaran en Albaran = ha afectado a mas de un registro");
-            return false;
+            if (affectedRows > 1) {
+                LOGGER.log(Level.WARNING, "updateAlbaran en Albaran = ha afectado a mas de un registro");
+            }
+
+            return true;
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "createAlbaran en Albaran = " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "updateAlbaran en Albaran = " + e.getMessage());
             e.printStackTrace();
             BBDD.close();
             return false;

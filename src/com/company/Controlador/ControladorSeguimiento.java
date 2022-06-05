@@ -100,7 +100,6 @@ public class ControladorSeguimiento {
         for (SeguimientoLaboral seguimientoLaboral : seguimientoLaborales){
             for(Actuacion actuacion : actuaciones){
                 if(seguimientoLaboral.getIdActuacion() ==  actuacion.getId()) {
-                    System.out.println("Actuacion: " + actuacion.getId());
                     seguimientoLaborales.get(posicion).setActuacion(actuacion);
                     seguimientoLaborales.get(posicion).setIdActuacion(actuacion.getId());
                 }

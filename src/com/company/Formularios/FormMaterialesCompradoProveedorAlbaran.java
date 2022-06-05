@@ -1,5 +1,6 @@
 package com.company.Formularios;
 
+import com.company.BaseDatos.CRUDMaterialCompradoProveedor;
 import com.company.Entidades.Material;
 import com.company.Entidades.MaterialCompradoProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -22,6 +24,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     //region Constructor
 
     public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran, String codAlbaran, ArrayList<Material> materiales) {
+        estado = 1;
         this.formAlbaran = formAlbaran;
         this.codAlbaran = codAlbaran;
         this.materiales = materiales;
@@ -31,6 +34,23 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         initListeners();
         setVisible(true);
     }
+
+    public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran, String codAlbaran,
+                                                  ArrayList<Material> materiales,
+                                                  ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+        estado = 2;
+        this.formAlbaran = formAlbaran;
+        this.codAlbaran = codAlbaran;
+        this.materiales = materiales;
+        this.materialesCompradoProveedor = materialesCompradoProveedor;
+
+        materialesOut = new ArrayList<>();
+        initWindow();
+        initComps();
+        initListeners();
+        setVisible(true);
+    }
+
     //endregion
 
     //region Vista
@@ -62,20 +82,30 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     }
 
     public void initComps() {
+        if (estado == 1) {
+//          Rellenamos el combo box con los materiales
+            comboBoxMateriales.addItem("Selecciona Material");
+            for (Material material : materiales) {
+                //Acotamos el nombre para que no sea muy largo a 15 caracteres..
+                comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0, material.getDescripcion().length() / 2) + "...");
 
-//        Rellenamos el combo box con los materiales
-        comboBoxMateriales.addItem("Selecciona Material");
-        for (Material material : materiales) {
-            //Acotamos el nombre para que no sea muy largo a 15 caracteres..
-            comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0, material.getDescripcion().length() / 2) + "...");
+            }
 
+            textFieldCodigo.setText(codAlbaran);
+            initTable();
+        } else if (estado == 2) {
+//          Rellenamos el combo box con los materiales
+            comboBoxMateriales.addItem("Selecciona Material");
+            for (Material material : materiales) {
+                //Acotamos el nombre para que no sea muy largo a 15 caracteres..
+                comboBoxMateriales.addItem(material.getCodigo() + " - " + material.getDescripcion().substring(0, material.getDescripcion().length() / 2) + "...");
+
+            }
+            textFieldCodigo.setText(codAlbaran);
+            initTable();
+            setMaterialCompradoProveedor();
         }
-
-        textFieldCodigo.setText(codAlbaran);
-
-        initTable();
     }
-
     //endregion
 
     //region METODOS TABLA
@@ -177,6 +207,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if (UnidadesFilled()) {
 
                     formAlbaran.setMaterialesFromFormulario(getMateriales());
@@ -213,42 +244,138 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     //region Metodos Privados
 
     public void addElement() {
-        if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
-            ShowErrorMessage("Error", "Selecciona solo un material por línea.");
-        } else {
-            int row = comboBoxMateriales.getSelectedIndex();
-            if (row == 0) {
+
+        if(estado == 1) {
+            int row = comboBoxMateriales.getSelectedIndex() - 1;
+            if (row == -1) {
+
                 ShowErrorMessage("Error", "Selecciona un material de la lista para añadirlo");
+
             } else {
-                Material material = materiales.get(row - 1);
-                materialesOut.add(material);
-                modelMaterialesAlbaran.addRow(getMaterialObject(material));
+
+                if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
+                    ShowErrorMessage("Error", "Selecciona solo un material por línea.");
+
+                } else {
+                    Material material = materiales.get(row);
+                    materialesOut.add(material);
+                    modelMaterialesAlbaran.addRow(getMaterialObject(material, ""));
+                }
             }
+        } else if (estado == 2) {
+
+            int row = comboBoxMateriales.getSelectedIndex() - 1;
+            if (row == -1) {
+
+                ShowErrorMessage("Error", "Selecciona un material de la lista para añadirlo");
+
+            } else {
+
+                if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
+                    ShowErrorMessage("Error", "Selecciona solo un material por línea.");
+
+                } else {
+                    Material material = materiales.get(row);
+
+                    materialesOut.add(material);
+
+                    materialesCompradoProveedor.add(addMaterialCompradoProveedortoBBDD(material));
+
+                    modelMaterialesAlbaran.addRow(getMaterialObject(material, ""));
+                }
+            }
+
         }
     }
 
-    public Object[] getMaterialObject(Material material) {
-        int y = 0;
+    private MaterialCompradoProveedor addMaterialCompradoProveedortoBBDD(Material material){
+        MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
+
+        materialCompradoProveedor.setMaterial(material);
+
+        materialCompradoProveedor.setProveedor(materialesCompradoProveedor.get(0).getProveedor());
+
+        materialCompradoProveedor.setActuacion(materialesCompradoProveedor.get(0).getActuacion());
+
+        materialCompradoProveedor.setAlbaran(materialesCompradoProveedor.get(0).getAlbaran());
+
+        materialCompradoProveedor.setUnidades(0);
+
+        materialCompradoProveedor.setPrecioUnidad(0);
+
+        materialCompradoProveedor.setBaseImponible(0);
+
+        CRUDMaterialCompradoProveedor crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+
+        try {
+            materialCompradoProveedor.setId(crudMaterialCompradoProveedor.createMaterialCompradoProveedor(materialCompradoProveedor));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return materialCompradoProveedor;
+
+    }
+
+    public Object[] getMaterialObject(Material material, String unidades) {
+
         Object[] newMaterial = new Object[headers.length];
-        newMaterial[y++] = material.getCodigo();
-        newMaterial[y++] = material.getDescripcion();
-        newMaterial[y++] = "";
-        newMaterial[y++] = material.getPrecio1();
+        if(estado == 1) {
+
+            int y = 0;
+
+            newMaterial[y++] = material.getCodigo();
+            newMaterial[y++] = material.getDescripcion();
+            newMaterial[y++] = unidades;
+            newMaterial[y++] = material.getPrecio1();
+
+        }else if(estado == 2){
+            int y = 0;
+
+            newMaterial[y++] = material.getCodigo();
+            newMaterial[y++] = material.getDescripcion();
+            newMaterial[y++] = unidades;
+            newMaterial[y++] = material.getPrecio1();
+
+        }
 
 
         return newMaterial;
     }
 
     public void removeElement() {
-        int row = TableMateriales.getSelectedRow();
-        if (row == -1) {
 
-            ShowErrorMessage("Error", "Selecciona un material para eliminar.");
+        if(estado == 1) {
 
-        } else {
-            Material material = materiales.get(row);
-            materialesOut.remove(row);
-            modelMaterialesAlbaran.removeRow(row);
+
+            int row = TableMateriales.getSelectedRow();
+
+            if (row == -1) {
+
+                ShowErrorMessage("Error", "Selecciona un material para eliminar.");
+
+            } else {
+                Material material = materiales.get(row);
+                materialesOut.remove(row);
+                modelMaterialesAlbaran.removeRow(row);
+            }
+
+        } else if (estado == 2) {
+
+            int row = TableMateriales.getSelectedRow();
+
+            if (row == -1) {
+
+                ShowErrorMessage("Error", "Selecciona un material para eliminar.");
+
+            } else {
+                Material material = materiales.get(row);
+
+                materialesOut.remove(row);
+                modelMaterialesAlbaran.removeRow(row);
+            }
+
+
         }
 
     }
@@ -258,51 +385,91 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     }
 
     public ArrayList<MaterialCompradoProveedor> getMaterialCompradoProveedor() {
+        if(estado == 1){
 
-        boolean result = UnidadesFilled();
+            ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
 
-        ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
+            for (int i = 0; i < modelMaterialesAlbaran.getRowCount(); i++) {
+                int j = 1;
 
-        for (int i = 0; i < TableMateriales.getRowCount(); i++) {
-            int j = 1;
+                MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
 
-            MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
-            materialCompradoProveedor.setMaterial(materialesOut.get(i));
+                materialCompradoProveedor.setMaterial(materialesOut.get(i));
 
-            j++;
+                j++;
 
-            materialCompradoProveedor.setUnidades(Integer.valueOf(String.valueOf(TableMateriales.getValueAt(i, j++))));
-            materialCompradoProveedor.setPrecioUnidad(Double.valueOf(String.valueOf(TableMateriales.getValueAt(i, j))));
-            materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades() * materialCompradoProveedor.getPrecioUnidad());
+                materialCompradoProveedor.setUnidades(Integer.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j++))));
+                materialCompradoProveedor.setPrecioUnidad(Double.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j))));
+                materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades() * materialCompradoProveedor.getPrecioUnidad());
 
-            materialesCompradoProveedor.add(materialCompradoProveedor);
+                materialesCompradoProveedor.add(materialCompradoProveedor);
+            }
+        } else if (estado == 2) {
+
+            ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
+
+            for (int i = 0; i < modelMaterialesAlbaran.getRowCount(); i++) {
+                int j = 1;
+
+                MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
+
+
+                materialCompradoProveedor.setId(materialesCompradoProveedor.get(i).getId());
+                materialCompradoProveedor.setMaterial(materialesOut.get(i));
+
+                j++;
+
+                materialCompradoProveedor.setUnidades(Integer.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j++))));
+                materialCompradoProveedor.setPrecioUnidad(Double.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j))));
+                materialCompradoProveedor.setBaseImponible(materialCompradoProveedor.getUnidades() * materialCompradoProveedor.getPrecioUnidad());
+
+                materialesCompradoProveedor.add(materialCompradoProveedor);
+            }
+
         }
+
 
         return materialesCompradoProveedor;
 
 
     }
 
+    public void setMaterialCompradoProveedor() {
+
+        for(MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
+            for(Material material : materiales){
+                if(materialCompradoProveedor.getMaterial().getId() == material.getId()){
+                    modelMaterialesAlbaran.addRow(getMaterialObject(material, String.valueOf(materialCompradoProveedor.getUnidades())));
+                    materialesOut.add(material);
+                }
+            }
+        }
+    }
+
     private boolean UnidadesFilled() {
+
+        boolean result = false;
 
         for (int i = 0; i < TableMateriales.getRowCount(); i++) {
             int j = 2;
 
             try {
-                int unidades = Integer.valueOf(String.valueOf(TableMateriales.getValueAt(i, j++)));
-                return true;
+                int unidades = Integer.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j)));
+                result = true;
             } catch (NumberFormatException e) {
-                return false;
+
+                result = false;
             }
 
         }
-        return false;
+        return result;
     }
 
     //endregion
 
 
     //region Variables
+    private int estado = 0;
     private FormAlbaran formAlbaran;
     private JLabel labelTitulo;
     private JTextField textFieldCodigo;
@@ -316,6 +483,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     private String codAlbaran;
     private ArrayList<Material> materiales;
     private ArrayList<Material> materialesOut;
+    private ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor;
     private DefaultTableModel modelMaterialesAlbaran;
     private TableRowSorter sorter;
 
