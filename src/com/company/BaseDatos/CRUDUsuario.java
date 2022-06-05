@@ -81,7 +81,7 @@ public class CRUDUsuario {
                 usuario.setNacionalidad(resultSet.getString("nacionalidad"));
                 usuario.setEmail(resultSet.getString("email"));
 
-                // TODO: 02/06/2022 HASHEAR LA CONTRASEÑA
+                // TODO: 02/06/2022 DESHASHEAR LA CONTRASEÑA
                 usuario.setPass(resultSet.getString("pass"));
 
                 usuarios.add(usuario);
