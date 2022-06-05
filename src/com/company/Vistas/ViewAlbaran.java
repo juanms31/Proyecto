@@ -287,6 +287,9 @@ public class ViewAlbaran extends JFrame {
     public void updateMaterialesCompradosAlbaran(MaterialCompradoProveedor materialCompradoProveedor) {
         int cont = 0;
         boolean encontrado = false;
+
+        ArrayList<MaterialCompradoProveedor> temp = new ArrayList<>();
+
         for(MaterialCompradoProveedor materialCompradoProveedor1 : materialesCompradosProveedor){
             if(materialCompradoProveedor1.getId() == materialCompradoProveedor.getId()){
                 encontrado = true;
@@ -297,13 +300,12 @@ public class ViewAlbaran extends JFrame {
                 materialesCompradosProveedor.get(cont).setUnidades(materialCompradoProveedor.getUnidades());
                 materialesCompradosProveedor.get(cont).setPrecioUnidad(materialCompradoProveedor.getPrecioUnidad());
                 materialesCompradosProveedor.get(cont).setBaseImponible(materialCompradoProveedor.getBaseImponible());
+            }else {
+                temp.add(materialCompradoProveedor);
             }
             cont++;
         }
-
-//        if(!encontrado){
-//            materialesCompradosProveedor.add(materialCompradoProveedor);
-//        }
+        // FIXME: 05/06/2022 HAY QUE ACTUALIZAR LA LISTA DE MATERIALES COMPRADO PROVEEDOR CUANDO SE ANADE UN NUEVO MATERIAL CUANDO EDITAS UN ALBARAN
     }
 
     public void addTableAlbaran(Albaran albaran) {
@@ -358,6 +360,9 @@ public class ViewAlbaran extends JFrame {
         TableMaterialesAlbaran.setModel(modelMaterialesAlbaran);
 
         for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor) {
+
+                System.out.println("VISTA ALBARAN SETMATERIALES:" + materialCompradoProveedor.toString());
+
             if (albaran.getId() == materialCompradoProveedor.getAlbaran().getId()) {
 
                 Material material = getMaterialFromCod(materialCompradoProveedor.getMaterial().getId());
