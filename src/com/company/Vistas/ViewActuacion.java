@@ -7,9 +7,9 @@ import com.company.Entidades.EspecificacionActuacion;
 import com.company.Formularios.FormActuacion;
 import com.company.Formularios.FormCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 public class ViewActuacion extends JFrame {
@@ -76,33 +77,6 @@ public class ViewActuacion extends JFrame {
         refreshTable(headersActuacion, headersFechasActuacion, actuaciones);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
 
-//        // TODO: 31/05/2022 IMPLEMENTAR FILECHOOSER
-//        JFileChooser pathing = new JFileChooser();
-//        pathing.setCurrentDirectory(new File("src/com/company"));
-//        pathing.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        pathing.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(pathing.isValid()) settingsFilled = true;
-//            }
-//        });
-//
-//        //Para el filtro de archivos
-//        png = new JCheckBox(".png");
-//        png.setBounds(170, 100, 50, 25);
-//        png.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (png.isSelected()) {
-//                    jpeg.setSelected(false);
-//                    gif.setSelected(false);
-//                    FileNameExtensionFilter filtroPNG = new FileNameExtensionFilter("*.png", "png");
-//                    pathing.setFileFilter(filtroPNG);
-//                    settingsFilled = true;
-//                }
-//            }
-//        });
-//
     }
 
     //endregion
@@ -376,6 +350,10 @@ public class ViewActuacion extends JFrame {
 
     }
 
+    private void setArchivos(Actuacion actuacion) {
+        buttonHojaPresupuesto.setText(actuacion.getHojaPresupuesto());
+        buttonHojaPlanificacion.setText(actuacion.getHojaPlanificacion());
+    }
 
     private Actuacion getActuacion() {
         int row = TableActuaciones.getSelectedRow();
@@ -441,6 +419,41 @@ public class ViewActuacion extends JFrame {
             }
         });
 
+
+
+        buttonHojaPlanificacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser pathing = new JFileChooser();
+                pathing.setCurrentDirectory(new File("src/com/company"));
+                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                pathing.setFileFilter(filtroPDF);
+                int seleccion = pathing.showOpenDialog(panelPrincipal);
+
+                if(seleccion == JFileChooser.APPROVE_OPTION){
+                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                }
+
+            }
+        });
+
+        buttonHojaPresupuesto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser pathing = new JFileChooser();
+                pathing.setCurrentDirectory(new File("src/com/company"));
+                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                pathing.setFileFilter(filtroPDF);
+                int seleccion = pathing.showOpenDialog(panelPrincipal);
+
+                if(seleccion == JFileChooser.APPROVE_OPTION){
+                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                }
+            }
+        });
+
     }
 
     private void mouseListeners() {
@@ -457,6 +470,8 @@ public class ViewActuacion extends JFrame {
                     setFechas(actuacion);
 
                     setCliente(actuacion);
+
+                    setArchivos(actuacion);
                 }
 
                 if (e.getClickCount() == 2) {
@@ -516,15 +531,14 @@ public class ViewActuacion extends JFrame {
     private JButton buttonVolver;
     private JPanel buscador;
     private JPanel panelBotones;
-    private JButton ButtonHojaPlanificacion;
+    private JButton buttonHojaPlanificacion;
     private JProgressBar progressBarProgreso;
     private JTextField textFieldHorasOfertadas;
     private JTextField textFieldHorasEjecutadas;
     private JTable TableFechas;
     private JTable TableClientes;
-    private JLabel JLabelHojaPlanificacion;
-    private JLabel JLabelHojaPresupuesto;
     private JLabel labelTitulo;
+    private JButton buttonHojaPresupuesto;
 
 
     //endregion
