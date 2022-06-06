@@ -220,6 +220,7 @@ public class CRUDActuacion {
                 System.out.println("Fallo en sacar los metatados");
                 LOGGER.log(Level.WARNING, "getColumnActuacion en Actuacion = no devuelve columnas");
             }
+
             BBDD.close();
             LOGGER.log(Level.INFO, "getColumnActuacion en Actuacion = exito");
             return  columnsName;

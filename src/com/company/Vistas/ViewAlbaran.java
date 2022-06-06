@@ -385,8 +385,6 @@ public class ViewAlbaran extends JFrame {
 
         Actuacion actuacion = albaran.getActuacion();
 
-        System.out.println("ACTUACION DESDE SETACTUACION: " + actuacion.toString());
-
         Object[] newActuacion = new Object[headersActuacion.length];
         newActuacion[y++] = actuacion.getNombre();
         newActuacion[y++] = actuacion.getEspecificacion();
@@ -446,7 +444,6 @@ public class ViewAlbaran extends JFrame {
 
         for (MaterialCompradoProveedor mat1: materialesCompradoProveedor ) {
             if(!ExisteId(mat1.getId())){
-                System.out.println("Material Nuevo:" + mat1.toString());
                 nuevos.add(mat1);
             }
         }

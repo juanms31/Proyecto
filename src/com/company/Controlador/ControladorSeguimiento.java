@@ -68,10 +68,10 @@ public class ControladorSeguimiento {
     public String[] getColumnsName(){
         String[] listColumnsName = crudSeguimientoLaboral.getColumsSeguimiento();
         if (listColumnsName[0] == null){
-            System.out.println("Fallo en base de datos");
+            viewSeguimiento.ShowErrorMessage("Error", "No se han detectado atributos para el seguimiento en la BBDD. Contacte con un administrador");
         }
         if (listColumnsName[0].equals("Error en CRUD")){
-            System.out.println("Fallo en CRUD");
+            viewSeguimiento.ShowErrorMessage("Error", "No se han detectado atributos para el seguimiento en la BBDD. Contacte con un administrador");
         }
         return listColumnsName;
     }
@@ -115,7 +115,6 @@ public class ControladorSeguimiento {
         for (SeguimientoLaboral seguimientoLaboral : seguimientoLaborales){
             for(Trabajador trabajador : trabajadores){
                 if(seguimientoLaboral.getIdTrabajador() ==  trabajador.getId()) {
-                    System.out.println("Trabajador: " + trabajador.getId());
                     seguimientoLaborales.get(posicion).setTrabajador(trabajador);
                     seguimientoLaborales.get(posicion).setIdTrabajador(trabajador.getId());
                 }

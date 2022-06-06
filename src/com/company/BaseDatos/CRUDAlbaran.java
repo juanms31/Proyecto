@@ -185,8 +185,6 @@ public class CRUDAlbaran {
     private Actuacion getActuacionFromId(int id_Actuacion) {
         for(Actuacion actuacion : listActuaciones){
             if(id_Actuacion == actuacion.getId()){
-                System.out.println(" BBDD ID ACTUACION: " +  id_Actuacion);
-                System.out.println(" BBDD ACTUACION: " +  actuacion.toString());
                 return actuacion;
             }
         }

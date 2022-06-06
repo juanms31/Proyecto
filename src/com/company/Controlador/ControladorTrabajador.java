@@ -54,10 +54,10 @@ public class ControladorTrabajador {
     public String[] getColumnsName(){
         String[] listColumnsName = crudTrabajador.getColumnsTrabajador();
         if (listColumnsName[0] == null){
-            System.out.println("Fallo en base de datos");
+            viewTrabajador.ShowErrorMessage("Error", "No se han detectado atributos para el trabajador en la BBDD. Contacte con un administrador");
         }
         if (listColumnsName[0].equals("Error en CRUD")){
-            System.out.println("Fallo en CRUD");
+            viewTrabajador.ShowErrorMessage("Error", "No se han detectado atributos para el trabajador en la BBDD. Contacte con un administrador");
         }
         return listColumnsName;
     }

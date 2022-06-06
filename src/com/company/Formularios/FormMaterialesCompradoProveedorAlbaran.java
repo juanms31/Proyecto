@@ -44,11 +44,6 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         this.materiales = materiales;
         this.materialesCompradoProveedor = materialesCompradoProveedor;
 
-        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
-
-            System.out.println("FORMULARIO ALBARAN MATERIALES CONS:" + materialCompradoProveedor.toString());
-        }
-
         materialesOut = new ArrayList<>();
         initWindow();
         initComps();

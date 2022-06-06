@@ -63,10 +63,10 @@ public class ControladorActuacion {
     public String[] getColumnsName(){
         String[] listColumnsName = crudActuacion.getColumnActuacion();
         if (listColumnsName[0] == null){
-            System.out.println("Fallo en base de datos");
+            viewActuacion.ShowErrorMessage("Error", "No se han detectado atributos para la actuacion en la BBDD. Contacte con un administrador");
         }
         if (listColumnsName[0].equals("Error en CRUD")){
-            System.out.println("Fallo en CRUD");
+            viewActuacion.ShowErrorMessage("Error", "No se han detectado atributos para la actuacion en la BBDD. Contacte con un administrador");
         }
         return listColumnsName;
     }
@@ -75,10 +75,10 @@ public class ControladorActuacion {
         CRUDCliente crudCliente = new CRUDCliente();
         String[] listColumnsName = crudCliente.getColumnsCliente();
         if (listColumnsName[0] == null){
-            System.out.println("Fallo en base de datos");
+            viewActuacion.ShowErrorMessage("Error", "No se han detectado atributos para el cliente en la BBDD. Contacte con un administrador");
         }
         if (listColumnsName[0].equals("Error en CRUD")){
-            System.out.println("Fallo en CRUD");
+            viewActuacion.ShowErrorMessage("Error", "No se han detectado atributos para el cliente en la BBDD. Contacte con un administrador");
         }
         return listColumnsName;
     }

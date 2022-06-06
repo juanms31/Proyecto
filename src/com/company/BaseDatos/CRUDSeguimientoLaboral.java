@@ -107,7 +107,7 @@ public class CRUDSeguimientoLaboral {
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE seguimientolaboral " +
-                "SET ano = ?, dia = ?, mes = ?, hora_entrada = ?, hora_salida = ?, horas_totales = ?" +
+                " SET ano = ?, dia = ?, mes = ?, hora_entrada = ?, hora_salida = ?, horas_totales = ?, " +
                 " horas_extra = ?, id_actuacion = ?, id_trabajador = ?, tipo = ? " +
                 " WHERE id = ?";
         try {

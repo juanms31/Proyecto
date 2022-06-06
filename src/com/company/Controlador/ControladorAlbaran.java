@@ -126,11 +126,11 @@ public class ControladorAlbaran {
 
     public String[] getColumnsName() {
         String[] listColumnsName = crudAlbaran.getColumnsAlbaran();
-        if (listColumnsName[0] == null) {
-            System.out.println("Fallo en base de datos");
+        if (listColumnsName[0] == null){
+            viewAlbaran.ShowErrorMessage("Error", "No se han detectado atributos para el albaran en la BBDD. Contacte con un administrador");
         }
-        if (listColumnsName[0].equals("Error en CRUD")) {
-            System.out.println("Fallo en CRUD");
+        if (listColumnsName[0].equals("Error en CRUD")){
+            viewAlbaran.ShowErrorMessage("Error", "No se han detectado atributos para el albaran en la BBDD. Contacte con un administrador");
         }
         return listColumnsName;
     }
