@@ -524,6 +524,7 @@ public class ViewActuacion extends JFrame {
     private JTable TableClientes;
     private JLabel JLabelHojaPlanificacion;
     private JLabel JLabelHojaPresupuesto;
+    private JLabel labelTitulo;
 
 
     //endregion

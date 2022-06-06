@@ -329,7 +329,6 @@ public class ViewTrabajador extends JFrame{
     private JButton buttonEliminar;
     private JButton buttonVer;
     private JButton buttonEditar;
-    private JTabbedPane panelPestanas;
     private JPanel PanelMaterial;
     private JTable TableTrabajador;
     private JPanel buscador;
@@ -338,6 +337,7 @@ public class ViewTrabajador extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
+    private JLabel labelTitulo;
     private ArrayList<Trabajador> trabajadores;
     private ControladorTrabajador controladorTrabajador;
     private String[] headers;

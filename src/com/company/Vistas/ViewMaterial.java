@@ -364,7 +364,6 @@ public class ViewMaterial extends JFrame{
     private ControladorMaterial controladorMaterial;
     private ArrayList<Material> materiales;
     private JPanel panelPrincipal;
-    private JTabbedPane panelPestanas;
     private JPanel PanelMaterial;
     private JTable TableMaterial;
     private JPanel buscador;
@@ -377,6 +376,7 @@ public class ViewMaterial extends JFrame{
     private JButton buttonEditar;
     private JButton buttonRecargar;
     private JButton buttonVolver;
+    private JLabel labelTitulo;
 
     private ArrayList<CalidadMaterial> calidadMateriales;
     private ArrayList<UnidadMaterial> unidadMateriales;

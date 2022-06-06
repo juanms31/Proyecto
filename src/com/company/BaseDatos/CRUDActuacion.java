@@ -1,6 +1,7 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Actuacion;
+import com.company.Entidades.Cliente;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.logging.Logger;
 public class CRUDActuacion {
 
     public CRUDActuacion(){
+
+        clientes = getClientes();
 
     }
 
@@ -192,6 +195,7 @@ public class CRUDActuacion {
                 actuacion.setGastoMaterial(resultSet.getDouble("gasto_material"));
                 actuacion.setResultadoBalance(resultSet.getDouble("resultado_balance"));
                 actuacion.setIdCliente(resultSet.getInt("id_cliente"));
+                actuacion.setCliente(getClienteFromId(resultSet.getInt("id_cliente")));
 
                 listaActuacion.add(actuacion);
             }
@@ -230,11 +234,27 @@ public class CRUDActuacion {
 
     }
 
+
+    private Cliente getClienteFromId(int id_cliente) {
+        for(Cliente cliente : clientes){
+            if(cliente.getId() == id_cliente) return cliente;
+        }
+        return null;
+    }
+
+    private ArrayList<Cliente> getClientes(){
+        ArrayList<Cliente> listClientes;
+        CRUDCliente crudCliente = new CRUDCliente();
+        listClientes = crudCliente.getAll();
+        return listClientes;
+    }
+
     // endregion
 
     //region ATRIBUTOS
 
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDActuacion");
+    ArrayList<Cliente> clientes;
 
     //endregion
 }

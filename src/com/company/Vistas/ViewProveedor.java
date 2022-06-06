@@ -328,10 +328,10 @@ public class ViewProveedor extends JFrame{
     private JButton buttonRecargar;
     private JTable TableProveedor;
     private JButton buttonVolver;
-    private JTabbedPane panelPestanas;
     private JPanel PanelMaterial;
     private JPanel buscador;
     private JPanel panelBotones;
+    private JLabel labelTitulo;
 
     private  ArrayList<Proveedor> proveedores;
     private ControladorProveedor controladorProveedor;

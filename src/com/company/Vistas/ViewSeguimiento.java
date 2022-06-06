@@ -347,7 +347,6 @@ public class ViewSeguimiento extends JFrame{
     private JButton buttonEliminar;
     private JButton buttonVer;
     private JButton buttonEditar;
-    private JTabbedPane panelPestanas;
     private JTable TableSeguimiento;
     private JPanel buscador;
     private JTextField filtro;
@@ -355,7 +354,8 @@ public class ViewSeguimiento extends JFrame{
     private JPanel panelBotones;
     private JButton buttonVolver;
     private JButton buttonRecargar;
-    
+    private JLabel labelTitulo;
+
     private ControladorSeguimiento controladorSeguimiento;
     private ArrayList<SeguimientoLaboral> seguimientoLaboralList;
     private String[] headers;

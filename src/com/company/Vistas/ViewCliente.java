@@ -326,10 +326,10 @@ public class ViewCliente extends JFrame{
     private JButton buttonEditar;
     private JButton buttonRecargar;
     private JButton buttonVolver;
-    private JTabbedPane panelPestanas;
     private JPanel PanelMaterial;
     private JPanel buscador;
     private JPanel panelBotones;
+    private JLabel labelTitulo;
 
     private  ArrayList<Cliente> clientes;
     private ControladorCliente controladorCliente;
