@@ -3,7 +3,7 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="537" height="400"/>
+      <xy x="20" y="20" width="1154" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -19,69 +19,6 @@
         </properties>
         <border type="none"/>
         <children>
-          <tabbedpane id="3f21c" binding="panelPestanas">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentX value="0.0"/>
-              <alignmentY value="0.0"/>
-              <background color="-1703946"/>
-              <font size="14"/>
-              <foreground color="-16055809"/>
-              <inheritsPopupMenu value="true"/>
-              <tabLayoutPolicy value="1"/>
-              <tabPlacement value="1"/>
-            </properties>
-            <border type="none">
-              <color color="-16356043"/>
-            </border>
-            <children>
-              <grid id="2c3a0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="1" left="1" bottom="1" right="1"/>
-                <constraints>
-                  <tabbedpane title="Seguimiento Laboral"/>
-                </constraints>
-                <properties>
-                  <background color="-11617507"/>
-                  <foreground color="-16356043"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <scrollpane id="23dfe">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <background color="-1900570"/>
-                      <focusable value="false"/>
-                      <foreground color="-16777216"/>
-                      <requestFocusEnabled value="false"/>
-                    </properties>
-                    <border type="none"/>
-                    <children>
-                      <component id="4f9ae" class="javax.swing.JTable" binding="TableSeguimiento">
-                        <constraints/>
-                        <properties>
-                          <autoCreateRowSorter value="true"/>
-                          <autoResizeMode value="1"/>
-                          <background color="-3485441"/>
-                          <cellSelectionEnabled value="false"/>
-                          <focusTraversalPolicyProvider value="false"/>
-                          <font size="16"/>
-                          <foreground color="-16777216"/>
-                          <gridColor color="-11617507"/>
-                          <rowSelectionAllowed value="true"/>
-                          <selectionBackground color="-1703946"/>
-                          <selectionForeground color="-16055809"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </scrollpane>
-                </children>
-              </grid>
-            </children>
-          </tabbedpane>
           <grid id="c4a41" binding="buscador" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
@@ -162,10 +99,10 @@
               </component>
             </children>
           </grid>
-          <grid id="166cf" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="166cf" layout-manager="GridLayoutManager" row-count="1" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
@@ -174,7 +111,7 @@
             <children>
               <component id="e4534" class="javax.swing.JButton" binding="buttonAnadir">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
@@ -187,12 +124,12 @@
               </component>
               <hspacer id="e2b4e">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
               <component id="1e65f" class="javax.swing.JButton" binding="buttonEliminar">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
@@ -205,7 +142,7 @@
               </component>
               <component id="c6c40" class="javax.swing.JButton" binding="buttonVer">
                 <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
@@ -218,7 +155,7 @@
               </component>
               <component id="e12c4" class="javax.swing.JButton" binding="buttonEditar">
                 <constraints>
-                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
@@ -231,7 +168,7 @@
               </component>
               <component id="8289b" class="javax.swing.JButton" binding="buttonRecargar">
                 <constraints>
-                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
@@ -245,6 +182,60 @@
                   <toolTipText value="Pulsa para refrescar las tablas"/>
                 </properties>
               </component>
+              <component id="8b12c" class="javax.swing.JLabel" binding="labelTitulo">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <font size="22"/>
+                  <foreground color="-16777216"/>
+                  <text value="Seguimiento Laboral"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="2c3a0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="1" left="1" bottom="1" right="1"/>
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-11617507"/>
+              <foreground color="-16356043"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="23dfe">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1900570"/>
+                  <focusable value="false"/>
+                  <foreground color="-16777216"/>
+                  <requestFocusEnabled value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="4f9ae" class="javax.swing.JTable" binding="TableSeguimiento">
+                    <constraints/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                      <autoResizeMode value="1"/>
+                      <background color="-3485441"/>
+                      <cellSelectionEnabled value="false"/>
+                      <focusTraversalPolicyProvider value="false"/>
+                      <font size="16"/>
+                      <foreground color="-16777216"/>
+                      <gridColor color="-11617507"/>
+                      <rowSelectionAllowed value="true"/>
+                      <selectionBackground color="-1703946"/>
+                      <selectionForeground color="-16055809"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
         </children>

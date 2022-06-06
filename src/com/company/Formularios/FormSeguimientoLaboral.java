@@ -275,7 +275,6 @@ public class FormSeguimientoLaboral extends JDialog {
 
             }
 
-
             // FIXME: 25/05/2022 VER COMO TRATAMOS LAS HORAS TOTALES Y EXTRA
             seguimientoLaboral.setHoras_totales(0);
             seguimientoLaboral.setHoras_extra(0);

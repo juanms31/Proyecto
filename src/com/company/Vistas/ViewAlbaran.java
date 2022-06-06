@@ -17,6 +17,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewAlbaran extends JFrame {
+
+    //region Constructor
     public ViewAlbaran(ControladorAlbaran controladorAlbaran,
                        ArrayList<Albaran> albaranes,
                        ArrayList<Material> materiales,
@@ -113,7 +115,7 @@ public class ViewAlbaran extends JFrame {
         TableActuacionesAlbaran.setRowSorter(sorter);
 
         //Filling Headers
-        modelActuacionesAlbaran = new DefaultTableModel(headersMateriales, 0);
+        modelActuacionesAlbaran = new DefaultTableModel(headersActuacion, 0);
 
         TableActuacionesAlbaran.setModel(modelActuacionesAlbaran);
 
@@ -169,6 +171,11 @@ public class ViewAlbaran extends JFrame {
     private void refreshSecondaryTables() {
         modelMaterialesAlbaran = new DefaultTableModel(headersMateriales, 0);
         TableMaterialesAlbaran.setModel(modelMaterialesAlbaran);
+
+        modelActuacionesAlbaran = new DefaultTableModel(headersMateriales, 0);
+        TableActuacionesAlbaran.setModel(modelActuacionesAlbaran);
+
+
     }
 
 
@@ -197,14 +204,17 @@ public class ViewAlbaran extends JFrame {
 
     public boolean getUpdateMaterialAlbaranFromFormulario(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
 
-        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
+        boolean yaEsta = false;
 
-            System.out.println("VISTA :" + materialCompradoProveedor.toString());
-        }
+        updateMaterialesCompradosProveedorExistentes(materialesCompradoProveedor);
+
+        addMaterialesCompradosProveedorNuevos(materialesCompradoProveedor);
 
         return controladorAlbaran.updateMaterialesAlbaran(materialesCompradoProveedor);
 
     }
+
+
     //endregion
 
     //region Mensajes
@@ -305,7 +315,6 @@ public class ViewAlbaran extends JFrame {
             }
             cont++;
         }
-        // FIXME: 05/06/2022 HAY QUE ACTUALIZAR LA LISTA DE MATERIALES COMPRADO PROVEEDOR CUANDO SE ANADE UN NUEVO MATERIAL CUANDO EDITAS UN ALBARAN
     }
 
     public void addTableAlbaran(Albaran albaran) {
@@ -360,17 +369,31 @@ public class ViewAlbaran extends JFrame {
         TableMaterialesAlbaran.setModel(modelMaterialesAlbaran);
 
         for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor) {
-
-                System.out.println("VISTA ALBARAN SETMATERIALES:" + materialCompradoProveedor.toString());
-
             if (albaran.getId() == materialCompradoProveedor.getAlbaran().getId()) {
-
                 Material material = getMaterialFromCod(materialCompradoProveedor.getMaterial().getId());
                 setMaterial(material, materialCompradoProveedor);
 
             }
         }
     }
+
+    private void setActuacion(Albaran albaran){
+        modelActuacionesAlbaran = new DefaultTableModel(headersActuacion, 0);
+        TableActuacionesAlbaran.setModel(modelActuacionesAlbaran);
+
+        int y = 0;
+
+        Actuacion actuacion = albaran.getActuacion();
+
+        Object[] newActuacion = new Object[headersActuacion.length];
+        newActuacion[y++] = actuacion.getNombre();
+        newActuacion[y++] = actuacion.getEspecificacion();
+        newActuacion[y++] = actuacion.getCliente().getNombre();
+        newActuacion[y++] = actuacion.getEstado();
+
+        modelActuacionesAlbaran.addRow(newActuacion);
+    }
+
 
     private void setMaterial(Material material, MaterialCompradoProveedor materialCompradoProveedor) {
 
@@ -394,6 +417,51 @@ public class ViewAlbaran extends JFrame {
             }
         }
         return new Material();
+    }
+
+    public void updateMaterialesCompradosProveedorExistentes(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor){
+        int cont = 0;
+        for(MaterialCompradoProveedor mat1 : materialesCompradoProveedor){
+            cont = 0;
+            for(MaterialCompradoProveedor mat2 :  this.materialesCompradosProveedor){
+                if(mat1.getId() == mat2.getId()){
+                    this.materialesCompradosProveedor.get(cont).setProveedor(mat1.getProveedor());
+                    this.materialesCompradosProveedor.get(cont).setAlbaran(mat1.getAlbaran());
+                    this.materialesCompradosProveedor.get(cont).setMaterial(mat1.getMaterial());
+                    this.materialesCompradosProveedor.get(cont).setActuacion(mat1.getActuacion());
+                    this.materialesCompradosProveedor.get(cont).setUnidades(mat1.getUnidades());
+                    this.materialesCompradosProveedor.get(cont).setBaseImponible(mat1.getBaseImponible());
+                    this.materialesCompradosProveedor.get(cont).setPrecioUnidad(mat1.getPrecioUnidad());
+                }
+                cont++;
+            }
+        }
+
+    }
+
+    public void addMaterialesCompradosProveedorNuevos(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor){
+        ArrayList<MaterialCompradoProveedor> nuevos = new ArrayList<>();
+
+        for (MaterialCompradoProveedor mat1: materialesCompradoProveedor ) {
+            if(!ExisteId(mat1.getId())){
+                nuevos.add(mat1);
+            }
+        }
+
+        for(MaterialCompradoProveedor materialCompradoProveedor :  nuevos){
+            this.materialesCompradosProveedor.add(materialCompradoProveedor);
+        }
+    }
+
+    private boolean ExisteId(int id){
+
+        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor){
+            if(id == materialCompradoProveedor.getId()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private int getCodAlbaran() {
@@ -469,6 +537,7 @@ public class ViewAlbaran extends JFrame {
                 if (e.getClickCount() == 1) {
                     Albaran albaran = getAlbaran();
                     setMateriales(albaran);
+                    setActuacion(albaran);
                 }
 
                 if (e.getClickCount() == 2) {
@@ -479,7 +548,6 @@ public class ViewAlbaran extends JFrame {
     }
 
     //endregion
-
 
     //region Variables
     private JPanel panelPrincipal;
@@ -497,6 +565,7 @@ public class ViewAlbaran extends JFrame {
     private JButton buttonRecargar;
     private JTable TableActuacionesAlbaran;
     private JTable TableMaterialesAlbaran;
+    private JLabel labelTitulo;
     private ControladorAlbaran controladorAlbaran;
     private int estado = 0;
     private ArrayList<Albaran> albaranes;
@@ -508,7 +577,7 @@ public class ViewAlbaran extends JFrame {
 
     private String[] headersMateriales = {"COD", "DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO", "BASE IMPONIBLE"};
 
-    private String[] headersActuacion = {"!", "asdfsa", "{"};
+    private String[] headersActuacion = {"NOMBRE", "ESPECIFICACION", "CLIENTE", "ESTADO"};
 
     private TableRowSorter sorter;
     private DefaultTableModel modelAlbaran;

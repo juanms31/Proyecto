@@ -116,7 +116,6 @@ public class FormRegistroUsuario extends JDialog{
         if(!(usuario.getApellidos() == null)){
             textFieldApellidos.setText(usuario.getApellidos());
         }
-
         // FIXME: 02/06/2022 DARA ERRORES
         if(!(usuario.getFnac() == null)){
             formattedTextFieldFechaNacimiento.setText(String.valueOf(usuario.getFnac()));

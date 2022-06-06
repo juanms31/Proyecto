@@ -48,11 +48,6 @@ public class FormAlbaran extends JDialog {
         this.actuaciones = actuaciones;
         this.proveedores = proveedores;
 
-        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
-
-            System.out.println("FORMULARIO ALBARAN CONS:" + materialCompradoProveedor.toString());
-        }
-
         initListeners();
         initWindow();
         initComps();
@@ -169,18 +164,13 @@ public class FormAlbaran extends JDialog {
 
             if(viewAlbaran.getUpdateAlbaranFromFormulario(getAlbaran())){
 
-                for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
-
-                    System.out.println("FORMULARIO LOAD UPDATE:" + materialCompradoProveedor.toString());
-                }
-
                 if(viewAlbaran.getUpdateMaterialAlbaranFromFormulario(materialesCompradoProveedor)) {
 
                     dispose();
-                    ShowMessage("Correcto", "Se ha creado el albaran correctamente");
+                    ShowMessage("Correcto", "Se ha actualizado el albaran correctamente");
                 }
             }else{
-                ShowErrorMessage("Error", "No se ha podido crear el albaran correctamente");
+                ShowErrorMessage("Error", "No se ha podido actualizar el albaran correctamente");
             }
             dispose();
         }

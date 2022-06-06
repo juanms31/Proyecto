@@ -304,3 +304,40 @@ VALUES ('1','36598655P','Soleos SLU','Avd Madrid','soleosslu@gmail.com','6983326
 INSERT INTO `cliente`(`id`, `CIF`, `nombre`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
 VALUES ('1','21035545K','PITA','Avd PITA','parquetecnologico@gmail.com','632554789','',''),
        ('2','36598874P','PTS','Avd PTS','parquetecnologico@gmail.com','65988547','','');
+
+INSERT INTO `actuacion` (`id`, `nombre`, `especificacion`, `id_cliente`, `estado`, `descripcion`, `importe`, `por_certificar`, `total_certificaciones`, `gasto_material`, `material_ofertado`, `resultado_balance`, `hoja_planificacion`, `hoja_presupuesto`, `horas_ofertadas`, `horas_ejecutadas`, `fecha_solicitud`, `fecha_envio`, `fecha_comienzo`, `fecha_finalizacion`) VALUES
+    (1, 'MANTENIMIENTO PITA', 'MAN', 1, 'Pendiente', '', '0.00', 0, '0.00', '0.00', '0.00', '0.00', 'algo.pdf', 'algo2.pdf', 3600, 1200, '2022-06-03', NULL, NULL, NULL);
+
+INSERT INTO `albaran` (`id`, `cod`, `id_actuacion`, `id_proveedor`, `concepto`, `fecha_entrada_albarán`) VALUES
+    (13, '123/C', 1, 1, 'Concepto Albaran 2', '2022-06-06');
+
+INSERT INTO `calidadmaterial` (`id`, `siglas_calidad`, `nombre_calidad`, `Descripcion`) VALUES
+    (1, 'AI304', 'ACERO INOXIDABLE 304 L', ''),
+    (2, 'AI316', 'ACERO INOXIDABLE 316L', '');
+
+INSERT INTO `cliente` (`id`, `CIF`, `nombre`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`) VALUES
+    (1, '21035545K', 'PITA', 'Avd PITA', 'parquetecnologico@gmail.com', '632554789', '', '');
+
+INSERT INTO `material` (`id`, `cod`, `grupo`, `descripcion`, `especificacion`, `unidad`, `espesor`, `calidad`, `proveedor_1`, `precio_1`, `proveedor_2`, `precio_2`, `proveedor_3`, `precio_3`, `id_grupo`, `id_especifiacion`, `id_unidad`, `id_calidad`) VALUES
+    (1, 'MTAC1', 'MTAC', 'Acero al carbono 1', 'Petroleo', 'gr', '63.00', 'AI316', 'Latigos SLU', '32100.00', '', '0.00', '', '0.00', NULL, NULL, NULL, NULL),
+    (2, 'ALU2', 'ALU', 'Aluminio Sanitario 1', 'Sanitario', 'Kg', '3.20', 'AI304', 'Soleos SLU', '360.00', 'Latigos SLU', '0.00', '', '0.00', NULL, NULL, NULL, NULL),
+    (3, 'INOX3', 'INOX', 'Inoxidable Soportación', 'Soportacion', 'Kg', '23.00', 'AI304', 'Soleos SLU', '2310.00', 'Latigos SLU', '1230.00', 'Bombonas SLU', '1230.00', NULL, NULL, NULL, NULL),
+    (4, 'INOX4', 'INOX', 'Inoxidable Sanitario', 'Sanitario', 'gr', '23.00', 'AI316', 'Latigos SLU', '360.00', 'Soleos SLU', '210.00', '', '0.00', NULL, NULL, NULL, NULL);
+    (2, '36598874P', 'PTS', 'Avd PTS', 'parquetecnologico@gmail.com', '65988547', 'PTS', '635998562');
+
+INSERT INTO `materialcompradoproveedores` (`id`, `id_material`, `id_proveedor`, `id_actuacion`, `id_albaran`, `unidades`, `precio_Unidad`, `base_Imponible`) VALUES
+    (35, 1, 1, 1, 13, 5, 32100, 160500),
+    (36, 4, 1, 1, 13, 9, 360, 3240);
+
+INSERT INTO `proveedor` (`id`, `CIF`, `nombre_proveedor`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`) VALUES
+    (1, '36598655P', 'Soleos SLU', 'Avd Madrid', 'soleosslu@gmail.com', '698332657', '', ''),
+INSERT INTO `seguimientolaboral` (`id`, `id_trabajador`, `tipo`, `id_actuacion`, `ano`, `dia`, `mes`, `hora_entrada`, `hora_salida`, `horas_totales`, `horas_extra`) VALUES
+    (1, 1, 'Entrada', 1, 2022, 6, 6, '11:15', '', 0, 0);
+    (2, '36598655L', 'Latigos SLU', 'Avd Malaga', 'latigosslu@gmail.com', '654223698', '', ''),
+
+INSERT INTO `trabajador` (`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `puesto`, `salario`) VALUES
+    (1, '21035545K', 'Juan', 'Martinez Sanchez', '697441578', '2022-12-20', 'Español', 'Tecnico', 18000);                                                                                                                          (3, '36598655U', 'Bombonas SLU', 'Avd Almeria', 'bombonasslu@gmail.com', '625456896', 'bombonassluadministracion@gmail.com', '635998656');
+
+
+INSERT INTO `usuario` (`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`) VALUES
+    (1, '00000000K', 'admin', '', '31-05-199', '0000-00-00', '', 'admin', 'admin');

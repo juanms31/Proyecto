@@ -5,10 +5,12 @@ import com.company.Vistas.ViewActuacion;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,7 +87,7 @@ public class FormActuacion extends JDialog {
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.width / 2, screen.height - 200);
+        setSize(screen.width / 2, screen.height - 100);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;
@@ -591,6 +593,47 @@ public class FormActuacion extends JDialog {
             }
         });
 
+
+        buttonHojaPlanificacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fileChoseerHojaPlanificacion.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
+                
+                if(seleccion == JFileChooser.APPROVE_OPTION){
+                    setHojaPlanificacion();
+                }
+            }
+        });
+
+        buttonHojaPresupuesto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fileChoseerHojaPresupuesto.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
+                
+                if(seleccion == JFileChooser.APPROVE_OPTION){
+                    setHojaPresupuesto();
+                }
+            }
+        });
+
+    }
+
+    private void setHojaPresupuesto() {
+        File ficheroHojaPresupuesto = fileChoseerHojaPresupuesto.getSelectedFile();
+        textFieldHojaPresupuesto.setText(ficheroHojaPresupuesto.getName());
+    }
+
+    private void setHojaPlanificacion() {
+        File ficheroHojaPlanificacion = fileChoseerHojaPlanificacion.getSelectedFile();
+        textFieldHojaPlanificacion.setText(ficheroHojaPlanificacion.getName());
     }
 
     //endregion
@@ -601,6 +644,9 @@ public class FormActuacion extends JDialog {
     private Actuacion ActuacionSiendoModificada;
     private ArrayList<Cliente> clientes;
     private ArrayList<EspecificacionActuacion> especificacionesActuacion;
+    private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
+    private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();
+
 
     private JPanel panelFecha;
     private JPanel panelPrincipal;
@@ -629,7 +675,8 @@ public class FormActuacion extends JDialog {
     private JFormattedTextField formattedTextFieldCIFCliente;
     private JSpinner spinnerResultadoBalance;
     private JTextField textFieldNombreActuacion;
-    private JList list1;
+    private JList listaMateriales;
     private JButton buttonAnadir;
+
     //endregion
 }

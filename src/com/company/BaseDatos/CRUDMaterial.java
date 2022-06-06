@@ -20,9 +20,6 @@ public class CRUDMaterial {
 
     //region Metodos CRUD
 
-    //TODO hacer getMAterial por id;
-    //TODO database controlara la conexion y cierre
-
     public ArrayList<Material> getAll(){
         Connection connection = BBDD.connect();
         try {
@@ -112,14 +109,12 @@ public class CRUDMaterial {
     }
 
     public Material readMaterial(String cod) {
-        // TODO: 15/05/2022 LEER MATERIAL ESPECIFICO A PARTIR DE SU material.codigo
 
         return new Material();
     }
 
     public boolean deleteMaterial(String id){
         Connection connection = BBDD.connect();
-        // FIXME: 15/05/2022 NO SERIA A PARTIR DE SU CODIGO EXTERNO, YA QUE EL ID ES EL INTERNO QUE NO SABEMOS?
         final String QUERY_DELETE = "DELETE FROM material WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
@@ -247,7 +242,6 @@ public class CRUDMaterial {
                 material.setEspecificacion(resultSet.getString("especificacion"));
                 material.setEspesor(resultSet.getDouble("espesor"));
                 material.setGrupo(resultSet.getString("grupo"));
-                //TODO plantear si incluir o no id de foreigh key
                 material.setPrecio1(resultSet.getDouble("precio_1"));
                 material.setPrecio2(resultSet.getDouble("precio_2"));
                 material.setPrecio3(resultSet.getDouble("precio_2"));
