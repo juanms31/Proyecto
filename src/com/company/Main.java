@@ -1,6 +1,7 @@
 package com.company;
 
-import com.company.Vistas.ViewPrincipal;
+
+import com.company.Vistas.ViewWelcome;
 
 import java.awt.*;
 import java.io.IOException;
@@ -41,9 +42,9 @@ public class Main {
             LOGGER.log(Level.INFO, "LLamando a la vista principal");
             //ENTRADA AL PROGRAMA
 
-//            Welcome welcome = new Welcome();
-//            welcome.setVisible(true);
-            ViewPrincipal viewPrincipal = new ViewPrincipal();
+            ViewWelcome welcome = new ViewWelcome();
+            welcome.setVisible(true);
+//            ViewPrincipal viewPrincipal = new ViewPrincipal();
 //
 //            ViewInicio viewInicio = new ViewInicio();
 //            viewInicio.setVisible(true);
