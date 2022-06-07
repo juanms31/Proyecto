@@ -8,11 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Welcome extends JFrame{
+public class ViewWelcome extends JFrame{
     private JButton buttonEnter;
     private JPanel jpWelcome;
 
-    public Welcome(){
+    public ViewWelcome(){
         initWindow();
         add(jpWelcome);
         listeners();

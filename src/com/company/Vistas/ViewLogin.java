@@ -1,14 +1,12 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorUsuario;
-import com.company.Entidades.Trabajador;
 import com.company.Entidades.Usuario;
 import com.company.Formularios.FormRegistroUsuario;
 import com.company.Recursos.Hash;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -73,8 +71,8 @@ public class ViewLogin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                Welcome welcome = new Welcome();
-                welcome.setVisible(true);
+                ViewWelcome viewWelcome = new ViewWelcome();
+                viewWelcome.setVisible(true);
             }
         });
 
