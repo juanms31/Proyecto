@@ -28,8 +28,9 @@
         </constraints>
         <properties>
           <background color="-1900570"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <focusPainted value="false"/>
+          <foreground color="-16777216"/>
           <hideActionText value="false"/>
           <horizontalAlignment value="0"/>
           <icon value="com/company/Images/Icons/entrar.png"/>

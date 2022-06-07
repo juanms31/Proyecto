@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -14,8 +15,13 @@ public class ViewWelcome extends JFrame{
 
     public ViewWelcome(){
         initWindow();
+        initComps();
         add(jpWelcome);
         listeners();
+    }
+
+    private void initComps() {
+        buttonEnter.setBorder(new RoundedBorder(10));
     }
 
     //Inicio de ventana

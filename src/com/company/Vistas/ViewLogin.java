@@ -79,8 +79,8 @@ public class ViewLogin extends JFrame {
         buttonRegistro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonRegistro.setVisible(true);
-                msj_error.setVisible(true);
+                buttonRegistro.setVisible(false);
+                msj_error.setVisible(false);
 
                 Usuario usuario = new Usuario();
 
