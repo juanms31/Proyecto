@@ -42,9 +42,9 @@ public class Main {
             LOGGER.log(Level.INFO, "LLamando a la vista principal");
             //ENTRADA AL PROGRAMA
 
-            ViewPrincipal viewPrincipal = new ViewPrincipal();
-//            Welcome welcome = new Welcome();
-//            welcome.setVisible(true);
+//            ViewPrincipal viewPrincipal = new ViewPrincipal();
+            Welcome welcome = new Welcome();
+            welcome.setVisible(true);
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 
         } catch (HeadlessException | IOException e) {

@@ -206,10 +206,17 @@ public class FormRegistroUsuario extends JDialog{
             }
             usuario.setNacionalidad(textFieldNacionalidad.getText());
             usuario.setEmail(formattedTextFieldEmail.getText());
-            Hash hash = new Hash();
-            usuario.setPass(hash.getPassHashed(String.valueOf(passwordFieldPass.getPassword())));
-            System.out.println("Pass: " + hash.getPassHashed(String.valueOf(passwordFieldPass.getPassword())));
 
+            Hash hash = new Hash();
+            try {
+
+                usuario.setPass(hash.generatePasswordHash(String.valueOf(passwordFieldPass.getPassword())));
+                System.out.println("Pass: " + hash.generatePasswordHash(String.valueOf(passwordFieldPass.getPassword())));
+
+            } catch (Exception e) {
+                ShowErrorMessage("Error", "No se ha podido encriptar la contraseña, vuelve a intentarlo mas tarde");
+
+            }
         }
         return usuario;
     }

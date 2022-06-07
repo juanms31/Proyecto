@@ -1,56 +1,42 @@
-jun 07, 2022 12:44:01 P. M. com.company.Main main
+jun 07, 2022 5:50:21 P. M. com.company.Main main
 INFO: Main inicializado
-jun 07, 2022 12:44:01 P. M. com.company.Main main
+jun 07, 2022 5:50:21 P. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 07, 2022 12:44:01 P. M. com.company.Main main
+jun 07, 2022 5:50:22 P. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
+INFO: setListaUsuarios en Usuario = exito
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral getAll
-INFO: GetAll en SeguimientoLaboral = exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.CRUDUsuario getAll
+INFO: GetAll en Usuario = exito
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
+INFO: setListaUsuarios en Usuario = exito
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDTrabajador getAll
-INFO: GetAll en Trabajador = exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 5:50:27 P. M. com.company.BaseDatos.CRUDUsuario getAll
+INFO: GetAll en Usuario = exito
+jun 07, 2022 5:50:38 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:38 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:50:38 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
+INFO: setListaUsuarios en Usuario = exito
+jun 07, 2022 5:50:38 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 5:50:38 P. M. com.company.BaseDatos.CRUDUsuario getAll
+INFO: GetAll en Usuario = exito
+jun 07, 2022 5:51:01 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 5:51:01 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral getColumsSeguimiento
-INFO: getColumsSeguimiento en SeguimientoLaboral = exito
-jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral updateSeguimientoLaboral
-INFO: updateSeguimientoLaboral en SeguimientoLaboral = exito
-jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral updateSeguimientoLaboral
-INFO: updateSeguimientoLaboral en SeguimientoLaboral = exito
+jun 07, 2022 5:51:01 P. M. com.company.BaseDatos.CRUDUsuario createUsuario
+INFO: createUsuario en Usuario = exito

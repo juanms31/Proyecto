@@ -1,68 +1,40 @@
 package com.company.Recursos;
 
-import javax.crypto.*;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-//import org.apache.commons.codec.binary.Base64;
-
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Base64;
+import java.util.regex.Pattern;
 
 public class Hash {
-
-    private static final int iterations = 10*1024;
-    private static final int saltLen = 32;
-    private static final int desiredKeyLen = 256;
-
-
-    public String getPassHashed(String pass){
-        String passEncrypt = "";
+    public String generatePasswordHash(String passwordToHash) {
+        String generatedPassword = null;
         try {
-            KeyGenerator generator = KeyGenerator.getInstance("AES");
-            generator.init(256);
-            SecretKey key = generator.generateKey();
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
 
-            byte[] passByte = pass.getBytes();
-            //Creamos cifrado
-            Cipher cipher = Cipher.getInstance(generator.getAlgorithm());
-            cipher.init(Cipher.ENCRYPT_MODE, key);
+            // Add password bytes to digest
+            md.update(passwordToHash.getBytes());
 
-            //Creamos pass encriptada
-            byte[] passEncryptByte = cipher.doFinal(passByte);
-            passEncrypt =  new String(passEncryptByte);
+            // Get the hash's bytes
+            byte[] bytes = md.digest();
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            // Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return  passEncrypt;
+
+        return generatedPassword;
     }
-
-
-
-
-//    public String getSaltedHash(String password) {
-//        byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(saltLen);
-//        return Base64.encodeBase64String(salt + "$" + hash(password,salt));
-//    }
-//
-//    public boolean check(String password, String stored){
-//        String[] saltAndPass = stored.split("\\$");
-//        if(saltAndPass.length != 2){
-//            return false;
-//        }
-//        String hashOfInput = hash(password, Base64.decodeBase64(saltAndPass[0]));
-//        return hashOfInput.equals(saltAndPass[1]);
-//    }
-//
-//    private String hash(String password, byte[] salt){
-//        if(password == null  || password.length() == 0){
-//            return null;
-//        }
-//
-//        SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-//        SecretKey key = f.generateSecret(new PBEKeySpec(password.toCharArray(), salt, iterations, desiredKeyLen));
-//
-//        return Base64.encondeBase64String(key.getEncoded());
-//    }
-
-
 }

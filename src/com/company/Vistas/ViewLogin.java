@@ -149,21 +149,27 @@ public class ViewLogin extends JFrame {
         int contador = 0;
 
         Hash hash =  new Hash();
-        password = hash.getPassHashed(password);
+        try {
 
-        for (Usuario user : usuarios) {
-            contador++;
-            if(user.getEmail().equals(usuario.getEmail())){
-                if(user.getDNI().equals(usuario.getDNI())){
-                    System.out.println("Contraseña user arr: " + user.getPass());
-                    System.out.println("Contraseña input: " + password);
+            password = hash.generatePasswordHash(password);
+            for (Usuario user : usuarios) {
+                contador++;
+                if(user.getEmail().equals(usuario.getEmail())){
+                    if(user.getDNI().equals(usuario.getDNI())){
+                        System.out.println("Contraseña user arr: " + user.getPass());
+                        System.out.println("Contraseña input: " + password);
 
-                    if(password.equals(user.getPass())){
-                        return true;
+                        if(password.equals(user.getPass())){
+                            return true;
+                        }
                     }
                 }
             }
+
+        } catch (Exception e) {
+            ShowErrorMessage("Error", "No se ha podido encriptar la contraseña, vuelve a intentarlo mas tarde");
         }
+
         return false;
     }
 
