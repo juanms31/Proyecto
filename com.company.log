@@ -1,510 +1,56 @@
-jun 06, 2022 8:38:35 P. M. com.company.Main main
+jun 07, 2022 12:44:01 P. M. com.company.Main main
 INFO: Main inicializado
-jun 06, 2022 8:38:35 P. M. com.company.Main main
+jun 07, 2022 12:44:01 P. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 06, 2022 8:38:36 P. M. com.company.Main main
+jun 07, 2022 12:44:01 P. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral getAll
+INFO: GetAll en SeguimientoLaboral = exito
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDTrabajador getAll
+INFO: GetAll en Trabajador = exito
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDCliente getAll
 INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDActuacion getAll
 INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:02 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral getColumsSeguimiento
+INFO: getColumsSeguimiento en SeguimientoLaboral = exito
+jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
+jun 07, 2022 12:44:11 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral updateSeguimientoLaboral
+INFO: updateSeguimientoLaboral en SeguimientoLaboral = exito
+jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
+jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDMaterial getAll
-INFO: GetAll en Materiales = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDAlbaran getAll
-INFO: GetAll en Albaran = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:42 P. M. com.company.BaseDatos.CRUDProveedor getAll
-INFO: GetAll en Proveedor = exito
-jun 06, 2022 8:38:43 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:43 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:43 P. M. com.company.BaseDatos.CRUDAlbaran getColumnsAlbaran
-INFO: getColumnsAlbaran en Albaran = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDEspecificacionActuacion getAll
-INFO: GetAll en EspecificacionActuacion = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDActuacion getColumnActuacion
-INFO: getColumnActuacion en Actuacion = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.CRUDCliente getColumnsCliente
-INFO: getColumnsCliente en Cliente = exito
-jun 06, 2022 8:38:51 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
+jun 07, 2022 12:44:17 P. M. com.company.BaseDatos.CRUDSeguimientoLaboral updateSeguimientoLaboral
+INFO: updateSeguimientoLaboral en SeguimientoLaboral = exito

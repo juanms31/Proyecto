@@ -1,8 +1,6 @@
 package com.company.BaseDatos;
 
-import com.company.Controlador.ControladorProveedor;
 import com.company.Controlador.ControladorSeguimiento;
-import com.company.Entidades.Cliente;
 import com.company.Entidades.SeguimientoLaboral;
 
 import java.sql.*;
@@ -157,8 +155,14 @@ public class CRUDSeguimientoLaboral {
                 seguimientoLaboral.setAno(resultSet.getInt("ano"));
                 seguimientoLaboral.setDia(resultSet.getInt("dia"));
                 seguimientoLaboral.setMes(resultSet.getInt("mes"));
+
+                seguimientoLaboral.setFechaCompleta(resultSet.getInt("dia") + "-" +
+                        resultSet.getInt("mes") + "-" +
+                        resultSet.getInt("ano"));
+
                 seguimientoLaboral.setTipo(resultSet.getString("tipo"));
                 seguimientoLaboral.setHora_entrada(resultSet.getString("hora_entrada"));
+                seguimientoLaboral.setHora_salida(resultSet.getString("hora_salida"));
                 seguimientoLaboral.setHoras_totales(resultSet.getInt("horas_totales"));
                 seguimientoLaboral.setHoras_extra(resultSet.getDouble("horas_extra"));
                 seguimientoLaboral.setIdActuacion(resultSet.getInt("id_actuacion"));

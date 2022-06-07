@@ -110,6 +110,14 @@ public class SeguimientoLaboral {
         this.tipo = tipo;
     }
 
+    public String getFechaCompleta() {
+        return fechaCompleta;
+    }
+
+    public void setFechaCompleta(String fechaCompleta) {
+        this.fechaCompleta = fechaCompleta;
+    }
+
     //endregion
 
     //region Metodos publicos
@@ -138,6 +146,7 @@ public class SeguimientoLaboral {
     private int ano;
     private int dia;
     private int mes;
+    private String fechaCompleta;
     private String hora_entrada;
     private String hora_salida;
     private int horas_totales;

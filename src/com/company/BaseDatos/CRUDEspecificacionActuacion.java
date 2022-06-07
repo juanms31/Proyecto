@@ -1,7 +1,6 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.EspecificacionActuacion;
-import com.company.Entidades.GrupoMaterial;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

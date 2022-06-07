@@ -1,6 +1,5 @@
 package com.company.BaseDatos;
 
-import com.company.Entidades.Cliente;
 import com.company.Entidades.SeguimientoLaboral;
 import com.company.Entidades.Vacaciones;
 

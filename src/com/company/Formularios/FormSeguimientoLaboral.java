@@ -1,21 +1,30 @@
 package com.company.Formularios;
 
 import com.company.Entidades.*;
-import com.company.Vistas.ViewProveedor;
+import com.company.Recursos.CheckDate;
 import com.company.Vistas.ViewSeguimiento;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FormSeguimientoLaboral extends JDialog {
 
-    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento, ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
+    public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento,
+                                  ArrayList<Trabajador> trabajadores,
+                                  ArrayList<SeguimientoLaboral> seguimientoLaborales,
+                                  ArrayList<Actuacion> actuaciones) {
         estado = 1;
         this.viewSeguimiento = viewSeguimiento;
         this.trabajadores = trabajadores;
@@ -29,7 +38,9 @@ public class FormSeguimientoLaboral extends JDialog {
 
     public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento,
                                   SeguimientoLaboral seguimientoLaboral,
-                                  ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
+                                  ArrayList<SeguimientoLaboral> seguimientoLaborales,
+                                  ArrayList<Trabajador> trabajadores,
+                                  ArrayList<Actuacion> actuaciones) {
         estado = 2;
         SeguimientoLaboralSiendoModificado = seguimientoLaboral;
         this.viewSeguimiento = viewSeguimiento;
@@ -43,8 +54,11 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     public FormSeguimientoLaboral(ViewSeguimiento viewSeguimiento,
-                                  SeguimientoLaboral seguimientoLaboral, boolean editable,
-                                  ArrayList<Trabajador> trabajadores, ArrayList<Actuacion> actuaciones) {
+                                  SeguimientoLaboral seguimientoLaboral,
+                                  boolean editable,
+                                  ArrayList<Trabajador> trabajadores,
+                                  ArrayList<Actuacion> actuaciones) {
+
         this.viewSeguimiento = viewSeguimiento;
         this.trabajadores = trabajadores;
         this.actuaciones = actuaciones;
@@ -63,12 +77,9 @@ public class FormSeguimientoLaboral extends JDialog {
     //region Metodos Vista
 
     private void initview(boolean editable) {
-        textFieldAno.setEditable(editable);
-        textFieldDia.setEditable(editable);
-        textFieldMes.setEditable(editable);
+
         textFieldHorasTotales.setEditable(editable);
         textFieldHorasExtra.setEditable(editable);
-        textFieldHora.setEditable(editable);
     }
 
     private void initWindow() {
@@ -115,6 +126,31 @@ public class FormSeguimientoLaboral extends JDialog {
         comboBoxTipo.addItem("Selecciona Tipo");
         comboBoxTipo.addItem("Entrada");
         comboBoxTipo.addItem("Salida");
+
+        setHoras();
+
+    }
+
+    private void setHoras() {
+
+        MaskFormatter formatter = null;
+        try {
+            formatter = new MaskFormatter("##-##-####");
+            formattedTextFieldFecha.setFormatterFactory(new DefaultFormatterFactory(formatter));
+
+            formatter = new MaskFormatter("##:##");
+            formattedTextFieldHora.setFormatterFactory(new DefaultFormatterFactory(formatter));
+
+            DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            formattedTextFieldFecha.setText(dft.format(LocalDateTime.now()));
+
+            dft = DateTimeFormatter.ofPattern("HH:mm");
+            formattedTextFieldHora.setText(dft.format(LocalDateTime.now()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
     }
 
@@ -175,12 +211,13 @@ public class FormSeguimientoLaboral extends JDialog {
         String trabajadorSeleccionado =  trabajador.getId() + " - " + trabajador.getNombre();
         comboBoxTrabajador.setSelectedItem(trabajadorSeleccionado);
 
-        textFieldAno.setText(String.valueOf(seguimiento.getAno()));
-        textFieldDia.setText(String.valueOf(seguimiento.getDia()));
-        textFieldMes.setText(String.valueOf(seguimiento.getMes()));
-        textFieldHora.setText(String.valueOf(seguimiento.getHora_entrada()));
-
         comboBoxTipo.setSelectedItem(seguimiento.getTipo());
+
+        formattedTextFieldFecha.setText(seguimiento.getFechaCompleta());
+        if( seguimiento.getTipo().equals("Entrada")){
+            formattedTextFieldHora.setText(seguimiento.getHora_entrada());
+
+        }else formattedTextFieldHora.setText(seguimiento.getHora_salida());
 
         textFieldHorasTotales.setText(String.valueOf(seguimiento.getHoras_totales()));
         textFieldHorasExtra.setText(String.valueOf(seguimiento.getHoras_extra()));
@@ -203,20 +240,19 @@ public class FormSeguimientoLaboral extends JDialog {
             return true;
         }
 
-        if (textFieldAno.getText().isEmpty()) {
-            ShowErrorMessage("Error", "Campo Año no puede estar vacio");
-            return true;
-        }
-        if (textFieldDia.getText().isEmpty()) {
-            ShowErrorMessage("Error", "Campo Dia no puede estar vacio");
-            return true;
-        }
-        if (textFieldMes.getText().isEmpty()) {
-            ShowErrorMessage("Error", "Campo Mes no puede estar vacio");
-            return true;
-        }
-        if (textFieldHora.getText().isEmpty()) {
-            ShowErrorMessage("Error", "Campo Hora no puede estar vacio");
+        validarFechas();
+
+        return false;
+    }
+
+    private boolean validarFechas() {
+        CheckDate checkDate = new CheckDate();
+
+        if (formattedTextFieldFecha.getText().equals("  -  -    ")) {
+            ShowErrorMessage("Error", "La fecha no puede estar vacia");
+
+        } else if (!checkDate.isValidDate(formattedTextFieldFecha.getText())) {
+            ShowErrorMessage("Error", "La fecha no es valida");
             return true;
         }
 
@@ -234,22 +270,31 @@ public class FormSeguimientoLaboral extends JDialog {
             seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1));
             seguimientoLaboral.setIdTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1).getId());
 
-            seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
-            seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
-            seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
+            String[] splittedDate = formattedTextFieldFecha.getText().split("-");
+
+            int dayOfMonth = Integer.parseInt(splittedDate[0]);
+            int month = Integer.parseInt(splittedDate[1]);
+            int year = Integer.parseInt(splittedDate[2]);
+
+            seguimientoLaboral.setAno(year);
+            seguimientoLaboral.setDia(dayOfMonth);
+            seguimientoLaboral.setMes(month);
+
+            seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
 
             if(comboBoxTipo.getSelectedItem().toString().equals("Entrada")){
-                seguimientoLaboral.setHora_entrada(textFieldHora.getText());
+                seguimientoLaboral.setHora_entrada(formattedTextFieldHora.getText());
                 seguimientoLaboral.setHora_salida("");
 
-
             }else{
-                seguimientoLaboral.setHora_salida(textFieldHora.getText());
+                seguimientoLaboral.setHora_salida(formattedTextFieldHora.getText());
                 seguimientoLaboral.setHora_entrada("");
-
             }
 
             seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+            updateHoras(seguimientoLaboral);
+
             seguimientoLaboral.setIdActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex()-1).getId());
             seguimientoLaboral.setActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex()-1));
 
@@ -258,19 +303,25 @@ public class FormSeguimientoLaboral extends JDialog {
             seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1));
             seguimientoLaboral.setIdTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex()-1).getId());
 
+            String[] splittedDate = formattedTextFieldFecha.getText().split("-");
 
-            seguimientoLaboral.setAno(Integer.parseInt(textFieldAno.getText()));
-            seguimientoLaboral.setDia(Integer.parseInt(textFieldDia.getText()));
-            seguimientoLaboral.setMes(Integer.parseInt(textFieldMes.getText()));
+            int dayOfMonth = Integer.parseInt(splittedDate[0]);
+            int month = Integer.parseInt(splittedDate[1]);
+            int year = Integer.parseInt(splittedDate[2]);
+
+            seguimientoLaboral.setAno(year);
+            seguimientoLaboral.setDia(dayOfMonth);
+            seguimientoLaboral.setMes(month);
+
             seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
 
             if(comboBoxTipo.getSelectedItem().toString().equals("Entrada")){
-                seguimientoLaboral.setHora_entrada(textFieldHora.getText());
+                seguimientoLaboral.setHora_entrada(formattedTextFieldHora.getText());
                 seguimientoLaboral.setHora_salida("");
 
 
             }else{
-                seguimientoLaboral.setHora_salida(textFieldHora.getText());
+                seguimientoLaboral.setHora_salida(formattedTextFieldHora.getText());
                 seguimientoLaboral.setHora_entrada("");
 
             }
@@ -278,6 +329,8 @@ public class FormSeguimientoLaboral extends JDialog {
             // FIXME: 25/05/2022 VER COMO TRATAMOS LAS HORAS TOTALES Y EXTRA
             seguimientoLaboral.setHoras_totales(0);
             seguimientoLaboral.setHoras_extra(0);
+
+            updateHoras(seguimientoLaboral);
             //
 
             seguimientoLaboral.setIdActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex()-1).getId());
@@ -286,6 +339,13 @@ public class FormSeguimientoLaboral extends JDialog {
         }
 
         return seguimientoLaboral;
+    }
+
+    private void updateHoras(SeguimientoLaboral seguimientoLaboral) {
+        // TODO: 07/06/2022 COGER LAS DIFERENTES FECHAS Y SU ENTRADA Y SALIDA
+        //  PARA HACER LA DIFERENCIA Y LA SUMATORIA DE ESAS DIFERENCIAS.
+        //  ESTABLECER HORAS TOTALES A PARTIR DE ESA SUMATORIA CADA VEZ QUE SE INTRODUCE UN NUMERO EN EL CAMPO HORA O FECHA
+
     }
 
     //endregion Seguimiento
@@ -327,50 +387,16 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     private void keyListeners() {
-        textFieldDia.addKeyListener(new KeyAdapter() {
+        formattedTextFieldFecha.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
                 // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != '-')) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
-
-        textFieldMes.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        textFieldHora.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/) && (caracter != ':')) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        textFieldAno.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
     }
 
     //endregion
@@ -386,14 +412,12 @@ public class FormSeguimientoLaboral extends JDialog {
     private JButton cancelarButton;
     private JComboBox comboBoxActuacion;
     private JComboBox comboBoxTrabajador;
-    private JTextField textFieldAno;
-    private JTextField textFieldDia;
-    private JTextField textFieldMes;
-    private JTextField textFieldHora;
     private JComboBox comboBoxTipo;
     private JTextField textFieldHorasTotales;
     private JTextField textFieldHorasExtra;
     private JPanel panelPrincipal;
+    private JFormattedTextField formattedTextFieldFecha;
+    private JFormattedTextField formattedTextFieldHora;
 
     //endregion
 

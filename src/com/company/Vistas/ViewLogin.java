@@ -4,6 +4,7 @@ import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Trabajador;
 import com.company.Entidades.Usuario;
 import com.company.Formularios.FormRegistroUsuario;
+import com.company.Recursos.Hash;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -11,12 +12,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class ViewLogin extends JFrame{
-    private ControladorUsuario controladorUsuario;
-    private ArrayList<Usuario> usuarios;
-    private int numUsuario = -1;
-
-    public ViewLogin() throws HeadlessException {
+public class ViewLogin extends JFrame {
+    public ViewLogin() {
         add(panelPrincipal);
         controladorUsuario = new ControladorUsuario();
         usuarios = controladorUsuario.getUsers();
@@ -43,13 +40,14 @@ public class ViewLogin extends JFrame{
     }
 
     //Listeners
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         focusListeners();
         mouseListeners();
     }
 
-    public boolean getNewUsuarioFromFormulario(Usuario usuario){
+    public boolean getNewUsuarioFromFormulario(Usuario usuario) {
+        usuarios.add(usuario);
         return controladorUsuario.createUsuario(usuario);
     }
 
@@ -58,14 +56,16 @@ public class ViewLogin extends JFrame{
 //
 //    }
 
-    private void actionListeners(){
+    private void actionListeners() {
         entrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Usuario usuario =  usuarios.get(numUsuario);
-                ViewCargando viewCargando = new ViewCargando(ViewLogin.this, usuario);
-
-
+                if (comprobarEmail(usuarios, textFieldEmail.getText())) {
+                    if(comprobarPass(usuarios, usuarios.get(numUsuario), String.valueOf(passwordFieldPass.getPassword()))){
+                        Usuario usuario = usuarios.get(numUsuario);
+                        ViewCargando viewCargando = new ViewCargando(ViewLogin.this, usuario);
+                    }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");
+                }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");
             }
         });
 
@@ -85,19 +85,20 @@ public class ViewLogin extends JFrame{
 
                 usuario.setEmail(textFieldEmail.getText());
                 usuario.setPass(String.valueOf(passwordFieldPass.getPassword()));
-                System.out.println("Pass: " + String.valueOf(passwordFieldPass.getPassword()));
-                FormRegistroUsuario registroUsuario = new FormRegistroUsuario(usuario);
+                FormRegistroUsuario registroUsuario = new FormRegistroUsuario(usuario, ViewLogin.this);
 
             }
         });
 
     }
 
-    private void mouseListeners(){
+
+
+    private void mouseListeners() {
         buttonVerPass.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                passwordFieldPass.setEchoChar((char)0);
+                passwordFieldPass.setEchoChar((char) 0);
             }
 
             @Override
@@ -107,7 +108,7 @@ public class ViewLogin extends JFrame{
         });
     }
 
-    private void focusListeners(){
+    private void focusListeners() {
         textFieldEmail.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -118,7 +119,7 @@ public class ViewLogin extends JFrame{
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(!textFieldEmail.getText().equals("")) {
+                if (!textFieldEmail.getText().equals("")) {
 
                     if (!comprobarEmail(usuarios, textFieldEmail.getText())) {
                         msj_error.setText("Usuario no encontrado...");
@@ -130,11 +131,11 @@ public class ViewLogin extends JFrame{
         });
     }
 
-    private boolean comprobarEmail(ArrayList<Usuario> usuarios, String email){
+    private boolean comprobarEmail(ArrayList<Usuario> usuarios, String email) {
         int contador = 0;
-        for (Usuario user : usuarios){
+        for (Usuario user : usuarios) {
 
-            if(email.equals(user.getEmail())){
+            if (email.equals(user.getEmail())) {
                 numUsuario = contador;
                 return true;
             }
@@ -144,9 +145,40 @@ public class ViewLogin extends JFrame{
         return false;
     }
 
+    private boolean comprobarPass(ArrayList<Usuario> usuarios, Usuario usuario, String password) {
+        int contador = 0;
+
+        Hash hash =  new Hash();
+        password = hash.getPassHashed(password);
+
+        for (Usuario user : usuarios) {
+            contador++;
+            if(user.getEmail().equals(usuario.getEmail())){
+                if(user.getDNI().equals(usuario.getDNI())){
+                    System.out.println("Contraseña user arr: " + user.getPass());
+                    System.out.println("Contraseña input: " + password);
+
+                    if(password.equals(user.getPass())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void ShowErrorMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.ERROR_MESSAGE);
+    }
 
 
     //Variables
+    private ControladorUsuario controladorUsuario;
+    private ArrayList<Usuario> usuarios;
+    private int numUsuario = -1;
     private JTextField textFieldEmail;
     private JPasswordField passwordFieldPass;
     private JButton entrarButton;
@@ -155,6 +187,6 @@ public class ViewLogin extends JFrame{
     private JLabel pass;
     private JButton buttonVerPass;
     private JPanel panelPrincipal;
-    private JLabel JLabelError;
     private JButton buttonRegistro;
+    //endregion
 }

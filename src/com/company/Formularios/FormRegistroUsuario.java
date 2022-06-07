@@ -2,6 +2,9 @@ package com.company.Formularios;
 
 import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Usuario;
+import com.company.Recursos.Hash;
+import com.company.Recursos.CheckDate;
+import com.company.Vistas.ViewLogin;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -12,13 +15,16 @@ import java.awt.event.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FormRegistroUsuario extends JDialog{
 
     //region Constructores
-    public FormRegistroUsuario(Usuario usuario) {
+    public FormRegistroUsuario(Usuario usuario, ViewLogin viewLogin) {
         estado = 1;
         this.usuario = usuario;
+        this.viewLogin = viewLogin;
         controladorUsuario = new ControladorUsuario();
         initWindow();
         initComps();
@@ -67,6 +73,9 @@ public class FormRegistroUsuario extends JDialog{
             formatterFNAC = new MaskFormatter("##-##-####");
             formattedTextFieldFechaNacimiento.setFormatterFactory(new DefaultFormatterFactory(formatterFNAC));
 
+            DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            formattedTextFieldFechaNacimiento.setText(dft.format(LocalDateTime.now()));
+
             formattedTextFieldDNI.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
 
             formattedTextFieldTelefono.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("#########")));
@@ -83,15 +92,15 @@ public class FormRegistroUsuario extends JDialog{
 
     private void loadNewUsuario() {
 
-        // TODO: 02/06/2022 CONTROL DE SEGURIDAD DE CONTRASEÑA
-
         boolean conErrores = checkFields();
 
         if(!conErrores){
             Usuario usuario = getUsuario();
 
-            if(controladorUsuario.createUsuario(usuario)){
+            if(viewLogin.getNewUsuarioFromFormulario(usuario)){
                 dispose();
+            }else{
+                ShowErrorMessage("Error", "No se ha podido crear el usuario, intentelo de nuevo más tarde.");
             }
         }
     }
@@ -154,6 +163,22 @@ public class FormRegistroUsuario extends JDialog{
             return true;
         }
 
+        validarFechas();
+
+        return false;
+    }
+
+    private boolean validarFechas() {
+        CheckDate checkDate = new CheckDate();
+
+        if (formattedTextFieldFechaNacimiento.getText().equals("  -  -    ")) {
+            ShowErrorMessage("Error", "La fecha de nacimiento no puede estar vacía.");
+            return true;
+
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaNacimiento.getText())) {
+            ShowErrorMessage("Error", "La fecha de nacimiento no es valida");
+            return true;
+        }
         return false;
     }
 
@@ -181,8 +206,9 @@ public class FormRegistroUsuario extends JDialog{
             }
             usuario.setNacionalidad(textFieldNacionalidad.getText());
             usuario.setEmail(formattedTextFieldEmail.getText());
-            usuario.setPass(String.valueOf(passwordFieldPass.getPassword()));
-            System.out.println("Pass: " + String.valueOf(passwordFieldPass.getPassword()));
+            Hash hash = new Hash();
+            usuario.setPass(hash.getPassHashed(String.valueOf(passwordFieldPass.getPassword())));
+            System.out.println("Pass: " + hash.getPassHashed(String.valueOf(passwordFieldPass.getPassword())));
 
         }
         return usuario;
@@ -268,6 +294,7 @@ public class FormRegistroUsuario extends JDialog{
 
 
     //region Variables
+    private ViewLogin viewLogin;
     private int estado = 0;
     private ControladorUsuario controladorUsuario;
     private Usuario usuario;
