@@ -167,26 +167,44 @@ public class ViewSeguimiento extends JFrame{
     }
 
     private void readSeguimiento(){
-        SeguimientoLaboral seguimientoLaboral = getSeguimiento();
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, false, trabajadores, actuaciones);
+        int row = TableSeguimiento.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un seguimiento de la tabla.");
+
+        } else {SeguimientoLaboral seguimientoLaboral = getSeguimiento(row);
+            FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, false, trabajadores, actuaciones);
+        }
     }
 
     private void updateSeguimiento() {
-        SeguimientoLaboral seguimientoLaboral = getSeguimiento();
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral,seguimientoLaboralList, trabajadores, actuaciones);
+        int row = TableSeguimiento.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un seguimiento de la tabla.");
+
+        } else {
+            SeguimientoLaboral seguimientoLaboral = getSeguimiento(row);
+            FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, seguimientoLaboralList, trabajadores, actuaciones);
+        }
     }
 
-    private void deleteSeguimiento(){
-        int cod = getCodSeguimiento();
+    private void deleteSeguimiento() {
+        int row = TableSeguimiento.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un seguimiento de la tabla.");
 
-        boolean result = controladorSeguimiento.deleteSeguimiento(cod);
+        } else {
+            SeguimientoLaboral seguimientoLaboral = getSeguimiento(row);
 
-        if(result){
-            int row = TableSeguimiento.getSelectedRow();
+            int cod = getCodSeguimiento(row);
 
-            seguimientoLaboralList.remove(row);
-            refreshTable(headers, seguimientoLaboralList);
+            boolean result = controladorSeguimiento.deleteSeguimiento(cod);
+
+            if (result) {
+                seguimientoLaboralList.remove(row);
+                refreshTable(headers, seguimientoLaboralList);
+            }
         }
+
     }
 
 
@@ -255,17 +273,12 @@ public class ViewSeguimiento extends JFrame{
         return 0;
     }
 
-    private SeguimientoLaboral getSeguimiento() {
-        int row = TableSeguimiento.getSelectedRow();
-
+    private SeguimientoLaboral getSeguimiento(int row) {
         SeguimientoLaboral seguimientoLaboral = seguimientoLaboralList.get(row);
-
         return seguimientoLaboral;
     }
 
-    private int getCodSeguimiento() {
-        int row = TableSeguimiento.getSelectedRow();
-
+    private int getCodSeguimiento(int row) {
         return seguimientoLaboralList.get(row).getId();
     }
 

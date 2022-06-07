@@ -216,10 +216,14 @@ public class ViewActuacion extends JFrame {
 
     //region CRUD
     private void createActuacion() {
+
+
         FormActuacion formActuacion = new FormActuacion(this, clientes, especificacionesActuacion);
     }
 
     private void readActuacion() {
+
+
         Actuacion actuacion = getActuacion();
         FormActuacion formActuacion = new FormActuacion(this, actuacion, clientes, especificacionesActuacion, false);
     }

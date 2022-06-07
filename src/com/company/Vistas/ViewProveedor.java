@@ -159,27 +159,42 @@ public class ViewProveedor extends JFrame{
     }
 
     private void readProveedor(){
-        Proveedor proveedor = getProveedor();
-        FormProveedor formProveedor = new FormProveedor(this, proveedor, false);
+        int row = TableProveedor.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un proveedor de la tabla.");
+
+        } else {
+            Proveedor proveedor = getProveedor(row);
+            FormProveedor formProveedor = new FormProveedor(this, proveedor, false);
+        }
     }
 
     private void updateProveedor() {
-        Proveedor proveedor = getProveedor();
-        FormProveedor formProveedor = new FormProveedor(this, proveedor);
+        int row = TableProveedor.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un proveedor de la tabla.");
 
+        } else {
+            Proveedor proveedor = getProveedor(row);
+            FormProveedor formProveedor = new FormProveedor(this, proveedor);
+        }
 
     }
 
     private void deleteProveedor(){
 
-        int id = getIDProveedor();
-        boolean result = controladorProveedor.deleteProveedor(id);
+        int row = TableProveedor.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un proveedor de la tabla.");
 
-        if(result){
-            int row = TableProveedor.getSelectedRow();
+        } else {
+            int id = getIDProveedor(row);
+            boolean result = controladorProveedor.deleteProveedor(id);
 
-            proveedores.remove(row);
-            refreshTable(headers, proveedores);
+            if (result) {
+                proveedores.remove(row);
+                refreshTable(headers, proveedores);
+            }
         }
     }
 
@@ -228,15 +243,13 @@ public class ViewProveedor extends JFrame{
 
 
 
-    private Proveedor getProveedor() {
-        int row = TableProveedor.getSelectedRow();
+    private Proveedor getProveedor(int row) {
 
         return proveedores.get(row);
 
     }
 
-    private int getIDProveedor() {
-        int row = TableCliente.getSelectedRow();
+    private int getIDProveedor(int row) {
         return proveedores.get(row).getId();
     }
 

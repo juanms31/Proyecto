@@ -247,33 +247,56 @@ public class ViewAlbaran extends JFrame {
     }
 
     private void readAlbaran() {
-        Albaran albaran = getAlbaran();
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, actuaciones, proveedores, false);
+        int row = TableAlbaran.getSelectedRow();
+
+        if(row == -1 ){
+            ShowErrorMessage("Error", "Error, selecciona un albaran de la tabla.");
+        }else {
+
+            Albaran albaran = getAlbaran(row);
+            FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, actuaciones, proveedores, false);
+        }
     }
 
     private void updateAlbaran() {
-        Albaran albaran = getAlbaran();
-        ArrayList<MaterialCompradoProveedor> materialCompradoProveedores = getMaterialesCompradosProveedor(albaran);
-        FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, materialCompradoProveedores, actuaciones, proveedores);
+
+        int row = TableAlbaran.getSelectedRow();
+
+        if(row == -1 ){
+            ShowErrorMessage("Error", "Error, selecciona un albaran de la tabla.");
+        }else {
+
+            Albaran albaran = getAlbaran(row);
+            ArrayList<MaterialCompradoProveedor> materialCompradoProveedores = getMaterialesCompradosProveedor(albaran);
+            FormAlbaran formAlbaran = new FormAlbaran(this, albaran, materiales, materialCompradoProveedores, actuaciones, proveedores);
+        }
     }
 
 
     private void deleteAlbaran() {
 
-        Albaran albaran = getAlbaran();
+        int row = TableAlbaran.getSelectedRow();
 
-        boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
+        if(row == -1 ){
 
-        if (result) {
+            ShowErrorMessage("Error", "Error, selecciona un albaran de la tabla.");
 
-            ShowMessage("CORRECTO", "El albaran con codigo: " + albaran.getCod() + " ha sido borrado");
-            int row = TableAlbaran.getSelectedRow();
+        }else {
 
-            albaranes.remove(row);
-            refreshTable(headers, albaranes);
-            refreshSecondaryTables();
-        }else{
-            ShowErrorMessage("ERROR", "El albaran con codigo: " + albaran.getCod() + " no se ha podido borrar");
+            Albaran albaran = getAlbaran(row);
+
+            boolean result = controladorAlbaran.deleteAlbaran(albaran.getId());
+
+            if (result) {
+
+                ShowMessage("CORRECTO", "El albaran con codigo: " + albaran.getCod() + " ha sido borrado");
+
+                albaranes.remove(row);
+                refreshTable(headers, albaranes);
+                refreshSecondaryTables();
+            } else {
+                ShowErrorMessage("ERROR", "El albaran con codigo: " + albaran.getCod() + " no se ha podido borrar");
+            }
         }
     }
 
@@ -300,8 +323,8 @@ public class ViewAlbaran extends JFrame {
 
         ArrayList<MaterialCompradoProveedor> temp = new ArrayList<>();
 
-        for(MaterialCompradoProveedor materialCompradoProveedor1 : materialesCompradosProveedor){
-            if(materialCompradoProveedor1.getId() == materialCompradoProveedor.getId()){
+        for (MaterialCompradoProveedor materialCompradoProveedor1 : materialesCompradosProveedor) {
+            if (materialCompradoProveedor1.getId() == materialCompradoProveedor.getId()) {
                 encontrado = true;
                 materialesCompradosProveedor.get(cont).setMaterial(materialCompradoProveedor.getMaterial());
                 materialesCompradosProveedor.get(cont).setProveedor(materialCompradoProveedor.getProveedor());
@@ -310,7 +333,7 @@ public class ViewAlbaran extends JFrame {
                 materialesCompradosProveedor.get(cont).setUnidades(materialCompradoProveedor.getUnidades());
                 materialesCompradosProveedor.get(cont).setPrecioUnidad(materialCompradoProveedor.getPrecioUnidad());
                 materialesCompradosProveedor.get(cont).setBaseImponible(materialCompradoProveedor.getBaseImponible());
-            }else {
+            } else {
                 temp.add(materialCompradoProveedor);
             }
             cont++;
@@ -344,11 +367,9 @@ public class ViewAlbaran extends JFrame {
     }
 
 
-    private Albaran getAlbaran() {
-        int row = TableAlbaran.getSelectedRow();
+    private Albaran getAlbaran(int row) {
 
         return albaranes.get(row);
-
     }
 
     private ArrayList<MaterialCompradoProveedor> getMaterialesCompradosProveedor(Albaran albaran) {
@@ -377,7 +398,7 @@ public class ViewAlbaran extends JFrame {
         }
     }
 
-    private void setActuacion(Albaran albaran){
+    private void setActuacion(Albaran albaran) {
         modelActuacionesAlbaran = new DefaultTableModel(headersActuacion, 0);
         TableActuacionesAlbaran.setModel(modelActuacionesAlbaran);
 
@@ -419,12 +440,12 @@ public class ViewAlbaran extends JFrame {
         return new Material();
     }
 
-    public void updateMaterialesCompradosProveedorExistentes(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor){
+    public void updateMaterialesCompradosProveedorExistentes(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
         int cont = 0;
-        for(MaterialCompradoProveedor mat1 : materialesCompradoProveedor){
+        for (MaterialCompradoProveedor mat1 : materialesCompradoProveedor) {
             cont = 0;
-            for(MaterialCompradoProveedor mat2 :  this.materialesCompradosProveedor){
-                if(mat1.getId() == mat2.getId()){
+            for (MaterialCompradoProveedor mat2 : this.materialesCompradosProveedor) {
+                if (mat1.getId() == mat2.getId()) {
                     this.materialesCompradosProveedor.get(cont).setProveedor(mat1.getProveedor());
                     this.materialesCompradosProveedor.get(cont).setAlbaran(mat1.getAlbaran());
                     this.materialesCompradosProveedor.get(cont).setMaterial(mat1.getMaterial());
@@ -439,24 +460,24 @@ public class ViewAlbaran extends JFrame {
 
     }
 
-    public void addMaterialesCompradosProveedorNuevos(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor){
+    public void addMaterialesCompradosProveedorNuevos(ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
         ArrayList<MaterialCompradoProveedor> nuevos = new ArrayList<>();
 
-        for (MaterialCompradoProveedor mat1: materialesCompradoProveedor ) {
-            if(!ExisteId(mat1.getId())){
+        for (MaterialCompradoProveedor mat1 : materialesCompradoProveedor) {
+            if (!ExisteId(mat1.getId())) {
                 nuevos.add(mat1);
             }
         }
 
-        for(MaterialCompradoProveedor materialCompradoProveedor :  nuevos){
+        for (MaterialCompradoProveedor materialCompradoProveedor : nuevos) {
             this.materialesCompradosProveedor.add(materialCompradoProveedor);
         }
     }
 
-    private boolean ExisteId(int id){
+    private boolean ExisteId(int id) {
 
-        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor){
-            if(id == materialCompradoProveedor.getId()){
+        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradosProveedor) {
+            if (id == materialCompradoProveedor.getId()) {
                 return true;
             }
         }
@@ -535,9 +556,17 @@ public class ViewAlbaran extends JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 if (e.getClickCount() == 1) {
-                    Albaran albaran = getAlbaran();
-                    setMateriales(albaran);
-                    setActuacion(albaran);
+                    int row = TableAlbaran.getSelectedRow();
+
+                    if(row == -1 ){
+                        ShowErrorMessage("Error", "Error, selecciona un albaran de la tabla.");
+
+                    }else {
+
+                        Albaran albaran = getAlbaran(row);
+                        setMateriales(albaran);
+                        setActuacion(albaran);
+                    }
                 }
 
                 if (e.getClickCount() == 2) {

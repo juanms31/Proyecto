@@ -81,6 +81,9 @@ public class ViewLogin extends JFrame {
         buttonRegistro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonRegistro.setVisible(true);
+                msj_error.setVisible(true);
+
                 Usuario usuario = new Usuario();
 
                 usuario.setEmail(textFieldEmail.getText());
@@ -156,9 +159,6 @@ public class ViewLogin extends JFrame {
                 contador++;
                 if(user.getEmail().equals(usuario.getEmail())){
                     if(user.getDNI().equals(usuario.getDNI())){
-                        System.out.println("Contraseña user arr: " + user.getPass());
-                        System.out.println("Contraseña input: " + password);
-
                         if(password.equals(user.getPass())){
                             return true;
                         }

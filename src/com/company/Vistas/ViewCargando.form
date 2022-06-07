@@ -26,10 +26,10 @@
             </constraints>
             <properties>
               <autoscrolls value="false"/>
-              <background color="-16777216"/>
+              <background color="-1"/>
               <borderPainted value="true"/>
               <font name="JetBrains Mono" size="16" style="0"/>
-              <foreground color="-11617507"/>
+              <foreground color="-12737739"/>
               <indeterminate value="false"/>
               <inheritsPopupMenu value="false"/>
               <name value=""/>
@@ -58,6 +58,7 @@
         </constraints>
         <properties>
           <background color="-1"/>
+          <font name="Droid Serif" size="24" style="0"/>
         </properties>
         <border type="none"/>
         <children>
@@ -76,6 +77,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="JetBrains Mono" size="24" style="0"/>
               <foreground color="-16777216"/>
               <text value=""/>
             </properties>

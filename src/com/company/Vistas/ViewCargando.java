@@ -4,7 +4,6 @@ import com.company.Entidades.Usuario;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Locale;
 
 public class ViewCargando extends JFrame {
     public static String DNI;
@@ -80,10 +79,21 @@ public class ViewCargando extends JFrame {
                     } else if (i > 70 && i < 90) {
                         numAle = (int) (Math.random() * 250) + 1;
                         progressBar.setString("Cargando..");
+
                         JLabelBienvenido.setText("Bienvenido " + usuario.getNombre());
+
                     }else if(i == 100){
-                        ViewMain viewMain = new ViewMain();
-                        viewMain.setVisible(true);
+
+                        dispose();
+
+                        try {
+                            Thread.sleep(150);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        ViewInicio viewInicio = new ViewInicio();
+                        viewInicio.setVisible(true);
                     }
 
                     progressBar.setValue(i);
@@ -99,4 +109,5 @@ public class ViewCargando extends JFrame {
         Thread th = new Thread(runnable);
         th.start();
     }
+
 }

@@ -174,41 +174,63 @@ public class ViewMaterial extends JFrame{
     }
 
     private void readMaterial(){
-        Material material = getMaterial();
-        FormMaterial formMaterial = new FormMaterial(this,
-                material,
-                proveedores,
-                grupoMateriales,
-                especificacionMateriales,
-                unidadMateriales,
-                calidadMateriales,
-                false);
+
+        int row = TableMaterial.getSelectedRow();
+        if(row == -1){
+            ShowErrorMessage("Error", "Error, selecciona un material de la tabla.");
+
+        }else {
+
+            Material material = getMaterial(row);
+            FormMaterial formMaterial = new FormMaterial(this,
+                    material,
+                    proveedores,
+                    grupoMateriales,
+                    especificacionMateriales,
+                    unidadMateriales,
+                    calidadMateriales,
+                    false);
+        }
     }
 
     private void updateMaterial() {
-        Material material = getMaterial();
-        FormMaterial formMaterial = new FormMaterial(this,
-                material,
-                proveedores,
-                grupoMateriales,
-                especificacionMateriales,
-                unidadMateriales,
-                calidadMateriales);
+        int row = TableMaterial.getSelectedRow();
+        if(row == -1){
+            ShowErrorMessage("Error", "Error, selecciona un material de la tabla.");
+
+        }else {
+
+            Material material = getMaterial(row);
+            FormMaterial formMaterial = new FormMaterial(this,
+                    material,
+                    proveedores,
+                    grupoMateriales,
+                    especificacionMateriales,
+                    unidadMateriales,
+                    calidadMateriales);
+        }
     }
 
     private void deleteMaterial(){
-        String cod = getCodMaterial();
 
-        boolean result = controladorMaterial.deleteMaterial(cod);
+        int row = TableMaterial.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un material de la tabla.");
 
-        if (result){
-            ShowMessage("CORRECTO","El material con codigo: " + cod + " ha sido borrado");
-            int row = TableMaterial.getSelectedRow();
-            materiales.remove(row);
-            refreshTable(headers, materiales);
+        } else {
 
-        }else{
-            ShowErrorMessage( "ERROR","El material con codigo: " + cod + " no se ha podido borrar");
+            String cod = getCodMaterial(row);
+            boolean result = controladorMaterial.deleteMaterial(cod);
+
+            if (result){
+                ShowMessage("CORRECTO","El material con codigo: " + cod + " ha sido borrado");
+                materiales.remove(row);
+                refreshTable(headers, materiales);
+
+            }else{
+                ShowErrorMessage( "ERROR","El material con codigo: " + cod + " no se ha podido borrar");
+            }
+
         }
     }
 
@@ -268,16 +290,12 @@ public class ViewMaterial extends JFrame{
 
 
 
-    private Material getMaterial() {
-        int row = TableMaterial.getSelectedRow();
+    private Material getMaterial(int row) {
 
-        Material material = materiales.get(row);
-        
-        return material;
+         return materiales.get(row);
     }
 
-    private String getCodMaterial() {
-        int row = TableMaterial.getSelectedRow();
+    private String getCodMaterial(int row) {
 
         return materiales.get(row).getCodigo();
     }

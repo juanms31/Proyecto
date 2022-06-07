@@ -3,6 +3,7 @@ package com.company.Vistas;
 import com.company.Controlador.ControladorCliente;
 import com.company.Controlador.ControladorTrabajador;
 import com.company.Entidades.Cliente;
+import com.company.Entidades.Material;
 import com.company.Entidades.Proveedor;
 import com.company.Entidades.Trabajador;
 import com.company.Formularios.FormCliente;
@@ -21,7 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class ViewTrabajador extends JFrame{
+public class ViewTrabajador extends JFrame {
 
 
     //region Constructores
@@ -48,13 +49,13 @@ public class ViewTrabajador extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(750,750));
+        setMinimumSize(new Dimension(750, 750));
         setLocationRelativeTo(null);
         setTitle("Trabajadores");
         String[] listColumnsName = controladorTrabajador.getColumnsName();
         headers = new String[listColumnsName.length - 1];
-        for (int i = 0; i < listColumnsName.length-1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');
+        for (int i = 0; i < listColumnsName.length - 1; i++) {
+            headers[i] = listColumnsName[i + 1].toUpperCase().replace('_', ' ');
         }
         refreshTable(headers, trabajadores);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -64,9 +65,9 @@ public class ViewTrabajador extends JFrame{
 
     //region Metodos Tabla
 
-    public void refreshTable(String[] headers, ArrayList<Trabajador> trabajadores){
+    public void refreshTable(String[] headers, ArrayList<Trabajador> trabajadores) {
 
-        if(trabajadores.size() == 0) {
+        if (trabajadores.size() == 0) {
             TableTrabajador.setShowGrid(true);
             TableTrabajador.setCellSelectionEnabled(false);
             TableTrabajador.setAutoCreateRowSorter(true);
@@ -82,7 +83,7 @@ public class ViewTrabajador extends JFrame{
             modelTrabajador = new DefaultTableModel(headers, 0);
 
             TableTrabajador.setModel(modelTrabajador);
-        }else {
+        } else {
 
             TableTrabajador.setShowGrid(true);
             TableTrabajador.setCellSelectionEnabled(false);
@@ -110,7 +111,7 @@ public class ViewTrabajador extends JFrame{
         }
     }
 
-    private void filter(){
+    private void filter() {
         DefaultTableModel Model = (DefaultTableModel) TableTrabajador.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
         TableTrabajador.setRowSorter(tr);
@@ -120,7 +121,7 @@ public class ViewTrabajador extends JFrame{
 
     //region Metodos Desde el Formulario
 
-    public boolean getNewTrabajadorFromFormulario(Trabajador trabajador){
+    public boolean getNewTrabajadorFromFormulario(Trabajador trabajador) {
         return controladorTrabajador.createTrabajador(trabajador);
     }
 
@@ -134,21 +135,21 @@ public class ViewTrabajador extends JFrame{
     //region Mensajes
     public void ShowMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void ShowWarningMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
 
     public void ShowErrorMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
@@ -156,34 +157,57 @@ public class ViewTrabajador extends JFrame{
     //endregion
 
     //region CRUD
-    private void createTrabajador(){
+    private void createTrabajador() {
         FormTrabajador formTrabajador = new FormTrabajador(this);
     }
 
-    private void readTrabajador(){
-        Trabajador trabajador = getTrabajador();
-        FormTrabajador formTrabajador = new FormTrabajador(this, trabajador, false);
+    private void readTrabajador() {
+
+        int row = TableTrabajador.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un trabajador de la tabla.");
+
+        } else {
+
+            Trabajador trabajador = getTrabajador();
+
+            FormTrabajador formTrabajador = new FormTrabajador(this, trabajador, false);
+        }
     }
 
     private void updateTrabajador() {
-        Trabajador trabajador = getTrabajador();
-        FormTrabajador formTrabajador = new FormTrabajador(this, trabajador);
+
+        int row = TableTrabajador.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un trabajador de la tabla.");
+
+        } else {
+
+            Trabajador trabajador = getTrabajador();
+            FormTrabajador formTrabajador = new FormTrabajador(this, trabajador);
+        }
     }
 
-    private void deleteTrabajador(){
+    private void deleteTrabajador() {
 
-        Trabajador trabajador = getTrabajador();
+        int row = TableTrabajador.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un trabajador de la tabla.");
 
-        boolean result = controladorTrabajador.deleteTrabajador(trabajador);
+        } else {
 
-        if(result){
-            int row = TableTrabajador.getSelectedRow();
-            trabajadores.remove(row);
-            refreshTable(headers, trabajadores);
-            ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido borrado");
+            Trabajador trabajador = getTrabajador();
 
-        }else{
-            ShowErrorMessage("ERROR","Trabajador " + trabajador.getNombre() + " no se ha podido borrar");
+            boolean result = controladorTrabajador.deleteTrabajador(trabajador);
+
+            if (result) {
+                trabajadores.remove(row);
+                refreshTable(headers, trabajadores);
+                ShowMessage("CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido borrado");
+
+            } else {
+                ShowErrorMessage("ERROR", "Trabajador " + trabajador.getNombre() + " no se ha podido borrar");
+            }
         }
     }
 
@@ -207,7 +231,7 @@ public class ViewTrabajador extends JFrame{
 
     }
 
-    public void addTableTrabajador(Trabajador trabajador){
+    public void addTableTrabajador(Trabajador trabajador) {
 
         Object[] newTrabajador = getTrabajadorObject(trabajador);
         modelTrabajador.addRow(newTrabajador);
@@ -216,7 +240,7 @@ public class ViewTrabajador extends JFrame{
 
     }
 
-    public Object[] getTrabajadorObject(Trabajador trabajador){
+    public Object[] getTrabajadorObject(Trabajador trabajador) {
         int y = 0;
         Object[] newTrabajador = new Object[headers.length];
 
@@ -234,7 +258,6 @@ public class ViewTrabajador extends JFrame{
     }
 
 
-
     private Trabajador getTrabajador() {
         int row = TableTrabajador.getSelectedRow();
 
@@ -248,16 +271,15 @@ public class ViewTrabajador extends JFrame{
     }
 
 
-
     //endregion
 
     //region Listeners
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         mouseListeners();
     }
 
-    private void actionListeners(){
+    private void actionListeners() {
         buttonAnadir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -309,11 +331,11 @@ public class ViewTrabajador extends JFrame{
 
     }
 
-    private void mouseListeners(){
+    private void mouseListeners() {
         TableTrabajador.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount()==2){
+                if (e.getClickCount() == 2) {
                     updateTrabajador();
                 }
             }
@@ -341,10 +363,10 @@ public class ViewTrabajador extends JFrame{
     private ArrayList<Trabajador> trabajadores;
     private ControladorTrabajador controladorTrabajador;
     private String[] headers;
-    
+
     private DefaultTableModel modelTrabajador;
     private TableRowSorter sorter;
-    
-    
+
+
     //endregion
 }

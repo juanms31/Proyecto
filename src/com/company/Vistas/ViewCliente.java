@@ -2,6 +2,7 @@ package com.company.Vistas;
 
 import com.company.Controlador.ControladorCliente;
 import com.company.Entidades.Cliente;
+import com.company.Entidades.Trabajador;
 import com.company.Formularios.FormCliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -154,31 +155,53 @@ public class ViewCliente extends JFrame{
         FormCliente formCliente = new FormCliente(this);
     }
 
-    private void readCliente(){
-        Cliente cliente = getCliente();
-        FormCliente formCliente = new FormCliente( cliente, false);
+    private void readCliente() {
+        int row = TableCliente.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un cliente de la tabla.");
+
+        } else {
+
+            Cliente cliente = getCliente();
+            FormCliente formCliente = new FormCliente(cliente, false);
+        }
     }
 
+
     private void updateCliente() {
-        Cliente cliente = getCliente();
-        FormCliente formCliente = new FormCliente(this, cliente);
+
+        int row = TableCliente.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un cliente de la tabla.");
+
+        } else {
+
+            Cliente cliente = getCliente();
+            FormCliente formCliente = new FormCliente(this, cliente);
+        }
 
 
     }
 
     private void deleteCliente(){
 
-        Cliente cliente = getCliente();
+        int row = TableCliente.getSelectedRow();
+        if (row == -1) {
+            ShowErrorMessage("Error", "Error, selecciona un cliente de la tabla.");
 
-        boolean result = controladorCliente.deleteCliente(cliente);
+        } else {
 
-        if(result){
-            int row = TableCliente.getSelectedRow();
-            clientes.remove(row);
-            refreshTable(headers, clientes);
-            ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " ha sido borrado");
-        }else{
-            ShowErrorMessage("ERROR","Cliente " + cliente.getNombre() + " no se ha podido borrar");
+            Cliente cliente = getCliente();
+
+            boolean result = controladorCliente.deleteCliente(cliente);
+
+            if (result) {
+                clientes.remove(row);
+                refreshTable(headers, clientes);
+                ShowMessage("CORRECTO", "Cliente " + cliente.getNombre() + " ha sido borrado");
+            } else {
+                ShowErrorMessage("ERROR", "Cliente " + cliente.getNombre() + " no se ha podido borrar");
+            }
         }
     }
 
