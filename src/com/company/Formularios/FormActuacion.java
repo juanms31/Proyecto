@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.*;
+import com.company.Recursos.CheckDate;
 import com.company.Vistas.ViewActuacion;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -233,6 +234,41 @@ public class FormActuacion extends JDialog {
             return true;
         }
 
+        return validarFechas();
+
+    }
+
+    private boolean validarFechas() {
+        CheckDate checkDate = new CheckDate();
+
+        if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
+
+        }else if (!checkDate.isValidDate(formattedTextFieldFechaSolicitud.getText())) {
+            ShowErrorMessage("Error", "La fecha de solicitud no es valida");
+            return true;
+        }
+
+        if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
+
+        }else if (!checkDate.isValidDate(formattedTextFieldFechaEnvio.getText())) {
+            ShowErrorMessage("Error", "La fecha de envio no es valida");
+            return true;
+        }
+
+        if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
+
+        }else if (!checkDate.isValidDate(formattedTextFieldFechaComienzo.getText())) {
+            ShowErrorMessage("Error", "La fecha de comienzo no es valida");
+            return true;
+        }
+
+        if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
+
+        }else if (!checkDate.isValidDate(formattedTextFieldFechaFinalizacion.getText())) {
+            ShowErrorMessage("Error", "La fecha de comienzo no es valida");
+            return true;
+        }
+
         return false;
     }
 
@@ -320,56 +356,64 @@ public class FormActuacion extends JDialog {
         if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
             actuacion.setFecha_solicitud(null);
         } else {
-            try {
 
+            try {
                 UTILDate = dateFormat.parse(formattedTextFieldFechaSolicitud.getText());
+
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_solicitud(SQLDate);
+
 
             } catch (ParseException e) {
                 ShowErrorMessage("Error", "La fecha de solicitud no es valida");
             }
-
         }
 
 
         if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
             actuacion.setFecha_envio(null);
         } else {
+
             try {
                 UTILDate = dateFormat.parse(formattedTextFieldFechaEnvio.getText());
+
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_envio(SQLDate);
+
             } catch (ParseException e) {
                 ShowErrorMessage("Error", "La fecha de envio no es valida");
             }
-
         }
 
         if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
             actuacion.setFecha_comienzo(null);
         } else {
+
             try {
+
                 UTILDate = dateFormat.parse(formattedTextFieldFechaComienzo.getText());
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_comienzo(SQLDate);
+
             } catch (ParseException e) {
                 ShowErrorMessage("Error", "La fecha de comienzo no es valida");
             }
-
         }
 
         if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
             actuacion.setFecha_finalizacion(null);
         } else {
+
             try {
+
                 UTILDate = dateFormat.parse(formattedTextFieldFechaFinalizacion.getText());
+
                 SQLDate = new Date(UTILDate.getTime());
                 actuacion.setFecha_finalizacion(SQLDate);
-            } catch (ParseException e) {
-                ShowErrorMessage("Error", "La fecha de finalización no es valida");
-            }
 
+            } catch (ParseException e) {
+                ShowErrorMessage("Error", "La fecha de comienzo no es valida");
+            }
         }
 
         return actuacion;
@@ -602,8 +646,8 @@ public class FormActuacion extends JDialog {
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
                 fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
                 int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
-                
-                if(seleccion == JFileChooser.APPROVE_OPTION){
+
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
                     setHojaPlanificacion();
                 }
             }
@@ -617,8 +661,8 @@ public class FormActuacion extends JDialog {
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
                 fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
                 int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
-                
-                if(seleccion == JFileChooser.APPROVE_OPTION){
+
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
                     setHojaPresupuesto();
                 }
             }

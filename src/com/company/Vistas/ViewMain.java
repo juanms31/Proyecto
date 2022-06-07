@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class ViewMain {
+public class ViewMain extends JFrame {
 
 //    menu = new JMenuBar();
 //

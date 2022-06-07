@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Trabajador;
+import com.company.Recursos.CheckDate;
 import com.company.Vistas.ViewTrabajador;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -15,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FormTrabajador extends JDialog{
     //region Constructores
@@ -99,6 +102,9 @@ public class FormTrabajador extends JDialog{
             formatterFNAC = new MaskFormatter("##-##-####");
             formattedTextFieldFechaNacimiento.setFormatterFactory(new DefaultFormatterFactory(formatterFNAC));
 
+            DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            formattedTextFieldFechaNacimiento.setText(dft.format(LocalDateTime.now()));
+
             formattedTextFieldDNI.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
 
             formattedTextFieldTelefono.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("#########")));
@@ -115,12 +121,7 @@ public class FormTrabajador extends JDialog{
 
     private void loadNewTrabajador() {
 
-        boolean conErrores = checkFields();
-
-        if(conErrores){
-
-        }else{
-
+        if(!checkFields()){
             Trabajador trabajador = getTrabajador();
             if(viewTrabajador.getNewTrabajadorFromFormulario(trabajador)){
                 dispose();
@@ -134,15 +135,11 @@ public class FormTrabajador extends JDialog{
 
     private void loadUpdateTrabajador() {
 
-        boolean conErrores = checkFields();
-
-        if(conErrores){
-
-        }else{
+        if(!checkFields()){
             Trabajador trabajador = getTrabajador();
             if (viewTrabajador.getUpdateTrabajadorFromFormulario(trabajador)){
                 dispose();
-                viewTrabajador.ShowMessage( "CORRECTO", "Cliente " + trabajador.getNombre() + " ha sido actualizado");
+                viewTrabajador.ShowMessage( "CORRECTO", "Trabajador " + trabajador.getNombre() + " ha sido actualizado");
             }else {
                 ShowErrorMessage("Error", "No se ha podido crear el trabajadorr correctamente");
             }
@@ -196,19 +193,35 @@ public class FormTrabajador extends JDialog{
             ShowErrorMessage("Error", "Campo Salario no puede estar vacio");
             return true;
         }
-
         if (formattedTextFieldTelefono.getText().isEmpty()) {
             ShowErrorMessage("Error", "Campo Telefono no puede estar vacio");
             return true;
         }
 
+        return validarFechas();
+
+    }
+
+    private boolean validarFechas() {
+        CheckDate checkDate = new CheckDate();
+
+        if (formattedTextFieldFechaNacimiento.getText().equals("  -  -    ")) {
+            ShowErrorMessage("Error", "La fecha de nacimiento no puede estar vacia");
+            return true;
+
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaNacimiento.getText())) {
+            System.out.println("AAA");
+            ShowErrorMessage("Error", "La fecha de nacimiento no es valida");
+            return true;
+
+        }
         return false;
     }
 
+
+
     private Trabajador getTrabajador() {
         Trabajador trabajador = new Trabajador();
-
-        boolean conErrores = checkFields();
 
         if (estado == 2) {
             trabajador.setId(TrabajadorSiendoModificado.getId());

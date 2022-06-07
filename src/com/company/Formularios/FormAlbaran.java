@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.*;
+import com.company.Recursos.CheckDate;
 import com.company.Vistas.ViewAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -15,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FormAlbaran extends JDialog {
@@ -121,6 +124,9 @@ public class FormAlbaran extends JDialog {
         try {
             formatter = new MaskFormatter("##-##-####");
             formattedTextFieldFechaEntrada.setFormatterFactory(new DefaultFormatterFactory(formatter));
+
+            DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            formattedTextFieldFechaEntrada.setText(dft.format(LocalDateTime.now()));
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -245,13 +251,25 @@ public class FormAlbaran extends JDialog {
             ShowErrorMessage("Error", "El campo Proveedor no puede estar vacio");
             return true;
         }
-        if (formattedTextFieldFechaEntrada.getText().equals("  -  -    ")) {
-            ShowErrorMessage("Error", "Campo Fecha Entrada no puede estar vacio");
-            return true;
-        }
+
+        validarFechas();
 
         if(materialesCompradoProveedor.isEmpty()){
             ShowErrorMessage("Error", "Debes añadir materiales al albaran.");
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean validarFechas() {
+        CheckDate checkDate = new CheckDate();
+
+        if (formattedTextFieldFechaEntrada.getText().equals("  -  -    ")) {
+            ShowErrorMessage("Error", "Campo Fecha Entrada no puede estar vacio");
+            return true;
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaEntrada.getText())) {
+            ShowErrorMessage("Error", "La fecha de entrada no es valida");
             return true;
         }
 

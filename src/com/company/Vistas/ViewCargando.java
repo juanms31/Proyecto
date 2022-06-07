@@ -81,7 +81,10 @@ public class ViewCargando extends JFrame {
                         numAle = (int) (Math.random() * 250) + 1;
                         progressBar.setString("Cargando..");
                         JLabelBienvenido.setText("Bienvenido " + usuario.getNombre());
-                    }else progressBar.setString("Listo!");
+                    }else if(i == 100){
+                        ViewMain viewMain = new ViewMain();
+                        viewMain.setVisible(true);
+                    }
 
                     progressBar.setValue(i);
                     porcentaje.setText(i + "%");

@@ -23,7 +23,8 @@ public class ViewSeguimiento extends JFrame{
     //region Constructores
 
     public ViewSeguimiento(ControladorSeguimiento controladorSeguimiento,
-                           ArrayList<SeguimientoLaboral> seguimientoLaboralList, ArrayList<Trabajador> trabajadores,
+                           ArrayList<SeguimientoLaboral> seguimientoLaboralList,
+                           ArrayList<Trabajador> trabajadores,
                            ArrayList<Actuacion> actuaciones) {
         this.controladorSeguimiento = controladorSeguimiento;
         this.seguimientoLaboralList = seguimientoLaboralList;
@@ -162,7 +163,7 @@ public class ViewSeguimiento extends JFrame{
 
     //region CRUD
     private void createSeguimiento(){
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, trabajadores, actuaciones);
+        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, trabajadores,seguimientoLaboralList, actuaciones);
     }
 
     private void readSeguimiento(){
@@ -172,7 +173,7 @@ public class ViewSeguimiento extends JFrame{
 
     private void updateSeguimiento() {
         SeguimientoLaboral seguimientoLaboral = getSeguimiento();
-        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral, trabajadores, actuaciones);
+        FormSeguimientoLaboral formSeguimientoLaboral = new FormSeguimientoLaboral(this, seguimientoLaboral,seguimientoLaboralList, trabajadores, actuaciones);
     }
 
     private void deleteSeguimiento(){
@@ -198,13 +199,12 @@ public class ViewSeguimiento extends JFrame{
         int row = TableSeguimiento.getSelectedRow();
 
         seguimientoLaboralList.get(row).setActuacion(seguimientoLaboral.getActuacion());
-
         seguimientoLaboralList.get(row).setTrabajador(seguimientoLaboral.getTrabajador());
         seguimientoLaboralList.get(row).setAno(seguimientoLaboral.getAno());
         seguimientoLaboralList.get(row).setDia(seguimientoLaboral.getDia());
         seguimientoLaboralList.get(row).setMes(seguimientoLaboral.getMes());
         seguimientoLaboralList.get(row).setHora_entrada(seguimientoLaboral.getHora_entrada());
-
+        seguimientoLaboralList.get(row).setHora_salida(seguimientoLaboral.getHora_salida());
         seguimientoLaboralList.get(row).setHoras_totales(seguimientoLaboral.getHoras_totales());
         seguimientoLaboralList.get(row).setHoras_extra(seguimientoLaboral.getHoras_extra());
 
@@ -237,6 +237,7 @@ public class ViewSeguimiento extends JFrame{
         newSeguimiento[y++] = seguimientoLaboral.getDia();
         newSeguimiento[y++] = seguimientoLaboral.getMes();
         newSeguimiento[y++] = seguimientoLaboral.getHora_entrada();
+        newSeguimiento[y++] = seguimientoLaboral.getHora_salida();
         newSeguimiento[y++] = getHoras(seguimientoLaboral);
         newSeguimiento[y++] = getHoras(seguimientoLaboral);
 
