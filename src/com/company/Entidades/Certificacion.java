@@ -38,14 +38,6 @@ public class Certificacion {
         this.observaciones = observaciones;
     }
 
-    public int getId_actuacion() {
-        return id_actuacion;
-    }
-
-    public void setId_actuacion(int id_actuacion) {
-        this.id_actuacion = id_actuacion;
-    }
-
     public Actuacion getActuacion() {
         return actuacion;
     }
@@ -62,11 +54,13 @@ public class Certificacion {
     public String toString() {
         return "Certificacion{" +
                 "id=" + id +
+                ", valor=" + valor +
                 ", fecha_certificacion=" + fecha_certificacion +
                 ", observaciones='" + observaciones + '\'' +
                 ", actuacion=" + actuacion +
                 '}';
     }
+
 
     //endregion
 
@@ -75,7 +69,6 @@ public class Certificacion {
     private double valor;
     private Date fecha_certificacion;
     private String observaciones;
-    private int id_actuacion;
     private Actuacion actuacion;
 
     //endregion

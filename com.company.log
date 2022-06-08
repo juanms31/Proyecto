@@ -1,10 +1,6 @@
-jun 07, 2022 8:10:50 P. M. com.company.Main main
+jun 08, 2022 11:37:21 A. M. com.company.Main main
 INFO: Main inicializado
-jun 07, 2022 8:10:50 P. M. com.company.Main main
+jun 08, 2022 11:37:21 A. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 07, 2022 8:10:51 P. M. com.company.Main main
+jun 08, 2022 11:37:21 A. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 07, 2022 8:11:03 P. M. com.company.BaseDatos.BBDD connect
-SEVERE: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.

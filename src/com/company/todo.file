@@ -3,19 +3,22 @@ Juan:
 FIXES:
 
 TODO:
-    - Certificacion Crear
-    - Certificacion Actualizar
-    - Certificacion Borrar
-    - Obras
-        º Implementar funcionalidad en botones ✔
-    - Ver como actualizar o borrar albaran ✔
-    - Comprobacion del login contraseña ✔
     - En albaran poner el precio correcto dependiendo del proveedor que se haya elegido
-    - Implementar actualizar albaran ✔
     - Tratar editable en los diferentes formularios
-    - Tratar todas las fechas para que sean correctas (Captura discord juancho) ✔
     - Tratar horas totales y extra en seguimientoview
     - Tratar horas totales y extra en seguimientoform 1/2✔
+    - Implementar en obras de alguna forma el tener albaranes y materiales a la vista
+    - Añadir a la base de datos en la tabla Material Utilizado Actuacion cuando añadas un albaran y sus materiales.
+    - Implementar el añadir los diferentes formularios para añadir:
+        - Calidad Material
+        - Especificacion Actuacion
+        - Especificacion Material
+        - Unidad Material
+    - Tratar Vacaciones
+    - Implementar panel de usuario
+    - Implementar ventana de inicio
+    - Implementar panel lateral
+    - Implementar graficos donde podamos
 
 MOD:
     - Tratamiento de errores en campos de CIF.

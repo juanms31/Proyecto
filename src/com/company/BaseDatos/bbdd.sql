@@ -183,10 +183,10 @@ CREATE TABLE MaterialCompradoProveedores(
 
 CREATE TABLE Certificacion(
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id_actuacion INTEGER,
     fecha_certificacion DATE NOT NULL,
     valor DECIMAL(10,2),
     observaciones VARCHAR(200),
-    id_actuacion INTEGER,
     FOREIGN KEY (id_actuacion)
         REFERENCES Actuacion (id)
 );
