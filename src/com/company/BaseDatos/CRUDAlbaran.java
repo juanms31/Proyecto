@@ -229,7 +229,6 @@ public class CRUDAlbaran {
         return listActuaciones;
     }
 
-
     //region ATRIBUTOS
 
     ArrayList<Actuacion> listActuaciones = getActuaciones();

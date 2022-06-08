@@ -210,7 +210,6 @@ public class FormTrabajador extends JDialog{
             return true;
 
         } else if (!checkDate.isValidDate(formattedTextFieldFechaNacimiento.getText())) {
-            System.out.println("AAA");
             ShowErrorMessage("Error", "La fecha de nacimiento no es valida");
             return true;
 

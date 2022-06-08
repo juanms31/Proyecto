@@ -1,6 +1,7 @@
 package com.company;
 
 
+import com.company.Vistas.ViewPrincipal;
 import com.company.Vistas.ViewWelcome;
 
 import java.awt.*;
@@ -42,9 +43,9 @@ public class Main {
             LOGGER.log(Level.INFO, "LLamando a la vista principal");
             //ENTRADA AL PROGRAMA
 
-            ViewWelcome welcome = new ViewWelcome();
-            welcome.setVisible(true);
-//            ViewPrincipal viewPrincipal = new ViewPrincipal();
+//            ViewWelcome welcome = new ViewWelcome();
+//            welcome.setVisible(true);
+            ViewPrincipal viewPrincipal = new ViewPrincipal();
 //
 //            ViewInicio viewInicio = new ViewInicio();
 //            viewInicio.setVisible(true);
