@@ -4,6 +4,7 @@ import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Usuario;
 import com.company.Formularios.FormRegistroUsuario;
 import com.company.Recursos.Hash;
+import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -16,11 +17,12 @@ public class ViewLogin extends JFrame {
         controladorUsuario = new ControladorUsuario();
         usuarios = controladorUsuario.getUsers();
         initWindow();
+        initComps();
         initListeners();
         setVisible(true);
     }
 
-    //Inicio de ventana
+
     private void initWindow() {
         setDefaultLookAndFeelDecorated(true);
         try {
@@ -34,6 +36,14 @@ public class ViewLogin extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Login");
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
+
+    }
+
+    private void initComps(){
+        entrarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+        buttonVerPass.setBorder(new RoundedBorder(10));
+        buttonRegistro.setBorder(new RoundedBorder(10));
 
     }
 

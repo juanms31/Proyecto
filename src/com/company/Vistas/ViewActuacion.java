@@ -6,6 +6,7 @@ import com.company.Entidades.Cliente;
 import com.company.Entidades.EspecificacionActuacion;
 import com.company.Formularios.FormActuacion;
 import com.company.Formularios.FormCliente;
+import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -264,6 +265,7 @@ public class ViewActuacion extends JFrame {
         actuaciones.get(row).setFecha_comienzo(actuacion.getFecha_comienzo());
         actuaciones.get(row).setFecha_finalizacion(actuacion.getFecha_finalizacion());
         actuaciones.get(row).setGastoMaterial(actuacion.getGastoMaterial());
+        actuaciones.get(row).setMaterialOfertado(actuacion.getMaterialOfertado());
         actuaciones.get(row).setDescripcion(actuacion.getDescripcion());
         actuaciones.get(row).setImporte(actuacion.getImporte());
         actuaciones.get(row).setHojaPlanificacion(actuacion.getHojaPlanificacion());

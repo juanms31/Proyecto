@@ -1,5 +1,7 @@
 package com.company.BaseDatos;
 
+import com.company.Controlador.ControladorCertificacion;
+import com.company.Entidades.Actuacion;
 import com.company.Entidades.Certificacion;
 
 import java.sql.*;
@@ -8,10 +10,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CRUDCertificacion {
+    public CRUDCertificacion(ControladorCertificacion controladorCertificacion) {
+
+
+    }
 
     // region Metodos CRUD
 
-    public ArrayList<Certificacion> readAllCertificacion() throws SQLException {
+    public ArrayList<Certificacion> getAll(){
         Connection connection = BBDD.connect();
         final String SELECT_QUERY = "SELECT * FROM certificacion";
         try {
@@ -27,12 +33,7 @@ public class CRUDCertificacion {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
-
     }
 
     public int createCertificacion(Certificacion certificacion) throws SQLException {
@@ -43,10 +44,10 @@ public class CRUDCertificacion {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setNull(1, 1);
-            preparedStatement.setDate(2, certificacion.getFecha_certificacion());
-            preparedStatement.setDouble(3, certificacion.getValor());
-            preparedStatement.setString(4, certificacion.getObservaciones());
-            preparedStatement.setInt(5, certificacion.getId_actuacion());
+            preparedStatement.setInt(2, certificacion.getActuacion().getId());
+            preparedStatement.setDate(3, certificacion.getFecha_certificacion());
+            preparedStatement.setDouble(4, certificacion.getValor());
+            preparedStatement.setString(5, certificacion.getObservaciones());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) throw new SQLException("No se pudo guardar");
@@ -76,7 +77,7 @@ public class CRUDCertificacion {
         return new Certificacion();
     }
 
-    public boolean deleteCertificacion(int id) throws SQLException {
+    public boolean deleteCertificacion(int id) {
         Connection connection = BBDD.connect();
         final String QUERY_DELETE = "DELETE FROM certificacion WHERE id = ?";
         try {
@@ -91,25 +92,22 @@ public class CRUDCertificacion {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
-    public boolean updateCertificacion(Certificacion certificacion) throws SQLException {
+    public boolean updateCertificacion(Certificacion certificacion){
         Connection connection = BBDD.connect();
         if (connection == null) return false;
         final String QUERY_UPDATE = "UPDATE certificacion " +
-                "SET fecha_certificacion = ?, valor = ?, observaciones = ?, id_actuacion = ?," +
+                "SET fecha_certificacion = ?, valor = ?, observaciones = ?, id_actuacion = ?" +
                 " WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setDate(1, certificacion.getFecha_certificacion());
             preparedStatement.setDouble(2, certificacion.getValor());
             preparedStatement.setString(3, certificacion.getObservaciones());
-            preparedStatement.setInt(4, certificacion.getId_actuacion());
+            preparedStatement.setInt(4, certificacion.getActuacion().getId());
+            System.out.println("ID CERT: " + certificacion.getId());
             preparedStatement.setInt(5, certificacion.getId());
 
             int affectedRows = preparedStatement.executeUpdate();
@@ -128,10 +126,6 @@ public class CRUDCertificacion {
             e.printStackTrace();
             BBDD.close();
             return false;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
     }
 
@@ -148,7 +142,7 @@ public class CRUDCertificacion {
                 certificacion.setFecha_certificacion(resultSet.getDate("fecha_certificacion"));
                 certificacion.setValor(resultSet.getDouble("valor"));
                 certificacion.setObservaciones(resultSet.getString("observaciones"));
-                certificacion.setId_actuacion(resultSet.getInt("id_actuacion"));
+                certificacion.setActuacion(getActuacionFromID(resultSet.getInt("id_actuacion")));
 
                 certificaciones.add(certificacion);
             }
@@ -167,6 +161,48 @@ public class CRUDCertificacion {
     //region ATRIBUTOS
 
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDCertificacion");
+
+    public String[] getColumnsCertificacion(){
+        Connection connection = BBDD.connect();
+        try {
+            final String SELECT_CERTIFICACION= "SELECT * FROM certificacion";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_CERTIFICACION);
+            String[] columnsName = MetodosGenericosBBDD.getColumnTable(resultSet);
+            if (columnsName[0] == null){
+                LOGGER.log(Level.WARNING, "getColumnsCertificacion en Certificacion = no devolvió columnas");
+            }
+            BBDD.close();
+            LOGGER.log(Level.INFO, "getColumnsCertificacion en Certificacion = exito");
+            return  columnsName;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getColumnsCertificacion en Certificacion = " + e.getMessage());
+            e.printStackTrace();
+            BBDD.close();
+            String columnsName[] = new String[1];
+            columnsName[0] = "Error en CRUD";
+            return columnsName;
+        }
+    }
+
+    private Actuacion getActuacionFromID(int id_actuacion){
+        Actuacion actuacion1 = new Actuacion();
+        for(Actuacion actuacion : listActuaciones){
+            if(actuacion.getId() == id_actuacion) actuacion1 = actuacion;
+        }
+
+        return actuacion1;
+    }
+
+
+    private ArrayList<Actuacion> getActuaciones(){
+        CRUDActuacion crudActuacion = new CRUDActuacion();
+        listActuaciones = crudActuacion.getAll();
+        return listActuaciones;
+    }
+
+    ArrayList<Actuacion> listActuaciones = getActuaciones();
+
 
     //endregion
 }

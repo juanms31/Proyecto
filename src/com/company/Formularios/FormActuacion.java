@@ -295,6 +295,7 @@ public class FormActuacion extends JDialog {
                 actuacion = getProcesarFechas(actuacion);
 
                 actuacion.setGastoMaterial(Double.valueOf((String.valueOf(spinnerGastoMaterial.getValue()))));
+                actuacion.setMaterialOfertado(Double.valueOf((String.valueOf(spinnerMaterialOfertado.getValue()))));
                 actuacion.setImporte(Double.valueOf((String.valueOf(spinnerImporte.getValue()))));
 
                 actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
@@ -323,6 +324,8 @@ public class FormActuacion extends JDialog {
                 actuacion = getProcesarFechas(actuacion);
 
                 actuacion.setGastoMaterial(Double.parseDouble(String.valueOf(spinnerGastoMaterial.getValue())));
+                actuacion.setMaterialOfertado(Double.valueOf((String.valueOf(spinnerMaterialOfertado.getValue()))));
+
                 actuacion.setImporte(Double.parseDouble(String.valueOf(spinnerImporte.getValue())));
 
                 actuacion.setHojaPlanificacion(textFieldHojaPlanificacion.getText());
@@ -721,6 +724,7 @@ public class FormActuacion extends JDialog {
     private JTextField textFieldNombreActuacion;
     private JList listaMateriales;
     private JButton buttonAnadir;
+    private JSpinner spinnerMaterialOfertado;
 
     //endregion
 }
