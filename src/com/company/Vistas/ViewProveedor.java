@@ -368,8 +368,6 @@ public class ViewProveedor extends JFrame{
         JPanel jPanel = new JPanel();
 
         jPanel.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Totales por proveedor"));
-
-        JPanelGrafico1.add(jPanel);
     }
 
     //endregion
