@@ -1,8 +1,10 @@
 package com.company.Formularios;
 
 import com.company.BaseDatos.CRUDMaterialCompradoProveedor;
+import com.company.BaseDatos.CRUDProveedor;
 import com.company.Entidades.Material;
 import com.company.Entidades.MaterialCompradoProveedor;
+import com.company.Entidades.Proveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -23,11 +25,16 @@ import java.util.EventObject;
 public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     //region Constructor
 
-    public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran, String codAlbaran, ArrayList<Material> materiales) {
+    public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran,
+                                                  String codAlbaran,
+                                                  ArrayList<Material> materiales,
+                                                  Proveedor proveedor) {
         estado = 1;
         this.formAlbaran = formAlbaran;
         this.codAlbaran = codAlbaran;
         this.materiales = materiales;
+        this.proveedor  = proveedor;
+
         materialesOut = new ArrayList<>();
         initWindow();
         initComps();
@@ -37,12 +44,14 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
     public FormMaterialesCompradoProveedorAlbaran(FormAlbaran formAlbaran, String codAlbaran,
                                                   ArrayList<Material> materiales,
-                                                  ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor) {
+                                                  ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor,
+                                                  Proveedor proveedor) {
         estado = 2;
         this.formAlbaran = formAlbaran;
         this.codAlbaran = codAlbaran;
         this.materiales = materiales;
         this.materialesCompradoProveedor = materialesCompradoProveedor;
+        this.proveedor  = proveedor;
 
         materialesOut = new ArrayList<>();
         initWindow();
@@ -208,14 +217,11 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (UnidadesFilled()) {
-
+                if (checkTable()) {
                     formAlbaran.setMaterialesFromFormulario(getMateriales());
                     formAlbaran.setMaterialesCompradoProveedorFromFormulario(getMaterialCompradoProveedor());
                     dispose();
 
-                } else {
-                    ShowErrorMessage("Error", "Complete el campo Unidades");
                 }
             }
         });
@@ -245,7 +251,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
     public void addElement() {
 
-        if(estado == 1) {
+        if (estado == 1) {
             int row = comboBoxMateriales.getSelectedIndex() - 1;
             if (row == -1) {
 
@@ -256,7 +262,10 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
                 if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
                     ShowErrorMessage("Error", "Selecciona solo un material por línea.");
 
-                } else {
+                } else if(!proveedorTieneMaterial(materiales.get(row))) {
+                    ShowErrorMessage("Error", "El proveedor no ofrece este material.");
+
+                }else {
                     Material material = materiales.get(row);
                     materialesOut.add(material);
                     modelMaterialesAlbaran.addRow(getMaterialObject(material, ""));
@@ -274,6 +283,9 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
                 if (materialesOut.contains(materiales.get(comboBoxMateriales.getSelectedIndex() - 1))) {
                     ShowErrorMessage("Error", "Selecciona solo un material por línea.");
 
+                } else if(!proveedorTieneMaterial(materiales.get(row))) {
+                    ShowErrorMessage("Error", "El proveedor no ofrece este material.");
+
                 } else {
                     Material material = materiales.get(row);
 
@@ -288,7 +300,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         }
     }
 
-    private MaterialCompradoProveedor addMaterialCompradoProveedortoBBDD(Material material){
+    private MaterialCompradoProveedor addMaterialCompradoProveedortoBBDD(Material material) {
         MaterialCompradoProveedor materialCompradoProveedor = new MaterialCompradoProveedor();
 
         materialCompradoProveedor.setMaterial(material);
@@ -317,35 +329,70 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
     }
 
+    private ArrayList<Proveedor> getProveedores() {
+        ArrayList<Proveedor> listProveedores;
+        CRUDProveedor crudProveedor = new CRUDProveedor();
+        listProveedores = crudProveedor.getAll();
+        return listProveedores;
+    }
+
     public Object[] getMaterialObject(Material material, String unidades) {
 
         Object[] newMaterial = new Object[headers.length];
-        if(estado == 1) {
+        if (estado == 1) {
 
             int y = 0;
 
             newMaterial[y++] = material.getCodigo();
             newMaterial[y++] = material.getDescripcion();
             newMaterial[y++] = unidades;
-            newMaterial[y++] = material.getPrecio1();
 
-        }else if(estado == 2){
+            if(material.getProveedor1().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio1();
+            }
+            if(material.getProveedor2().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio2();
+            }
+            if(material.getProveedor3().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio3();
+            }
+
+        } else if (estado == 2) {
             int y = 0;
 
             newMaterial[y++] = material.getCodigo();
             newMaterial[y++] = material.getDescripcion();
             newMaterial[y++] = unidades;
-            newMaterial[y++] = material.getPrecio1();
 
+            if(material.getProveedor1().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio1();
+            }
+            if(material.getProveedor2().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio2();
+            }
+            if(material.getProveedor3().equals(proveedor.getNombre_proveedor())){
+                newMaterial[y++] = material.getPrecio3();
+            }
         }
-
-
         return newMaterial;
+    }
+
+    private boolean proveedorTieneMaterial(Material material){
+        if(material.getProveedor1().equals(proveedor.getNombre_proveedor())){
+            return true;
+        }
+        if(material.getProveedor2().equals(proveedor.getNombre_proveedor())){
+            return true;
+        }
+        if(material.getProveedor3().equals(proveedor.getNombre_proveedor())){
+            return true;
+        }
+        return false;
     }
 
     public void removeElement() {
 
-        if(estado == 1) {
+        if (estado == 1) {
 
 
             int row = TableMateriales.getSelectedRow();
@@ -388,7 +435,7 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
         ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor = new ArrayList<>();
 
-        if(estado == 1){
+        if (estado == 1) {
 
 
             for (int i = 0; i < modelMaterialesAlbaran.getRowCount(); i++) {
@@ -433,9 +480,9 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
 
     public void setMaterialCompradoProveedor() {
 
-        for(MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor){
-            for(Material material : materiales){
-                if(materialCompradoProveedor.getMaterial().getId() == material.getId()){
+        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedor) {
+            for (Material material : materiales) {
+                if (materialCompradoProveedor.getMaterial().getId() == material.getId()) {
                     modelMaterialesAlbaran.addRow(getMaterialObject(material, String.valueOf(materialCompradoProveedor.getUnidades())));
                     materialesOut.add(material);
                 }
@@ -443,21 +490,28 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
         }
     }
 
-    private boolean UnidadesFilled() {
+    private boolean checkTable() {
 
         boolean result = false;
 
-        for (int i = 0; i < TableMateriales.getRowCount(); i++) {
-            int j = 2;
+        if(modelMaterialesAlbaran.getRowCount() == 0){
+            ShowErrorMessage("Error", "No se puede añadir un albarán sin materiales.");
+            result = false;
 
-            try {
-                int unidades = Integer.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j)));
-                result = true;
-            } catch (NumberFormatException e) {
+        }else {
 
-                result = false;
+            for (int i = 0; i < TableMateriales.getRowCount(); i++) {
+                int j = 2;
+
+                try {
+                    int unidades = Integer.valueOf(String.valueOf(modelMaterialesAlbaran.getValueAt(i, j)));
+                    result = true;
+                } catch (NumberFormatException e) {
+                    ShowErrorMessage("Error", "Complete el campo Unidades");
+                    result = false;
+                }
+
             }
-
         }
         return result;
     }
@@ -483,6 +537,9 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     private ArrayList<MaterialCompradoProveedor> materialesCompradoProveedor;
     private DefaultTableModel modelMaterialesAlbaran;
     private TableRowSorter sorter;
+    private ArrayList<Proveedor> proveedores = getProveedores();
+    private Proveedor proveedor;
+
 
     private String[] headers = {"COD", "DESC. MATERIAL", "UNIDADES", "PRECIO UNITARIO"};
 
