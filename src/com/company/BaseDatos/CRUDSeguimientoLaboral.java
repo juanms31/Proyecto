@@ -156,15 +156,15 @@ public class CRUDSeguimientoLaboral {
                 seguimientoLaboral.setDia(resultSet.getInt("dia"));
                 seguimientoLaboral.setMes(resultSet.getInt("mes"));
 
-                seguimientoLaboral.setFechaCompleta(resultSet.getInt("dia") + "-" +
+                seguimientoLaboral.setFechaCompleta(procesarFechaCompleta(resultSet.getInt("dia") + "-" +
                         resultSet.getInt("mes") + "-" +
-                        resultSet.getInt("ano"));
+                        resultSet.getInt("ano")));
 
                 seguimientoLaboral.setTipo(resultSet.getString("tipo"));
                 seguimientoLaboral.setHora_entrada(resultSet.getString("hora_entrada"));
                 seguimientoLaboral.setHora_salida(resultSet.getString("hora_salida"));
                 seguimientoLaboral.setHoras_totales(resultSet.getInt("horas_totales"));
-                seguimientoLaboral.setHoras_extra(resultSet.getDouble("horas_extra"));
+                seguimientoLaboral.setHoras_extra(resultSet.getInt("horas_extra"));
                 seguimientoLaboral.setIdActuacion(resultSet.getInt("id_actuacion"));
                 seguimientoLaboral.setIdTrabajador(resultSet.getInt("id_trabajador"));
 
@@ -178,6 +178,21 @@ public class CRUDSeguimientoLaboral {
             BBDD.close();
             return ListaseguimientoLaboral;
         }
+    }
+
+    private String procesarFechaCompleta(String s) {
+        String[] splitted = s.split("-");
+
+        if(splitted[0].length() == 1){
+            splitted[0] = "0" + splitted[0];
+        }
+
+        if(splitted[1].length() == 1){
+            splitted[1] = "0" + splitted[1];
+        }
+
+        String fecha = splitted[0] + "-" + splitted[1]  + "-" + splitted[2];
+        return fecha;
     }
 
     //region consultas Meta Datos

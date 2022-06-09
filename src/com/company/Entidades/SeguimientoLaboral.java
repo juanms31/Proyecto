@@ -78,11 +78,11 @@ public class SeguimientoLaboral {
         this.horas_totales = horas_totales;
     }
 
-    public double getHoras_extra() {
+    public int getHoras_extra() {
         return horas_extra;
     }
 
-    public void setHoras_extra(double horas_extra) {
+    public void setHoras_extra(int horas_extra) {
         this.horas_extra = horas_extra;
     }
 
@@ -150,7 +150,7 @@ public class SeguimientoLaboral {
     private String hora_entrada;
     private String hora_salida;
     private int horas_totales;
-    private double horas_extra;
+    private int horas_extra;
     private int idActuacion;
     private int idTrabajador;
     private Trabajador trabajador;

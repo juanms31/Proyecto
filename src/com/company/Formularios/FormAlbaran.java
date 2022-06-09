@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -226,7 +227,9 @@ public class FormAlbaran extends JDialog {
 
         //Procesamos Fecha
         SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        System.out.println("Fecha entrada albaran: " + albaran.getFechaEntradaAlbaran());
         String UTILDate = OldDateFormat.format(albaran.getFechaEntradaAlbaran());
+        System.out.println("UTIL DATE ALBARAM:" + UTILDate);
 
         formattedTextFieldFechaEntrada.setText(UTILDate.toString());
 
@@ -446,11 +449,11 @@ public class FormAlbaran extends JDialog {
 
                     } else {
                         FormMaterialesCompradoProveedorAlbaran formMaterialesCompradoProveedorAlbaran =
-                                new FormMaterialesCompradoProveedorAlbaran(FormAlbaran.this, textFieldCodigo.getText(), materiales);
+                                new FormMaterialesCompradoProveedorAlbaran(FormAlbaran.this, textFieldCodigo.getText(), materiales, proveedores.get(comboBoxProveedores.getSelectedIndex()-1));
                     }
                 }else if(estado == 2){
                     FormMaterialesCompradoProveedorAlbaran formMaterialesCompradoProveedorAlbaran =
-                            new FormMaterialesCompradoProveedorAlbaran(FormAlbaran.this, textFieldCodigo.getText(), materiales, materialesCompradoProveedor);
+                            new FormMaterialesCompradoProveedorAlbaran(FormAlbaran.this, textFieldCodigo.getText(), materiales, materialesCompradoProveedor, proveedores.get(comboBoxProveedores.getSelectedIndex()-1));
                 }
 
             }

@@ -3,7 +3,7 @@ Juan:
 FIXES:
 
 TODO:
-    - En albaran poner el precio correcto dependiendo del proveedor que se haya elegido
+    - En albaran poner el precio correcto dependiendo del proveedor que se haya elegido✔
     - Tratar editable en los diferentes formularios
     - Tratar horas totales y extra en seguimientoview
     - Tratar horas totales y extra en seguimientoform 1/2✔
@@ -19,6 +19,8 @@ TODO:
     - Implementar ventana de inicio
     - Implementar panel lateral
     - Implementar graficos donde podamos
+    - Implementar la clase HyperLink
+    - Añadir ventana de logs en la vista inicio
 
 MOD:
     - Tratamiento de errores en campos de CIF.

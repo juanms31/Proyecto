@@ -256,8 +256,9 @@ public class ViewSeguimiento extends JFrame{
         newSeguimiento[y++] = seguimientoLaboral.getMes();
         newSeguimiento[y++] = seguimientoLaboral.getHora_entrada();
         newSeguimiento[y++] = seguimientoLaboral.getHora_salida();
-        newSeguimiento[y++] = getHoras(seguimientoLaboral);
-        newSeguimiento[y++] = getHoras(seguimientoLaboral);
+        newSeguimiento[y++] = seguimientoLaboral.getHoras_totales();
+        newSeguimiento[y++] = seguimientoLaboral.getHoras_extra();
+
 
         return newSeguimiento;
     }
