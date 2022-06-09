@@ -27,6 +27,8 @@ public class ViewProveedor extends JFrame{
     public ViewProveedor(ControladorProveedor controladorProveedor, ArrayList<Proveedor> proveedores) {
         this.controladorProveedor = controladorProveedor;
         this.proveedores = proveedores;
+        listAlbaranes = getAlbaranes();
+
         initWindow();
         initListeners();
         setVisible(true);
@@ -320,9 +322,11 @@ public class ViewProveedor extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = TableProveedor.getSelectedRow();
+
                 if(e.getClickCount()==1){
                     setGraficos(getProveedor(row));
                 }
+
                 if(e.getClickCount()==2){
                     updateProveedor();
                 }
@@ -338,38 +342,49 @@ public class ViewProveedor extends JFrame{
 
     private int getNumAlbaranesFromProveedor(Proveedor proveedor, ArrayList<Albaran> albaranes){
         int numAlbaranes = 0;
+
         for(Albaran albaran: albaranes){
-            if(albaran.getId_proveedor() == proveedor.getId()){
+            if(albaran.getProveedor().getId() == proveedor.getId()){
                 numAlbaranes++;
             }
         }
+
 
         return numAlbaranes;
     }
 
 
     private void setGraficos(Proveedor proveedor) {
-        System.out.println("Proveedor: "  + proveedor.toString());
+        JPanelGrafico1.removeAll();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-        ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
+                ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
 
-        NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
-        nodoGraficoCircular1.setComparableKey(proveedor.getNombre_proveedor());
-        nodoGraficoCircular1.setValue((double) getNumAlbaranesFromProveedor(proveedor, listAlbaranes));
-        listNodoCircular.add(nodoGraficoCircular1);
+                NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
+                nodoGraficoCircular1.setComparableKey(proveedor.getNombre_proveedor());
 
-        NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
-        nodoGraficoCircular2.setComparableKey("All");
-        nodoGraficoCircular2.setValue((double) listAlbaranes.size());
-        listNodoCircular.add(nodoGraficoCircular2);
+                int numAlbaranes = getNumAlbaranesFromProveedor(proveedor, listAlbaranes);
 
-        GraficosBasicos graficosBasicos = new GraficosBasicos();
+                nodoGraficoCircular1.setValue(Double.valueOf(numAlbaranes));
 
-        JPanel jPanel = new JPanel();
+                listNodoCircular.add(nodoGraficoCircular1);
 
-        jPanel.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Totales por proveedor"));
+                NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+                nodoGraficoCircular2.setComparableKey("Demas");
+                nodoGraficoCircular2.setValue((double) listAlbaranes.size());
+                listNodoCircular.add(nodoGraficoCircular2);
 
-        JPanelGrafico1.add(jPanel);
+                GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+                JPanelGrafico1.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Albaranes por proveedor"));
+
+                repaint();
+                revalidate();
+
+            }
+        }).start();
     }
 
     //endregion
@@ -389,9 +404,9 @@ public class ViewProveedor extends JFrame{
     private JPanel panelBotones;
     private JPanel buscador;
     private JLabel labelTitulo;
-    private JPanel PanelMaterial;
+    private JPanel PanelProveedor;
     private  ArrayList<Proveedor> proveedores;
-    ArrayList<Albaran> listAlbaranes = getAlbaranes();
+    ArrayList<Albaran> listAlbaranes;
     private ControladorProveedor controladorProveedor;
     private String[] headers;
     private TableRowSorter sorter;

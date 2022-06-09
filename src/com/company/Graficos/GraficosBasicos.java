@@ -59,6 +59,7 @@ public class GraficosBasicos extends JFrame{
 
         //Panel de charpanel
         ChartPanel panel = new ChartPanel(graficoBarras);
+
         panel.setMouseWheelEnabled(true);
         panel.setPreferredSize(new Dimension(400, 200));
 
@@ -68,7 +69,7 @@ public class GraficosBasicos extends JFrame{
     public ChartPanel metodoGraficoCircular(ArrayList<NodoGraficoCircular> listNodos, String title){
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (NodoGraficoCircular nCircular : listNodos) {
-            dataset.setValue(nCircular.getComparableKey(), nCircular.getValue());
+            dataset.setValue(nCircular.getComparableKey() + ": " + nCircular.getValue() , nCircular.getValue());
         }
 
         JFreeChart chart = ChartFactory.createPieChart3D(
