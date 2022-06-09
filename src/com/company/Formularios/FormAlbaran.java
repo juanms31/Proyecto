@@ -229,7 +229,6 @@ public class FormAlbaran extends JDialog {
         SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println("Fecha entrada albaran: " + albaran.getFechaEntradaAlbaran());
         String UTILDate = OldDateFormat.format(albaran.getFechaEntradaAlbaran());
-        System.out.println("UTIL DATE ALBARAM:" + UTILDate);
 
         formattedTextFieldFechaEntrada.setText(UTILDate.toString());
 

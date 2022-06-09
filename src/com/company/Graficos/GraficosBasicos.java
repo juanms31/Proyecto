@@ -31,7 +31,7 @@ public class GraficosBasicos extends JFrame{
         repaint();
     }
 
-    public ChartPanel getGraficoBarras(ArrayList<NodoGraficoBarras> listGraficData, String title, String categoryAxis, String valueAxis){
+    public ChartPanel metodoGraficoBarras(ArrayList<NodoGraficoBarras> listGraficData, String title, String categoryAxis, String valueAxis){
         //DATOS A TENER EN CUENTA DE JFreeChart
         //Nombre grafico
         //Nombre barras o columnas
@@ -72,7 +72,7 @@ public class GraficosBasicos extends JFrame{
         }
 
         JFreeChart chart = ChartFactory.createPieChart3D(
-                "Stock moviles",
+                title,
                 dataset,
                 true,
                 true,
