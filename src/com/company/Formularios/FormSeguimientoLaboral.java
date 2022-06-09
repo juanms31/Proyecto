@@ -425,23 +425,29 @@ public class FormSeguimientoLaboral extends JDialog {
                     int horasTotales = Integer.valueOf(sdfDiff.format(DateDiff));
                     if (horasTotales > 8) {
                         System.out.println("mas de 8 horas");
+
                         textFieldHorasExtra.setText(String.valueOf(horasTotales - 8));
+                        seguimientoLaboral.setHoras_extra(Integer.valueOf(horasTotales - 8));
 
                         textFieldHorasTotales.setText(String.valueOf(horasTotales));
+                        seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
 
                     } else {
                         System.out.println("menos de 8 horas");
-                        textFieldHorasExtra.setText(String.valueOf(0));
-                        textFieldHorasTotales.setText(String.valueOf(horasTotales));
 
-                        seguimientoLaboral.setHoras_totales(horasTotales);
+                        textFieldHorasExtra.setText(String.valueOf(0));
+                        seguimientoLaboral.setHoras_extra(0);
+
+                        textFieldHorasTotales.setText(String.valueOf(horasTotales));
+                        seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
+
                     }
 
 
                 } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
             }
         }
-        return null;
+        return seguimientoLaboral;
     }
 
     private Date getDateDiff(Date Entrada, Date Salida) {
@@ -573,12 +579,10 @@ public class FormSeguimientoLaboral extends JDialog {
         formattedTextFieldHora.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                updateHoras(new SeguimientoLaboral(), 1);
 
             }
         });
