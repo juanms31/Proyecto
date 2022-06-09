@@ -467,6 +467,11 @@ public class FormSeguimientoLaboral extends JDialog {
                             textFieldHorasExtra.setText(String.valueOf(horasTotales - 8));
 
                             textFieldHorasTotales.setText(String.valueOf((horasTotales) - (horasTotales - 8 )));
+                        }else {
+                            textFieldHorasExtra.setText(String.valueOf(0));
+
+                            textFieldHorasTotales.setText(String.valueOf(horasTotales));
+
                         }
 
                     } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
@@ -608,16 +613,33 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     private void focusListeners() {
-        comboBoxTipo.addItemListener(new ItemListener() {
+        comboBoxTipo.addMouseListener(new MouseAdapter() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(e.getItem().toString().equals("Salida")) {
+            public void mouseClicked(MouseEvent e) {
+                if(comboBoxTipo.getSelectedItem().toString().equals("Salida")) {
                     SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
                     seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
                     updateHoras(seguimientoLaboral, 2);
                 }
             }
         });
+
+        formattedTextFieldHora.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(comboBoxTipo.getSelectedItem().toString().equals("Salida")) {
+                    SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
+                    seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
+                    updateHoras(seguimientoLaboral, 2);
+                }
+            }
+        });
+
     }
 
     //endregion

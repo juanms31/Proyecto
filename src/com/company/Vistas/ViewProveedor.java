@@ -1,19 +1,13 @@
 package com.company.Vistas;
 
 import com.company.BaseDatos.CRUDAlbaran;
-import com.company.BaseDatos.CRUDProveedor;
-import com.company.Controlador.ControladorCliente;
 import com.company.Controlador.ControladorProveedor;
 import com.company.Entidades.Albaran;
-import com.company.Entidades.Cliente;
 import com.company.Entidades.Proveedor;
-import com.company.Formularios.FormCliente;
 import com.company.Formularios.FormProveedor;
 import com.company.Graficos.GraficosBasicos;
-import com.company.Graficos.NodoGraficoBarras;
 import com.company.Graficos.NodoGraficoCircular;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -115,9 +109,9 @@ public class ViewProveedor extends JFrame{
     }
 
     private void filter(){
-        DefaultTableModel Model = (DefaultTableModel) TableCliente.getModel();
+        DefaultTableModel Model = (DefaultTableModel) TableProveedor.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
-        TableCliente.setRowSorter(tr);
+        TableProveedor.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(filtro.getText().trim()));
     }
     //endregion
@@ -382,8 +376,6 @@ public class ViewProveedor extends JFrame{
 
     //region Variables
     private JPanel panelPrincipal;
-    private JPanel PanelCliente;
-    private JTable TableCliente;
     private JTextField filtro;
     private JButton buttonBuscar;
     private JButton buttonAnadir;
@@ -393,15 +385,13 @@ public class ViewProveedor extends JFrame{
     private JButton buttonRecargar;
     private JTable TableProveedor;
     private JButton buttonVolver;
-    private JPanel PanelMaterial;
-    private JPanel buscador;
-    private JPanel panelBotones;
-    private JLabel labelTitulo;
     private JPanel JPanelGrafico1;
-
+    private JPanel panelBotones;
+    private JPanel buscador;
+    private JLabel labelTitulo;
+    private JPanel PanelMaterial;
     private  ArrayList<Proveedor> proveedores;
     ArrayList<Albaran> listAlbaranes = getAlbaranes();
-
     private ControladorProveedor controladorProveedor;
     private String[] headers;
     private TableRowSorter sorter;
