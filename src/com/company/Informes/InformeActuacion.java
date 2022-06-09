@@ -30,6 +30,7 @@ public class InformeActuacion {
             //EXPORTAMOS A PDF
             //TODO esta ruta esta mal; realmente se puede guardar desde la vista q ofrace jasper
             //JasperExportManager.exportReportToPdfFile(print, "src/recursos/informe_con_parametros.pdf");
+
         } catch (JRException e) {
             e.printStackTrace();
         }
