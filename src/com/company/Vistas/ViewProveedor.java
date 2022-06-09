@@ -1,11 +1,17 @@
 package com.company.Vistas;
 
+import com.company.BaseDatos.CRUDAlbaran;
+import com.company.BaseDatos.CRUDProveedor;
 import com.company.Controlador.ControladorCliente;
 import com.company.Controlador.ControladorProveedor;
+import com.company.Entidades.Albaran;
 import com.company.Entidades.Cliente;
 import com.company.Entidades.Proveedor;
 import com.company.Formularios.FormCliente;
 import com.company.Formularios.FormProveedor;
+import com.company.Graficos.GraficosBasicos;
+import com.company.Graficos.NodoGraficoBarras;
+import com.company.Graficos.NodoGraficoCircular;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.mysql.cj.xdevapi.Table;
 
@@ -319,11 +325,57 @@ public class ViewProveedor extends JFrame{
         TableProveedor.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                int row = TableProveedor.getSelectedRow();
+                if(e.getClickCount()==1){
+                    setGraficos(getProveedor(row));
+                }
                 if(e.getClickCount()==2){
                     updateProveedor();
                 }
             }
         });
+    }
+
+    private ArrayList<Albaran> getAlbaranes(){
+        CRUDAlbaran crudAlbaran = new CRUDAlbaran();
+        listAlbaranes = crudAlbaran.getAll();
+        return listAlbaranes;
+    }
+
+    private int getNumAlbaranesFromProveedor(Proveedor proveedor, ArrayList<Albaran> albaranes){
+        int numAlbaranes = 0;
+        for(Albaran albaran: albaranes){
+            if(albaran.getId_proveedor() == proveedor.getId()){
+                numAlbaranes++;
+            }
+        }
+
+        return numAlbaranes;
+    }
+
+
+    private void setGraficos(Proveedor proveedor) {
+        System.out.println("Proveedor: "  + proveedor.toString());
+
+        ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
+
+        NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
+        nodoGraficoCircular1.setComparableKey(proveedor.getNombre_proveedor());
+        nodoGraficoCircular1.setValue((double) getNumAlbaranesFromProveedor(proveedor, listAlbaranes));
+        listNodoCircular.add(nodoGraficoCircular1);
+
+        NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+        nodoGraficoCircular2.setComparableKey("All");
+        nodoGraficoCircular2.setValue((double) listAlbaranes.size());
+        listNodoCircular.add(nodoGraficoCircular2);
+
+        GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+        JPanel jPanel = new JPanel();
+
+        jPanel.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Totales por proveedor"));
+
+        JPanelGrafico1.add(jPanel);
     }
 
     //endregion
@@ -345,8 +397,11 @@ public class ViewProveedor extends JFrame{
     private JPanel buscador;
     private JPanel panelBotones;
     private JLabel labelTitulo;
+    private JPanel JPanelGrafico1;
 
     private  ArrayList<Proveedor> proveedores;
+    ArrayList<Albaran> listAlbaranes = getAlbaranes();
+
     private ControladorProveedor controladorProveedor;
     private String[] headers;
     private TableRowSorter sorter;
