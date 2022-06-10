@@ -1,17 +1,30 @@
 package com.company.Calendario;
 
 import com.company.BaseDatos.CRUDTrabajador;
+import com.company.Controlador.ControladorTrabajador;
 import com.company.Entidades.Trabajador;
 import com.company.Recursos.RoundedBorder;
-import com.mindfusion.scheduling.Calendar;
-import com.mindfusion.scheduling.ThemeType;
+import com.mindfusion.common.DateTime;
+import com.mindfusion.common.ScrollEvent;
+import com.mindfusion.scheduling.*;
+import com.mindfusion.scheduling.model.ItemEvent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.EventObject;
 
 public class CalendarioPrueba1 extends JFrame{
     private JPanel panelPrincipal;
@@ -25,6 +38,8 @@ public class CalendarioPrueba1 extends JFrame{
     private JPanel panelBotones;
     private JLabel foto;
     private JSeparator separador;
+    private String dateInit, dateEnd;
+    private static int contDateRange = 0;
 
     private DefaultTableModel modelTrabajador;
 
@@ -32,11 +47,6 @@ public class CalendarioPrueba1 extends JFrame{
 
     public CalendarioPrueba1(){
         trabajadores = getTrabajadores();
-
-//        setPanelBase();
-//        setCalendarioPro();
-//        setPanelTrabajadores();
-
         initComps();
         initWindow();
         setVisible(true);
@@ -46,7 +56,7 @@ public class CalendarioPrueba1 extends JFrame{
     private void initWindow(){
         setSize(600, 800);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+       // setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
         getContentPane().setLayout(new GridLayout());
     }
@@ -72,6 +82,8 @@ public class CalendarioPrueba1 extends JFrame{
         initTrabajadores();
         
         initTable();
+
+        initBotones();
     }
 
     private void initTable() {
@@ -90,17 +102,98 @@ public class CalendarioPrueba1 extends JFrame{
         tableVacsTrabajador.setModel(modelTrabajador);
     }
 
+    private void initBotones(){
+        aceptarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                var listVacaciones = getAllRows();
+                if (listVacaciones.size() == 0) return;
+                new ControladorTrabajador().setlistVacaciones(listVacaciones);
+            }
+        });
+    }
+
     private void initTrabajadores() {
         //Rellenar Trabajadores
+        trabajadores = new CRUDTrabajador().getAll();
         comboBoxTrabajador.addItem("Selecciona Trabajador");
         for (Trabajador trabajador : trabajadores) {
-            comboBoxTrabajador.addItem(trabajador.getId() + " - " + trabajador.getNombre());
+            comboBoxTrabajador.addItem(trabajador.getDNI() + " - " + trabajador.getNombre());
         }
+        comboBoxTrabajador.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                contDateRange = 0;
+            }
+        });
     }
+
     private void setCalendarioPro() {
         Calendar calendar = new Calendar();
+        calendar.beginInit();
         calendar.setTheme(ThemeType.Standard);
+       // calendar.getWeekRangeSettings().setHeaderStyle(EnumSet.of(WeekRangeHeaderStyle.Title));
+        calendar.setEnableDragCreate(true);
+        calendar.endInit();
+
+        calendar.addCalendarListener(new CalendarAdapter(){
+            @Override
+            public void dateClick(ResourceDateEvent resourceDateEvent) {
+                if (comboBoxTrabajador.getSelectedIndex() == 0) return;
+                contDateRange++;
+                if (contDateRange == 1){
+                    String date =resourceDateEvent.getDate().getDay()
+                            + "/" + resourceDateEvent.getDate().getMonth()
+                            + "/" + resourceDateEvent.getDate().getYear();
+                    dateInit = date;
+                }
+                if (contDateRange == 2){
+                    String date =resourceDateEvent.getDate().getDay()
+                            + "/" + resourceDateEvent.getDate().getMonth()
+                            + "/" + resourceDateEvent.getDate().getYear();
+                    dateEnd = date;
+                    getRowVacaciones();
+                    contDateRange = 0;
+                }
+            }
+        });
+
+        calendar.addCalendarListener(new CalendarAdapter(){
+            @Override
+            public void itemCreated(ItemEvent itemEvent) {
+                DateTime dateAux =itemEvent.getItem().getEndTime();
+                String date =dateAux.getDay()
+                        + "/" + dateAux.getMonth()
+                        + "/" + dateAux.getYear();
+                dateEnd = date;
+                getRowVacaciones();
+            }
+        });
         panelCalendario.add(calendar);
+    }
+
+    private void getRowVacaciones(){
+        if (comboBoxTrabajador.getSelectedIndex() == 0) return;
+
+        String row = comboBoxTrabajador.getSelectedItem().toString();
+        String dni = row.substring(0, 9);
+        String nombre = row.substring(11, row.length());
+        modelTrabajador.addRow(new Object[]{dni, nombre, dateInit.toString(), dateEnd.toString()});
+    }
+
+    private ArrayList<NodoTrabajadorCalendario> getAllRows(){
+        var countRow = modelTrabajador.getRowCount();
+        ArrayList<NodoTrabajadorCalendario> listTRabajadorCalendario = new ArrayList<>();
+
+        for (int i = 0; i < countRow; i++){
+            NodoTrabajadorCalendario trabajadorCalendario = new NodoTrabajadorCalendario();
+            trabajadorCalendario.setDni(modelTrabajador.getValueAt(i, 0).toString());
+            trabajadorCalendario.setNombre(modelTrabajador.getValueAt(i, 1).toString());;
+            trabajadorCalendario.setFechaInicio(modelTrabajador.getValueAt(i, 2).toString());
+            trabajadorCalendario.setFechaFin(modelTrabajador.getValueAt(i, 3).toString());
+            listTRabajadorCalendario.add(trabajadorCalendario);
+        }
+        return listTRabajadorCalendario;
     }
 
     private void setPanelTrabajadores(){
@@ -120,6 +213,7 @@ public class CalendarioPrueba1 extends JFrame{
 
     public static void main(String[] args) {
         CalendarioPrueba1 calendarioPrueba1 = new CalendarioPrueba1();
+
     }
 
 }
