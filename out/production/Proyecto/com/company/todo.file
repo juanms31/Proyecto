@@ -16,13 +16,14 @@ TODO:
     - Implementar panel lateral
     - Implementar graficos donde podamos
     - Tratar Vacaciones
-        - Implementar panel de usuario
-        - Implementar ventana de inicio
-        - Implementar panel lateral
-        - Implementar graficos donde podamos
-        - Implementar la clase HyperLink
-        - Añadir ventana de logs en la vista inicio
-
+    - Implementar panel de usuario
+    - Implementar ventana de inicio
+    - Implementar panel lateral
+    - Implementar graficos donde podamos
+    - Implementar la clase HyperLink
+    - Añadir ventana de logs en la vista inicio
+    - Implementar cambiar fondo
+    - Panel vacaciones en Trabajador
 
 MOD:
     - Tratamiento de errores en campos de CIF.

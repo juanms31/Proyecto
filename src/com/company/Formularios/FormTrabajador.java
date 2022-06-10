@@ -2,6 +2,7 @@ package com.company.Formularios;
 
 import com.company.Entidades.Trabajador;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewTrabajador;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -96,6 +97,9 @@ public class FormTrabajador extends JDialog{
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
 
         MaskFormatter formatterFNAC = null;
         try {

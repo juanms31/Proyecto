@@ -4,6 +4,7 @@ import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Usuario;
 import com.company.Recursos.Hash;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewLogin;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -67,6 +68,9 @@ public class FormRegistroUsuario extends JDialog{
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
 
         MaskFormatter formatterFNAC = null;
         try {

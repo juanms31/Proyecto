@@ -430,36 +430,43 @@ public class ViewActuacion extends JFrame {
         buttonHojaPlanificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser pathing = new JFileChooser();
-                pathing.setCurrentDirectory(new File("src/com/company"));
-                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChoseerHojaPlanificacion.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                pathing.setFileFilter(filtroPDF);
-                int seleccion = pathing.showOpenDialog(panelPrincipal);
+                fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
 
-                if(seleccion == JFileChooser.APPROVE_OPTION){
-                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    setHojaPlanificacion();
                 }
-
             }
         });
 
         buttonHojaPresupuesto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser pathing = new JFileChooser();
-                pathing.setCurrentDirectory(new File("src/com/company"));
-                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChoseerHojaPresupuesto.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                pathing.setFileFilter(filtroPDF);
-                int seleccion = pathing.showOpenDialog(panelPrincipal);
+                fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
 
-                if(seleccion == JFileChooser.APPROVE_OPTION){
-                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    setHojaPresupuesto();
                 }
             }
         });
 
+    }
+
+    private void setHojaPresupuesto() {
+        File ficheroHojaPresupuesto = fileChoseerHojaPresupuesto.getCurrentDirectory();
+        buttonHojaPresupuesto.setText(ficheroHojaPresupuesto.getAbsolutePath());
+    }
+
+    private void setHojaPlanificacion() {
+        File ficheroHojaPlanificacion = fileChoseerHojaPlanificacion.getCurrentDirectory();
+        buttonHojaPlanificacion.setText(ficheroHojaPlanificacion.getAbsolutePath());
     }
 
     private void mouseListeners() {
@@ -543,8 +550,11 @@ public class ViewActuacion extends JFrame {
     private JTextField textFieldHorasEjecutadas;
     private JTable TableFechas;
     private JTable TableClientes;
-    private JLabel labelTitulo;
     private JButton buttonHojaPresupuesto;
+    private JLabel labelTitulo;
+
+    private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
+    private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();
 
 
     //endregion

@@ -115,9 +115,9 @@
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
-                  <borderPainted value="false"/>
+                  <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
-                  <foreground color="-1"/>
+                  <foreground color="-16777216"/>
                   <icon value="com/company/Images/Icons/anadir.png"/>
                   <text value=""/>
                 </properties>
@@ -133,9 +133,9 @@
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
-                  <borderPainted value="false"/>
+                  <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
+                  <foreground color="-16777216"/>
                   <icon value="com/company/Images/Icons/papelera.png"/>
                   <text value=""/>
                 </properties>
@@ -146,9 +146,9 @@
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
-                  <borderPainted value="false"/>
+                  <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
+                  <foreground color="-16777216"/>
                   <icon value="com/company/Images/Icons/ver.png"/>
                   <text value=""/>
                 </properties>
@@ -159,9 +159,9 @@
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
-                  <borderPainted value="false"/>
+                  <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
+                  <foreground color="-16777216"/>
                   <icon value="com/company/Images/Icons/lapiz.png"/>
                   <text value=""/>
                 </properties>
@@ -172,12 +172,12 @@
                 </constraints>
                 <properties>
                   <background color="-1703946"/>
-                  <borderPainted value="false"/>
+                  <borderPainted value="true"/>
                   <defaultCapable value="false"/>
                   <focusable value="false"/>
-                  <foreground color="-1703946"/>
+                  <foreground color="-16777216"/>
                   <icon value="com/company/Images/Icons/reload.png"/>
-                  <requestFocusEnabled value="false"/>
+                  <requestFocusEnabled value="true"/>
                   <text value=""/>
                   <toolTipText value="Pulsa para refrescar las tablas"/>
                 </properties>

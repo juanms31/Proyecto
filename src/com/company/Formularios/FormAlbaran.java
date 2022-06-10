@@ -2,6 +2,7 @@ package com.company.Formularios;
 
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -108,6 +109,9 @@ public class FormAlbaran extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
 
         //Rellenar Actuaciones
         comboBoxActuaciones.addItem("Selecciona Actuacion");

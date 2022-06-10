@@ -2,6 +2,7 @@ package com.company.Formularios;
 
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewSeguimiento;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import jdk.swing.interop.SwingInterOpUtils;
@@ -116,6 +117,10 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+
         //Rellenar Actuaciones
         comboBoxActuacion.addItem("Selecciona Actuacion");
         for (Actuacion actuacion : actuaciones) {

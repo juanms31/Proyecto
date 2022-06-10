@@ -1,15 +1,13 @@
 package com.company.Vistas;
 
-import com.company.Controlador.ControladorCliente;
+import com.company.BaseDatos.CRUDVacaciones;
 import com.company.Controlador.ControladorTrabajador;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.Material;
-import com.company.Entidades.Proveedor;
-import com.company.Entidades.Trabajador;
-import com.company.Formularios.FormCliente;
+import com.company.Entidades.*;
 import com.company.Formularios.FormTrabajador;
+import com.company.Graficos.GraficosBasicos;
+import com.company.Graficos.NodoGraficoCircular;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
+import org.joda.time.LocalDateTime;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ViewTrabajador extends JFrame {
 
@@ -265,12 +266,6 @@ public class ViewTrabajador extends JFrame {
 
     }
 
-    private int getCodTrabajador() {
-        int row = TableTrabajador.getSelectedRow();
-        return trabajadores.get(row).getId();
-    }
-
-
     //endregion
 
     //region Listeners
@@ -335,14 +330,117 @@ public class ViewTrabajador extends JFrame {
         TableTrabajador.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    JLabelVacaciones.setVisible(false);
+                    JPanelVacaciones.setVisible(false);
+                }
+
                 if (e.getClickCount() == 2) {
                     updateTrabajador();
+                }
+            }
+        });
+
+        buttonVacaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!viendoVacaciones) {
+                    int row = TableTrabajador.getSelectedRow();
+                    if (row == -1) {
+                        ShowErrorMessage("Error", "Selecciona un trabajador de la tabla para conocer sus vacaciones.");
+                    } else {
+                        viendoVacaciones = true;
+                        setGraficos(getTrabajador());
+                    }
+                }else{
+                    viendoVacaciones = false;
+                    JLabelVacaciones.setVisible(false);
+                    JPanelVacaciones.setVisible(false);
                 }
             }
         });
     }
 
     //endregion
+
+
+    //region Graficos
+    private ArrayList<Vacaciones> getVaciones(){
+        CRUDVacaciones crudVacaciones = new CRUDVacaciones();
+        listVacaciones = crudVacaciones.getAll();
+        return listVacaciones;
+    }
+
+    private int getDiasVacacionesDisfrutados(Trabajador trabajador, ArrayList<Vacaciones> listVacaciones){
+        int numAlbaranes = 0;
+
+        for(Vacaciones vacaciones : listVacaciones){
+            if(vacaciones.getIdTrabajador() ==  trabajador.getId()){
+                if(estaDeVacaciones(vacaciones) > 0){
+                    vacacionesParaTrabajador = vacaciones;
+                    return Math.toIntExact(estaDeVacaciones(vacaciones));
+                }
+            }
+        }
+        return numAlbaranes;
+    }
+
+    private long estaDeVacaciones(Vacaciones vacaciones) {
+        Date today = new Date(System.currentTimeMillis());
+
+        long dias = diasEntreDosFechas(vacaciones.getFecha_aprobada_inicio(), today);
+
+        return (dias > 1) ? dias:0;
+    }
+
+    public long diasEntreDosFechas(Date fechaDesde, Date fechaHasta){
+        long startTime = fechaDesde.getTime() ;
+        long endTime = fechaHasta.getTime();
+        long diasDesde = (long) Math.floor(startTime / (1000*60*60*24)); // convertimos a dias, para que no afecten cambios de hora
+        long diasHasta = (long) Math.floor(endTime / (1000*60*60*24)); // convertimos a dias, para que no afecten cambios de hora
+        long dias = diasHasta - diasDesde;
+
+        return dias;
+    }
+
+
+    private void setGraficos(Trabajador trabajador) {
+        JPanelVacaciones.removeAll();
+        listVacaciones = getVaciones();
+        JLabelVacaciones.setVisible(true);
+        JPanelVacaciones.setVisible(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
+
+                NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
+                nodoGraficoCircular1.setComparableKey(trabajador.getNombre());
+
+                int numVacacionesDisrutadas = getDiasVacacionesDisfrutados(trabajador, listVacaciones);
+
+                nodoGraficoCircular1.setValue(Double.valueOf(numVacacionesDisrutadas));
+
+                listNodoCircular.add(nodoGraficoCircular1);
+
+                NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+                nodoGraficoCircular2.setComparableKey("Total");
+                nodoGraficoCircular2.setValue(Double.valueOf(diasEntreDosFechas(vacacionesParaTrabajador.getFecha_aprobada_inicio(), vacacionesParaTrabajador.getFecha_aprobada_fin())));
+                listNodoCircular.add(nodoGraficoCircular2);
+
+                GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+                JPanelVacaciones.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Vacaciones Disfrutadas"));
+
+                repaint();
+                revalidate();
+            }
+        }).start();
+    }
+
+    //endregion
+
 
 
     //region Variables
@@ -360,9 +458,17 @@ public class ViewTrabajador extends JFrame {
     private JButton buttonVolver;
     private JButton buttonRecargar;
     private JLabel labelTitulo;
+    private JLabel JLabelVacaciones;
+    private JPanel JPanelVacaciones;
+    private JButton buttonVacaciones;
     private ArrayList<Trabajador> trabajadores;
+    private ArrayList<Vacaciones> listVacaciones;
     private ControladorTrabajador controladorTrabajador;
     private String[] headers;
+
+    private boolean viendoVacaciones;
+
+    private Vacaciones vacacionesParaTrabajador = new Vacaciones();
 
     private DefaultTableModel modelTrabajador;
     private TableRowSorter sorter;

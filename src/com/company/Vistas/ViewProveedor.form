@@ -99,102 +99,6 @@
               </component>
             </children>
           </grid>
-          <grid id="7e61" layout-manager="GridLayoutManager" row-count="1" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="6363a" class="javax.swing.JButton" binding="buttonAnadir">
-                <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1703946"/>
-                  <borderPainted value="false"/>
-                  <contentAreaFilled value="true"/>
-                  <foreground color="-1"/>
-                  <icon value="com/company/Images/Icons/anadir.png"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <hspacer id="ada23">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
-              <component id="de63f" class="javax.swing.JButton" binding="buttonEliminar">
-                <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1703946"/>
-                  <borderPainted value="false"/>
-                  <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
-                  <icon value="com/company/Images/Icons/papelera.png"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="102c5" class="javax.swing.JButton" binding="buttonVer">
-                <constraints>
-                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1703946"/>
-                  <borderPainted value="false"/>
-                  <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
-                  <icon value="com/company/Images/Icons/ver.png"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="e7c11" class="javax.swing.JButton" binding="buttonEditar">
-                <constraints>
-                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1703946"/>
-                  <borderPainted value="false"/>
-                  <contentAreaFilled value="true"/>
-                  <foreground color="-1703946"/>
-                  <icon value="com/company/Images/Icons/lapiz.png"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="fe426" class="javax.swing.JButton" binding="buttonRecargar">
-                <constraints>
-                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1703946"/>
-                  <borderPainted value="false"/>
-                  <defaultCapable value="false"/>
-                  <focusable value="false"/>
-                  <foreground color="-1703946"/>
-                  <icon value="com/company/Images/Icons/reload.png"/>
-                  <requestFocusEnabled value="false"/>
-                  <text value=""/>
-                  <toolTipText value="Pulsa para refrescar las tablas"/>
-                </properties>
-              </component>
-              <component id="b06fb" class="javax.swing.JLabel" binding="labelTitulo">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1"/>
-                  <font size="22"/>
-                  <foreground color="-16777216"/>
-                  <text value="Proveedores"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
           <grid id="e4eb1" binding="PanelProveedor" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="1" left="1" bottom="1" right="1"/>
             <constraints>
@@ -251,6 +155,102 @@
               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <grid id="9c0bf" layout-manager="GridLayoutManager" row-count="1" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="80f02" class="javax.swing.JButton" binding="buttonAnadir">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1703946"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-16777216"/>
+                  <icon value="com/company/Images/Icons/anadir.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <hspacer id="73cbf">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="cfb4c" class="javax.swing.JButton" binding="buttonEliminar">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1703946"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-16777216"/>
+                  <icon value="com/company/Images/Icons/papelera.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="49f3b" class="javax.swing.JButton" binding="buttonVer">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1703946"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-16777216"/>
+                  <icon value="com/company/Images/Icons/ver.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="8a44f" class="javax.swing.JButton" binding="buttonEditar">
+                <constraints>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1703946"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <foreground color="-16777216"/>
+                  <icon value="com/company/Images/Icons/lapiz.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="95e4f" class="javax.swing.JButton" binding="buttonRecargar">
+                <constraints>
+                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1703946"/>
+                  <borderPainted value="true"/>
+                  <defaultCapable value="false"/>
+                  <focusable value="false"/>
+                  <foreground color="-16777216"/>
+                  <icon value="com/company/Images/Icons/reload.png"/>
+                  <requestFocusEnabled value="true"/>
+                  <text value=""/>
+                  <toolTipText value="Pulsa para refrescar las tablas"/>
+                </properties>
+              </component>
+              <component id="b8997" class="javax.swing.JLabel" binding="labelTitulo">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <font size="22"/>
+                  <foreground color="-16777216"/>
+                  <text value="Proveedores"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

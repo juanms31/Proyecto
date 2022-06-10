@@ -1,50 +1,6 @@
-jun 10, 2022 11:49:30 A. M. com.company.Main main
+jun 10, 2022 6:46:43 P. M. com.company.Main main
 INFO: Main inicializado
-jun 10, 2022 11:49:30 A. M. com.company.Main main
+jun 10, 2022 6:46:43 P. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 10, 2022 11:49:31 A. M. com.company.Main main
+jun 10, 2022 6:46:44 P. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDActuacion getAll
-INFO: GetAll en Actuacion = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDEspecificacionActuacion getAll
-INFO: GetAll en EspecificacionActuacion = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDCliente getAll
-INFO: GetAll en Cliente = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDActuacion getColumnActuacion
-INFO: getColumnActuacion en Actuacion = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.CRUDCliente getColumnsCliente
-INFO: getColumnsCliente en Cliente = exito
-jun 10, 2022 11:50:07 A. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito

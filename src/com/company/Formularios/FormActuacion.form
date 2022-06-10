@@ -38,7 +38,7 @@
           <background color="-1"/>
         </properties>
       </component>
-      <grid id="bdf32" layout-manager="GridLayoutManager" row-count="12" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="bdf32" layout-manager="GridLayoutManager" row-count="12" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -130,65 +130,6 @@
               <text value="Fecha Finalizacion"/>
             </properties>
           </component>
-          <component id="8fd7d" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Importe"/>
-            </properties>
-          </component>
-          <component id="cb0d" class="javax.swing.JSpinner" binding="spinnerImporte">
-            <constraints>
-              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="ff4b9" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Hoja Planificacion"/>
-            </properties>
-          </component>
-          <component id="6cdea" class="javax.swing.JTextField" binding="textFieldHojaPlanificacion">
-            <constraints>
-              <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="3e4cb" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Hoja Presupuesto"/>
-            </properties>
-          </component>
-          <component id="3e69c" class="javax.swing.JButton" binding="buttonHojaPresupuesto">
-            <constraints>
-              <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-3485441"/>
-              <borderPainted value="false"/>
-              <icon value="com/company/Images/Icons/carpeta.png"/>
-              <label value=""/>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="5e038" class="javax.swing.JFormattedTextField" binding="formattedTextFieldFechaSolicitud">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -234,82 +175,6 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="a9b7b" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Total Certificacion"/>
-            </properties>
-          </component>
-          <component id="d6b15" class="javax.swing.JSpinner" binding="spinnerTotalCertificacion">
-            <constraints>
-              <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="432ce" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Por Certificar"/>
-            </properties>
-          </component>
-          <component id="8e1db" class="javax.swing.JSpinner" binding="spinnerPorCertificar">
-            <constraints>
-              <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="43c8c" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Horas Ofertadas"/>
-            </properties>
-          </component>
-          <component id="644b2" class="javax.swing.JTextField" binding="textFieldHorasOfertadas">
-            <constraints>
-              <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="9764" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Horas Ejecutadas"/>
-            </properties>
-          </component>
-          <component id="9e3e0" class="javax.swing.JTextField" binding="textFieldHorasEjecutadas">
-            <constraints>
-              <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
           <component id="a0c7" class="javax.swing.JLabel">
             <constraints>
               <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -328,15 +193,6 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="d876a" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Resultado Balance"/>
-            </properties>
-          </component>
           <component id="73db2" class="javax.swing.JLabel">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -344,17 +200,6 @@
             <properties>
               <foreground color="-16777216"/>
               <text value="Fecha Solicitud"/>
-            </properties>
-          </component>
-          <component id="f4fa" class="javax.swing.JTextField" binding="textFieldHojaPresupuesto">
-            <constraints>
-              <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
             </properties>
           </component>
           <component id="f5603" class="javax.swing.JLabel">
@@ -376,15 +221,6 @@
             <properties>
               <background color="-1"/>
               <editable value="false"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="a8500" class="javax.swing.JSpinner" binding="spinnerResultadoBalance">
-            <constraints>
-              <grid row="9" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
               <foreground color="-16777216"/>
             </properties>
           </component>
@@ -415,7 +251,7 @@
             </constraints>
             <properties>
               <foreground color="-16777216"/>
-              <text value="Añadir materiales"/>
+              <text value="Mateiales Usados"/>
             </properties>
           </component>
           <scrollpane id="300b2">
@@ -434,49 +270,6 @@
               </component>
             </children>
           </scrollpane>
-          <component id="5ae2c" class="javax.swing.JButton" binding="buttonAnadir">
-            <constraints>
-              <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <contentAreaFilled value="false"/>
-              <foreground color="-16756757"/>
-              <icon value="com/company/Images/Icons/anadir.png"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <component id="abfaf" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="11" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Descripcion"/>
-            </properties>
-          </component>
-          <component id="cf936" class="javax.swing.JTextArea" binding="textAreaDescripcion">
-            <constraints>
-              <grid row="11" column="5" row-span="1" col-span="1" vsize-policy="2" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="c0ab1" class="javax.swing.JButton" binding="buttonHojaPlanificacion">
-            <constraints>
-              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-3485441"/>
-              <borderPainted value="false"/>
-              <icon value="com/company/Images/Icons/carpeta.png"/>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="8a8b1" class="javax.swing.JLabel">
             <constraints>
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -489,6 +282,208 @@
           <component id="fcc6a" class="javax.swing.JSpinner" binding="spinnerMaterialOfertado">
             <constraints>
               <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="ff4b9" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Hoja Planificacion"/>
+            </properties>
+          </component>
+          <component id="6cdea" class="javax.swing.JTextField" binding="textFieldHojaPlanificacion">
+            <constraints>
+              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="c0ab1" class="javax.swing.JButton" binding="buttonHojaPlanificacion">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3485441"/>
+              <borderPainted value="false"/>
+              <foreground color="-12737739"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="com/company/Images/Icons/carpeta.png"/>
+              <text value=""/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="3e4cb" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Hoja Presupuesto"/>
+            </properties>
+          </component>
+          <component id="f4fa" class="javax.swing.JTextField" binding="textFieldHojaPresupuesto">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="3e69c" class="javax.swing.JButton" binding="buttonHojaPresupuesto">
+            <constraints>
+              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3485441"/>
+              <borderPainted value="false"/>
+              <foreground color="-12737739"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="com/company/Images/Icons/carpeta.png"/>
+              <label value=""/>
+              <text value=""/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="a9b7b" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Total Certificacion"/>
+            </properties>
+          </component>
+          <component id="d6b15" class="javax.swing.JSpinner" binding="spinnerTotalCertificacion">
+            <constraints>
+              <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="432ce" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Por Certificar"/>
+            </properties>
+          </component>
+          <component id="8e1db" class="javax.swing.JSpinner" binding="spinnerPorCertificar">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="43c8c" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Horas Ofertadas"/>
+            </properties>
+          </component>
+          <component id="644b2" class="javax.swing.JTextField" binding="textFieldHorasOfertadas">
+            <constraints>
+              <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="9764" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Horas Ejecutadas"/>
+            </properties>
+          </component>
+          <component id="9e3e0" class="javax.swing.JTextField" binding="textFieldHorasEjecutadas">
+            <constraints>
+              <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="8fd7d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Costes Generales"/>
+            </properties>
+          </component>
+          <component id="cb0d" class="javax.swing.JSpinner" binding="spinnerImporte">
+            <constraints>
+              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="d876a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Resultado Balance"/>
+            </properties>
+          </component>
+          <component id="a8500" class="javax.swing.JSpinner" binding="spinnerResultadoBalance">
+            <constraints>
+              <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="abfaf" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Descripcion"/>
+            </properties>
+          </component>
+          <component id="cf936" class="javax.swing.JTextArea" binding="textAreaDescripcion">
+            <constraints>
+              <grid row="10" column="3" row-span="2" col-span="3" vsize-policy="2" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
             </constraints>
             <properties>
               <background color="-1"/>

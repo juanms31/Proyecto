@@ -1,8 +1,7 @@
 package com.company;
 
 
-import com.company.Vistas.ViewPrincipal;
-import com.company.Vistas.ViewWelcome;
+import com.company.Vistas.ViewInicio;
 
 import java.awt.*;
 import java.io.IOException;
@@ -45,10 +44,10 @@ public class Main {
 
 //            ViewWelcome welcome = new ViewWelcome();
 //            welcome.setVisible(true);
-            ViewPrincipal viewPrincipal = new ViewPrincipal();
+//            ViewPrincipal viewPrincipal = new ViewPrincipal();
 //
-//            ViewInicio viewInicio = new ViewInicio();
-//            viewInicio.setVisible(true);
+            ViewInicio viewInicio = new ViewInicio();
+            viewInicio.setVisible(true);
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 
         } catch (HeadlessException | IOException e) {

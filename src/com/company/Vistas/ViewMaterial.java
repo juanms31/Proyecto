@@ -3,6 +3,7 @@ package com.company.Vistas;
 import com.company.Controlador.ControladorMaterial;;
 import com.company.Entidades.*;
 import com.company.Formularios.FormMaterial;
+import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -24,9 +25,11 @@ public class ViewMaterial extends JFrame{
         this.controladorMaterial = controladorMaterial;
         this.materiales = materiales;
         initWindow();
+        initComps();
         initListeners();
         setVisible(true);
     }
+
 
     public ViewMaterial(ControladorMaterial controladorMaterial, ArrayList<Material> materiales, ArrayList<Proveedor> proveedores,
                         ArrayList<GrupoMaterial> grupoMateriales, ArrayList<EspecificacionMaterial> especificacionMateriales,
@@ -39,6 +42,7 @@ public class ViewMaterial extends JFrame{
         this.unidadMateriales = unidadMateriales;
         this.calidadMateriales = calidadMateriales;
         initWindow();
+        initComps();
         initListeners();
         setVisible(true);
     }
@@ -46,6 +50,15 @@ public class ViewMaterial extends JFrame{
     //endregion
 
     //region Metodos Vista
+
+    private void initComps() {
+        buttonAnadir.setBorder(new RoundedBorder(10));
+        buttonEliminar.setBorder(new RoundedBorder(10));
+        buttonVer.setBorder(new RoundedBorder(10));
+        buttonEditar.setBorder(new RoundedBorder(10));
+        buttonRecargar.setBorder(new RoundedBorder(10));
+        buttonVolver.setBorder(new RoundedBorder(10));
+    }
     private void initWindow() {
         add(panelPrincipal);
         setDefaultLookAndFeelDecorated(true);

@@ -403,8 +403,8 @@ public class ViewProveedor extends JFrame{
     private JPanel JPanelGrafico1;
     private JPanel panelBotones;
     private JPanel buscador;
-    private JLabel labelTitulo;
     private JPanel PanelProveedor;
+    private JLabel labelTitulo;
     private  ArrayList<Proveedor> proveedores;
     ArrayList<Albaran> listAlbaranes;
     private ControladorProveedor controladorProveedor;

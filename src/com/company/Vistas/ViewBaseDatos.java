@@ -9,10 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewPrincipal extends JFrame {
+public class ViewBaseDatos extends JDialog {
 
     //region Constructor
-    public ViewPrincipal() throws HeadlessException {
+    public ViewBaseDatos() throws HeadlessException {
 
         centerFrame();
         initWindow();
@@ -48,7 +48,7 @@ public class ViewPrincipal extends JFrame {
             e.printStackTrace();
         }
         setResizable(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750, 750));
         setLocationRelativeTo(null);
         setTitle("Panel Principal");
@@ -112,7 +112,7 @@ public class ViewPrincipal extends JFrame {
         btnFacturas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ViewPrincipal.this,
+                JOptionPane.showMessageDialog(ViewBaseDatos.this,
                         "Este modulo esta en desarrollo. Intentelo más tarde.",
                         "Error",
                         JOptionPane.OK_OPTION,
@@ -138,7 +138,6 @@ public class ViewPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ViewInicio viewInicio = new ViewInicio();
             }
         });
     }
