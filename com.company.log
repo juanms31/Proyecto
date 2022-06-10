@@ -1,52 +1,52 @@
-jun 09, 2022 9:47:34 P. M. com.company.Main main
+jun 10, 2022 8:52:11 A. M. com.company.Main main
 INFO: Main inicializado
-jun 09, 2022 9:47:34 P. M. com.company.Main main
+jun 10, 2022 8:52:11 A. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 09, 2022 9:47:35 P. M. com.company.Main main
+jun 10, 2022 8:52:12 A. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDProveedor getAll
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDProveedor getAll
 INFO: GetAll en Proveedor = exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDProveedor getAll
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDProveedor getAll
 INFO: GetAll en Proveedor = exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDCliente getAll
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDCliente getAll
 INFO: GetAll en Cliente = exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDActuacion getAll
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDActuacion getAll
 INFO: GetAll en Actuacion = exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDAlbaran getAll
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDAlbaran getAll
 INFO: GetAll en Albaran = exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD connect
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD connect
 INFO: Conexion establecida con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.BBDD close
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.BBDD close
 INFO: Conexion cerrada con exito
-jun 09, 2022 9:47:36 P. M. com.company.BaseDatos.CRUDProveedor getColumnsProveedor
+jun 10, 2022 8:52:13 A. M. com.company.BaseDatos.CRUDProveedor getColumnsProveedor
 INFO: getColumnsProveedor en Proveedor = exito

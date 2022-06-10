@@ -111,6 +111,13 @@ public class CalendarioPrueba1 extends JFrame{
                 new ControladorTrabajador().setlistVacaciones(listVacaciones);
             }
         });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                borrarRowSelected();
+            }
+        });
     }
 
     private void initTrabajadores() {
@@ -132,7 +139,6 @@ public class CalendarioPrueba1 extends JFrame{
         Calendar calendar = new Calendar();
         calendar.beginInit();
         calendar.setTheme(ThemeType.Standard);
-       // calendar.getWeekRangeSettings().setHeaderStyle(EnumSet.of(WeekRangeHeaderStyle.Title));
         calendar.setEnableDragCreate(true);
         calendar.endInit();
 
@@ -161,7 +167,7 @@ public class CalendarioPrueba1 extends JFrame{
         calendar.addCalendarListener(new CalendarAdapter(){
             @Override
             public void itemCreated(ItemEvent itemEvent) {
-                DateTime dateAux =itemEvent.getItem().getEndTime();
+                DateTime dateAux =itemEvent.getItem().getEndTime().addDays(-1);
                 String date =dateAux.getDay()
                         + "/" + dateAux.getMonth()
                         + "/" + dateAux.getYear();
@@ -177,8 +183,11 @@ public class CalendarioPrueba1 extends JFrame{
 
         String row = comboBoxTrabajador.getSelectedItem().toString();
         String dni = row.substring(0, 9);
-        String nombre = row.substring(11, row.length());
-        modelTrabajador.addRow(new Object[]{dni, nombre, dateInit.toString(), dateEnd.toString()});
+        String nombre = row.substring(11);
+        modelTrabajador.addRow(new Object[]{dni, nombre, dateInit, dateEnd});
+        dateInit = "";
+        dateEnd = "";
+        contDateRange = 0;
     }
 
     private ArrayList<NodoTrabajadorCalendario> getAllRows(){
@@ -194,6 +203,12 @@ public class CalendarioPrueba1 extends JFrame{
             listTRabajadorCalendario.add(trabajadorCalendario);
         }
         return listTRabajadorCalendario;
+    }
+
+    private void borrarRowSelected(){
+        if (tableVacsTrabajador.getSelectedRow() != -1){
+            modelTrabajador.removeRow(tableVacsTrabajador.getSelectedRow());
+        }
     }
 
     private void setPanelTrabajadores(){
