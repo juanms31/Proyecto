@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.Vistas.ViewInicio;
 import com.company.Vistas.ViewLogin;
+import com.company.Vistas.ViewWelcome;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.logging.*;
@@ -40,12 +42,11 @@ public class Main {
             LOGGER.log(Level.INFO, "LLamando a la vista principal");
             //ENTRADA AL PROGRAMA
 
-//            ViewWelcome welcome = new ViewWelcome();
-//            welcome.setVisible(true);
+            ViewWelcome welcome = new ViewWelcome();
 //            ViewPrincipal viewPrincipal = new ViewPrincipal();
 //
-            ViewInicio viewInicio = new ViewInicio();
-            viewInicio.setVisible(true);
+//            ViewInicio viewInicio = new ViewInicio();
+//            viewInicio.setVisible(true);
 //            ViewLogin viewLogin = new ViewLogin();
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 

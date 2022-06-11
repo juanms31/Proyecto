@@ -1,8 +1,9 @@
 package com.company.Vistas;
 
 import com.company.Calendario.ViewCalendario;
+import com.company.Entidades.Usuario;
 import com.company.Recursos.RoundedBorder;
-import com.company.chat.Cliente;
+import com.company.Chat.Cliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -38,9 +39,18 @@ public class ViewInicio extends JFrame {
     boolean viendoMenu = false;
 
     //region Constructor
+    public ViewInicio(Usuario usuario) {
+
+        this.usuario = usuario;
+        initWindow();
+        initListeners();
+        initComps();
+        setVisible(true);
+    }
+
     public ViewInicio() {
 
-
+        this.usuario = usuario;
         initWindow();
         initListeners();
         initComps();
@@ -204,11 +214,13 @@ public class ViewInicio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-                ViewUsuario viewUsuario = new ViewUsuario();
+                ViewUsuario viewUsuario = new ViewUsuario(usuario);
             }
         });
 
 
     }
+
+    private Usuario usuario;
     //endregion
 }

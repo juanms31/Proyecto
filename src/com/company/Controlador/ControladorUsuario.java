@@ -9,12 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControladorUsuario {
+
     //Constructor
-    public ControladorUsuario() {
+    public ControladorUsuario(Usuario usuario) {
         crudUsuario = new CRUDUsuario();
-        viewUsuario = new ViewUsuario();
+        viewUsuario = new ViewUsuario(usuario);
         ArrayList<Usuario> usuarios = crudUsuario.getAll();
     }
+    public ControladorUsuario() {
+        crudUsuario = new CRUDUsuario();
+    }
+
 
     //region CRUD
 
