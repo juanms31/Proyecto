@@ -5,28 +5,18 @@ import com.company.Controlador.ControladorTrabajador;
 import com.company.Entidades.Trabajador;
 import com.company.Recursos.RoundedBorder;
 import com.mindfusion.common.DateTime;
-import com.mindfusion.common.ScrollEvent;
 import com.mindfusion.scheduling.*;
 import com.mindfusion.scheduling.model.ItemEvent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.EventObject;
 
-public class CalendarioPrueba1 extends JFrame{
+public class ViewCalendario extends JFrame{
     private JPanel panelPrincipal;
     private JPanel panelCalendario;
     private JPanel panelTrabajador;
@@ -45,7 +35,7 @@ public class CalendarioPrueba1 extends JFrame{
 
     private ArrayList<Trabajador> trabajadores;
 
-    public CalendarioPrueba1(){
+    public ViewCalendario(){
         trabajadores = getTrabajadores();
         initComps();
         initWindow();
@@ -225,10 +215,4 @@ public class CalendarioPrueba1 extends JFrame{
         listTrabajadores = crudTrabajador.getAll();
         return listTrabajadores;
     }
-
-    public static void main(String[] args) {
-        CalendarioPrueba1 calendarioPrueba1 = new CalendarioPrueba1();
-
-    }
-
 }

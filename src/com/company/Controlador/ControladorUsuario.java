@@ -1,10 +1,7 @@
 package com.company.Controlador;
 
-import com.company.BaseDatos.CRUDTrabajador;
 import com.company.BaseDatos.CRUDUsuario;
-import com.company.Entidades.Trabajador;
 import com.company.Entidades.Usuario;
-import com.company.Vistas.ViewTrabajador;
 import com.company.Vistas.ViewUsuario;
 
 import javax.swing.*;

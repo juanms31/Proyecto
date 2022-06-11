@@ -1,10 +1,10 @@
 package com.company.Vistas;
 
+import com.company.Calendario.ViewCalendario;
 import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +19,18 @@ public class ViewInicio extends JFrame {
     private JButton buttonChat;
     private JPanel panelFondo;
     private JPanel panelModulos;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
+    private JButton buttonMenu;
+    private JButton baseDeDatosButton;
+    private JButton calendarioButton;
+    private JButton chatButton;
+    private JButton configuracionUsuarioButton;
+    private JButton añadirElementosButton;
+    private JButton cerrarSesionButton;
+    private JPanel JPanelMenu;
 
     int numImagen = 1;
+
+    boolean viendoMenu = false;
 
     //region Constructor
     public ViewInicio() {
@@ -63,6 +70,13 @@ public class ViewInicio extends JFrame {
         buttonBaseDatos.setBorder(new RoundedBorder(10));
         buttonChat.setBorder(new RoundedBorder(10));
         buttonCalendario.setBorder(new RoundedBorder(10));
+        baseDeDatosButton.setBorder(new RoundedBorder(10));
+        chatButton.setBorder(new RoundedBorder(10));
+        calendarioButton.setBorder(new RoundedBorder(10));
+        añadirElementosButton.setBorder(new RoundedBorder(10));
+        cerrarSesionButton.setBorder(new RoundedBorder(10));
+        configuracionUsuarioButton.setBorder(new RoundedBorder(10));
+        JPanelMenu.setVisible(false);
     }
 
     private void setImageBackground(String image) {
@@ -104,6 +118,56 @@ public class ViewInicio extends JFrame {
                 viewBaseDatos.setVisible(true);
             }
         });
+
+        baseDeDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
+            }
+        });
+
+        buttonMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!viendoMenu) {
+                    JPanelMenu.setVisible(true);
+                    viendoMenu = true;
+                }else{
+                    JPanelMenu.setVisible(false);
+                    viendoMenu = false;
+                }
+            }
+        });
+
+        calendarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewCalendario viewCalendario = new ViewCalendario();
+            }
+        });
+
+        buttonCalendario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewCalendario viewCalendario = new ViewCalendario();
+            }
+        });
+
+        chatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                ViewChat viewChat = new ViewChat();
+            }
+        });
+
+        buttonChat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                ViewChat viewChat = new ViewChat();
+            }
+        });
+
+
     }
     //endregion
 }
