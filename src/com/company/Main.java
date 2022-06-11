@@ -1,9 +1,6 @@
 package com.company;
 
-
-import com.company.Vistas.ViewInicio;
 import com.company.Vistas.ViewLogin;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.logging.*;
@@ -17,7 +14,6 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger("com.company.Main");
 
     public static void main(String[] args) {
-
 
         try {
             //Log en consola

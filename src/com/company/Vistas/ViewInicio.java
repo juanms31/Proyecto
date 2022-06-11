@@ -2,6 +2,7 @@ package com.company.Vistas;
 
 import com.company.Calendario.ViewCalendario;
 import com.company.Recursos.RoundedBorder;
+import com.company.chat.Cliente;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 
 public class ViewInicio extends JFrame {
     private JPanel panelPrincipal;
@@ -27,6 +30,8 @@ public class ViewInicio extends JFrame {
     private JButton añadirElementosButton;
     private JButton cerrarSesionButton;
     private JPanel JPanelMenu;
+    private Socket socket = null;
+    private Cliente cliente;
 
     int numImagen = 1;
 
@@ -169,16 +174,29 @@ public class ViewInicio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-//                ViewChat viewChat = new ViewChat();
             }
         });
 
+        //TODO este es el que funciona
         buttonChat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-//                ViewChat viewChat = new ViewChat();
+                if (socket == null){
+                    try {
+                        String usuario = JOptionPane.showInputDialog("Nombre de usuario");
+                        Socket socket = new Socket("localhost", 1234);
+                        Cliente cliente = new Cliente(socket, usuario);
+                        cliente.enviarPrimerMensaje();
+                    } catch (IOException ex) {
+                        //TODO sacar nombre de usuario del usuario registrado
+                        ex.printStackTrace();
+                    }
+                }
+                if (socket.isConnected()){
+                    cliente.setVisible(true);
+                }
             }
         });
 
