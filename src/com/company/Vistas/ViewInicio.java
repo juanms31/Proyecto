@@ -78,7 +78,6 @@ public class ViewInicio extends JFrame {
         baseDeDatosButton.setBorder(new RoundedBorder(10));
         chatButton.setBorder(new RoundedBorder(10));
         calendarioButton.setBorder(new RoundedBorder(10));
-        añadirElementosButton.setBorder(new RoundedBorder(10));
         cerrarSesionButton.setBorder(new RoundedBorder(10));
         configuracionUsuarioButton.setBorder(new RoundedBorder(10));
         JPanelMenu.setVisible(false);

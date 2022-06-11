@@ -79,9 +79,9 @@
           <grid row="1" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-1"/>
+          <background color="-3485441"/>
           <enabled value="true"/>
-          <opaque value="false"/>
+          <opaque value="true"/>
         </properties>
         <border type="none"/>
         <children>
@@ -90,11 +90,12 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3485441"/>
+              <background color="-1900570"/>
               <foreground color="-16777216"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="4"/>
               <icon value="com/company/Images/Icons/databaseInicio.png"/>
+              <opaque value="true"/>
               <text value="Base de Datos"/>
             </properties>
           </component>
@@ -103,10 +104,11 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3485441"/>
+              <background color="-1900570"/>
               <foreground color="-16777216"/>
               <horizontalTextPosition value="4"/>
               <icon value="com/company/Images/Icons/calendarioInicio.png"/>
+              <opaque value="true"/>
               <text value="Calendario"/>
             </properties>
           </component>
@@ -115,11 +117,12 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3485441"/>
+              <background color="-1900570"/>
               <enabled value="true"/>
               <foreground color="-16777216"/>
               <horizontalTextPosition value="4"/>
               <icon value="com/company/Images/Icons/chat.png"/>
+              <opaque value="true"/>
               <text value="Chat"/>
             </properties>
           </component>
@@ -128,9 +131,10 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3485441"/>
+              <background color="-1900570"/>
               <foreground color="-16777216"/>
               <icon value="com/company/Images/Icons/settings.png"/>
+              <opaque value="true"/>
               <text value="Configuracion Usuario"/>
             </properties>
           </component>
@@ -139,9 +143,10 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3485441"/>
+              <background color="-1900570"/>
               <foreground color="-16777216"/>
               <icon value="com/company/Images/Icons/logout.png"/>
+              <opaque value="true"/>
               <text value="Cerrar Sesion"/>
             </properties>
           </component>

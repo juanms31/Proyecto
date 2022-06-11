@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.Vistas.ViewInicio;
 import com.company.Vistas.ViewLogin;
 import java.awt.*;
 import java.io.IOException;
