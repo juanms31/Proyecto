@@ -56,14 +56,14 @@ public class ViewCargando extends JFrame {
                     int numAle = 0;
                     if (i > 0 && i < 10) {
                         numAle = (int) (Math.random() * 500) + 1;
-                        progressBar.setString("Validando Email...");
+                        progressBar.setString("Validando Email.");
 
                     } else if (i > 90 && i < 99) {
-                        progressBar.setString("Cargando...");
+                        progressBar.setString("Cargando..");
 
                     } else if (i > 30 && i < 40) {
                         numAle = (int) (Math.random() * 250) + 1;
-                        progressBar.setString("Validando Contraseña.");
+                        progressBar.setString("Conectando a Base de Datos...");
 
                     } else if (i > 40 && i < 50) {
                         numAle = (int) (Math.random() * 250) + 1;

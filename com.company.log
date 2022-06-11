@@ -1,6 +1,80 @@
-jun 11, 2022 12:50:14 P. M. com.company.Main main
+jun 11, 2022 1:11:38 P. M. com.company.Main main
 INFO: Main inicializado
-jun 11, 2022 12:50:14 P. M. com.company.Main main
+jun 11, 2022 1:11:38 P. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 11, 2022 12:50:15 P. M. com.company.Main main
+jun 11, 2022 1:11:39 P. M. com.company.Main main
 INFO: Vista principal inicializado con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
+INFO: setListaUsuarios en Usuario = exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.CRUDUsuario getAll
+INFO: GetAll en Usuario = exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
+INFO: setListaUsuarios en Usuario = exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:11:43 P. M. com.company.BaseDatos.CRUDUsuario getAll
+INFO: GetAll en Usuario = exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.CRUDTrabajador getAll
+INFO: GetAll en Trabajador = exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:32 P. M. com.company.BaseDatos.CRUDTrabajador getColumnsTrabajador
+INFO: getColumnsTrabajador en Trabajador = exito
+jun 11, 2022 1:12:37 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:37 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:37 P. M. com.company.BaseDatos.CRUDVacaciones setListaVacaciones
+INFO: setListaVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:37 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:37 P. M. com.company.BaseDatos.CRUDVacaciones getAll
+INFO: readAllVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:42 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:42 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:42 P. M. com.company.BaseDatos.CRUDVacaciones setListaVacaciones
+INFO: setListaVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:42 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:42 P. M. com.company.BaseDatos.CRUDVacaciones getAll
+INFO: readAllVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:52 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:52 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:52 P. M. com.company.BaseDatos.CRUDVacaciones setListaVacaciones
+INFO: setListaVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:52 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:52 P. M. com.company.BaseDatos.CRUDVacaciones getAll
+INFO: readAllVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:56 P. M. com.company.BaseDatos.BBDD connect
+INFO: Conexion establecida con exito
+jun 11, 2022 1:12:56 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:56 P. M. com.company.BaseDatos.CRUDVacaciones setListaVacaciones
+INFO: setListaVacaciones en Vacaciones = exito
+jun 11, 2022 1:12:56 P. M. com.company.BaseDatos.BBDD close
+INFO: Conexion cerrada con exito
+jun 11, 2022 1:12:56 P. M. com.company.BaseDatos.CRUDVacaciones getAll
+INFO: readAllVacaciones en Vacaciones = exito

@@ -104,6 +104,8 @@ public class ViewInicio extends JFrame {
 //                setImageBackground("fondo"+numImagen+".jpg");
 //                numImagen++;
 
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
                 dispose();
 
                 ViewLogin viewLogin = new ViewLogin();
@@ -114,6 +116,9 @@ public class ViewInicio extends JFrame {
         buttonBaseDatos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
+
                 ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
                 viewBaseDatos.setVisible(true);
             }
@@ -122,6 +127,8 @@ public class ViewInicio extends JFrame {
         baseDeDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
                 ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
             }
         });
@@ -142,6 +149,8 @@ public class ViewInicio extends JFrame {
         calendarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
                 ViewCalendario viewCalendario = new ViewCalendario();
             }
         });
@@ -149,6 +158,8 @@ public class ViewInicio extends JFrame {
         buttonCalendario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
                 ViewCalendario viewCalendario = new ViewCalendario();
             }
         });
@@ -156,6 +167,8 @@ public class ViewInicio extends JFrame {
         chatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
 //                ViewChat viewChat = new ViewChat();
             }
         });
@@ -163,7 +176,18 @@ public class ViewInicio extends JFrame {
         buttonChat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
 //                ViewChat viewChat = new ViewChat();
+            }
+        });
+
+        configuracionUsuarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanelMenu.setVisible(false);
+                viendoMenu = false;
+                ViewUsuario viewUsuario = new ViewUsuario();
             }
         });
 

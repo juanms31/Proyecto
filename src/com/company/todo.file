@@ -24,6 +24,7 @@ TODO:
     - Añadir ventana de logs en la vista inicio
     - Implementar cambiar fondo
     - Panel vacaciones en Trabajador
+    - Repasar panel vacaciones en trabajador para cuando no tenga vacaciones en curso muestrre que no las tiene en un jpanel
 
 MOD:
     - Tratamiento de errores en campos de CIF.
