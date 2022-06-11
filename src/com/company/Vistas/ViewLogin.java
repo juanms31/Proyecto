@@ -71,6 +71,7 @@ public class ViewLogin extends JFrame {
                 if (comprobarEmail(usuarios, textFieldEmail.getText())) {
                     if(comprobarPass(usuarios, usuarios.get(numUsuario), String.valueOf(passwordFieldPass.getPassword()))){
                         Usuario usuario = usuarios.get(numUsuario);
+                        dispose();
                         ViewCargando viewCargando = new ViewCargando(ViewLogin.this, usuario);
                     }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");
                 }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");

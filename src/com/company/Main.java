@@ -2,6 +2,7 @@ package com.company;
 
 
 import com.company.Vistas.ViewInicio;
+import com.company.Vistas.ViewLogin;
 
 import java.awt.*;
 import java.io.IOException;
@@ -46,8 +47,9 @@ public class Main {
 //            welcome.setVisible(true);
 //            ViewPrincipal viewPrincipal = new ViewPrincipal();
 //
-            ViewInicio viewInicio = new ViewInicio();
-            viewInicio.setVisible(true);
+//            ViewInicio viewInicio = new ViewInicio();
+//            viewInicio.setVisible(true);
+            ViewLogin viewLogin = new ViewLogin();
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 
         } catch (HeadlessException | IOException e) {
