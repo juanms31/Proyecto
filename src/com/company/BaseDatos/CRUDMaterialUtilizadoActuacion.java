@@ -1,5 +1,7 @@
 package com.company.BaseDatos;
 
+import com.company.Entidades.Albaran;
+import com.company.Entidades.Material;
 import com.company.Entidades.MaterialUtilizadoActuacion;
 
 import java.sql.*;
@@ -35,37 +37,33 @@ public class CRUDMaterialUtilizadoActuacion {
 
     }
 
-    public int createMaterialUtilizadoActuacion(MaterialUtilizadoActuacion materialUtilizadoActuacion) throws SQLException {
+    public int createMaterialUtilizadoActuacion(int id_material, int id_Actuacion) throws SQLException {
         Connection connection = BBDD.connect();
-        if (connection == null) return -1;
-        final String QUERY_INSERT = "INSERT INTO materialutilizadoactuacion" +
-                " VALUES (?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setNull(1, 1);
-            preparedStatement.setInt(2, materialUtilizadoActuacion.getId_material());
-            preparedStatement.setInt(3, materialUtilizadoActuacion.getId_actuacion());
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+        int idRowMaterialUtilizadoActuacion = 0;
 
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            int idRowMaterialUtilizadoActuacion = 0;
-            if(generatedKeys.next()){
-                idRowMaterialUtilizadoActuacion = generatedKeys.getInt(1);
-            }
-            BBDD.close();
-            LOGGER.log(Level.INFO, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
-            return idRowMaterialUtilizadoActuacion;
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
-            e.printStackTrace();
-            BBDD.close();
-            return  -1;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
+            if (connection == null) return -1;
+            final String QUERY_INSERT = "INSERT INTO materialutilizadoactuacion" +
+                    " VALUES (?, ?, ?)";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setNull(1, 1);
+                preparedStatement.setInt(2, id_material);
+                preparedStatement.setInt(3,id_Actuacion);
+                int affectedRows = preparedStatement.executeUpdate();
+                if (affectedRows == 0) throw new SQLException("No se pudo guardar");
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                idRowMaterialUtilizadoActuacion = 0;
+                if (generatedKeys.next()) {
+                    idRowMaterialUtilizadoActuacion = generatedKeys.getInt(1);
+                }
+                LOGGER.log(Level.INFO, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = exito");
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, "createMaterialUtilizadoActuacion en MaterialUtilizadoActuacion = " + e.getMessage());
+                e.printStackTrace();
+                return -1;
         }
+        return -1;
     }
 
     public MaterialUtilizadoActuacion readMaterialUtilizadoActuacion(int cod){

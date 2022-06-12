@@ -342,6 +342,8 @@ public class FormAlbaran extends JDialog {
 
                     cont++;
                 }
+                albaran.setMateriales(materialesOut);
+
             }
         }else if(estado == 2){
 
@@ -401,6 +403,8 @@ public class FormAlbaran extends JDialog {
 
                     cont++;
                 }
+                albaran.setMateriales(materialesOut);
+
             }
 
         }

@@ -116,7 +116,7 @@ public class CRUDMaterial {
     }
 
     public ArrayList<MaterialEx> getMaterialesGroupByAlbaran(int idActuacion){
-        String sql = "SELECT m.cod, m.grupo, m.descripcion, al.cod as 'codAlbaran'FROM material m\n" +
+        String sql = "SELECT m.cod, m.grupo, m.descripcion, al.cod as 'codAlbaran' FROM material m\n" +
                 "INNER JOIN materialutilizadoactuacion ma\n" +
                 "\ton m.id = ma.id_material\n" +
                 "INNER JOIN actuacion a \n" +
@@ -144,9 +144,11 @@ public class CRUDMaterial {
             while (resultSet.next()){
                 MaterialEx materialEx = new MaterialEx();
                 materialEx.setCodigo(resultSet.getString(1));
-                materialEx.setGrupo(resultSet.getString(1));
-                materialEx.setDescripcion(resultSet.getString(1));
-                materialEx.setCodAlbaran(resultSet.getString(1));
+                materialEx.setGrupo(resultSet.getString(2));
+                materialEx.setDescripcion(resultSet.getString(3));
+                materialEx.setCodAlbaran(resultSet.getString(4));
+
+                System.out.println(materialEx.toString());
 
                 materiales.add(materialEx);
             }

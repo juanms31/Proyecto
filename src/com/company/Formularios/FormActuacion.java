@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class FormActuacion extends JDialog {
 
+
     //region Constructores
     public FormActuacion(ViewActuacion viewActuacion,
                          ArrayList<Cliente> clientes,
@@ -40,12 +41,14 @@ public class FormActuacion extends JDialog {
 
     public FormActuacion(ViewActuacion viewActuacion, Actuacion actuacion,
                          ArrayList<Cliente> clientes,
-                         ArrayList<EspecificacionActuacion> especificacionesActuacion) {
+                         ArrayList<EspecificacionActuacion> especificacionesActuacion,
+                         ArrayList<MaterialEx> materialesActuacion) {
         estado = 2;
         ActuacionSiendoModificada = actuacion;
         this.viewActuacion = viewActuacion;
         this.clientes = clientes;
         this.especificacionesActuacion = especificacionesActuacion;
+        this.arrayListMateriales = materialesActuacion;
         listAlbaranes = getAlbaranes();
         initListeners();
         initComps();
@@ -224,6 +227,19 @@ public class FormActuacion extends JDialog {
         spinnerResultadoBalance.setValue(actuacion.getResultadoBalance());
         textAreaDescripcion.setText(actuacion.getDescripcion());
 
+        setMaterialesEx(arrayListMateriales);
+
+    }
+
+    private void setMaterialesEx(ArrayList<MaterialEx> arrayListMateriales) {
+        DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+
+        System.out.println("size: " + arrayListMateriales.size());
+        for(MaterialEx materialEx : arrayListMateriales){
+            System.out.println(materialEx.getCodigo() + " - " + materialEx.getDescripcion()  + " - " + materialEx.getCodAlbaran());
+            defaultListModel.addElement(materialEx.getCodigo() + " - " + materialEx.getDescripcion()  + " - " + materialEx.getCodAlbaran());
+        }
+        listaMateriales.setModel(defaultListModel);
     }
 
     private boolean checkFields() {
@@ -733,6 +749,7 @@ public class FormActuacion extends JDialog {
     //endregion
 
     //region Variables
+    private ArrayList<MaterialEx> arrayListMateriales;
     private int estado = 0;
     private ViewActuacion viewActuacion;
     private Actuacion ActuacionSiendoModificada;

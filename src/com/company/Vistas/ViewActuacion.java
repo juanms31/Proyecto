@@ -1,9 +1,7 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorActuacion;
-import com.company.Entidades.Actuacion;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.EspecificacionActuacion;
+import com.company.Entidades.*;
 import com.company.Formularios.FormActuacion;
 import com.company.Formularios.FormCliente;
 import com.company.Informes.InformeActuacion;
@@ -23,7 +21,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ViewActuacion extends JFrame {
+public class ViewActuacion extends JDialog {
 
     //region Constructores
 
@@ -50,7 +48,7 @@ public class ViewActuacion extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setExtendedState(MAXIMIZED_BOTH);
+        setSize(new Dimension(600,600));
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750, 750));
@@ -218,13 +216,10 @@ public class ViewActuacion extends JFrame {
 
     //region CRUD
     private void createActuacion() {
-
-
         FormActuacion formActuacion = new FormActuacion(this, clientes, especificacionesActuacion);
     }
 
     private void readActuacion() {
-
 
         Actuacion actuacion = getActuacion();
         FormActuacion formActuacion = new FormActuacion(this, actuacion, clientes, especificacionesActuacion, false);
@@ -232,7 +227,11 @@ public class ViewActuacion extends JFrame {
 
     private void updateActuacion() {
         Actuacion actuacion = getActuacion();
-        FormActuacion formActuacion = new FormActuacion(this, actuacion, clientes, especificacionesActuacion);
+        FormActuacion formActuacion = new FormActuacion(this,
+                actuacion,
+                clientes,
+                especificacionesActuacion,
+                getMaterialesFromActuacionOrderByAlbaran(actuacion.getId()));
     }
 
     private void deleteActuacion() {
@@ -253,9 +252,11 @@ public class ViewActuacion extends JFrame {
 
     //region Consultas BBDD
 
-    private void getMaterialesFromActuacionOrderByAlbaran(int idActuacion){
+    private ArrayList<MaterialEx> getMaterialesFromActuacionOrderByAlbaran(int idActuacion){
         //TODO metodo para sacar materiales de actuacion ordenado por albaranes
         var materiales = controladorActuacion.getConsultaMaterialesExOrderByAlbaran(idActuacion);
+
+        return materiales;
     }
 
     //endregion
@@ -535,24 +536,17 @@ public class ViewActuacion extends JFrame {
     private ArrayList<Actuacion> actuaciones;
     private ArrayList<Cliente> clientes;
     private ArrayList<EspecificacionActuacion> especificacionesActuacion;
-
     private String[] headersActuacion;
     private String[] headersFechasActuacion;
     private String[] headersCliente;
-
     private String[] listColumnsNameActuacion;
     private String[] listColumsNameCliente;
-
     private TableRowSorter sorter;
-
-
     private DefaultTableModel modelActuacion;
     private DefaultTableModel modelFechasActuacion;
     private DefaultTableModel modelClientes;
-
     private String URLhojaPlanificacion;
     private String URLhojaPresupuesto;
-
     private JPanel panelPrincipal;
     private JTable TableActuaciones;
     private JTextField filtro;
@@ -574,7 +568,6 @@ public class ViewActuacion extends JFrame {
     private JButton buttonHojaPresupuesto;
     private JLabel labelTitulo;
     private JButton buttonInforme;
-
     private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
     private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();
 

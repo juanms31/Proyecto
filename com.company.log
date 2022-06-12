@@ -1,62 +1,6 @@
-jun 12, 2022 6:55:24 P. M. com.company.Main main
+jun 12, 2022 8:10:30 P. M. com.company.Main main
 INFO: Main inicializado
-jun 12, 2022 6:55:24 P. M. com.company.Main main
+jun 12, 2022 8:10:30 P. M. com.company.Main main
 INFO: LLamando a la vista principal
-jun 12, 2022 6:55:25 P. M. com.company.Main main
+jun 12, 2022 8:10:31 P. M. com.company.Main main
 INFO: Vista principal inicializado con exito
-jun 12, 2022 6:55:27 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:55:27 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:55:27 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
-INFO: setListaUsuarios en Usuario = exito
-jun 12, 2022 6:55:27 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:55:27 P. M. com.company.BaseDatos.CRUDUsuario getAll
-INFO: GetAll en Usuario = exito
-jun 12, 2022 6:55:43 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:55:43 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:55:43 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:56:07 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:56:07 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:56:07 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:56:07 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:56:32 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:56:32 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:56:32 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:56:32 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:57:04 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:57:04 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:57:04 P. M. com.company.BaseDatos.CRUDUsuario setListaUsuarios
-INFO: setListaUsuarios en Usuario = exito
-jun 12, 2022 6:57:04 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:57:04 P. M. com.company.BaseDatos.CRUDUsuario getAll
-INFO: GetAll en Usuario = exito
-jun 12, 2022 6:57:20 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:57:20 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:57:20 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:58:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:58:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito
-jun 12, 2022 6:58:42 P. M. com.company.BaseDatos.BBDD connect
-INFO: Conexion establecida con exito
-jun 12, 2022 6:58:42 P. M. com.company.BaseDatos.BBDD close
-INFO: Conexion cerrada con exito

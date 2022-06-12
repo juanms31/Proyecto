@@ -12,6 +12,7 @@ public class ControladorAlbaran {
     public ControladorAlbaran() {
         crudAlbaran = new CRUDAlbaran(this);
         crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+        crudMaterialUtilizadoActuacion = new CRUDMaterialUtilizadoActuacion();
         albaranes = crudAlbaran.getAll();
         materiales = getMateriales();
         materialesCompradosProveedor = getMaterialesCompradosProveedor();
@@ -27,6 +28,7 @@ public class ControladorAlbaran {
             int idAlbaran = crudAlbaran.createAlbaran(albaran);
             albaran.setId(idAlbaran);
             setIdAlbaran(albaran.getCod(), idAlbaran);
+
             viewAlbaran.addTableAlbaran(albaran);
             return true;
 
@@ -83,7 +85,14 @@ public class ControladorAlbaran {
 
                 int idMaterialCompradoProveedor = crudMaterialCompradoProveedor.createMaterialCompradoProveedor(materialCompradoProveedor);
 
+                System.out.println(materialCompradoProveedor.getAlbaran().toString());
+
+                crudMaterialUtilizadoActuacion.createMaterialUtilizadoActuacion(
+                        materialCompradoProveedor.getMaterial().getId(),
+                        materialCompradoProveedor.getActuacion().getId());
+
                 materialesCompradoProveedor.get(i++).setId(idMaterialCompradoProveedor);
+
                 materialCompradoProveedor.setId(idMaterialCompradoProveedor);
 
                 if(idMaterialCompradoProveedor != 0){
@@ -92,6 +101,7 @@ public class ControladorAlbaran {
 
                 viewAlbaran.addTableMaterialAlbaran(materialCompradoProveedor);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -172,6 +182,7 @@ public class ControladorAlbaran {
     CRUDAlbaran crudAlbaran;
 
     CRUDMaterialCompradoProveedor crudMaterialCompradoProveedor;
+    CRUDMaterialUtilizadoActuacion crudMaterialUtilizadoActuacion;
     ViewAlbaran viewAlbaran;
     ArrayList<Albaran> albaranes;
     ArrayList<Material> materiales;
