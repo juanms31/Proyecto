@@ -405,38 +405,42 @@ public class ViewTrabajador extends JFrame {
 
 
     private void setGraficos(Trabajador trabajador) {
-        JPanelVacaciones.removeAll();
         listVacaciones = getVaciones();
-        JLabelVacaciones.setVisible(true);
-        JPanelVacaciones.setVisible(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
+        int numVacacionesDisrutadas = getDiasVacacionesDisfrutados(trabajador, listVacaciones);
+        if(numVacacionesDisrutadas > 0) {
 
-                NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
-                nodoGraficoCircular1.setComparableKey(trabajador.getNombre());
+            JPanelVacaciones.removeAll();
+            JLabelVacaciones.setVisible(true);
+            JPanelVacaciones.setVisible(true);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-                int numVacacionesDisrutadas = getDiasVacacionesDisfrutados(trabajador, listVacaciones);
 
-                nodoGraficoCircular1.setValue(Double.valueOf(numVacacionesDisrutadas));
+                    ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
 
-                listNodoCircular.add(nodoGraficoCircular1);
+                    NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
+                    nodoGraficoCircular1.setComparableKey(trabajador.getNombre());
 
-                NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
-                nodoGraficoCircular2.setComparableKey("Total");
-                nodoGraficoCircular2.setValue(Double.valueOf(diasEntreDosFechas(vacacionesParaTrabajador.getFecha_aprobada_inicio(), vacacionesParaTrabajador.getFecha_aprobada_fin())));
-                listNodoCircular.add(nodoGraficoCircular2);
+                    nodoGraficoCircular1.setValue(Double.valueOf(numVacacionesDisrutadas));
 
-                GraficosBasicos graficosBasicos = new GraficosBasicos();
+                    listNodoCircular.add(nodoGraficoCircular1);
 
-                JPanelVacaciones.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Vacaciones Disfrutadas"));
+                    NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+                    nodoGraficoCircular2.setComparableKey("Total");
+                    nodoGraficoCircular2.setValue(Double.valueOf(diasEntreDosFechas(vacacionesParaTrabajador.getFecha_aprobada_inicio(), vacacionesParaTrabajador.getFecha_aprobada_fin())));
+                    listNodoCircular.add(nodoGraficoCircular2);
 
-                repaint();
-                revalidate();
-            }
-        }).start();
+                    GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+                    JPanelVacaciones.add(graficosBasicos.metodoGraficoCircular(listNodoCircular, "Vacaciones Disfrutadas"));
+
+                    repaint();
+                    revalidate();
+                }
+            }).start();
+        }else ShowErrorMessage("Error", "Este trabajador no cuenta con vacaciones.");
     }
 
     //endregion

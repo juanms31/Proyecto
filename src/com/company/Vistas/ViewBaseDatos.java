@@ -138,20 +138,9 @@ public class ViewBaseDatos extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+
             }
         });
-    }
-
-    private void setMouseListeners() {
-
-    }
-
-    private void setWindowListeners() {
-
-    }
-
-    private void setKeyListeners() {
-
     }
 
     //endregion

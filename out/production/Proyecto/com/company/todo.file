@@ -6,9 +6,6 @@ TODO:
         - Especificacion Actuacion
         - Especificacion Material
         - Unidad Material
-    - Implementar panel de usuario
     - Implementar graficos donde podamos
     - Implementar la clase HyperLink
-    - Añadir ventana de logs en la vista inicio
-    - Implementar cambiar fondo
     - Repasar panel vacaciones en trabajador para cuando no tenga vacaciones en curso muestrre que no las tiene en un jpanel
