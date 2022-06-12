@@ -25,6 +25,10 @@ public class ControladorTrabajador {
         viewTrabajador = new ViewTrabajador(this, trabajadores);
     }
 
+    public ViewTrabajador getViewTrabajador(){
+        return viewTrabajador;
+    }
+
     //region CRUD
 
     public boolean createTrabajador(Trabajador trabajador){

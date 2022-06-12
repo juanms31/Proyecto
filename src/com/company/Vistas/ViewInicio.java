@@ -101,6 +101,7 @@ public class ViewInicio extends JFrame {
 
     //endregion
 
+    boolean chatOK = false;
     //region Listeners
     private void initListeners() {
         buttonVolver.addActionListener(new ActionListener() {
@@ -176,27 +177,38 @@ public class ViewInicio extends JFrame {
                 viendoMenu = false;
             }
         });
-
         //TODO este es el que funciona
+        //TODO probar el boolen chat ok
         buttonChat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-                if (socket == null){
-                    try {
-                        String usuario = JOptionPane.showInputDialog("Nombre de usuario");
-                        Socket socket = new Socket("localhost", 1234);
-                        Cliente cliente = new Cliente(socket, usuario);
-                        cliente.enviarPrimerMensaje();
-                    } catch (IOException ex) {
-                        //TODO sacar nombre de usuario del usuario registrado
-                        ex.printStackTrace();
-                    }
+                System.out.println(chatOK);
+                if (!chatOK){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String usuario = JOptionPane.showInputDialog("Nombre de usuario");
+                                Socket socket = new Socket("localhost", 1234);
+                                Cliente cliente = new Cliente(socket, usuario);
+                                cliente.enviarPrimerMensaje();
+                                chatOK = true;
+                            } catch (IOException ex) {
+                                //TODO sacar nombre de usuario del usuario registrado
+                                ex.printStackTrace();
+                            }
+                        }
+                    }).start();
                 }
-                if (socket.isConnected()){
+                else {
                     cliente.setVisible(true);
                 }
+                /*
+                if (socket.isConnected()){
+                    cliente.setVisible(true);
+                }*/
             }
         });
 
