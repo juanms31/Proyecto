@@ -1,5 +1,6 @@
 package com.company.BaseDatos;
 
+import com.company.Entidades.Settings;
 import com.company.Entidades.Usuario;
 
 import java.sql.*;
@@ -64,6 +65,36 @@ public class CRUDUsuario {
             if (!connection.isClosed()){
                 BBDD.close();
             }
+        }
+    }
+
+    public boolean updateUsuario(Usuario usuario){
+
+        Connection connection = BBDD.connect();
+        if (connection == null)return false;
+        final String QUERY_UPDATE = "UPDATE usuario " +
+                "SET DNI = ?, nombre = ?, apellidos = ?, telefono = ?, nacionalidad = ?, email = ? WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+
+            preparedStatement.setString(1, usuario.getDNI());
+            preparedStatement.setString(2, usuario.getNombre());
+            preparedStatement.setString(3, usuario.getApellidos());
+            preparedStatement.setString(4, usuario.getTelefono());
+            preparedStatement.setString(5, usuario.getNacionalidad());
+            preparedStatement.setString(6, usuario.getEmail());
+            preparedStatement.setInt(7, usuario.getId());
+
+
+            int affectedRows = preparedStatement.executeUpdate();
+            BBDD.close();
+            if (affectedRows == 0) throw  new SQLException("No se pudo actualizar registro id = " + usuario.getId());
+            if (affectedRows == 1) return true;
+            return false;
+        } catch (SQLException e) {
+            BBDD.close();
+            e.printStackTrace();
+            return false;
         }
     }
 

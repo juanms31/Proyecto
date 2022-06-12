@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Usuario;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
@@ -28,9 +29,8 @@ public class ViewCargando extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setTitle("Validando DNI");
-        // FIXME: 02/06/2022 CAMBIAR ICONO
-//        setIconImage(new ImageIcon("src/images/verificacion25.png").getImage());
+        setTitle("Validando informacion");
+        setIconImage(new ImageIcon("src/com/company/Images/Icons/verifiacion.png").getImage());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -56,14 +56,14 @@ public class ViewCargando extends JFrame {
                     int numAle = 0;
                     if (i > 0 && i < 10) {
                         numAle = (int) (Math.random() * 500) + 1;
-                        progressBar.setString("Validando Email...");
+                        progressBar.setString("Validando Email.");
 
                     } else if (i > 90 && i < 99) {
-                        progressBar.setString("Cargando...");
+                        progressBar.setString("Cargando..");
 
                     } else if (i > 30 && i < 40) {
                         numAle = (int) (Math.random() * 250) + 1;
-                        progressBar.setString("Validando Contraseña.");
+                        progressBar.setString("Conectando a Base de Datos...");
 
                     } else if (i > 40 && i < 50) {
                         numAle = (int) (Math.random() * 250) + 1;
@@ -92,8 +92,7 @@ public class ViewCargando extends JFrame {
                             throw new RuntimeException(e);
                         }
 
-                        ViewInicio viewInicio = new ViewInicio();
-                        viewInicio.setVisible(true);
+                        ControladorUsuario controladorUsuario = new ControladorUsuario(usuario);
                     }
 
                     progressBar.setValue(i);

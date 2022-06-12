@@ -426,9 +426,9 @@ public class ViewCertificacion extends JFrame{
     private JTextField filtro;
     private JButton buttonBuscar;
     private JButton buttonRecargar;
-    private JLabel labelTitulo;
     private JPanel PanelAlbaran;
     private JTable TableCertificacion;
+    private JLabel labelTitulo;
 
     //endregion
 

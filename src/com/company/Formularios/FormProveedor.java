@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.Proveedor;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewProveedor;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -90,6 +91,9 @@ public class FormProveedor extends JDialog{
     }
 
     public void initComps() {
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+
         try {
             formattedTextFieldCIF.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
         } catch (ParseException e) {

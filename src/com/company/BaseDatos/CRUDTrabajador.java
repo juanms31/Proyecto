@@ -207,5 +207,25 @@ public class CRUDTrabajador {
     private ControladorTrabajador controladorTrabajador;
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDTrabajador");
 
+    public int getTrabajadorByDNI(String dni) {
+        Connection connection = BBDD.connect();
+        // SELECT * FROM `trabajador` WHERE DNI = '21035545K'
+        final String QUERY_SELECT = "SELECT * FROM `trabajador` WHERE DNI = " + "'" + dni + "'";
+        int id = 0;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(QUERY_SELECT);
+            if (resultSet.next()){
+                id = resultSet.getInt("id");
+            }
+            BBDD.close();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "deleteTrabajador en Trabajador = " + e.getMessage());
+            e.printStackTrace();
+            BBDD.close();
+        }
+        return id;
+    }
+
     //endregion
 }

@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.Entidades.*;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewMaterial;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -118,6 +119,9 @@ public class FormMaterial extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
 
         //Rellenar grupo
         comboBoxGrupo.addItem("Selecciona grupo");

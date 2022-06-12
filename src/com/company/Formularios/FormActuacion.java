@@ -1,7 +1,9 @@
 package com.company.Formularios;
 
+import com.company.BaseDatos.CRUDAlbaran;
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewActuacion;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -12,12 +14,14 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FormActuacion extends JDialog {
+
 
     //region Constructores
     public FormActuacion(ViewActuacion viewActuacion,
@@ -27,6 +31,7 @@ public class FormActuacion extends JDialog {
         this.viewActuacion = viewActuacion;
         this.clientes = clientes;
         this.especificacionesActuacion = especificacionesActuacion;
+
         initWindow();
         initComps();
         initListeners();
@@ -36,12 +41,15 @@ public class FormActuacion extends JDialog {
 
     public FormActuacion(ViewActuacion viewActuacion, Actuacion actuacion,
                          ArrayList<Cliente> clientes,
-                         ArrayList<EspecificacionActuacion> especificacionesActuacion) {
+                         ArrayList<EspecificacionActuacion> especificacionesActuacion,
+                         ArrayList<MaterialEx> materialesActuacion) {
         estado = 2;
         ActuacionSiendoModificada = actuacion;
         this.viewActuacion = viewActuacion;
         this.clientes = clientes;
         this.especificacionesActuacion = especificacionesActuacion;
+        this.arrayListMateriales = materialesActuacion;
+        listAlbaranes = getAlbaranes();
         initListeners();
         initComps();
         setActuacion(actuacion);
@@ -56,11 +64,12 @@ public class FormActuacion extends JDialog {
         this.viewActuacion = viewActuacion;
         this.clientes = clientes;
         this.especificacionesActuacion = especificacionesActuacion;
+        listAlbaranes = getAlbaranes();
+
         initComps();
         setActuacion(actuacion);
         initWindow();
         initListeners();
-        //TODO ver como tratamos editable
         setVisible(true);
     }
 
@@ -96,6 +105,10 @@ public class FormActuacion extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+
         try {
             formattedTextFieldCIFCliente.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("########U")));
         } catch (ParseException e) {
@@ -214,6 +227,19 @@ public class FormActuacion extends JDialog {
         spinnerResultadoBalance.setValue(actuacion.getResultadoBalance());
         textAreaDescripcion.setText(actuacion.getDescripcion());
 
+        setMaterialesEx(arrayListMateriales);
+
+    }
+
+    private void setMaterialesEx(ArrayList<MaterialEx> arrayListMateriales) {
+        DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+
+        System.out.println("size: " + arrayListMateriales.size());
+        for(MaterialEx materialEx : arrayListMateriales){
+            System.out.println(materialEx.getCodigo() + " - " + materialEx.getDescripcion()  + " - " + materialEx.getCodAlbaran());
+            defaultListModel.addElement(materialEx.getCodigo() + " - " + materialEx.getDescripcion()  + " - " + materialEx.getCodAlbaran());
+        }
+        listaMateriales.setModel(defaultListModel);
     }
 
     private boolean checkFields() {
@@ -243,28 +269,28 @@ public class FormActuacion extends JDialog {
 
         if (formattedTextFieldFechaSolicitud.getText().equals("  -  -    ")) {
 
-        }else if (!checkDate.isValidDate(formattedTextFieldFechaSolicitud.getText())) {
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaSolicitud.getText())) {
             ShowErrorMessage("Error", "La fecha de solicitud no es valida");
             return true;
         }
 
         if (formattedTextFieldFechaEnvio.getText().equals("  -  -    ")) {
 
-        }else if (!checkDate.isValidDate(formattedTextFieldFechaEnvio.getText())) {
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaEnvio.getText())) {
             ShowErrorMessage("Error", "La fecha de envio no es valida");
             return true;
         }
 
         if (formattedTextFieldFechaComienzo.getText().equals("  -  -    ")) {
 
-        }else if (!checkDate.isValidDate(formattedTextFieldFechaComienzo.getText())) {
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaComienzo.getText())) {
             ShowErrorMessage("Error", "La fecha de comienzo no es valida");
             return true;
         }
 
         if (formattedTextFieldFechaFinalizacion.getText().equals("  -  -    ")) {
 
-        }else if (!checkDate.isValidDate(formattedTextFieldFechaFinalizacion.getText())) {
+        } else if (!checkDate.isValidDate(formattedTextFieldFechaFinalizacion.getText())) {
             ShowErrorMessage("Error", "La fecha de comienzo no es valida");
             return true;
         }
@@ -644,14 +670,28 @@ public class FormActuacion extends JDialog {
         buttonHojaPlanificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fileChoseerHojaPlanificacion.setCurrentDirectory(new File("src/com/company"));
-                fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
-                int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
+                if (buttonHojaPlanificacion.getText().equals("")) {
+                    fileChoseerHojaPlanificacion.setCurrentDirectory(new File("src/com/company"));
+                    fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                    fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
+                    int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
 
-                if (seleccion == JFileChooser.APPROVE_OPTION) {
-                    setHojaPlanificacion();
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        setHojaPlanificacion();
+                    }
+                } else {
+
+                    fileChoseerHojaPlanificacion.setCurrentDirectory(new File(buttonHojaPlanificacion.getText()));
+                    fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                    fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
+                    int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
+
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        setHojaPlanificacion();
+                    }
+
                 }
             }
         });
@@ -659,14 +699,26 @@ public class FormActuacion extends JDialog {
         buttonHojaPresupuesto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fileChoseerHojaPresupuesto.setCurrentDirectory(new File("src/com/company"));
-                fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
-                int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
+                if (buttonHojaPresupuesto.getText().equals("")) {
+                    fileChoseerHojaPresupuesto.setCurrentDirectory(new File("src/com/company"));
+                    fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                    fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
+                    int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
 
-                if (seleccion == JFileChooser.APPROVE_OPTION) {
-                    setHojaPresupuesto();
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        setHojaPresupuesto();
+                    }
+                } else {
+                    fileChoseerHojaPresupuesto.setCurrentDirectory(new File(buttonHojaPresupuesto.getText()));
+                    fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
+                    fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
+                    int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
+
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        setHojaPresupuesto();
+                    }
                 }
             }
         });
@@ -674,26 +726,39 @@ public class FormActuacion extends JDialog {
     }
 
     private void setHojaPresupuesto() {
-        File ficheroHojaPresupuesto = fileChoseerHojaPresupuesto.getSelectedFile();
-        textFieldHojaPresupuesto.setText(ficheroHojaPresupuesto.getName());
+        File ficheroHojaPresupuesto = fileChoseerHojaPresupuesto.getCurrentDirectory();
+
+        buttonHojaPresupuesto.setText(ficheroHojaPresupuesto.getPath());
+
     }
 
     private void setHojaPlanificacion() {
-        File ficheroHojaPlanificacion = fileChoseerHojaPlanificacion.getSelectedFile();
-        textFieldHojaPlanificacion.setText(ficheroHojaPlanificacion.getName());
+        File ficheroHojaPlanificacion = fileChoseerHojaPlanificacion.getCurrentDirectory();
+
+        buttonHojaPlanificacion.setText(ficheroHojaPlanificacion.getPath());
+
     }
+
+    private ArrayList<Albaran> getAlbaranes(){
+        CRUDAlbaran crudAlbaran = new CRUDAlbaran();
+        listAlbaranes = crudAlbaran.getAll();
+        return listAlbaranes;
+    }
+
 
     //endregion
 
     //region Variables
+    private ArrayList<MaterialEx> arrayListMateriales;
     private int estado = 0;
     private ViewActuacion viewActuacion;
     private Actuacion ActuacionSiendoModificada;
     private ArrayList<Cliente> clientes;
+
+    private ArrayList<Albaran> listAlbaranes;
     private ArrayList<EspecificacionActuacion> especificacionesActuacion;
     private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
     private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();
-
 
     private JPanel panelFecha;
     private JPanel panelPrincipal;
@@ -723,7 +788,6 @@ public class FormActuacion extends JDialog {
     private JSpinner spinnerResultadoBalance;
     private JTextField textFieldNombreActuacion;
     private JList listaMateriales;
-    private JButton buttonAnadir;
     private JSpinner spinnerMaterialOfertado;
 
     //endregion

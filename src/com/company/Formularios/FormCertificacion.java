@@ -5,6 +5,7 @@ import com.company.Entidades.Actuacion;
 import com.company.Entidades.Certificacion;
 import com.company.Entidades.Proveedor;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewCertificacion;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -93,6 +94,8 @@ public class FormCertificacion extends JDialog {
 
     public void initComps() {
 
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
         //Rellenar Actuaciones
         comboBoxActuacion.addItem("Selecciona Actuacion");
         for (Actuacion actuacion : actuaciones) {

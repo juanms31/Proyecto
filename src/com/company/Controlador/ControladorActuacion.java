@@ -83,6 +83,15 @@ public class ControladorActuacion {
         return listColumnsName;
     }
 
+    //region CONSULTAS
+
+    public ArrayList<MaterialEx> getConsultaMaterialesExOrderByAlbaran(int idActuacion){
+        var materiales = new CRUDMaterial().getMaterialesGroupByAlbaran(idActuacion);
+        return materiales;
+    }
+
+    //endregion
+
     //endregion
 
     //region Parametros Constructor

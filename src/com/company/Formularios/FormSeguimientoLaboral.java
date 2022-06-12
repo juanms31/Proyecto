@@ -2,6 +2,7 @@ package com.company.Formularios;
 
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewSeguimiento;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import jdk.swing.interop.SwingInterOpUtils;
@@ -108,7 +109,7 @@ public class FormSeguimientoLaboral extends JDialog {
 
     public void centerFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screen.width / 2, screen.height - 100);
+        setSize(screen.width / 2, screen.height / 2);
         Dimension window = getSize();
         int width = (screen.width - window.width) / 2;
         int height = (screen.height - window.height) / 2;
@@ -116,6 +117,10 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+
         //Rellenar Actuaciones
         comboBoxActuacion.addItem("Selecciona Actuacion");
         for (Actuacion actuacion : actuaciones) {
@@ -204,6 +209,20 @@ public class FormSeguimientoLaboral extends JDialog {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public void ShowMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ShowWarningMessage(String title, String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
     //endregion
 
     //region SET Y GET MATERIAL
@@ -254,9 +273,8 @@ public class FormSeguimientoLaboral extends JDialog {
             return true;
         }
 
-        validarFechas();
+        return validarFechas();
 
-        return false;
     }
 
     private boolean validarFechas() {
@@ -264,9 +282,15 @@ public class FormSeguimientoLaboral extends JDialog {
 
         if (formattedTextFieldFecha.getText().equals("  -  -    ")) {
             ShowErrorMessage("Error", "La fecha no puede estar vacia");
+            return true;
 
         } else if (!checkDate.isValidDate(formattedTextFieldFecha.getText())) {
             ShowErrorMessage("Error", "La fecha no es valida");
+            return true;
+        }
+
+        if (Integer.valueOf(formattedTextFieldHora.getText().substring(0, 2)) > 24) {
+            ShowErrorMessage("Error", "La hora no puede ser mayor de las 23:59");
             return true;
         }
 
@@ -274,11 +298,49 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     private SeguimientoLaboral getSeguimiento() {
+
         SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
 
-        boolean conErrores = checkFields();
+        if (estado == 1) {
 
-        if (estado == 2) {
+
+            boolean conErrores = checkFields();
+
+            seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1));
+            seguimientoLaboral.setIdTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1).getId());
+
+            String[] splittedDate = formattedTextFieldFecha.getText().split("-");
+
+            int dayOfMonth = Integer.parseInt(splittedDate[0]);
+            int month = Integer.parseInt(splittedDate[1]);
+            int year = Integer.parseInt(splittedDate[2]);
+
+            seguimientoLaboral.setAno(year);
+            seguimientoLaboral.setDia(dayOfMonth);
+            seguimientoLaboral.setMes(month);
+
+            seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
+
+            if (comboBoxTipo.getSelectedItem().toString().equals("Entrada")) {
+                seguimientoLaboral.setHora_entrada(formattedTextFieldHora.getText());
+                seguimientoLaboral.setHora_salida("");
+
+            } else {
+                seguimientoLaboral.setHora_salida(formattedTextFieldHora.getText());
+                seguimientoLaboral.setHora_entrada("");
+            }
+
+            seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+            seguimientoLaboral = updateHoras(seguimientoLaboral, 1);
+
+            seguimientoLaboral.setIdActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1).getId());
+            seguimientoLaboral.setActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1));
+
+        } else if (estado == 2) {
+
+            boolean conErrores = checkFields();
+
             seguimientoLaboral.setId(SeguimientoLaboralSiendoModificado.getId());
 
             seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1));
@@ -307,146 +369,122 @@ public class FormSeguimientoLaboral extends JDialog {
 
             seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
 
-            updateHoras(seguimientoLaboral, 0);
-
-            seguimientoLaboral.setIdActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1).getId());
-            seguimientoLaboral.setActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1));
-
-        } else {
-
-            seguimientoLaboral.setTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1));
-            seguimientoLaboral.setIdTrabajador(trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1).getId());
-
-            String[] splittedDate = formattedTextFieldFecha.getText().split("-");
-
-            int dayOfMonth = Integer.parseInt(splittedDate[0]);
-            int month = Integer.parseInt(splittedDate[1]);
-            int year = Integer.parseInt(splittedDate[2]);
-
-            seguimientoLaboral.setAno(year);
-            seguimientoLaboral.setDia(dayOfMonth);
-            seguimientoLaboral.setMes(month);
-
-            seguimientoLaboral.setTipo(comboBoxTipo.getSelectedItem().toString());
-
-            if (comboBoxTipo.getSelectedItem().toString().equals("Entrada")) {
-                seguimientoLaboral.setHora_entrada(formattedTextFieldHora.getText());
-                seguimientoLaboral.setHora_salida("");
-
-
-            } else {
-                seguimientoLaboral.setHora_salida(formattedTextFieldHora.getText());
-                seguimientoLaboral.setHora_entrada("");
-
-            }
-
-            // FIXME: 25/05/2022 VER COMO TRATAMOS LAS HORAS TOTALES Y EXTRA
-            seguimientoLaboral = updateHoras(seguimientoLaboral, 0);
-            //
+            seguimientoLaboral = updateHoras(seguimientoLaboral, 1);
 
             seguimientoLaboral.setIdActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1).getId());
             seguimientoLaboral.setActuacion(actuaciones.get(comboBoxActuacion.getSelectedIndex() - 1));
 
         }
+
 
         return seguimientoLaboral;
     }
 
     private SeguimientoLaboral updateHoras(SeguimientoLaboral seguimientoLaboral, int tipo) {
-        // TODO: 07/06/2022 COGER LAS DIFERENTES FECHAS Y SU ENTRADA Y SALIDA
-        //  PARA HACER LA DIFERENCIA Y LA SUMATORIA DE ESAS DIFERENCIAS.
-        //  ESTABLECER HORAS TOTALES A PARTIR DE ESA SUMATORIA CADA VEZ QUE SE INTRODUCE UN NUMERO EN EL CAMPO HORA O FECHA
 
-        Date horaEntrada = hayEntrada(formattedTextFieldFecha.getText(), trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1));
+        //tipo 1: viene desde view
+        //tipo 2: se actualiza cuando pierde el foco
 
-        Date HoraSalida = new Date();
-        Date DateDiff = new Date();
-        SimpleDateFormat sdfDiff = new SimpleDateFormat("h");
+//
+        if(comboBoxTrabajador.getSelectedIndex() - 1 == -1){
 
-        if (tipo == 0) {
-            //Primero recorremos los seguimientos para ver si hay una entrada ese dia
-            if (horaEntrada == null) {
-                seguimientoLaboral.setHoras_totales(0);
+            ShowWarningMessage("Warning", "Selecciona un trabajador de la lista desplegable.");
 
-                //Si lo que se esta registrando es una salida
-            } else if ((comboBoxTipo.getSelectedIndex() - 1) == 1) {
+        }else if(formattedTextFieldHora.getText().equals("  :  ")){
 
-                //Obtenemos las Horas Totales
-                if (!formattedTextFieldHora.getText().isEmpty()) {
-                    SimpleDateFormat sdfSalida = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            ShowWarningMessage("Warning", "Introduce una hora.");
+        }else {
 
-                    try {
-                        HoraSalida = sdfSalida.parse(formattedTextFieldFecha.getText() + " " + formattedTextFieldHora.getText());
+            Date horaEntrada = hayEntrada(formattedTextFieldFecha.getText(), trabajadores.get(comboBoxTrabajador.getSelectedIndex() - 1));
 
-                    } catch (ParseException e) {
-                        ShowErrorMessage("Error", "No se ha podido procesar la fecha, intentelo de nuevo más tarde.");
-                    }
+            Date horaSalida = new Date();
+            Date DateDiff = new Date();
+            SimpleDateFormat sdfDiff = new SimpleDateFormat("h");
 
+            if (tipo == 1) {
+                //Primero recorremos los seguimientos para ver si hay una entrada ese dia
+                if (horaEntrada == null && !comboBoxTipo.getSelectedItem().equals("Entrada")) {
+                    seguimientoLaboral.setHoras_totales(0);
+                    ShowWarningMessage("Warning", "Estas añadiendo una salida sin una entrada para la fecha " + seguimientoLaboral.getFechaCompleta());
 
-                    //Obtenemos la diferencia entre las fechas
-                    DateDiff = getDateDiff(horaEntrada, HoraSalida);
+                    //Si lo que se esta registrando es una salida
+                } else if ((comboBoxTipo.getSelectedIndex() - 1) == 1) {
 
-                    int horasTotales = Integer.valueOf(sdfDiff.format(DateDiff));
+                    //Obtenemos las Horas Totales
+                    if (!formattedTextFieldHora.getText().isEmpty()) {
+                        SimpleDateFormat sdfSalida = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
-                    if (horasTotales > 8) {
-                        textFieldHorasExtra.setText(String.valueOf(horasTotales - 8));
-                        seguimientoLaboral.setHoras_extra(Integer.valueOf(horasTotales - 8));
+                        try {
+                            horaSalida = sdfSalida.parse(formattedTextFieldFecha.getText() + " " + formattedTextFieldHora.getText());
 
-                        textFieldHorasTotales.setText(String.valueOf(horasTotales));
-                        seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
-
-                    } else seguimientoLaboral.setHoras_totales(horasTotales);
+                        } catch (ParseException e) {
+                            ShowErrorMessage("Error", "No se ha podido procesar la fecha, intentelo de nuevo más tarde.");
+                        }
 
 
-                } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
-            }
-        } else if (tipo == 1) {
-            //Primero recorremos los seguimientos para ver si hay una entrada ese dia
-            if (horaEntrada == null) {
-                seguimientoLaboral.setHoras_totales(0);
+                        //Obtenemos la diferencia entre las fechas
+                        DateDiff = getDateDiff(horaEntrada, horaSalida);
 
-                //Si lo que se esta registrando es una salida
-            } else if ((comboBoxTipo.getSelectedIndex() - 1) == 1) {
-
-                //Obtenemos las Horas Totales
-                if (!formattedTextFieldHora.getText().isEmpty()) {
-                    SimpleDateFormat sdfSalida = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-
-                    try {
-                        HoraSalida = sdfSalida.parse(formattedTextFieldFecha.getText() + " " + formattedTextFieldHora.getText());
-                    } catch (ParseException e) {
-                        ShowErrorMessage("Error", "No se ha podido procesar la fecha, intentelo de nuevo más tarde.");
-                    }
+                        int horasTotales = Integer.valueOf(sdfDiff.format(DateDiff));
 
 
-                    //Obtenemos la diferencia entre las fechas
-                    DateDiff = getDateDiff(horaEntrada, HoraSalida);
+                        //
+                        if (horasTotales > 8) {
+                            seguimientoLaboral.setHoras_extra(Integer.valueOf(horasTotales - 8));
 
-                    int horasTotales = Integer.valueOf(sdfDiff.format(DateDiff));
-                    if (horasTotales > 8) {
-                        System.out.println("mas de 8 horas");
+                            seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
 
-                        textFieldHorasExtra.setText(String.valueOf(horasTotales - 8));
-                        seguimientoLaboral.setHoras_extra(Integer.valueOf(horasTotales - 8));
-
-                        textFieldHorasTotales.setText(String.valueOf(horasTotales));
-                        seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
-
-                    } else {
-                        System.out.println("menos de 8 horas");
-
-                        textFieldHorasExtra.setText(String.valueOf(0));
-                        seguimientoLaboral.setHoras_extra(0);
-
-                        textFieldHorasTotales.setText(String.valueOf(horasTotales));
-                        seguimientoLaboral.setHoras_totales(horasTotales - seguimientoLaboral.getHoras_extra());
-
-                    }
+                        } else seguimientoLaboral.setHoras_totales(horasTotales);
 
 
-                } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
+                    } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
+                }
+            } else if (tipo == 2) {
+
+                //Primero recorremos los seguimientos para ver si hay una entrada ese dia
+                if (horaEntrada == null && !comboBoxTipo.getSelectedItem().equals("Entrada")) {
+                    seguimientoLaboral.setHoras_totales(0);
+
+                    ShowWarningMessage("Warning", "Estas añadiendo una salida sin una entrada para la fecha " + seguimientoLaboral.getFechaCompleta());
+
+                    //Si lo que se esta registrando es una salida
+                } else if ((comboBoxTipo.getSelectedIndex() - 1) == 1) {
+
+                    //Obtenemos las Horas Totales
+                    if (!formattedTextFieldHora.getText().isEmpty()) {
+                        SimpleDateFormat sdfSalida = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+
+                        try {
+                            horaSalida = sdfSalida.parse(formattedTextFieldFecha.getText() + " " + formattedTextFieldHora.getText());
+
+                        } catch (ParseException e) {
+                            ShowErrorMessage("Error", "No se ha podido procesar la fecha, intentelo de nuevo más tarde.");
+                        }
+
+
+                        //Obtenemos la diferencia entre las fechas
+                        DateDiff = getDateDiff(horaEntrada, horaSalida);
+
+                        int horasTotales = Integer.valueOf(sdfDiff.format(DateDiff));
+
+                        //Calculamos y seteamos
+                        if (horasTotales > 8) {
+                            textFieldHorasExtra.setText(String.valueOf(horasTotales - 8));
+
+                            textFieldHorasTotales.setText(String.valueOf((horasTotales) - (horasTotales - 8 )));
+                        }else {
+                            textFieldHorasExtra.setText(String.valueOf(0));
+
+                            textFieldHorasTotales.setText(String.valueOf(horasTotales));
+
+                        }
+
+                    } else ShowErrorMessage("Error", "La hora no puede estar vacía.");
+                }
             }
         }
+
+
         return seguimientoLaboral;
     }
 
@@ -469,8 +507,8 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     private Date hayEntrada(String fecha, Trabajador trabajador) {
-        String[] fechaSplitted = fecha.split("-");
 
+        String[] fechaSplitted = fecha.split("-");
 
         SimpleDateFormat sdfFechaEntrada = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date FechaEntrada = new Date();
@@ -481,16 +519,21 @@ public class FormSeguimientoLaboral extends JDialog {
 
         int ano = Integer.parseInt(fechaSplitted[2]);
 
+        boolean hayEntrada = false;
 
-        for (SeguimientoLaboral seguimientoLaboral : seguimientosLaborales) {
+        int cont = 0;
+
+
+        while ((!hayEntrada) && (cont < seguimientosLaborales.size())) {
+
+            SeguimientoLaboral seguimientoLaboral = seguimientosLaborales.get(cont++);
             if (seguimientoLaboral.getAno() == ano) {
                 if (seguimientoLaboral.getMes() == mes) {
-
                     if (seguimientoLaboral.getDia() == dia) {
                         if (seguimientoLaboral.getTipo().equals("Entrada")) {
-
                             if (seguimientoLaboral.getTrabajador().getId() == trabajador.getId()) {
                                 try {
+                                    hayEntrada = true;
                                     String fechaIncompleta = procesarFechaCompleta(dia + "-" + mes + "-" + ano);
                                     FechaEntrada = sdfFechaEntrada.parse(fechaIncompleta + " " + seguimientoLaboral.getHora_entrada());
                                     return FechaEntrada;
@@ -498,12 +541,11 @@ public class FormSeguimientoLaboral extends JDialog {
                                 } catch (ParseException e) {
                                     ShowErrorMessage("Error", "No se ha podido procesar la fecha, intentelo de nuevo más tarde.");
                                 }
-
-                            } else return null;
-                        } else return null;
-                    } else return null;
-                } else return null;
-            } else return null;
+                            }
+                        }
+                    }
+                }
+            }
         }
         return null;
     }
@@ -576,16 +618,33 @@ public class FormSeguimientoLaboral extends JDialog {
     }
 
     private void focusListeners() {
+        comboBoxTipo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(comboBoxTipo.getSelectedItem().toString().equals("Salida")) {
+                    SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
+                    seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
+                    updateHoras(seguimientoLaboral, 2);
+                }
+            }
+        });
+
         formattedTextFieldHora.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
+
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-
+                if(comboBoxTipo.getSelectedItem().toString().equals("Salida")) {
+                    SeguimientoLaboral seguimientoLaboral = new SeguimientoLaboral();
+                    seguimientoLaboral.setFechaCompleta(formattedTextFieldFecha.getText());
+                    updateHoras(seguimientoLaboral, 2);
+                }
             }
         });
+
     }
 
     //endregion

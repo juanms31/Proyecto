@@ -1,11 +1,10 @@
 package com.company.Vistas;
 
 import com.company.Controlador.ControladorActuacion;
-import com.company.Entidades.Actuacion;
-import com.company.Entidades.Cliente;
-import com.company.Entidades.EspecificacionActuacion;
+import com.company.Entidades.*;
 import com.company.Formularios.FormActuacion;
 import com.company.Formularios.FormCliente;
+import com.company.Informes.InformeActuacion;
 import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -22,7 +21,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ViewActuacion extends JFrame {
+public class ViewActuacion extends JDialog {
 
     //region Constructores
 
@@ -49,7 +48,7 @@ public class ViewActuacion extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setExtendedState(MAXIMIZED_BOTH);
+        setSize(new Dimension(600,600));
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750, 750));
@@ -217,13 +216,10 @@ public class ViewActuacion extends JFrame {
 
     //region CRUD
     private void createActuacion() {
-
-
         FormActuacion formActuacion = new FormActuacion(this, clientes, especificacionesActuacion);
     }
 
     private void readActuacion() {
-
 
         Actuacion actuacion = getActuacion();
         FormActuacion formActuacion = new FormActuacion(this, actuacion, clientes, especificacionesActuacion, false);
@@ -231,7 +227,11 @@ public class ViewActuacion extends JFrame {
 
     private void updateActuacion() {
         Actuacion actuacion = getActuacion();
-        FormActuacion formActuacion = new FormActuacion(this, actuacion, clientes, especificacionesActuacion);
+        FormActuacion formActuacion = new FormActuacion(this,
+                actuacion,
+                clientes,
+                especificacionesActuacion,
+                getMaterialesFromActuacionOrderByAlbaran(actuacion.getId()));
     }
 
     private void deleteActuacion() {
@@ -248,6 +248,16 @@ public class ViewActuacion extends JFrame {
         }
     }
 
+    //endregion
+
+    //region Consultas BBDD
+
+    private ArrayList<MaterialEx> getMaterialesFromActuacionOrderByAlbaran(int idActuacion){
+        //TODO metodo para sacar materiales de actuacion ordenado por albaranes
+        var materiales = controladorActuacion.getConsultaMaterialesExOrderByAlbaran(idActuacion);
+
+        return materiales;
+    }
 
     //endregion
 
@@ -311,8 +321,6 @@ public class ViewActuacion extends JFrame {
     private void setHojas(Actuacion actuacion) {
         URLhojaPlanificacion = actuacion.getHojaPlanificacion();
         URLhojaPresupuesto = actuacion.getHojaPresupuesto();
-
-        // TODO: 30/05/2022 CLASE JFILECHOSER PARA ABRIR LA URL
     }
 
     private void setHoras(Actuacion actuacion) {
@@ -430,36 +438,57 @@ public class ViewActuacion extends JFrame {
         buttonHojaPlanificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser pathing = new JFileChooser();
-                pathing.setCurrentDirectory(new File("src/com/company"));
-                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChoseerHojaPlanificacion.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPlanificacion.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                pathing.setFileFilter(filtroPDF);
-                int seleccion = pathing.showOpenDialog(panelPrincipal);
+                fileChoseerHojaPlanificacion.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPlanificacion.showOpenDialog(panelPrincipal);
 
-                if(seleccion == JFileChooser.APPROVE_OPTION){
-                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    setHojaPlanificacion();
                 }
-
             }
         });
 
         buttonHojaPresupuesto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser pathing = new JFileChooser();
-                pathing.setCurrentDirectory(new File("src/com/company"));
-                pathing.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChoseerHojaPresupuesto.setCurrentDirectory(new File("src/com/company"));
+                fileChoseerHojaPresupuesto.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("*.pdf", "pdf");
-                pathing.setFileFilter(filtroPDF);
-                int seleccion = pathing.showOpenDialog(panelPrincipal);
+                fileChoseerHojaPresupuesto.setFileFilter(filtroPDF);
+                int seleccion = fileChoseerHojaPresupuesto.showOpenDialog(panelPrincipal);
 
-                if(seleccion == JFileChooser.APPROVE_OPTION){
-                    // TODO: 06/06/2022 VER QUE HACEMOS CUANDO CLICAMOS AQUI
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    setHojaPresupuesto();
                 }
             }
         });
 
+        buttonInforme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = TableActuaciones.getSelectedRow();
+
+                if(row != -1) {
+                    InformeActuacion informeActuacion = new InformeActuacion();
+                    informeActuacion.getInformeActuacion(actuaciones.get(row).getId());
+                }else{
+                    ShowErrorMessage("Error", "Selecciona una actuacion de la tabla.");
+                }
+            }
+        });
+
+    }
+
+    private void setHojaPresupuesto() {
+        File ficheroHojaPresupuesto = fileChoseerHojaPresupuesto.getCurrentDirectory();
+        buttonHojaPresupuesto.setText(ficheroHojaPresupuesto.getAbsolutePath());
+    }
+
+    private void setHojaPlanificacion() {
+        File ficheroHojaPlanificacion = fileChoseerHojaPlanificacion.getCurrentDirectory();
+        buttonHojaPlanificacion.setText(ficheroHojaPlanificacion.getAbsolutePath());
     }
 
     private void mouseListeners() {
@@ -507,24 +536,17 @@ public class ViewActuacion extends JFrame {
     private ArrayList<Actuacion> actuaciones;
     private ArrayList<Cliente> clientes;
     private ArrayList<EspecificacionActuacion> especificacionesActuacion;
-
     private String[] headersActuacion;
     private String[] headersFechasActuacion;
     private String[] headersCliente;
-
     private String[] listColumnsNameActuacion;
     private String[] listColumsNameCliente;
-
     private TableRowSorter sorter;
-
-
     private DefaultTableModel modelActuacion;
     private DefaultTableModel modelFechasActuacion;
     private DefaultTableModel modelClientes;
-
     private String URLhojaPlanificacion;
     private String URLhojaPresupuesto;
-
     private JPanel panelPrincipal;
     private JTable TableActuaciones;
     private JTextField filtro;
@@ -543,8 +565,11 @@ public class ViewActuacion extends JFrame {
     private JTextField textFieldHorasEjecutadas;
     private JTable TableFechas;
     private JTable TableClientes;
-    private JLabel labelTitulo;
     private JButton buttonHojaPresupuesto;
+    private JLabel labelTitulo;
+    private JButton buttonInforme;
+    private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
+    private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();
 
 
     //endregion

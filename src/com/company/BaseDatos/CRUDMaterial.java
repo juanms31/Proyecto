@@ -2,6 +2,8 @@ package com.company.BaseDatos;
 
 import com.company.Controlador.ControladorMaterial;
 import com.company.Entidades.Material;
+import com.company.Entidades.MaterialEx;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -111,6 +113,53 @@ public class CRUDMaterial {
     public Material readMaterial(String cod) {
 
         return new Material();
+    }
+
+    public ArrayList<MaterialEx> getMaterialesGroupByAlbaran(int idActuacion){
+        String sql = "SELECT m.cod, m.grupo, m.descripcion, al.cod as 'codAlbaran' FROM material m\n" +
+                "INNER JOIN materialutilizadoactuacion ma\n" +
+                "\ton m.id = ma.id_material\n" +
+                "INNER JOIN actuacion a \n" +
+                "\ton ma.id_actuacion = a.id\n" +
+                "INNER JOIN albaran al\n" +
+                "\ton a.id = al.id_actuacion\n" +
+                "where a.id = " + idActuacion + "\n" +
+                "GROUP BY a.id";
+        try {
+            Statement statement = BBDD.connect().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            ArrayList<MaterialEx> materialesEx = getMaterialesEx(resultSet);
+            return materialesEx;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getMaterialesGroupByAlbaran en Materiales = " + e.getMessage());
+            e.printStackTrace();
+            BBDD.close();
+            return new ArrayList<MaterialEx>();
+        }
+    }
+
+    private ArrayList<MaterialEx> getMaterialesEx(ResultSet resultSet) {
+        ArrayList<MaterialEx> materiales = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                MaterialEx materialEx = new MaterialEx();
+                materialEx.setCodigo(resultSet.getString(1));
+                materialEx.setGrupo(resultSet.getString(2));
+                materialEx.setDescripcion(resultSet.getString(3));
+                materialEx.setCodAlbaran(resultSet.getString(4));
+
+                System.out.println(materialEx.toString());
+
+                materiales.add(materialEx);
+            }
+            BBDD.close();
+            return materiales;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "getMaterialesEx en Material = " + e.getMessage());
+            e.printStackTrace();
+            BBDD.close();
+            return materiales;
+        }
     }
 
     public boolean deleteMaterial(String id){
@@ -268,4 +317,10 @@ public class CRUDMaterial {
     private ControladorMaterial controladorMaterial;
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDMaterial");
     //endregion
+
+
+    public static void main(String[] args) {
+        var materiales = new CRUDMaterial().getMaterialesGroupByAlbaran(1);
+        System.out.println(materiales);
+    }
 }

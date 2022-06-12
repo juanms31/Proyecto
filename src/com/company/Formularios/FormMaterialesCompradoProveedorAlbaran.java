@@ -5,6 +5,7 @@ import com.company.BaseDatos.CRUDProveedor;
 import com.company.Entidades.Material;
 import com.company.Entidades.MaterialCompradoProveedor;
 import com.company.Entidades.Proveedor;
+import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
@@ -91,6 +92,10 @@ public class FormMaterialesCompradoProveedorAlbaran extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
+
         if (estado == 1) {
 //          Rellenamos el combo box con los materiales
             comboBoxMateriales.addItem("Selecciona Material");

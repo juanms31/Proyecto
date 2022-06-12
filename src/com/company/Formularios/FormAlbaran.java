@@ -2,6 +2,7 @@ package com.company.Formularios;
 
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
+import com.company.Recursos.RoundedBorder;
 import com.company.Vistas.ViewAlbaran;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -108,6 +109,9 @@ public class FormAlbaran extends JDialog {
     }
 
     public void initComps() {
+
+        aceptarButton.setBorder(new RoundedBorder(10));
+        cancelarButton.setBorder(new RoundedBorder(10));
 
         //Rellenar Actuaciones
         comboBoxActuaciones.addItem("Selecciona Actuacion");
@@ -229,7 +233,6 @@ public class FormAlbaran extends JDialog {
         SimpleDateFormat OldDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println("Fecha entrada albaran: " + albaran.getFechaEntradaAlbaran());
         String UTILDate = OldDateFormat.format(albaran.getFechaEntradaAlbaran());
-        System.out.println("UTIL DATE ALBARAM:" + UTILDate);
 
         formattedTextFieldFechaEntrada.setText(UTILDate.toString());
 
@@ -339,6 +342,8 @@ public class FormAlbaran extends JDialog {
 
                     cont++;
                 }
+                albaran.setMateriales(materialesOut);
+
             }
         }else if(estado == 2){
 
@@ -398,6 +403,8 @@ public class FormAlbaran extends JDialog {
 
                     cont++;
                 }
+                albaran.setMateriales(materialesOut);
+
             }
 
         }

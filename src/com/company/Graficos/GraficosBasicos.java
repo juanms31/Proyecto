@@ -31,7 +31,7 @@ public class GraficosBasicos extends JFrame{
         repaint();
     }
 
-    public ChartPanel getGraficoBarras(ArrayList<NodoGraficoBarras> listGraficData, String title, String categoryAxis, String valueAxis){
+    public ChartPanel metodoGraficoBarras(ArrayList<NodoGraficoBarras> listGraficData, String title, String categoryAxis, String valueAxis){
         //DATOS A TENER EN CUENTA DE JFreeChart
         //Nombre grafico
         //Nombre barras o columnas
@@ -59,6 +59,7 @@ public class GraficosBasicos extends JFrame{
 
         //Panel de charpanel
         ChartPanel panel = new ChartPanel(graficoBarras);
+
         panel.setMouseWheelEnabled(true);
         panel.setPreferredSize(new Dimension(400, 200));
 
@@ -68,11 +69,11 @@ public class GraficosBasicos extends JFrame{
     public ChartPanel metodoGraficoCircular(ArrayList<NodoGraficoCircular> listNodos, String title){
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (NodoGraficoCircular nCircular : listNodos) {
-            dataset.setValue(nCircular.getComparableKey(), nCircular.getValue());
+            dataset.setValue(nCircular.getComparableKey() + ": " + nCircular.getValue() , nCircular.getValue());
         }
 
         JFreeChart chart = ChartFactory.createPieChart3D(
-                "Stock moviles",
+                title,
                 dataset,
                 true,
                 true,

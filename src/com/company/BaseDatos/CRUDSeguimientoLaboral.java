@@ -85,7 +85,7 @@ public class CRUDSeguimientoLaboral {
 
     public boolean deleteSeguimientoLaboral(int id){
         Connection connection = BBDD.connect();
-        final String QUERY_DELETE = "DELETE FROM cliente seguimientolaboral id = ?";
+        final String QUERY_DELETE = "DELETE FROM seguimientolaboral WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
             preparedStatement.setInt(1, id);

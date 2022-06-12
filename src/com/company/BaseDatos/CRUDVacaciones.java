@@ -12,7 +12,7 @@ public class CRUDVacaciones {
 
     // region Metodos CRUD
 
-    public ArrayList<Vacaciones> readAllVacaciones() throws SQLException {
+    public ArrayList<Vacaciones> getAll(){
         Connection connection = BBDD.connect();
         final String SELECT_VACACIONES = "SELECT * FROM vacaciones";
         try {
@@ -28,10 +28,6 @@ public class CRUDVacaciones {
             e.printStackTrace();
             BBDD.close();
             return  null;
-        } finally {
-            if (!connection.isClosed()){
-                BBDD.close();
-            }
         }
 
     }

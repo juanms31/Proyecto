@@ -1,13 +1,13 @@
 package com.company.Vistas;
 
-import com.company.Controlador.ControladorCliente;
+import com.company.BaseDatos.CRUDAlbaran;
 import com.company.Controlador.ControladorProveedor;
-import com.company.Entidades.Cliente;
+import com.company.Entidades.Albaran;
 import com.company.Entidades.Proveedor;
-import com.company.Formularios.FormCliente;
 import com.company.Formularios.FormProveedor;
+import com.company.Graficos.GraficosBasicos;
+import com.company.Graficos.NodoGraficoCircular;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.mysql.cj.xdevapi.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +27,8 @@ public class ViewProveedor extends JFrame{
     public ViewProveedor(ControladorProveedor controladorProveedor, ArrayList<Proveedor> proveedores) {
         this.controladorProveedor = controladorProveedor;
         this.proveedores = proveedores;
+        listAlbaranes = getAlbaranes();
+
         initWindow();
         initListeners();
         setVisible(true);
@@ -109,9 +111,9 @@ public class ViewProveedor extends JFrame{
     }
 
     private void filter(){
-        DefaultTableModel Model = (DefaultTableModel) TableCliente.getModel();
+        DefaultTableModel Model = (DefaultTableModel) TableProveedor.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
-        TableCliente.setRowSorter(tr);
+        TableProveedor.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(filtro.getText().trim()));
     }
     //endregion
@@ -319,6 +321,12 @@ public class ViewProveedor extends JFrame{
         TableProveedor.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                int row = TableProveedor.getSelectedRow();
+
+                if(e.getClickCount()==1){
+                    setGraficos(getProveedor(row));
+                }
+
                 if(e.getClickCount()==2){
                     updateProveedor();
                 }
@@ -326,12 +334,63 @@ public class ViewProveedor extends JFrame{
         });
     }
 
+    private ArrayList<Albaran> getAlbaranes(){
+        CRUDAlbaran crudAlbaran = new CRUDAlbaran();
+        listAlbaranes = crudAlbaran.getAll();
+        return listAlbaranes;
+    }
+
+    private int getNumAlbaranesFromProveedor(Proveedor proveedor, ArrayList<Albaran> albaranes){
+        int numAlbaranes = 0;
+
+        for(Albaran albaran: albaranes){
+            if(albaran.getProveedor().getId() == proveedor.getId()){
+                numAlbaranes++;
+            }
+        }
+
+
+        return numAlbaranes;
+    }
+
+
+    private void setGraficos(Proveedor proveedor) {
+        JPanelGrafico1.removeAll();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
+
+                NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
+                nodoGraficoCircular1.setComparableKey(proveedor.getNombre_proveedor());
+
+                int numAlbaranes = getNumAlbaranesFromProveedor(proveedor, listAlbaranes);
+
+                nodoGraficoCircular1.setValue(Double.valueOf(numAlbaranes));
+
+                listNodoCircular.add(nodoGraficoCircular1);
+
+                NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+                nodoGraficoCircular2.setComparableKey("Demas");
+                nodoGraficoCircular2.setValue((double) listAlbaranes.size());
+                listNodoCircular.add(nodoGraficoCircular2);
+
+                GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+                JPanelGrafico1.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Albaranes por proveedor"));
+
+                repaint();
+                revalidate();
+
+            }
+        }).start();
+    }
+
     //endregion
 
     //region Variables
     private JPanel panelPrincipal;
-    private JPanel PanelCliente;
-    private JTable TableCliente;
     private JTextField filtro;
     private JButton buttonBuscar;
     private JButton buttonAnadir;
@@ -341,12 +400,13 @@ public class ViewProveedor extends JFrame{
     private JButton buttonRecargar;
     private JTable TableProveedor;
     private JButton buttonVolver;
-    private JPanel PanelMaterial;
-    private JPanel buscador;
+    private JPanel JPanelGrafico1;
     private JPanel panelBotones;
+    private JPanel buscador;
+    private JPanel PanelProveedor;
     private JLabel labelTitulo;
-
     private  ArrayList<Proveedor> proveedores;
+    ArrayList<Albaran> listAlbaranes;
     private ControladorProveedor controladorProveedor;
     private String[] headers;
     private TableRowSorter sorter;

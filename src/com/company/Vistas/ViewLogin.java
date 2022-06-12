@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ViewLogin extends JFrame {
     public ViewLogin() {
         add(panelPrincipal);
-        controladorUsuario = new ControladorUsuario();
         usuarios = controladorUsuario.getUsers();
         initWindow();
         initComps();
@@ -71,6 +70,7 @@ public class ViewLogin extends JFrame {
                 if (comprobarEmail(usuarios, textFieldEmail.getText())) {
                     if(comprobarPass(usuarios, usuarios.get(numUsuario), String.valueOf(passwordFieldPass.getPassword()))){
                         Usuario usuario = usuarios.get(numUsuario);
+                        dispose();
                         ViewCargando viewCargando = new ViewCargando(ViewLogin.this, usuario);
                     }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");
                 }else ShowErrorMessage("Error", "El email o la contraseña son incorrectos. Compruebelo antes de continuar o contacte con un administrador.");
@@ -190,7 +190,7 @@ public class ViewLogin extends JFrame {
 
 
     //Variables
-    private ControladorUsuario controladorUsuario;
+    private ControladorUsuario controladorUsuario = new ControladorUsuario();
     private ArrayList<Usuario> usuarios;
     private int numUsuario = -1;
     private JTextField textFieldEmail;

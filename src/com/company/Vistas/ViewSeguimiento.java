@@ -354,6 +354,7 @@ public class ViewSeguimiento extends JFrame{
         });
     }
 
+
     //endregion
 
     //region Variables

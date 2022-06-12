@@ -1,7 +1,8 @@
 package com.company;
 
-
-import com.company.Vistas.ViewPrincipal;
+import com.company.Vistas.ViewBaseDatos;
+import com.company.Vistas.ViewInicio;
+import com.company.Vistas.ViewLogin;
 import com.company.Vistas.ViewWelcome;
 
 import java.awt.*;
@@ -17,7 +18,6 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger("com.company.Main");
 
     public static void main(String[] args) {
-
 
         try {
             //Log en consola
@@ -44,11 +44,12 @@ public class Main {
             //ENTRADA AL PROGRAMA
 
 //            ViewWelcome welcome = new ViewWelcome();
-//            welcome.setVisible(true);
-            ViewPrincipal viewPrincipal = new ViewPrincipal();
+
+            ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
 //
 //            ViewInicio viewInicio = new ViewInicio();
 //            viewInicio.setVisible(true);
+//            ViewLogin viewLogin = new ViewLogin();
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 
         } catch (HeadlessException | IOException e) {
