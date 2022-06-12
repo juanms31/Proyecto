@@ -98,7 +98,9 @@ public class ViewCalendario extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 var listVacaciones = getAllRows();
                 if (listVacaciones.size() == 0) return;
-                new ControladorTrabajador().setlistVacaciones(listVacaciones);
+                ControladorTrabajador controladorTrabajador = new ControladorTrabajador();
+                controladorTrabajador.getViewTrabajador().dispose();
+                controladorTrabajador.setlistVacaciones(listVacaciones);
             }
         });
 

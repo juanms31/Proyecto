@@ -249,6 +249,14 @@ public class ViewActuacion extends JFrame {
         }
     }
 
+    //endregion
+
+    //region Consultas BBDD
+
+    private void getMaterialesFromActuacionOrderByAlbaran(int idActuacion){
+        //TODO metodo para sacar materiales de actuacion ordenado por albaranes
+        var materiales = controladorActuacion.getConsultaMaterialesExOrderByAlbaran(idActuacion);
+    }
 
     //endregion
 
