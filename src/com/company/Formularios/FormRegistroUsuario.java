@@ -26,7 +26,7 @@ public class FormRegistroUsuario extends JDialog{
         estado = 1;
         this.usuario = usuario;
         this.viewLogin = viewLogin;
-        controladorUsuario = new ControladorUsuario();
+        controladorUsuario = new ControladorUsuario(usuario);
         initWindow();
         initComps();
         setUsuario(usuario);

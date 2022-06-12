@@ -1,4 +1,4 @@
-package com.company.chat;
+package com.company.Chat;
 
 import javax.swing.*;
 import java.awt.*;

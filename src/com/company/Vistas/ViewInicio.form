@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.company.Vistas.ViewInicio">
-  <grid id="27dc6" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1007" height="854"/>
+      <xy x="20" y="20" width="1070" height="854"/>
     </constraints>
     <properties>
       <alignmentX value="0.0"/>
@@ -37,102 +37,6 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <grid id="3ef3f" binding="panelModulos" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="true" same-size-vertically="true" hgap="15" vgap="15">
-        <margin top="15" left="15" bottom="15" right="15"/>
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-3485441"/>
-          <opaque value="true"/>
-        </properties>
-        <border type="none"/>
-        <children>
-          <component id="2339e" class="javax.swing.JButton" binding="buttonBaseDatos">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <autoscrolls value="false"/>
-              <background color="-1900570"/>
-              <borderPainted value="true"/>
-              <contentAreaFilled value="false"/>
-              <enabled value="true"/>
-              <focusPainted value="true"/>
-              <font name="JetBrains Mono" size="18"/>
-              <foreground color="-16777216"/>
-              <horizontalTextPosition value="0"/>
-              <icon value="com/company/Images/Icons/databaseInicio.png"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <opaque value="true"/>
-              <text value="BASE DE DATOS"/>
-              <toolTipText value="BASE DE DATOS"/>
-              <verticalAlignment value="0"/>
-              <verticalTextPosition value="3"/>
-            </properties>
-          </component>
-          <component id="a7359" class="javax.swing.JButton" binding="buttonChat">
-            <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <background color="-1900570"/>
-              <borderPainted value="true"/>
-              <contentAreaFilled value="false"/>
-              <enabled value="true"/>
-              <focusPainted value="true"/>
-              <font name="JetBrains Mono" size="18"/>
-              <foreground color="-16777216"/>
-              <horizontalTextPosition value="0"/>
-              <icon value="com/company/Images/Icons/chat.png"/>
-              <margin top="0" left="5" bottom="0" right="5"/>
-              <opaque value="true"/>
-              <text value="CHAT"/>
-              <toolTipText value="CHAT"/>
-              <verticalTextPosition value="3"/>
-            </properties>
-          </component>
-          <component id="d4de" class="javax.swing.JButton" binding="buttonCalendario">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <background color="-1900570"/>
-              <borderPainted value="true"/>
-              <contentAreaFilled value="false"/>
-              <enabled value="true"/>
-              <focusPainted value="true"/>
-              <font name="JetBrains Mono" size="18"/>
-              <foreground color="-16777216"/>
-              <horizontalTextPosition value="0"/>
-              <icon value="com/company/Images/Icons/calendarioInicio.png"/>
-              <margin top="0" left="5" bottom="0" right="5"/>
-              <opaque value="true"/>
-              <text value="CALENDARIO"/>
-              <toolTipText value="CALENDARIO"/>
-              <verticalTextPosition value="3"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <component id="d1957" class="javax.swing.JButton" binding="buttonVolver">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <borderPainted value="false"/>
-          <contentAreaFilled value="false"/>
-          <focusPainted value="false"/>
-          <foreground color="-16777216"/>
-          <icon value="com/company/Images/Icons/volver.png"/>
-          <opaque value="false"/>
-          <text value=""/>
-        </properties>
-      </component>
       <grid id="ce61f" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -156,6 +60,9 @@
               <focusPainted value="false"/>
               <icon value="com/company/Images/Icons/menu.png"/>
               <opaque value="false"/>
+              <pressedIcon value="com/company/Images/Icons/menu2.png"/>
+              <selected value="false"/>
+              <selectedIcon value="com/company/Images/Icons/menu2.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -166,13 +73,14 @@
           </hspacer>
         </children>
       </grid>
-      <grid id="ec859" binding="JPanelMenu" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="25" vgap="25">
-        <margin top="25" left="25" bottom="25" right="25"/>
+      <grid id="ec859" binding="JPanelMenu" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="15" vgap="15">
+        <margin top="15" left="15" bottom="15" right="15"/>
         <constraints>
-          <grid row="1" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-3485441"/>
+          <enabled value="true"/>
           <opaque value="true"/>
         </properties>
         <border type="none"/>
@@ -184,6 +92,10 @@
             <properties>
               <background color="-1900570"/>
               <foreground color="-16777216"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="4"/>
+              <icon value="com/company/Images/Icons/databaseInicio.png"/>
+              <opaque value="true"/>
               <text value="Base de Datos"/>
             </properties>
           </component>
@@ -194,6 +106,9 @@
             <properties>
               <background color="-1900570"/>
               <foreground color="-16777216"/>
+              <horizontalTextPosition value="4"/>
+              <icon value="com/company/Images/Icons/calendarioInicio.png"/>
+              <opaque value="true"/>
               <text value="Calendario"/>
             </properties>
           </component>
@@ -203,7 +118,11 @@
             </constraints>
             <properties>
               <background color="-1900570"/>
+              <enabled value="true"/>
               <foreground color="-16777216"/>
+              <horizontalTextPosition value="4"/>
+              <icon value="com/company/Images/Icons/chat.png"/>
+              <opaque value="true"/>
               <text value="Chat"/>
             </properties>
           </component>
@@ -214,45 +133,144 @@
             <properties>
               <background color="-1900570"/>
               <foreground color="-16777216"/>
+              <icon value="com/company/Images/Icons/settings.png"/>
+              <opaque value="true"/>
               <text value="Configuracion Usuario"/>
             </properties>
           </component>
-          <component id="65340" class="javax.swing.JButton" binding="añadirElementosButton" default-binding="true">
+          <component id="5c674" class="javax.swing.JButton" binding="cerrarSesionButton" default-binding="true">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1900570"/>
               <foreground color="-16777216"/>
-              <text value="Añadir Elementos"/>
-            </properties>
-          </component>
-          <component id="5c674" class="javax.swing.JButton" binding="cerrarSesionButton" default-binding="true">
-            <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1900570"/>
-              <foreground color="-16777216"/>
+              <icon value="com/company/Images/Icons/logout.png"/>
+              <opaque value="true"/>
               <text value="Cerrar Sesion"/>
             </properties>
           </component>
-          <component id="a64c5" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <icon value="com/company/Images/Logo/logoEnano.jpg"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <vspacer id="6cc05">
-            <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
         </children>
       </grid>
+      <component id="d1957" class="javax.swing.JButton" binding="buttonVolver">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <alignmentY value="0.0"/>
+          <background color="-1"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <focusPainted value="false"/>
+          <foreground color="-16777216"/>
+          <icon value="com/company/Images/Icons/volver.png"/>
+          <opaque value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <grid id="3ef3f" binding="panelModulos" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="15" vgap="15">
+        <margin top="15" left="15" bottom="15" right="15"/>
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-3485441"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="71675" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="2339e" class="javax.swing.JButton" binding="buttonBaseDatos">
+                <constraints>
+                  <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <autoscrolls value="false"/>
+                  <background color="-1900570"/>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="false"/>
+                  <enabled value="true"/>
+                  <focusPainted value="true"/>
+                  <font name="JetBrains Mono" size="18"/>
+                  <foreground color="-16777216"/>
+                  <horizontalTextPosition value="0"/>
+                  <icon value="com/company/Images/Icons/databaseInicio.png"/>
+                  <margin top="0" left="0" bottom="0" right="0"/>
+                  <opaque value="false"/>
+                  <text value=""/>
+                  <toolTipText value="BASE DE DATOS"/>
+                  <verticalAlignment value="0"/>
+                  <verticalTextPosition value="3"/>
+                </properties>
+              </component>
+              <component id="d4de" class="javax.swing.JButton" binding="buttonCalendario">
+                <constraints>
+                  <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <background color="-1900570"/>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="false"/>
+                  <enabled value="true"/>
+                  <focusPainted value="true"/>
+                  <font name="JetBrains Mono" size="18"/>
+                  <foreground color="-16777216"/>
+                  <horizontalTextPosition value="0"/>
+                  <icon value="com/company/Images/Icons/calendarioInicio.png"/>
+                  <margin top="0" left="5" bottom="0" right="5"/>
+                  <opaque value="false"/>
+                  <text value=""/>
+                  <toolTipText value="CALENDARIO"/>
+                  <verticalTextPosition value="3"/>
+                </properties>
+              </component>
+              <component id="a7359" class="javax.swing.JButton" binding="buttonChat">
+                <constraints>
+                  <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <background color="-1900570"/>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="false"/>
+                  <enabled value="true"/>
+                  <focusPainted value="true"/>
+                  <font name="JetBrains Mono" size="18"/>
+                  <foreground color="-16777216"/>
+                  <horizontalTextPosition value="0"/>
+                  <icon value="com/company/Images/Icons/chat.png"/>
+                  <margin top="0" left="5" bottom="0" right="5"/>
+                  <opaque value="false"/>
+                  <text value=""/>
+                  <toolTipText value="CHAT"/>
+                  <verticalTextPosition value="3"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <component id="a64c5" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="com/company/Images/Logo/logoEnano.jpg"/>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

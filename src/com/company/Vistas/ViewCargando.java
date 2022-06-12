@@ -29,8 +29,7 @@ public class ViewCargando extends JFrame {
             e.printStackTrace();
         }
         setTitle("Validando DNI");
-        // FIXME: 02/06/2022 CAMBIAR ICONO
-//        setIconImage(new ImageIcon("src/images/verificacion25.png").getImage());
+        setIconImage(new ImageIcon("src/com/company/Images/Icons/verifiacion.png").getImage());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -92,7 +91,7 @@ public class ViewCargando extends JFrame {
                             throw new RuntimeException(e);
                         }
 
-                        ViewInicio viewInicio = new ViewInicio();
+                        ViewInicio viewInicio = new ViewInicio(usuario);
                         viewInicio.setVisible(true);
                     }
 

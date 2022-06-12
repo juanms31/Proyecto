@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ViewLogin extends JFrame {
     public ViewLogin() {
         add(panelPrincipal);
-        controladorUsuario = new ControladorUsuario();
         usuarios = controladorUsuario.getUsers();
         initWindow();
         initComps();
@@ -191,7 +190,7 @@ public class ViewLogin extends JFrame {
 
 
     //Variables
-    private ControladorUsuario controladorUsuario;
+    private ControladorUsuario controladorUsuario = new ControladorUsuario();
     private ArrayList<Usuario> usuarios;
     private int numUsuario = -1;
     private JTextField textFieldEmail;

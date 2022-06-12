@@ -18,6 +18,7 @@ public class ViewWelcome extends JFrame{
         initComps();
         add(jpWelcome);
         listeners();
+        setVisible(true);
     }
 
     private void initComps() {
