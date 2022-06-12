@@ -6,6 +6,7 @@ import com.company.Entidades.Cliente;
 import com.company.Entidades.EspecificacionActuacion;
 import com.company.Formularios.FormActuacion;
 import com.company.Formularios.FormCliente;
+import com.company.Informes.InformeActuacion;
 import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -311,8 +312,6 @@ public class ViewActuacion extends JFrame {
     private void setHojas(Actuacion actuacion) {
         URLhojaPlanificacion = actuacion.getHojaPlanificacion();
         URLhojaPresupuesto = actuacion.getHojaPresupuesto();
-
-        // TODO: 30/05/2022 CLASE JFILECHOSER PARA ABRIR LA URL
     }
 
     private void setHoras(Actuacion actuacion) {
@@ -457,6 +456,20 @@ public class ViewActuacion extends JFrame {
             }
         });
 
+        buttonInforme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = TableActuaciones.getSelectedRow();
+
+                if(row != -1) {
+                    InformeActuacion informeActuacion = new InformeActuacion();
+                    informeActuacion.getInformeActuacion(actuaciones.get(row).getId());
+                }else{
+                    ShowErrorMessage("Error", "Selecciona una actuacion de la tabla.");
+                }
+            }
+        });
+
     }
 
     private void setHojaPresupuesto() {
@@ -552,6 +565,7 @@ public class ViewActuacion extends JFrame {
     private JTable TableClientes;
     private JButton buttonHojaPresupuesto;
     private JLabel labelTitulo;
+    private JButton buttonInforme;
 
     private JFileChooser fileChoseerHojaPresupuesto = new JFileChooser();
     private JFileChooser fileChoseerHojaPlanificacion = new JFileChooser();

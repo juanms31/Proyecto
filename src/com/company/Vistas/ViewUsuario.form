@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="25" left="25" bottom="25" right="25"/>
     <constraints>
-      <xy x="20" y="20" width="793" height="759"/>
+      <xy x="20" y="20" width="793" height="772"/>
     </constraints>
     <properties>
       <background color="-1"/>
@@ -48,7 +48,7 @@
           <background color="-16055809"/>
         </properties>
       </component>
-      <grid id="2cbed" layout-manager="GridLayoutManager" row-count="12" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="2cbed" layout-manager="GridLayoutManager" row-count="13" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -65,17 +65,6 @@
             <properties>
               <foreground color="-16777216"/>
               <text value="DNI"/>
-            </properties>
-          </component>
-          <component id="b52ea" class="javax.swing.JTextField" binding="textField3" default-binding="true">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1575937"/>
-              <foreground color="-16777216"/>
             </properties>
           </component>
           <component id="2d71c" class="javax.swing.JLabel">
@@ -116,7 +105,7 @@
               <text value="Telefono"/>
             </properties>
           </component>
-          <component id="6871" class="javax.swing.JFormattedTextField" binding="formattedTextField1" default-binding="true">
+          <component id="6871" class="javax.swing.JFormattedTextField" binding="formattedTextFieldTelefono">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -136,7 +125,7 @@
               <text value="Fecha Nacimiento"/>
             </properties>
           </component>
-          <component id="a814c" class="javax.swing.JTextField" default-binding="true">
+          <component id="a814c" class="javax.swing.JTextField" binding="textFieldNombre">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -147,7 +136,7 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="a21a9" class="javax.swing.JTextField" default-binding="true">
+          <component id="a21a9" class="javax.swing.JTextField" binding="textFieldApellidos">
             <constraints>
               <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -158,7 +147,7 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="7cbbe" class="javax.swing.JFormattedTextField" default-binding="true">
+          <component id="7cbbe" class="javax.swing.JFormattedTextField" binding="formatedTextFieldFnac">
             <constraints>
               <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -178,7 +167,7 @@
               <text value="Email"/>
             </properties>
           </component>
-          <component id="fb96f" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="fb96f" class="javax.swing.JTextField" binding="textFieldEmail">
             <constraints>
               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -187,26 +176,6 @@
             <properties>
               <background color="-1575937"/>
               <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="c0493" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
-            <constraints>
-              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1575937"/>
-              <foreground color="-16777216"/>
-            </properties>
-          </component>
-          <component id="98d7a" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16777216"/>
-              <text value="Contraseña"/>
             </properties>
           </component>
           <component id="6ce21" class="javax.swing.JLabel">
@@ -246,12 +215,13 @@
               <background color="-16055809"/>
             </properties>
           </component>
-          <grid id="103d6" binding="panelFondo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="103d6" binding="panelFondo" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
             <border type="none"/>
             <children/>
           </grid>
@@ -265,7 +235,7 @@
               <text value="Fondo"/>
             </properties>
           </component>
-          <component id="afba5" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="afba5" class="javax.swing.JComboBox" binding="comboBoxTipoFondo">
             <constraints>
               <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -298,6 +268,36 @@
               <background color="-3550209"/>
               <foreground color="-16777216"/>
               <text value="Examinar"/>
+            </properties>
+          </component>
+          <component id="7255b" class="javax.swing.JFormattedTextField" binding="formattedTextFieldDNI">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1575937"/>
+              <foreground color="-16777216"/>
+            </properties>
+          </component>
+          <component id="8ab51" class="javax.swing.JLabel" binding="direccionFondoLabel">
+            <constraints>
+              <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16055809"/>
+              <foreground color="-16055809"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="73e59" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Imagen:"/>
             </properties>
           </component>
         </children>

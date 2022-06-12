@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Controlador.ControladorUsuario;
 import com.company.Entidades.Usuario;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class ViewCargando extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setTitle("Validando DNI");
+        setTitle("Validando informacion");
         setIconImage(new ImageIcon("src/com/company/Images/Icons/verifiacion.png").getImage());
 
         // call onCancel() when cross is clicked
@@ -91,8 +92,7 @@ public class ViewCargando extends JFrame {
                             throw new RuntimeException(e);
                         }
 
-                        ViewInicio viewInicio = new ViewInicio(usuario);
-                        viewInicio.setVisible(true);
+                        ControladorUsuario controladorUsuario = new ControladorUsuario(usuario);
                     }
 
                     progressBar.setValue(i);

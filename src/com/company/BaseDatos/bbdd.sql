@@ -259,6 +259,14 @@ CREATE TABLE Usuario(
   pass VARCHAR(256) NOT NULL
 );
 
+CREATE TABLE UsuarioSettings(
+  id INTEGER  AUTO_INCREMENT PRIMARY KEY,
+  URLFondo VARCHAR(400) NOT NULL,
+  tipoFondo VARCHAR(20)  NOT NULL,
+  id_usuario INTEGER,
+  FOREIGN KEY (id_usuario)
+      REFERENCES Usuario (id)
+);
 
 -- Insercciones
 
@@ -292,7 +300,7 @@ VALUES ('1','REP','Reparacion',''),
        ('4','AIS','Aislacion','');
 
 INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
-VALUES ('1','00000000K','admin','admin','697441578','1999-05-31','','admin','admin');
+VALUES ('1','00000000K','admin','admin','697441578','1999-05-31','','admin','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918');
 
 INSERT INTO `proveedor`(`id`, `CIF`, `nombre_proveedor`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
 VALUES ('1','36598655P','Soleos SLU','Avd Madrid','soleosslu@gmail.com','698332657','',''),

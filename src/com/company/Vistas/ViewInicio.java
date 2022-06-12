@@ -1,6 +1,8 @@
 package com.company.Vistas;
 
 import com.company.Calendario.ViewCalendario;
+import com.company.Controlador.ControladorUsuario;
+import com.company.Entidades.Settings;
 import com.company.Entidades.Usuario;
 import com.company.Recursos.RoundedBorder;
 import com.company.Chat.Cliente;
@@ -13,44 +15,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ViewInicio extends JFrame {
-    private JPanel panelPrincipal;
-    private JButton buttonVolver;
-    private JPanel buscador;
-    private JButton buttonBaseDatos;
-    private JButton buttonCalendario;
-    private JButton buttonChat;
-    private JPanel panelFondo;
-    private JPanel panelModulos;
-    private JButton buttonMenu;
-    private JButton baseDeDatosButton;
-    private JButton calendarioButton;
-    private JButton chatButton;
-    private JButton configuracionUsuarioButton;
-    private JButton añadirElementosButton;
-    private JButton cerrarSesionButton;
-    private JPanel JPanelMenu;
-    private Socket socket = null;
-    private Cliente cliente;
-
-    int numImagen = 1;
-
-    boolean viendoMenu = false;
 
     //region Constructor
-    public ViewInicio(Usuario usuario) {
+    public ViewInicio(ControladorUsuario controladorUsuario,Usuario usuario, Settings settings) {
 
         this.usuario = usuario;
-        initWindow();
-        initListeners();
-        initComps();
-        setVisible(true);
-    }
-
-    public ViewInicio() {
-
-        this.usuario = usuario;
+        this.settings = settings;
+        this.controladorUsuario = controladorUsuario;
         initWindow();
         initListeners();
         initComps();
@@ -74,11 +48,8 @@ public class ViewInicio extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(600, 600));
-        setImageBackground("fondo" + numImagen + ".jpg");
+        setImageBackground("src/com/company/Images/Fondos/"+settings.getUrlFondo());
         add(panelPrincipal);
-        repaint();
-        revalidate();
-
     }
 
     private void initComps() {
@@ -93,19 +64,18 @@ public class ViewInicio extends JFrame {
         JPanelMenu.setVisible(false);
     }
 
-    private void setImageBackground(String image) {
-        JPanel fondo = new JPanel() {
+    private void setImageBackground(String path) {
+        fondo = new JPanel() {
             public void paintComponent(Graphics g) {
-                Image img = Toolkit.getDefaultToolkit().getImage("src/com/company/Images/Fondos/" + image);
+                Image img = Toolkit.getDefaultToolkit().getImage(path);
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
         fondo.setBorder(new EmptyBorder(5, 5, 5, 5));
         fondo.setLayout(new BorderLayout(0, 0));
         setContentPane(fondo);
-        add(panelPrincipal);
-        repaint();
         revalidate();
+        repaint();
     }
 
     //endregion
@@ -214,13 +184,52 @@ public class ViewInicio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-                ViewUsuario viewUsuario = new ViewUsuario(usuario);
+                ViewUsuario viewUsuario = new ViewUsuario(ViewInicio.this, usuario, settings);
             }
         });
 
 
     }
 
+
+    public void getUpdatedSettings(Settings settings, Usuario usuario) {
+        this.usuario = usuario;
+        this.settings = settings;
+        controladorUsuario.updateUsuario(usuario, settings);
+        updateUsuario(usuario, settings);
+    }
+
+    private void updateUsuario(Usuario usuario, Settings settings) {
+        setTitle("Panel  " + usuario.getNombre());
+        dispose();
+        ViewInicio viewInicio = new ViewInicio(controladorUsuario, usuario, settings);
+    }
+
+    private JPanel fondo;
+    private ControladorUsuario controladorUsuario;
     private Usuario usuario;
+    private Settings settings;
+    private JPanel panelPrincipal;
+    private JButton buttonVolver;
+    private JPanel buscador;
+    private JButton buttonBaseDatos;
+    private JButton buttonCalendario;
+    private JButton buttonChat;
+    private JPanel panelFondo;
+    private JPanel panelModulos;
+    private JButton buttonMenu;
+    private JButton baseDeDatosButton;
+    private JButton calendarioButton;
+    private JButton chatButton;
+    private JButton configuracionUsuarioButton;
+    private JButton añadirElementosButton;
+    private JButton cerrarSesionButton;
+    private JPanel JPanelMenu;
+    private Socket socket = null;
+    private Cliente cliente;
+
+    int numImagen = 1;
+
+    boolean viendoMenu = false;
     //endregion
 }
