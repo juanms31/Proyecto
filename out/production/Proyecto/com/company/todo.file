@@ -1,6 +1,5 @@
 TODO:
     - Implementar en obras de alguna forma el tener albaranes y materiales a la vista
-    - Añadir a la base de datos en la tabla Material Utilizado Actuacion cuando añadas un albaran y sus materiales.
     - Implementar el añadir los diferentes formularios para añadir:
         - Calidad Material
         - Especificacion Actuacion
@@ -8,4 +7,3 @@ TODO:
         - Unidad Material
     - Implementar graficos donde podamos
     - Implementar la clase HyperLink
-    - Repasar panel vacaciones en trabajador para cuando no tenga vacaciones en curso muestrre que no las tiene en un jpanel

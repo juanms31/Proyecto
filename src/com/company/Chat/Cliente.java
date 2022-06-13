@@ -67,7 +67,7 @@ public class Cliente extends JFrame {
         //BASICO
         setSize(600,400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         //Modificamos colores panel
         panelPrincipal.setBackground(Color.decode(coloresPaneles[contadorId][0]));

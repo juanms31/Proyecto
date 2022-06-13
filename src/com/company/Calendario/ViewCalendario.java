@@ -14,7 +14,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ViewCalendario extends JFrame{
     private JPanel panelPrincipal;
@@ -172,6 +176,28 @@ public class ViewCalendario extends JFrame{
 
     private void getRowVacaciones(){
         if (comboBoxTrabajador.getSelectedIndex() == 0) return;
+        if (dateInit == null || dateInit.equals("") || dateEnd == null || dateEnd.equals("")){
+            contDateRange = 0;
+            return;
+        }
+
+        //COMP RANGO FECHA != NEGATIVO
+        SimpleDateFormat formato = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            Date fecha1 = formato.parse(dateInit);
+            Date fecha2 = formato.parse(dateEnd);
+
+            if (fecha1.getTime() > fecha2.getTime()){
+                String dateAux = dateInit;
+                dateInit = dateEnd;
+                dateEnd= dateAux;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            contDateRange = 0;
+            return;
+        }
+
 
         String row = comboBoxTrabajador.getSelectedItem().toString();
         String dni = row.substring(0, 9);
