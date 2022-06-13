@@ -299,9 +299,6 @@ VALUES ('1','REP','Reparacion',''),
        ('3','NUEVA','Nueva Obra',''),
        ('4','AIS','Aislacion','');
 
-INSERT INTO `usuario`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `email`, `pass`)
-VALUES ('1','00000000K','admin','admin','697441578','1999-05-31','','admin','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918');
-
 INSERT INTO `proveedor`(`id`, `CIF`, `nombre_proveedor`, `direccion`, `mail_1`, `telefono_1`, `mail_2`, `telefono_2`)
 VALUES ('1','36598655P','Soleos SLU','Avd Madrid','soleosslu@gmail.com','698332657','',''),
     ('2','36598655L','Latigos SLU','Avd Malaga','latigosslu@gmail.com','654223698','',''),
@@ -331,7 +328,8 @@ INSERT INTO `materialcompradoproveedores` (`id`, `id_material`, `id_proveedor`, 
 
 INSERT INTO `trabajador`(`id`, `DNI`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `nacionalidad`, `puesto`, `salario`)
 VALUES
-    ('1','21035545K','Juan','Martinez Sanchez','697441578','1999-05-31','Español','Tecnico','18000');
+    ('1','21035545K','Juan','Martinez Sanchez','697441578','1999-05-31','Español','Tecnico','18000'),
+    ('2','235698845P','Laura','Sanchez Martinez','635998665','1999-08-25','Español','Tecnico','20000');
 
 INSERT INTO `seguimientolaboral` (`id`, `id_trabajador`, `tipo`, `id_actuacion`, `ano`, `dia`, `mes`, `hora_entrada`, `hora_salida`, `horas_totales`, `horas_extra`)
 VALUES
