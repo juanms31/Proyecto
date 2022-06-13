@@ -44,7 +44,7 @@ public class ControladorUsuario {
 
             settings.setId_usuario(idUsuario);
             settings.setTipoFondo("Imagen");
-            settings.setUrlFondo("src/com/company/Images/Fondos/fondo0.jpg");
+            settings.setUrlFondo("fondo0.jpg");
 
             int idSettings = crudSettings.createSettings(settings);
 

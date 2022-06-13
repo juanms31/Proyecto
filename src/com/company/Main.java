@@ -44,9 +44,9 @@ public class Main {
             //ENTRADA AL PROGRAMA
 
 //            ViewWelcome welcome = new ViewWelcome();
-            ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
+//            ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
 //            ViewInicio viewInicio = new ViewInicio();
-//            ViewLogin viewLogin = new ViewLogin();
+            ViewLogin viewLogin = new ViewLogin();
 //            ViewWelcome viewWelcome = new ViewWelcome();
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 
