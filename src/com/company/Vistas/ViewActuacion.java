@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ViewActuacion extends JDialog {
+public class ViewActuacion extends JFrame {
 
     //region Constructores
 
@@ -48,7 +48,7 @@ public class ViewActuacion extends JDialog {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setSize(new Dimension(600,600));
+        setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(750, 750));

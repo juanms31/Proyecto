@@ -1,7 +1,9 @@
 package com.company.BaseDatos;
 
 import com.company.Entidades.Actuacion;
+import com.company.Entidades.Albaran;
 import com.company.Entidades.Cliente;
+import com.company.Entidades.MaterialCompradoProveedor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +15,11 @@ public class CRUDActuacion {
     public CRUDActuacion(){
 
         clientes = getClientes();
+
+//        arrayListAlbaran = getAlbaranes();
+//
+//        materialesCompradoProveedores = getMaterialesProveedor();
+
 
     }
 
@@ -177,7 +184,6 @@ public class CRUDActuacion {
                 actuacion.setId(resultSet.getInt("id"));
                 actuacion.setNombre(resultSet.getString("nombre"));
                 actuacion.setEspecificacion(resultSet.getString("especificacion"));
-
                 actuacion.setEstado(resultSet.getString("estado"));
                 actuacion.setFecha_solicitud(resultSet.getDate("fecha_solicitud"));
                 actuacion.setFecha_envio(resultSet.getDate("fecha_envio"));
@@ -191,6 +197,9 @@ public class CRUDActuacion {
                 actuacion.setPorPertificar(resultSet.getDouble("por_certificar"));
                 actuacion.setHorasOfertadas(resultSet.getInt("horas_ofertadas"));
                 actuacion.setHorasEjecutadas(resultSet.getInt("horas_ejecutadas"));
+
+//                actuacion = setMaterialOfertado(actuacion);
+
                 actuacion.setMaterialOfertado(resultSet.getDouble("material_ofertado"));
                 actuacion.setGastoMaterial(resultSet.getDouble("gasto_material"));
                 actuacion.setResultadoBalance(resultSet.getDouble("resultado_balance"));
@@ -207,6 +216,24 @@ public class CRUDActuacion {
             BBDD.close();
             return listaActuacion;
         }
+    }
+
+    private Actuacion setMaterialOfertado(Actuacion actuacion) {
+        double sumatoria = 0;
+
+//        for(Albaran albaran : arrayListAlbaran){
+//            if(albaran.getActuacion().getId() ==  albaran.getId()){
+//                for(MaterialCompradoProveedor materialCompradoProveedor: materialesCompradoProveedores){
+//                    if(materialCompradoProveedor.getAlbaran().getId() == albaran.getId()){
+//                        sumatoria = sumatoria + materialCompradoProveedor.getBaseImponible();
+//                    }
+//                }
+//            }
+//        }
+//
+//        actuacion.setGastoMaterial(sumatoria);
+
+        return actuacion;
     }
 
     public String[] getColumnActuacion() {
@@ -250,12 +277,28 @@ public class CRUDActuacion {
         return listClientes;
     }
 
+    private ArrayList<Albaran> getAlbaranes(){
+        ArrayList<Albaran> listAlbaranes;
+        CRUDAlbaran crudAlbaran = new CRUDAlbaran();
+        listAlbaranes = crudAlbaran.getAll();
+        return listAlbaranes;
+    }
+
+    private ArrayList<MaterialCompradoProveedor> getMaterialesProveedor(){
+        ArrayList<MaterialCompradoProveedor> listMateriales;
+        CRUDMaterialCompradoProveedor crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+        listMateriales = crudMaterialCompradoProveedor.getAll();
+        return listMateriales;
+    }
+
     // endregion
 
     //region ATRIBUTOS
 
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDActuacion");
     ArrayList<Cliente> clientes;
+//    ArrayList<Albaran> arrayListAlbaran;
+//    ArrayList<MaterialCompradoProveedor> materialesCompradoProveedores;
 
     //endregion
 }

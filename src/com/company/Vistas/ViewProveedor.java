@@ -1,8 +1,10 @@
 package com.company.Vistas;
 
 import com.company.BaseDatos.CRUDAlbaran;
+import com.company.BaseDatos.CRUDMaterialCompradoProveedor;
 import com.company.Controlador.ControladorProveedor;
 import com.company.Entidades.Albaran;
+import com.company.Entidades.MaterialCompradoProveedor;
 import com.company.Entidades.Proveedor;
 import com.company.Formularios.FormProveedor;
 import com.company.Graficos.GraficosBasicos;
@@ -20,7 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class ViewProveedor extends JFrame{
+public class ViewProveedor extends JFrame {
 
     //region Constructores
 
@@ -48,13 +50,14 @@ public class ViewProveedor extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(750,750));
+        setMinimumSize(new Dimension(750, 750));
         setLocationRelativeTo(null);
         setTitle("Proveedores");
         String[] listColumnsName = controladorProveedor.getColumnsName();
         headers = new String[listColumnsName.length - 1];
-        for (int i = 0; i < listColumnsName.length- 1; i++){
-            headers[i] = listColumnsName[i+1].toUpperCase().replace('_', ' ');;
+        for (int i = 0; i < listColumnsName.length - 1; i++) {
+            headers[i] = listColumnsName[i + 1].toUpperCase().replace('_', ' ');
+            ;
         }
         refreshTable(headers, proveedores);
         setIconImage(new ImageIcon("src/com/company/Images/Logo/logoEnano.jpg").getImage());
@@ -64,9 +67,9 @@ public class ViewProveedor extends JFrame{
 
     //region Metodos Tabla
 
-    public void refreshTable(String[] headers, ArrayList<Proveedor> proveedores){
+    public void refreshTable(String[] headers, ArrayList<Proveedor> proveedores) {
 
-        if(proveedores.size() == 0) {
+        if (proveedores.size() == 0) {
             TableProveedor.setShowGrid(true);
             TableProveedor.setCellSelectionEnabled(false);
             TableProveedor.setAutoCreateRowSorter(true);
@@ -82,7 +85,7 @@ public class ViewProveedor extends JFrame{
             modelProveedor = new DefaultTableModel(headers, 0);
 
             TableProveedor.setModel(modelProveedor);
-        }else {
+        } else {
 
             TableProveedor.setShowGrid(true);
             TableProveedor.setCellSelectionEnabled(false);
@@ -101,7 +104,7 @@ public class ViewProveedor extends JFrame{
             //Filling Data
             Object[] data = new Object[headers.length];
 
-            for (Proveedor proveedor: proveedores) {
+            for (Proveedor proveedor : proveedores) {
                 data = getProveedorObject(proveedor);
                 modelProveedor.addRow(data);
             }
@@ -110,7 +113,7 @@ public class ViewProveedor extends JFrame{
         }
     }
 
-    private void filter(){
+    private void filter() {
         DefaultTableModel Model = (DefaultTableModel) TableProveedor.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(Model);
         TableProveedor.setRowSorter(tr);
@@ -120,7 +123,7 @@ public class ViewProveedor extends JFrame{
 
     //region Metodos Desde el Formulario
 
-    public boolean getNewProveedorFromFormulario(Proveedor proveedor){
+    public boolean getNewProveedorFromFormulario(Proveedor proveedor) {
         return controladorProveedor.createProveedor(proveedor);
     }
 
@@ -134,21 +137,21 @@ public class ViewProveedor extends JFrame{
     //region Mensajes
     public void ShowMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void ShowWarningMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
 
     public void ShowErrorMessage(String title, String msg) {
         JOptionPane.showMessageDialog(this,
-                msg ,
+                msg,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
@@ -156,11 +159,11 @@ public class ViewProveedor extends JFrame{
     //endregion
 
     //region CRUD
-    private void createProveedor(){
+    private void createProveedor() {
         FormProveedor formProveedor = new FormProveedor(this);
     }
 
-    private void readProveedor(){
+    private void readProveedor() {
         int row = TableProveedor.getSelectedRow();
         if (row == -1) {
             ShowErrorMessage("Error", "Error, selecciona un proveedor de la tabla.");
@@ -183,7 +186,7 @@ public class ViewProveedor extends JFrame{
 
     }
 
-    private void deleteProveedor(){
+    private void deleteProveedor() {
 
         int row = TableProveedor.getSelectedRow();
         if (row == -1) {
@@ -220,7 +223,7 @@ public class ViewProveedor extends JFrame{
 
     }
 
-    public void addTableProveedor(Proveedor proveedor){
+    public void addTableProveedor(Proveedor proveedor) {
 
         Object[] newProveedor = getProveedorObject(proveedor);
         modelProveedor.addRow(newProveedor);
@@ -229,7 +232,7 @@ public class ViewProveedor extends JFrame{
 
     }
 
-    public Object[] getProveedorObject(Proveedor proveedor){
+    public Object[] getProveedorObject(Proveedor proveedor) {
         int y = 0;
         Object[] newProveedor = new Object[headers.length];
         newProveedor[y++] = proveedor.getCIF();
@@ -244,7 +247,6 @@ public class ViewProveedor extends JFrame{
     }
 
 
-
     private Proveedor getProveedor(int row) {
 
         return proveedores.get(row);
@@ -256,16 +258,15 @@ public class ViewProveedor extends JFrame{
     }
 
 
-
     //endregion
 
     //region Listeners
-    private void initListeners(){
+    private void initListeners() {
         actionListeners();
         mouseListeners();
     }
 
-    private void actionListeners(){
+    private void actionListeners() {
         buttonAnadir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,34 +318,53 @@ public class ViewProveedor extends JFrame{
 
     }
 
-    private void mouseListeners(){
+    private void mouseListeners() {
         TableProveedor.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = TableProveedor.getSelectedRow();
-
-                if(e.getClickCount()==1){
-                    setGraficos(getProveedor(row));
-                }
-
-                if(e.getClickCount()==2){
+                if (e.getClickCount() == 2) {
                     updateProveedor();
+                }
+            }
+        });
+        
+        buttonGraficos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!viendoGraficos) {
+                    int row = TableProveedor.getSelectedRow();
+                    
+                    if (row != -1) {
+                        setGraficos(getProveedor(row));
+                        viendoGraficos = true;
+                        JPanelGrafico1.setVisible(true);
+                        JPanelGrafico2.setVisible(true);
+                        
+                    }else{
+                        ShowErrorMessage("Error", "Pulsa un proveedor para ver sus gráficos.");
+                    }
+                    
+                }else {
+                    viendoGraficos = false;
+                    JPanelGrafico1.setVisible(false);
+                    JPanelGrafico2.setVisible(false);
                 }
             }
         });
     }
 
-    private ArrayList<Albaran> getAlbaranes(){
+    private ArrayList<Albaran> getAlbaranes() {
         CRUDAlbaran crudAlbaran = new CRUDAlbaran();
         listAlbaranes = crudAlbaran.getAll();
         return listAlbaranes;
     }
 
-    private int getNumAlbaranesFromProveedor(Proveedor proveedor, ArrayList<Albaran> albaranes){
+    private int getNumAlbaranesFromProveedor(Proveedor proveedor, ArrayList<Albaran> albaranes) {
         int numAlbaranes = 0;
 
-        for(Albaran albaran: albaranes){
-            if(albaran.getProveedor().getId() == proveedor.getId()){
+        for (Albaran albaran : albaranes) {
+            if (albaran.getProveedor().getId() == proveedor.getId()) {
                 numAlbaranes++;
             }
         }
@@ -355,6 +375,7 @@ public class ViewProveedor extends JFrame{
 
 
     private void setGraficos(Proveedor proveedor) {
+        //region Grafico 1
         JPanelGrafico1.removeAll();
         new Thread(new Runnable() {
             @Override
@@ -378,18 +399,91 @@ public class ViewProveedor extends JFrame{
 
                 GraficosBasicos graficosBasicos = new GraficosBasicos();
 
-                JPanelGrafico1.add(graficosBasicos.metodoGraficoCircular(listNodoCircular,"Albaranes por proveedor"));
+                JPanelGrafico1.add(graficosBasicos.metodoGraficoCircular(listNodoCircular, "Albaranes por proveedor"));
 
                 repaint();
                 revalidate();
 
             }
         }).start();
+
+        //endregion
+
+        //region Grafico 2
+        JPanelGrafico2.removeAll();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                ArrayList<NodoGraficoCircular> listNodoCircular2 = new ArrayList<>();
+
+                NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
+                nodoGraficoCircular2.setComparableKey(proveedor.getNombre_proveedor());
+
+                double totalAlbaranesProveedor = getTotalAlbaranesProveedor(proveedor, listAlbaranes);
+                double totalAlbaranes = getTotalAlbaranes();
+
+                nodoGraficoCircular2.setValue(totalAlbaranesProveedor);
+                listNodoCircular2.add(nodoGraficoCircular2);
+
+                NodoGraficoCircular nodoGraficoCircular3 = new NodoGraficoCircular();
+                nodoGraficoCircular3.setComparableKey("Demas");
+
+
+                nodoGraficoCircular3.setValue(totalAlbaranes);
+                listNodoCircular2.add(nodoGraficoCircular3);
+
+                GraficosBasicos graficosBasicos = new GraficosBasicos();
+
+                JPanelGrafico2.add(graficosBasicos.metodoGraficoCircular(listNodoCircular2, "Total albaranes por proveedor"));
+
+                repaint();
+                revalidate();
+
+            }
+        }).start();
+
+        //endregion
+
+
+    }
+
+    private double getTotalAlbaranesProveedor(Proveedor proveedor, ArrayList<Albaran> listAlbaranes) {
+        CRUDMaterialCompradoProveedor crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+
+        ArrayList<MaterialCompradoProveedor> materialesCompradoProveedores = crudMaterialCompradoProveedor.getAll();
+
+        double sumatoria = 0;
+        for (Albaran albaran : listAlbaranes) {
+            if (albaran.getProveedor().getId() == proveedor.getId()) {
+                for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedores) {
+                    if (materialCompradoProveedor.getAlbaran().getId() == albaran.getId()) {
+                        sumatoria = sumatoria + materialCompradoProveedor.getBaseImponible();
+                    }
+                }
+            }
+        }
+
+        return sumatoria;
+    }
+
+    private double getTotalAlbaranes() {
+        CRUDMaterialCompradoProveedor crudMaterialCompradoProveedor = new CRUDMaterialCompradoProveedor();
+
+        double sumatoria = 0;
+        ArrayList<MaterialCompradoProveedor> materialesCompradoProveedores = crudMaterialCompradoProveedor.getAll();
+
+        for (MaterialCompradoProveedor materialCompradoProveedor : materialesCompradoProveedores) {
+            sumatoria = sumatoria + materialCompradoProveedor.getBaseImponible();
+        }
+
+        return sumatoria;
     }
 
     //endregion
 
     //region Variables
+    private boolean viendoGraficos;
     private JPanel panelPrincipal;
     private JTextField filtro;
     private JButton buttonBuscar;
@@ -405,7 +499,9 @@ public class ViewProveedor extends JFrame{
     private JPanel buscador;
     private JPanel PanelProveedor;
     private JLabel labelTitulo;
-    private  ArrayList<Proveedor> proveedores;
+    private JPanel JPanelGrafico2;
+    private JButton buttonGraficos;
+    private ArrayList<Proveedor> proveedores;
     ArrayList<Albaran> listAlbaranes;
     private ControladorProveedor controladorProveedor;
     private String[] headers;
