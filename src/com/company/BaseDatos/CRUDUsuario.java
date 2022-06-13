@@ -29,6 +29,8 @@ public class CRUDUsuario {
         }
     }
 
+
+
     public int createUsuario(Usuario usuario) throws SQLException {
         Connection connection = BBDD.connect();
         if (connection == null) return -1;

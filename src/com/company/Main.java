@@ -43,12 +43,12 @@ public class Main {
             LOGGER.log(Level.INFO, "LLamando a la vista principal");
             //ENTRADA AL PROGRAMA
 
-//            ViewWelcome welcome = new ViewWelcome();
+           ViewWelcome welcome = new ViewWelcome();
 
-            ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
+           // ViewBaseDatos viewBaseDatos = new ViewBaseDatos();
 //
-//            ViewInicio viewInicio = new ViewInicio();
-//            viewInicio.setVisible(true);
+//        ViewInicio viewInicio = new ViewInicio();
+//          viewInicio.setVisible(true);
 //            ViewLogin viewLogin = new ViewLogin();
             LOGGER.log(Level.INFO, "Vista principal inicializado con exito");
 

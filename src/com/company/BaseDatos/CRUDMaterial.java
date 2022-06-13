@@ -116,6 +116,18 @@ public class CRUDMaterial {
     }
 
     public ArrayList<MaterialEx> getMaterialesGroupByAlbaran(int idActuacion){
+        String sql ="SELECT m.cod, m.grupo, m.descripcion, al.cod as 'codAlbaran' FROM material m\n" +
+                "INNER JOIN materialcompradoproveedores mcp\n" +
+                "\ton m.id = mcp.id_material\n" +
+                "INNER JOIN proveedor p\n" +
+                "\tON mcp.id_proveedor = p.id\n" +
+                "INNER JOIN albaran al\n" +
+                "\tON p.id = al.id_proveedor\n" +
+                "INNER JOIN actuacion a\n" +
+                "\tON al.id_actuacion = a.id\n" +
+                "WHERE a.id = " + idActuacion;
+
+        /*
         String sql = "SELECT m.cod, m.grupo, m.descripcion, al.cod as 'codAlbaran' FROM material m\n" +
                 "INNER JOIN materialutilizadoactuacion ma\n" +
                 "\ton m.id = ma.id_material\n" +
@@ -125,6 +137,8 @@ public class CRUDMaterial {
                 "\ton a.id = al.id_actuacion\n" +
                 "where a.id = " + idActuacion + "\n" +
                 "GROUP BY a.id";
+
+         */
         try {
             Statement statement = BBDD.connect().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);

@@ -43,7 +43,8 @@ public class Cliente extends JFrame {
 
 
     public Cliente(Socket socket, String nombreUsuario){
-        contadorId = idusuario.getAndIncrement();
+       // contadorId = idusuario.getAndIncrement();
+        contadorId = 1;
         if (idusuario.get() == 3){
             idusuario.set(0);
         }
@@ -86,11 +87,11 @@ public class Cliente extends JFrame {
             String mensaje = areaTexto.getText();
             areaTexto.setText("");
             mensajePropio = "<html><DIV align='right' width='550'>"
-                    + "<html><FONT COLOR='" + coloresTexto[contadorId] + "'>"
+                    + "<html><FONT COLOR='" + coloresTexto[2] + "'>"
                     + "<html><P>" + mensaje + "</FONT></DIV>";
             etiquetaMensaje.setText(etiquetaMensaje.getText() + mensajePropio);
 
-            mensaje = "<html><FONT COLOR='" + coloresTexto[contadorId] + "'>"
+            mensaje = "<html><FONT COLOR='" + coloresTexto[2] + "'>"
                     + "<html>" + nombreUsuario + ": "
                     + mensaje + "</FONT><br/>";
             bufferedWriter.write(mensaje);
