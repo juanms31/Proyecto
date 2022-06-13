@@ -174,5 +174,25 @@ public class CRUDVacaciones {
 
     private static final Logger LOGGER = Logger.getLogger("com.company.BaseDatos.CRUDVacaciones");
 
+    public int getDaysVacaciones(int idTrabajador) {
+        int diasVacaciones = 0;
+        Connection connection = BBDD.connect();
+        String sql = "SELECT TIMESTAMPDIFF(DAY, v.fecha_aprobada_inicio, v.fecha_aprobada_fin) AS diasVacaciones\n" +
+                "FROM vacaciones v WHERE v.id_trabajador = " + idTrabajador;
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                diasVacaciones += resultSet.getInt("diasVacaciones");
+            }
+            return diasVacaciones;
+        }catch (SQLException e){
+            LOGGER.log(Level.SEVERE, "getDaysVacaciones en Vacaciones = " + e.getMessage());
+            e.printStackTrace();
+            BBDD.close();
+            return diasVacaciones;
+        }
+    }
+
     //endregion
 }

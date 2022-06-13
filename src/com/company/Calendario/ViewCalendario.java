@@ -14,7 +14,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ViewCalendario extends JFrame{
     private JPanel panelPrincipal;
@@ -30,6 +34,7 @@ public class ViewCalendario extends JFrame{
     private JSeparator separador;
     private String dateInit, dateEnd;
     private static int contDateRange = 0;
+    ArrayList<NodoTrabajadorCalendario> listFechas = new ArrayList<>();
 
     private DefaultTableModel modelTrabajador;
 
@@ -101,6 +106,8 @@ public class ViewCalendario extends JFrame{
                 ControladorTrabajador controladorTrabajador = new ControladorTrabajador();
                 controladorTrabajador.getViewTrabajador().dispose();
                 controladorTrabajador.setlistVacaciones(listVacaciones);
+                JOptionPane.showMessageDialog(null, "Vacaciones registradas con exito");
+                deleteAllRow();
             }
         });
 
@@ -151,7 +158,6 @@ public class ViewCalendario extends JFrame{
                             + "/" + resourceDateEvent.getDate().getYear();
                     dateEnd = date;
                     getRowVacaciones();
-                    contDateRange = 0;
                 }
             }
         });
@@ -165,17 +171,65 @@ public class ViewCalendario extends JFrame{
                         + "/" + dateAux.getYear();
                 dateEnd = date;
                 getRowVacaciones();
+                contDateRange = 0;
             }
         });
         panelCalendario.add(calendar);
     }
 
+    private void deleteAllRow(){
+        int rowCount = modelTrabajador.getRowCount();
+        for (int i = 0; i < rowCount; i++){
+            modelTrabajador.removeRow(i);
+        }
+    }
     private void getRowVacaciones(){
         if (comboBoxTrabajador.getSelectedIndex() == 0) return;
+        if (dateInit == null || dateInit.equals("") || dateEnd == null || dateEnd.equals("")){
+            contDateRange = 0;
+            return;
+        }
+
+        //COMP RANGO FECHA != NEGATIVO
+        SimpleDateFormat formato = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            Date fecha1 = formato.parse(dateInit);
+            Date fecha2 = formato.parse(dateEnd);
+
+            if (fecha1.getTime() > fecha2.getTime()){
+                String dateAux = dateInit;
+                dateInit = dateEnd;
+                dateEnd= dateAux;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            contDateRange = 0;
+            return;
+        }
 
         String row = comboBoxTrabajador.getSelectedItem().toString();
         String dni = row.substring(0, 9);
         String nombre = row.substring(11);
+        NodoTrabajadorCalendario nodoTrabajadorCalendario = new NodoTrabajadorCalendario();
+        nodoTrabajadorCalendario.setDni(dni);
+        nodoTrabajadorCalendario.setNombre(nombre);
+        nodoTrabajadorCalendario.setFechaInicio(dateInit);
+        nodoTrabajadorCalendario.setFechaFin(dateEnd);
+        for (int i = 0; i < listFechas.size(); i++){
+            String dniAux = listFechas.get(i).getDni();
+            String fechaInit = listFechas.get(i).getFechaInicio();
+            String fechaEnd = listFechas.get(i).getFechaFin();
+            if (dniAux.equals(dni)){
+                if (fechaInit.equals(dateInit) || fechaInit.equals(dateEnd) || fechaEnd.equals(dateInit) || fechaEnd.equals(dateEnd)){
+                    JOptionPane.showMessageDialog(null,"Ya has seleccionado esta fecha para este trabajador");
+                    contDateRange = -1;
+                    dateInit = "";
+                    dateEnd = "";
+                    return;
+                }
+            }
+        }
+        listFechas.add(nodoTrabajadorCalendario);
         modelTrabajador.addRow(new Object[]{dni, nombre, dateInit, dateEnd});
         dateInit = "";
         dateEnd = "";
@@ -216,5 +270,9 @@ public class ViewCalendario extends JFrame{
         CRUDTrabajador crudTrabajador = new CRUDTrabajador();
         listTrabajadores = crudTrabajador.getAll();
         return listTrabajadores;
+    }
+
+    public static void main(String[] args) {
+        ViewCalendario calendario = new ViewCalendario();
     }
 }

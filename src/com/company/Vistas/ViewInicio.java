@@ -80,7 +80,6 @@ public class ViewInicio extends JFrame {
 
     //endregion
 
-    boolean chatOK = false;
     //region Listeners
     private void initListeners() {
         buttonVolver.addActionListener(new ActionListener() {
@@ -163,31 +162,19 @@ public class ViewInicio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JPanelMenu.setVisible(false);
                 viendoMenu = false;
-                System.out.println(chatOK);
-                if (!chatOK){
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                String usuario = JOptionPane.showInputDialog("Nombre de usuario");
-                                Socket socket = new Socket("localhost", 1234);
-                                Cliente cliente = new Cliente(socket, usuario);
-                                cliente.enviarPrimerMensaje();
-                                chatOK = true;
-                            } catch (IOException ex) {
-                                //TODO sacar nombre de usuario del usuario registrado
-                                ex.printStackTrace();
-                            }
-                        }
-                    }).start();
+                if (cliente == null || !socket.isConnected()){
+                    try {
+                        String userName = usuario.nombre;
+                        Socket socket = new Socket("localhost", 1234);
+                        Cliente cliente = new Cliente(socket, userName);
+                        cliente.enviarPrimerMensaje();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
-                else {
+                if (cliente != null){
                     cliente.setVisible(true);
                 }
-                /*
-                if (socket.isConnected()){
-                    cliente.setVisible(true);
-                }*/
             }
         });
 
