@@ -7,7 +7,6 @@ import com.company.Formularios.FormTrabajador;
 import com.company.Graficos.GraficosBasicos;
 import com.company.Graficos.NodoGraficoCircular;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import org.joda.time.LocalDateTime;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,8 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -365,10 +362,10 @@ public class ViewTrabajador extends JFrame {
 
 
     //region Graficos
-    private ArrayList<Vacaciones> getVaciones(){
+    private int getDaysVaciones(int idTrabajador){
         CRUDVacaciones crudVacaciones = new CRUDVacaciones();
-        listVacaciones = crudVacaciones.getAll();
-        return listVacaciones;
+        int daysVacaciones = crudVacaciones.getDaysVacaciones(idTrabajador);
+        return daysVacaciones;
     }
 
     private int getDiasVacacionesDisfrutados(Trabajador trabajador, ArrayList<Vacaciones> listVacaciones){
@@ -388,7 +385,7 @@ public class ViewTrabajador extends JFrame {
     private long estaDeVacaciones(Vacaciones vacaciones) {
         Date today = new Date(System.currentTimeMillis());
 
-        long dias = diasEntreDosFechas(vacaciones.getFecha_aprobada_inicio(), today);
+        long dias = diasEntreDosFechas(vacaciones.getFecha_aprobada_inicio(), vacaciones.getFecha_aprobada_fin());
 
         return (dias > 1) ? dias:0;
     }
@@ -405,9 +402,10 @@ public class ViewTrabajador extends JFrame {
 
 
     private void setGraficos(Trabajador trabajador) {
-        listVacaciones = getVaciones();
+        //listVacaciones = getVaciones();
+        int idTrabajdor = trabajador.getId();
+        int numVacacionesDisrutadas = getDaysVaciones(idTrabajdor);
 
-        int numVacacionesDisrutadas = getDiasVacacionesDisfrutados(trabajador, listVacaciones);
         if(numVacacionesDisrutadas > 0) {
 
             JPanelVacaciones.removeAll();
@@ -421,15 +419,17 @@ public class ViewTrabajador extends JFrame {
                     ArrayList<NodoGraficoCircular> listNodoCircular = new ArrayList<>();
 
                     NodoGraficoCircular nodoGraficoCircular1 = new NodoGraficoCircular();
-                    nodoGraficoCircular1.setComparableKey(trabajador.getNombre());
+                    nodoGraficoCircular1.setComparableKey("Vacaciones por disfrutar");
 
-                    nodoGraficoCircular1.setValue(Double.valueOf(numVacacionesDisrutadas));
+                    int numDiasRestantes = 33 - numVacacionesDisrutadas;
+
+                    nodoGraficoCircular1.setValue(Double.valueOf(numDiasRestantes));
 
                     listNodoCircular.add(nodoGraficoCircular1);
 
                     NodoGraficoCircular nodoGraficoCircular2 = new NodoGraficoCircular();
-                    nodoGraficoCircular2.setComparableKey("Total");
-                    nodoGraficoCircular2.setValue(Double.valueOf(diasEntreDosFechas(vacacionesParaTrabajador.getFecha_aprobada_inicio(), vacacionesParaTrabajador.getFecha_aprobada_fin())));
+                    nodoGraficoCircular2.setComparableKey("Vacaciones disfrutadas");
+                    nodoGraficoCircular2.setValue((double) numVacacionesDisrutadas);
                     listNodoCircular.add(nodoGraficoCircular2);
 
                     GraficosBasicos graficosBasicos = new GraficosBasicos();

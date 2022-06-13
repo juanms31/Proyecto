@@ -80,7 +80,7 @@ public class ControladorTrabajador {
             var idTrabajador = new CRUDTrabajador().getTrabajadorByDNI(nodoTrabajadorCalendario.getDni());
 
             Vacaciones vacaciones = new Vacaciones();
-            SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 java.util.Date parsed =  format.parse(nodoTrabajadorCalendario.getFechaInicio());
                 java.sql.Date sql = new java.sql.Date(parsed.getTime());
@@ -114,4 +114,7 @@ public class ControladorTrabajador {
 
     //endregion
 
+    public static void main(String[] args) {
+        ControladorTrabajador controladorTrabajador = new ControladorTrabajador();
+    }
 }
