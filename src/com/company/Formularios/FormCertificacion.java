@@ -1,6 +1,8 @@
 package com.company.Formularios;
 
 
+import com.company.BaseDatos.CRUDActuacion;
+import com.company.BaseDatos.CRUDAlbaran;
 import com.company.Entidades.Actuacion;
 import com.company.Entidades.Certificacion;
 import com.company.Entidades.Proveedor;
@@ -75,7 +77,7 @@ public class FormCertificacion extends JDialog {
         }
         centerFrame();
         setModal(true);
-        setResizable(false);
+        setResizable(true);
         setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -147,6 +149,7 @@ public class FormCertificacion extends JDialog {
 
             Certificacion certificacion = getCertificacion();
             if (viewCertificacion.getNewCertificacionFromFormulario(certificacion)) {
+
                 dispose();
                 ShowMessage( "CORRECTO", "Certificacion agregada con exito");
             } else {

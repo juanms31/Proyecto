@@ -1,6 +1,7 @@
 package com.company.Formularios;
 
 import com.company.BaseDatos.CRUDAlbaran;
+import com.company.BaseDatos.CRUDCertificacion;
 import com.company.Entidades.*;
 import com.company.Recursos.CheckDate;
 import com.company.Recursos.RoundedBorder;
@@ -87,7 +88,7 @@ public class FormActuacion extends JDialog {
         }
         centerFrame();
         setModal(true);
-        setResizable(false);
+        setResizable(true);
         setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -218,8 +219,8 @@ public class FormActuacion extends JDialog {
         spinnerImporte.setValue(actuacion.getImporte());
         textFieldHojaPlanificacion.setText(actuacion.getHojaPlanificacion());
         textFieldHojaPresupuesto.setText(actuacion.getHojaPresupuesto());
-        spinnerTotalCertificacion.setValue(actuacion.getTotalCertificicaciones());
-        spinnerPorCertificar.setValue(actuacion.getPorPertificar());
+
+        setCertificaciones(actuacion);
 
         textFieldHorasOfertadas.setText(String.valueOf(actuacion.getHorasOfertadas()));
         textFieldHorasEjecutadas.setText(String.valueOf(actuacion.getHorasEjecutadas()));
@@ -229,6 +230,23 @@ public class FormActuacion extends JDialog {
 
         setMaterialesEx(arrayListMateriales);
 
+    }
+
+    private void setCertificaciones(Actuacion actuacion) {
+
+        CRUDCertificacion crudCertificacion = new CRUDCertificacion();
+        ArrayList<Certificacion> certificaciones = crudCertificacion.getAll();
+
+        double certificado = 0;
+
+        for(Certificacion certificacion : certificaciones){
+            if(actuacion.getId() == certificacion.getActuacion().getId()){
+                certificado = certificado + certificacion.getValor();
+            }
+        }
+
+        spinnerTotalCertificacion.setValue(actuacion.getTotalCertificicaciones());
+        spinnerPorCertificar.setValue(actuacion.getTotalCertificicaciones() - certificado);
     }
 
     private void setMaterialesEx(ArrayList<MaterialEx> arrayListMateriales) {

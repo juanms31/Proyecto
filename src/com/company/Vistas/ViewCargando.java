@@ -12,9 +12,9 @@ public class ViewCargando extends JFrame {
     private JProgressBar progressBar;
     private JLabel porcentaje;
     private JLabel JLabelBienvenido;
-    private JFrame parent;
+    private JDialog parent;
 
-    public ViewCargando(JFrame parent, Usuario usuario) {
+    public ViewCargando(JDialog parent, Usuario usuario) {
         this.parent = parent;
 
         setSize(570, 400);

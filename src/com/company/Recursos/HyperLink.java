@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 
 public class HyperLink {
 
-    public JLabel getHyperlinkJLabel(String text, String URI){
+    public static JLabel getHyperlinkJLabel(String text, String URI){
 
         JLabel hyperlink = new JLabel(text);
 

@@ -27,13 +27,11 @@ public class ControladorCertificacion {
 
         boolean estado = false;
         try {
-            System.out.println("Certificacion " + Certificacion.toString());
-
             int idCertificacion = crudCertificacion.createCertificacion(Certificacion);
-            System.out.println("ID CERT CONTROLADOR:" + idCertificacion);
             Certificacion.setId(idCertificacion);
             estado = crudCertificacion.updateCertificacion(Certificacion);
             if(idCertificacion != -1){
+                crudCertificacion.updateCertificacionFromActuacion(Certificacion, 0);
                 viewCertificacion.addTableCertificacion(Certificacion);
             }
         } catch (SQLException e) {
@@ -46,13 +44,18 @@ public class ControladorCertificacion {
     public boolean updateCertificacion(Certificacion Certificacion) {
         boolean result = crudCertificacion.updateCertificacion(Certificacion);
         if (result){
+            crudCertificacion.updateCertificacionFromActuacion(Certificacion, 1);
             viewCertificacion.updateTableCertificacion(Certificacion);
         }
         return result;
     }
 
-    public boolean deleteCertificacion(int id){
-        return crudCertificacion.deleteCertificacion(id);
+    public boolean deleteCertificacion(Certificacion certificacion){
+        boolean result = crudCertificacion.deleteCertificacion(certificacion.getId());
+        if(result){
+            crudCertificacion.updateCertificacionFromActuacion(certificacion, 2);
+        }
+        return result;
     }
 
     //endregion

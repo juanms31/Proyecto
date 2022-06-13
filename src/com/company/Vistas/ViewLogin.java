@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class ViewLogin extends JFrame {
+public class ViewLogin extends JDialog {
     public ViewLogin() {
         add(panelPrincipal);
         usuarios = controladorUsuario.getUsers();

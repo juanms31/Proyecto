@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewBaseDatos extends JDialog {
+public class ViewBaseDatos extends JFrame {
 
     //region Constructor
     public ViewBaseDatos() throws HeadlessException {

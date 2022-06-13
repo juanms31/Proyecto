@@ -363,7 +363,6 @@ public class ViewTrabajador extends JFrame {
 
     //endregion
 
-
     //region Graficos
     private ArrayList<Vacaciones> getVaciones(){
         CRUDVacaciones crudVacaciones = new CRUDVacaciones();
@@ -444,9 +443,7 @@ public class ViewTrabajador extends JFrame {
     }
 
     //endregion
-
-
-
+    
     //region Variables
     private JPanel panelPrincipal;
     private JButton buttonAnadir;

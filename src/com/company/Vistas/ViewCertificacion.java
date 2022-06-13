@@ -233,7 +233,7 @@ public class ViewCertificacion extends JFrame{
         } else {
 
             Certificacion certificacion = getCertificacion(row);
-            boolean result = controladorCertificacion.deleteCertificacion(certificacion.getId());
+            boolean result = controladorCertificacion.deleteCertificacion(certificacion);
 
             if (result){
                 ShowMessage("CORRECTO","La certificación ha sido borrada correctamente");

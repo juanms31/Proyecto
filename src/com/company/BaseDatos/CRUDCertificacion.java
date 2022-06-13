@@ -10,8 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CRUDCertificacion {
+
     public CRUDCertificacion(ControladorCertificacion controladorCertificacion) {
 
+    }
+
+    public CRUDCertificacion() {
 
     }
 
@@ -202,6 +206,72 @@ public class CRUDCertificacion {
     }
 
     ArrayList<Actuacion> listActuaciones = getActuaciones();
+
+
+    public void updateCertificacionFromActuacion(Certificacion certificacion, int tipo) {
+        switch (tipo){
+            case 0 -> {
+                for(Actuacion actuacion: listActuaciones){
+                    if(actuacion.getId() == certificacion.getActuacion().getId()){
+                        CRUDActuacion crudActuacion = new CRUDActuacion();
+                        actuacion.setPorPertificar(actuacion.getPorPertificar() - certificacion.getValor());
+                        crudActuacion.updateActuacion(actuacion);
+                    }
+                }
+            }
+            case 1 -> {
+                for(Actuacion actuacion: listActuaciones){
+                    if(actuacion.getId() == certificacion.getActuacion().getId()){
+                        CRUDActuacion crudActuacion = new CRUDActuacion();
+
+                        //Comprobamos si la certificacion a crecido o a disminuido y obtener nuevo por certificar
+                        double nuevoPorCertificar =  getDiffCertificacion(actuacion, certificacion);
+
+                        System.out.println("Nuevo por certificar " + nuevoPorCertificar);
+
+                        actuacion.setPorPertificar(nuevoPorCertificar);
+                        crudActuacion.updateActuacion(actuacion);
+                    }
+                }
+            }
+
+            case 2 -> {
+                for(Actuacion actuacion: listActuaciones){
+                    if(actuacion.getId() == certificacion.getActuacion().getId()){
+                        CRUDActuacion crudActuacion = new CRUDActuacion();
+                        actuacion.setPorPertificar(actuacion.getPorPertificar() + certificacion.getValor());
+                        crudActuacion.updateActuacion(actuacion);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    private double getDiffCertificacion(Actuacion actuacion, Certificacion certificacion) {
+
+        double totalCertificado = actuacion.getPorPertificar() + certificacion.getValor();
+        System.out.println("Total Certificado: " + totalCertificado);
+        double diff = 0;
+        double nuevoPorCertificar = 0;
+        //Si lo sumado es < Total a Certificar = Certificacion.getValor a disminuido
+        if(totalCertificado < actuacion.getTotalCertificicaciones()){
+            diff = actuacion.getTotalCertificicaciones() - totalCertificado;
+
+            System.out.println("Diff  si la certifiacion baja: " + diff);
+
+            nuevoPorCertificar = actuacion.getPorPertificar() + diff;
+        }else{
+            diff = totalCertificado - actuacion.getTotalCertificicaciones();
+
+            System.out.println("Diff  si la certifiacion sube: " + diff);
+
+            nuevoPorCertificar = actuacion.getPorPertificar() - diff;
+        }
+
+        return nuevoPorCertificar;
+    }
 
 
     //endregion

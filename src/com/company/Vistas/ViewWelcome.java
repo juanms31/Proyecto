@@ -1,5 +1,6 @@
 package com.company.Vistas;
 
+import com.company.Recursos.HyperLink;
 import com.company.Recursos.RoundedBorder;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -12,17 +13,20 @@ import java.awt.event.KeyEvent;
 public class ViewWelcome extends JFrame{
     private JButton buttonEnter;
     private JPanel jpWelcome;
+    private JPanel panelLink;
+    private JLabel link;
 
     public ViewWelcome(){
         initWindow();
-        initComps();
         add(jpWelcome);
+        initComps();
         listeners();
         setVisible(true);
     }
 
     private void initComps() {
         buttonEnter.setBorder(new RoundedBorder(10));
+        panelLink.add(HyperLink.getHyperlinkJLabel("Alhambra Metal", "www.alhambrametal.es"));
     }
 
     //Inicio de ventana
@@ -33,7 +37,7 @@ public class ViewWelcome extends JFrame{
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        setSize(500, 600);
+        setSize(500, 400);
         setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);

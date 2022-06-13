@@ -85,7 +85,7 @@ public class FormMaterial extends JDialog {
         }
         centerFrame();
         setModal(true);
-        setResizable(false);
+        setResizable(true);
         setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

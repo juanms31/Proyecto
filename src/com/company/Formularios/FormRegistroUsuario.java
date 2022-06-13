@@ -26,13 +26,11 @@ public class FormRegistroUsuario extends JDialog{
         estado = 1;
         this.usuario = usuario;
         this.viewLogin = viewLogin;
-        controladorUsuario = new ControladorUsuario(usuario);
         initWindow();
         initComps();
         setUsuario(usuario);
         initListeners();
         setVisible(true);
-
     }
 
     //endregion
@@ -49,7 +47,7 @@ public class FormRegistroUsuario extends JDialog{
         }
         centerFrame();
         setModal(true);
-        setResizable(false);
+        setResizable(true);
         setMinimumSize(new Dimension(500, 500));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
